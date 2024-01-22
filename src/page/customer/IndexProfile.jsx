@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link, Outlet } from "react-router-dom";
 
 function IndexProfile() {
   const [selectedTab, setSelectedTab] = useState("details"); // Default selected tab
@@ -23,7 +24,17 @@ function IndexProfile() {
                 }`}
                 onClick={() => handleTabClick("details")}
               >
-                CHI TIẾT TÀI KHOẢN
+                <Link to={"/profile"}>CHI TIẾT TÀI KHOẢN</Link>
+              </p>
+              <p
+                className={`cursor-pointer font-medium text-xl font-mono pl-3 py-2 ${
+                  selectedTab === "changepassword"
+                    ? "text-white bg-red-500 py-2 rounded-md"
+                    : ""
+                }`}
+                onClick={() => handleTabClick("changepassword")}
+              >
+                <Link to={"/profile/changePassword"}>THAY ĐỔI MẬT KHẨU</Link>
               </p>
               <p
                 className={`cursor-pointer font-medium text-xl font-mono pl-3 py-2 ${
@@ -33,7 +44,7 @@ function IndexProfile() {
                 }`}
                 onClick={() => handleTabClick("points")}
               >
-                ĐIỂM THƯỞNG
+                <Link to="/profile/point"> ĐIỂM THƯỞNG</Link>
               </p>
               <p
                 className={`cursor-pointer font-medium text-xl font-mono pl-3 py-2 ${
@@ -43,117 +54,22 @@ function IndexProfile() {
                 }`}
                 onClick={() => handleTabClick("transactions")}
               >
-                LỊCH SỬ GIAO DỊCH
+                <Link to={"/profile/history"}>LỊCH SỬ GIAO DỊCH</Link>
+              </p>
+              <p
+                className={`cursor-pointer font-medium text-xl font-mono pl-3 py-2 ${
+                  selectedTab === "notification"
+                    ? "text-white bg-red-500 py-2 rounded-md"
+                    : ""
+                }`}
+                onClick={() => handleTabClick("notification")}
+              >
+                <Link to={"/profile/notification"}>KHUYẾN MÃI CỦA BẠN</Link>
               </p>
             </div>
           </div>
           <div className="h-full w-[75%] ">
-            <div className="bg-gray-900 text-white text-3xl font-medium font-mono text-center py-1">
-              Thông tin tài khoản
-            </div>
-            <div className="mt-3">
-              <form>
-                <div className="row">
-                  {/* Cột 1 */}
-                  <div className="col-md-6">
-                    <div className="mb-3">
-                      <label
-                        htmlFor="input1"
-                        className="form-label font-mono font-semibold"
-                      >
-                        Tên <span className="text-red-500">*</span>
-                      </label>
-                      <input type="text" className="form-control" id="input1" />
-                    </div>
-                    <div className="mb-3">
-                      <label
-                        htmlFor="input2"
-                        className="form-label font-mono font-semibold"
-                      >
-                        Email <span className="text-red-500">*</span>
-                      </label>
-                      <input type="text" className="form-control" id="input2" />
-                    </div>
-
-                    <div className="mb-3">
-                      <label
-                        htmlFor="input2"
-                        className="form-label font-mono font-semibold"
-                      >
-                        Giới tính <span className="text-red-500">*</span>
-                      </label>
-                      <div className="flex gap-2">
-                        <div className="form-check">
-                          <input
-                            type="radio"
-                            className="form-check-input"
-                            id="genderMale"
-                            name="gender"
-                            value="Nam"
-                          />
-                          <label
-                            className="form-check-label"
-                            htmlFor="genderMale"
-                          >
-                            Nam
-                          </label>
-                        </div>
-                        <div className="form-check">
-                          <input
-                            type="radio"
-                            className="form-check-input"
-                            id="genderFemale"
-                            name="gender"
-                            value="Nữ"
-                          />
-                          <label
-                            className="form-check-label"
-                            htmlFor="genderFemale"
-                          >
-                            Nữ
-                          </label>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Cột 2 */}
-                  <div className="col-md-6">
-                    <div className="mb-3">
-                      <label
-                        htmlFor="input3"
-                        className="form-label font-mono font-semibold"
-                      >
-                        Số điện thoại <span className="text-red-500">*</span>
-                      </label>
-                      <input type="text" className="form-control" id="input3" />
-                    </div>
-                    <div className="mb-3">
-                      <label
-                        htmlFor="input4"
-                        className="form-label font-mono font-semibold"
-                      >
-                        Tên <span className="text-red-500">*</span>
-                      </label>
-                      <input type="text" className="form-control" id="input4" />
-                    </div>
-
-                    <div className="mb-3">
-                      <label
-                        htmlFor="input4"
-                        className="form-label font-mono font-semibold"
-                      >
-                        Sinh nhật <span className="text-red-500">*</span>
-                      </label>
-                      <p className="font-mono font-semibold">27/02/1998</p>
-                    </div>
-                  </div>
-                </div>
-                <button type="submit" className="btn btn-primary">
-                  Submit
-                </button>
-              </form>
-            </div>
+            <Outlet></Outlet>
           </div>
         </div>
       </div>

@@ -1,0 +1,546 @@
+.icon-eye {
+    position: absolute;
+    right: 2em;
+    top: 17.2em;
+    height: 28px;
+    padding-top: 14px;
+    width: 24px;
+    text-align: center;
+    cursor: pointer;
+    background: url('https://www.cgv.vn/skin//frontend/cgv/default/images/eye_on.png');
+}
+
+.icon-eye.hide-pwd {
+    background: url('https://www.cgv.vn/skin//frontend/cgv/default/images/eye_off.png');
+}
+
+#correct {
+    padding: 20px;
+}
+
+#seconds,
+.cgv-resendOtp {
+    text-align: center;
+    padding: 20px
+}
+
+#seconds {
+    color: #848d95;
+}
+
+.btn2 {
+    display: inline-block;
+    border-radius: 4px;
+    background-color: #e71a0f;
+    border: none;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    width: 120px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.btn2 span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+}
+
+.btn2 span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+
+.l-login {
+    float: right;
+    padding: 0;
+    width: 45%;
+    border-left: 1px solid #ccc;
+}
+
+.r-login {
+    float: left;
+    width: 54%;
+}
+
+.l-login .mySlides {
+    display: none
+}
+
+.l-login img {
+    vertical-align: middle;
+    max-width: 100%;
+}
+
+.l-login #slider-container {
+    max-width: 1000px;
+    position: relative;
+    margin: auto;
+    text-align: center;
+}
+
+/* Next & previous buttons */
+
+.l-login .prev,
+.l-login .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -22px;
+    color: #cc977d;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+}
+
+.l-login .prev {
+    left: 0;
+}
+
+/* Position the "next button" to the right */
+
+.l-login .next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+
+.l-login .prev:hover,
+.l-login .next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+}
+
+/* Caption text */
+
+.l-login .text {
+    color: #ffffff;
+    font-size: 15px;
+    padding: 8px 12px;
+    position: absolute;
+    bottom: 8px;
+    width: 100%;
+    text-align: center;
+}
+
+/* Number text (1/3 etc) */
+
+.l-login .numbertext {
+    color: #ffffff;
+    font-size: 12px;
+    padding: 8px 12px;
+    position: absolute;
+    top: 0;
+}
+
+.l-login .cgv-dots {
+    text-align: center;
+}
+
+/* The dots/bullets/indicators */
+
+.l-login .dot {
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #999999;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+}
+
+.l-login .active,
+.l-login .dot:hover {
+    background-color: #e71a0f;
+}
+
+/* Fading animation */
+
+.l-login .fade {
+    -webkit-animation-name: fade;
+    -webkit-animation-duration: 1.5s;
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+    from {
+        opacity: .4
+    }
+    to {
+        opacity: 1
+    }
+}
+
+@keyframes fade {
+    from {
+        opacity: .4
+    }
+    to {
+        opacity: 1
+    }
+}
+
+/* On smaller screens, decrease text size */
+
+@media only screen and (max-width: 300px) {
+    .l-login .prev,
+    .l-login .next,
+    .l-login .text {
+        font-size: 11px
+    }
+}
+
+.r-login #form-register-content a,
+.r-login #form-login-content a {
+    color: #ddd;
+    padding: 18px 18px 10px;
+}
+
+.cgv-login-form,
+.cgv-signup-form,
+.cgv-new-password {
+    padding: 20px 20px 5px;
+    position: relative;
+}
+
+.r-login input[type=text],
+.r-login input[type=password] {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    box-sizing: border-box;
+}
+
+.r-login select {
+    width: 100%;
+    padding: 5px 5px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    box-sizing: border-box;
+}
+
+.r-login label[for=r-birthday] {
+    display: block;
+}
+
+.r-login select.r-bday,
+.r-login select.r-bmonth,
+.r-login select.r-byear {
+    width: 20%;
+}
+
+.form-login-content .cgv-reset-password,
+.form-login-content .cgv-verify-otp,
+.cgv-new-otp,
+.cgv-confirm-new-otp {
+    padding: 20px 20px 5px;
+}
+
+.form-login-content label[for=forgot-password] {
+}
+
+.r-login input.input-text.validation-failed,
+.r-login .r-bday.validation-failed,
+.r-login .r-bmonth.validation-failed,
+.r-login .r-byear.validation-failed,
+.r-login .validate-select.validation-failed {
+    border-color: #df280a;
+}
+
+.r-login input[type=submit],
+.form-register-content input[type=button] {
+    width: 100%;
+    background-color: #e71a0f;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+.r-login input[type=submit]:hover {
+    background-color: #e71a0f;
+}
+
+.confirm_text {
+    clear: both;
+    text-align: center;
+}
+
+.form-register-content .confirm_text input[type="submit"],
+.form-register-content .confirm_text button#cancelotp {
+    border: none;
+    padding: 10px;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+    width: auto;
+    margin: 20px 5px;
+}
+
+.cgv-login-captcha {
+    padding: 20px 20px 10px;
+    text-align: center;
+}
+
+.cgv-login-captcha span {
+    color: #e71a0f;
+    font-style: italic;
+}
+
+.cgv-login-forgotp-link {
+    padding: 0 20px 20px;
+    text-align: center;
+}
+
+.cgv-login-forgotp-link a:link,
+.cgv-login-forgotp-link a:visited {
+    color: #4896fa;
+    font-size: 12px;
+}
+
+#captcha_user_login,
+#captcha_user_create {
+    width: 80%;
+}
+
+.cgv-login-form .captcha-image,
+.cgv-signup-form .captcha-image {
+    float: right;
+    padding-top: 8px;
+    width: 160px;
+}
+
+#captcha-input-box-user_create {
+    margin-top: 20px;
+    width: 50%;
+}
+
+.captcha-img-container {
+    margin-top: 20px;
+    width: 50%;
+}
+
+.captcha-input-container,
+.captcha-img-container {
+    float: left;
+    clear: none;
+}
+
+.r-login label {
+    display: block;
+}
+
+.terms-register {
+    clear: both;
+}
+
+.cgv-signup-form span {
+    color: #e71a0f;
+}
+
+.cgv-register-requirement {
+    color: #e71a0f
+}
+
+/* Inner */
+
+.cgv-login-register-form {
+    max-width: 100%;
+    padding: 0;
+    background: #fdfcf0;
+    z-index: 99999;
+}
+
+.cgv-login-register-form h2 {
+    background-color: #e71a0f;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 20px 20px 10px;
+    text-align: left;
+}
+
+.r-login h2 span {
+    color: #ddd;
+    cursor: pointer;
+    margin: 0 20px;
+    padding: 20px 15px 8px;
+    text-transform: uppercase;
+}
+
+.r-login h2 span.active {
+    border-bottom: 3px solid #fff;
+    color: #fff;
+}
+
+.r-login h2 span:hover {
+    color: #fff;
+}
+
+.cgv-login-form .captcha-image,
+.cgv-signup-form .captcha-image {
+    float: right;
+    width: 160px;
+}
+
+.hide_content {
+    display: none !important;
+}
+
+.show_content {
+    display: block !important;
+}
+
+#error-validate {
+    color: #df280a;
+    display: inline-block;
+    padding-bottom: 20px;
+}
+
+#reloading-mask {
+    background: transparent url(https://www.cgv.vn/skin/adminhtml/default/enterprise/images/blank.gif) repeat scroll 0% 0%;
+    position: fixed;
+    color: #D85909;
+    font-size: 1.1em;
+    font-weight: bold;
+    text-align: center;
+    opacity: 0.8;
+    z-index: 500;
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+
+#reloading-mask .loader {
+    position: fixed;
+    top: 45%;
+    left: 50%;
+    width: 200px;
+    margin-left: -105px;
+    padding: 15px 30px;
+    background: #FFF none repeat scroll 0% 0%;
+    border: 2px solid #FFF;
+    color: #D85909;
+    font-weight: bold;
+    text-align: center;
+    z-index: 1000;
+}
+
+.r-login label.gender-title {
+    margin: 4px 0 12px;
+    display: inline-block;
+}
+
+.gender-title .sp-gender {
+    display: none;
+}
+
+/* Extra small devices (phones, 600px and down) */
+
+@media only screen and (max-width: 600px) {
+    .l-login,
+    .r-login {
+        width: 100%;
+        border: none
+    }
+
+    .r-login select.r-bday,
+    .r-login select.r-bmonth,
+    .r-login select.r-byear {
+        width: 32%;
+    }
+
+    .r-login label.gender-title {
+        display: inline-block;
+    }
+
+    .cgv-signup-form .gender-title span.sp-gender {
+        color: #222;
+        display: inline-block;
+    }
+
+    .l-login {
+        display: none;
+    }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+
+@media only screen and (min-width: 600px) {
+}
+
+/* Medium devices (landscape tablets, 768px and down) */
+
+@media only screen and (max-width: 768px) {
+    .l-login,
+    .r-login {
+        width: 100%;
+        border: none
+    }
+
+    .l-login #slider-container {
+        max-width: 760px;
+    }
+
+    .r-login h2 span {
+        font-size: 3.7vw;
+    }
+
+    .cgvfc fieldset label,
+    .cgvfc fieldset input,
+    #error-validate {
+        font-size: 3.7vw;
+    }
+
+    .r-login select.r-bday,
+    .r-login select.r-bmonth,
+    .r-login select.r-byear {
+        width: 32%;
+    }
+
+    .r-login label.gender-title {
+        display: inline-block;
+    }
+
+    .cgv-signup-form .gender-title span.sp-gender {
+        color: #222;
+        display: inline-block;
+    }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+
+@media only screen and (min-width: 768px) {
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+
+@media only screen and (min-width: 992px) {
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+
+@media only screen and (min-width: 1200px) {
+}

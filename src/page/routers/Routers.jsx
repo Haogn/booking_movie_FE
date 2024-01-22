@@ -11,6 +11,9 @@ import Profile from "../customer/Profile";
 import LayoutAdmin from "../../components/admin/page/LayoutAdmin";
 import IndexAdmin from "../../components/admin/page/IndexAdmin";
 import LoginAdmin from "../../components/admin/page/LoginAdmin";
+import HistoryBooking from "../customer/HistoryBooking";
+import Notification from "../customer/Notification";
+import ChangePassword from "../customer/ChangePassword";
 
 function Routers() {
   return (
@@ -22,9 +25,19 @@ function Routers() {
           <Route path="/login" element={<Login />}></Route>
           <Route path="/register" element={<Register />}></Route>
           <Route path="/detail" element={<Detail />}></Route>
+          <Route path="/history" element={<HistoryBooking />}></Route>
           <Route path="/profile" element={<IndexProfile />}>
-            {/* <Route index element={<Profile />}></Route>
-            <Route path="/point" element={<Point />}></Route> */}
+            <Route index element={<Profile />}></Route>
+            <Route path="/profile/point" element={<Point />}></Route>
+            <Route path="/profile/history" element={<HistoryBooking />}></Route>
+            <Route
+              path="/profile/changePassword"
+              element={<ChangePassword />}
+            ></Route>
+            <Route
+              path="/profile/notification"
+              element={<Notification />}
+            ></Route>
           </Route>
         </Route>
 
