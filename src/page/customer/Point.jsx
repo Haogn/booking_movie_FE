@@ -10,6 +10,10 @@ function Point() {
       <div className="border-b-2 border-gray-800 mt-3 pb-2">
         <h1 className="text-3xl font-bold font-mono">Tổng quan </h1>
       </div>
+
+      <div className="flex justify-around">
+        <div className=""></div>
+      </div>
     </div>
   );
 }
