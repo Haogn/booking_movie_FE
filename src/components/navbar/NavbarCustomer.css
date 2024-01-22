@@ -1,0 +1,99 @@
+/* phim */
+.movie {
+  position: relative;
+}
+.movie-status {
+  position: absolute;
+  top: 30px;
+  left: -30px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  color: white;
+  background-image: url(../../../public/image/bg_menu_hover.png);
+  width: 150px;
+  height: 60px;
+  border-radius: 5px;
+  border: solid 1px black;
+}
+.movie-status li {
+  padding-left: 10px;
+  padding-top: 3px;
+}
+
+.movie-status li:hover {
+  color: rgb(178, 47, 47);
+}
+
+.movie:hover .movie-status {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* rạp cgv */
+.theater {
+  position: relative;
+}
+
+.theater-status {
+  position: absolute;
+  top: 30px;
+  left: -30px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  color: white;
+  background-image: url(../../../public/image/bg_menu_hover.png);
+  width: 150px;
+  height: 90px;
+  border-radius: 5px;
+  border: solid 1px black;
+}
+
+.theater:hover .theater-status {
+  opacity: 1;
+  visibility: visible;
+}
+
+.theater-status li {
+  padding-left: 10px;
+  padding-top: 3px;
+}
+
+.theater-status li:hover {
+  color: rgb(178, 47, 47);
+}
+
+/* member */
+.member {
+  position: relative;
+}
+
+.member-status {
+  position: absolute;
+  top: 30px;
+  left: -20px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  color: white;
+  background-image: url(../../../public/image/bg_menu_hover.png);
+  width: 150px;
+  height: 60px;
+  border-radius: 5px;
+  border: solid 1px black;
+}
+
+.member:hover .member-status {
+  opacity: 1;
+  visibility: visible;
+}
+
+.member-status li {
+  padding-left: 10px;
+  padding-top: 3px;
+}
+
+.member-status li:hover {
+  color: rgb(178, 47, 47);
+}

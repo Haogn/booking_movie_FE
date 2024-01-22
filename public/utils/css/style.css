@@ -1,0 +1,320 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+.body {
+  background-color: #fdf8de;
+}
+img:hover {
+  cursor: pointer;
+}
+
+a {
+  text-decoration: none;
+}
+
+.member {
+  width: 100%;
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+}
+
+#finright {
+  display: none;
+}
+#finleft {
+  display: inline;
+}
+.content-bot {
+  margin: auto;
+  padding-top: 30px;
+  width: 70%;
+  padding-bottom: 30px;
+  border-top: 3px solid black;
+  border-bottom: 3px solid black;
+}
+
+/* Modal*/
+.date {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 5px;
+  text-align: center;
+}
+.date-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  color: gray;
+}
+.date-container span {
+  font-size: 10px;
+  color: gray;
+}
+.address {
+  display: flex;
+  flex-wrap: wrap;
+  list-style-type: none;
+  gap: 20px;
+}
+.sub {
+  display: flex;
+  gap: 20px;
+}
+.time {
+  display: flex;
+  gap: 20px;
+}
+
+.close {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.modal-dialog {
+  max-width: 1000px !important;
+  height: 80% !important;
+  width: 80% !important;
+}
+.time span {
+  width: 100px;
+  border: 1px solid gray;
+  text-align: center;
+}
+.sub span {
+  width: 150px;
+  border: 1px solid gray;
+  text-align: center;
+}
+.modal-body {
+  background-color: rgb(247, 239, 229);
+}
+
+/*button detail*/
+.item {
+  position: relative;
+}
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+.item:hover .overlay {
+  display: flex;
+}
+.btndetail {
+  background-color: #ee171e !important;
+  border: none;
+  color: white;
+  padding: 12px 24px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin-top: 150px !important;
+  cursor: pointer;
+}
+
+/*Detail*/
+.uudai a {
+  text-decoration: none;
+  color: white;
+}
+.detail {
+  padding-top: 20px;
+  display: flex;
+  gap: 50px;
+  width: 70%;
+  margin: auto;
+}
+h2 {
+  width: 70%;
+  margin: auto;
+  border-bottom: 2px solid black;
+  padding-bottom: 20px;
+}
+.event {
+  margin: auto;
+  width: 70%;
+
+  padding-bottom: 30px;
+  text-align: center;
+}
+.event-new {
+  display: flex;
+  list-style-type: none;
+  background: url(../image/23532f86d7d7b6a506823707130a81a1.jpeg);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  width: 400px;
+  height: 40px;
+  gap: 30px;
+  color: white;
+  justify-content: space-evenly;
+  margin: auto;
+  margin-bottom: 10px;
+}
+.event-new li {
+  padding-top: 10px;
+  padding-bottom: 30px;
+}
+.pdetail {
+  width: 70%;
+  margin: auto;
+}
+/* Modal*/
+.date {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 5px;
+  text-align: center;
+}
+.date-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  color: gray;
+}
+.date-container span {
+  font-size: 10px;
+  color: gray;
+}
+.address {
+  display: flex;
+  flex-wrap: wrap;
+  list-style-type: none;
+  gap: 20px;
+}
+.sub {
+  display: flex;
+  gap: 20px;
+}
+.time {
+  display: flex;
+  gap: 20px;
+}
+
+.close {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.modal-dialog {
+  max-width: 1000px !important;
+  height: 80% !important;
+  width: 80% !important;
+}
+.time span {
+  width: 100px;
+  border: 1px solid gray;
+  text-align: center;
+}
+.sub span {
+  width: 150px;
+  border: 1px solid gray;
+  text-align: center;
+}
+.modal-body {
+  background-color: rgb(247, 239, 229);
+}
+.chitietPhim {
+  display: none;
+}
+.content {
+  display: block;
+}
+
+/*pseudo*/
+
+.brandlogo i:hover {
+  cursor: pointer;
+  font-size: 30px;
+}
+.toprepon {
+  display: none;
+}
+.footrepon {
+  display: none;
+}
+.detail img {
+  width: 100%;
+}
+/*responsive
+  
+  */
+@media screen and (max-width: 1180px) {
+  .header-main {
+    display: none;
+  }
+  .header-tuyendung {
+    display: none;
+  }
+  .toprepon {
+    display: flex;
+    gap: 10px;
+    justify-content: end;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .bright,
+  .bleft {
+    display: none;
+  }
+  * {
+    font-size: smaller;
+  }
+
+  .content-top {
+    display: none;
+  }
+  .slide-content {
+    width: 100%;
+  }
+  .event-new {
+    width: 70%;
+    font-size: 8px;
+    gap: 10px;
+    justify-content: center;
+  }
+  .event-new li {
+    padding-top: 5px;
+  }
+  .page {
+    width: 100%;
+  }
+  .content-bot {
+    width: 100%;
+    height: auto;
+  }
+  .content-bot img {
+    width: 100%;
+  }
+  .brand {
+    width: 100%;
+  }
+  .main-footer {
+    display: none;
+  }
+  .footrepon {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    display: block;
+  }
+  .footrepon button {
+    width: 200px;
+    text-align: start;
+    background-color: rgb(184, 180, 180);
+  }
+  .detail img {
+    width: 100px;
+    height: auto;
+  }
+}
