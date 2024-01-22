@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import Carousel from "react-bootstrap/Carousel";
 
 function Login() {
   return (
     <div>
-      <div className="flex w-[70%] h-[500px] mx-auto bg-slate-200">
-        <div className="w-[60%] h-full bg-slate-50 pt-10">
+      <div className="flex w-[70%] h-[500px] mx-auto ">
+        <div className="w-[60%] h-full  pt-10">
           <h1 className="font-mono text-2xl font-bold text-center">
             Đăng nhập
           </h1>
@@ -22,7 +23,7 @@ function Login() {
                 <label className="form-label font-mono font-semibold">
                   Mật khẩu: <span className="text-red-400">*</span>
                 </label>
-                <input type="text" className="form-control" id="input1" />
+                <input type="password" className="form-control" id="input1" />
               </div>
               <div className="flex justify-between">
                 <div className="mb-3">
@@ -53,7 +54,37 @@ function Login() {
             </p>
           </div>
         </div>
-        <div className="w-[40%] h-full bg-slate-400 "></div>
+        <div className="w-[40%] h-full bg-slate-400 ">
+          <Carousel slide={false}>
+            <Carousel.Item>
+              <div>
+                <img
+                  className="w-full h-full"
+                  src="https://www.cgv.vn/media/wysiwyg/2020/2.jpg"
+                  alt=""
+                />
+              </div>
+            </Carousel.Item>
+            <Carousel.Item>
+              <div>
+                <img
+                  className="w-full h-full"
+                  src="https://www.cgv.vn/media/wysiwyg/2020/1.jpg"
+                  alt=""
+                />
+              </div>
+            </Carousel.Item>
+            <Carousel.Item>
+              <div>
+                <img
+                  className="w-full h-full"
+                  src="https://www.cgv.vn/media/wysiwyg/2020/3.jpg"
+                  alt=""
+                />
+              </div>
+            </Carousel.Item>
+          </Carousel>
+        </div>
       </div>
     </div>
   );
