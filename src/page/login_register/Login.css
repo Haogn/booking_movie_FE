@@ -1,0 +1,21 @@
+
+.login-box{
+    max-width: 80%;
+    width: 980px;
+    height: 540px;
+    padding: 0;
+    margin: 100px 150px;
+    background: #fdfcf0;
+    z-index: 99999;
+    float: left;
+    border: 1px solid #000;
+}
+
+.title{
+    background-color: #e71a0f;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 20px 20px 10px;
+    text-align: center;
+}
