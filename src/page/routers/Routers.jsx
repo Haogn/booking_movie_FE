@@ -8,6 +8,9 @@ import Register from "../login_register/Register";
 import IndexProfile from "../customer/IndexProfile";
 import Point from "../customer/Point";
 import Profile from "../customer/Profile";
+import LayoutAdmin from "../../components/admin/page/LayoutAdmin";
+import IndexAdmin from "../../components/admin/page/IndexAdmin";
+import LoginAdmin from "../../components/admin/page/LoginAdmin";
 import HistoryBooking from "../customer/HistoryBooking";
 import Notification from "../customer/Notification";
 import ChangePassword from "../customer/ChangePassword";
@@ -54,6 +57,18 @@ function Routers() {
 
         {/* Emplpyee */}
         <Route></Route>
+
+
+
+        {/* admin */}
+{/*         
+        <Route path="/admin" element={<IndexAdmin />}>
+          <Route index element={<LayoutAdmin />}></Route>
+          <Route path="/admin/add-user" element={<Login />}></Route>
+       
+        </Route> */}
+        <Route path="/admin/test" element={<LayoutAdmin />}></Route>
+        <Route path="/admin/login" element={<LoginAdmin/>}></Route>
       </Routes>
     </div>
   );
