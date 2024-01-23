@@ -28,11 +28,6 @@
   text-indent: -99999px;
 }
 
-/* slide banner */
-.slick-slider {
-  width: 70%;
-  margin: auto;
-}
 .slide {
   background-image: url("../../../public/image/tuonggach.jpg");
   background-size: 100% 100%;

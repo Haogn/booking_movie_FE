@@ -22,7 +22,7 @@ function NavbarCustomer() {
       <div className="header-page">
         <div className="flex justify-center gap-[70px] my-[20px] cursor-pointer pt-[30px]">
           <div>
-            <a href="#">
+            <a href="/">
               <img src="./image/logo.png" alt="" />
             </a>
           </div>

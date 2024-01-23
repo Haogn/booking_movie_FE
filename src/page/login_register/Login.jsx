@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import Carousel from "react-bootstrap/Carousel";
 
 function Login() {
   return (
     <div>
-      <div className="flex w-[70%] h-[500px] mx-auto ">
+      <div className="flex w-[70%] h-[500px] mx-auto mt-3 ">
         <div className="w-[60%] h-full  pt-10">
           <h1 className="font-mono text-2xl font-bold text-center">
             Đăng nhập
