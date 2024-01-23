@@ -1,10 +1,9 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
 function Profile() {
-  const handleFileChange = (e) => {
-    e.preventDefault();
-  };
-  const openFileInput = () => {};
+  const user = useSelector((state) => state.auth.login.currentUser);
+
   return (
     <div>
       <div className="bg-gray-900 text-white text-3xl font-medium font-mono text-center py-1">
@@ -23,12 +22,10 @@ function Profile() {
           type="submit"
           id="avatarInput"
           className="hidden"
-          onChange={(e) => handleFileChange(e)}
         />
         <button
           type="file"
-          className="btn btn-dark font-mono mb-4 w-[116px]"
-          onClick={() => openFileInput()}
+          className="btn btn-dark font-mono mb-4 w-[116px]"         
         >
           Thay đổi
         </button>
@@ -43,14 +40,16 @@ function Profile() {
                 <label className="form-label font-mono font-semibold">
                   Tên: <span className="text-red-500">*</span>
                 </label>
-                <input type="text" className="form-control" id="input1" />
+                <input 
+                value={user.username}
+                type="text" className="form-control" id="username" />
               </div>
               <div className="mb-3">
                 <label className="form-label font-mono font-semibold">
                   Email: <span className="text-red-500">*</span>
                 </label>
                 <p className="font-mono font-semibold mt-2">
-                  Nshoang2702@gmail.com
+                  {user.email}
                 </p>
               </div>
 
@@ -100,18 +99,21 @@ function Profile() {
                 <label className="form-label font-mono font-semibold">
                   Sinh nhật:
                 </label>
-                <p className="font-mono font-semibold mt-2">27/02/1998</p>
+                <p className="font-mono font-semibold mt-2">{user.dateOfBirth}</p>
               </div>
 
               <div className="mb-3">
                 <label className="form-label font-mono font-semibold">
                   Hạng thành viên:
                 </label>
-                <p className="font-mono font-semibold mt-2">MemberLever</p>
+                <p className="font-mono font-semibold mt-2">{user.level}</p>
               </div>
             </div>
           </div>
-          <button type="file" className="btn btn-dark font-mono mb-4">
+          <button
+            type="sunmit"
+            className="btn btn-dark font-mono mb-4 text-gray-950"
+          >
             Lưu thay đổi
           </button>
         </form>

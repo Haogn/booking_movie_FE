@@ -8,17 +8,33 @@ import Register from "../login_register/Register";
 import IndexProfile from "../customer/IndexProfile";
 import Point from "../customer/Point";
 import Profile from "../customer/Profile";
-import LayoutAdmin from "../../components/admin/page/LayoutAdmin";
-import LoginAdmin from "../../components/admin/page/LoginAdmin";
 import HistoryBooking from "../customer/HistoryBooking";
 import Notification from "../customer/Notification";
 import ChangePassword from "../customer/ChangePassword";
-import ComingSoon from "../customer/movieList/ComingSoon";
-import NowHowing from "../customer/movieList/NowHowing";
-import DetailMovie from "../customer/detailMovie/DetailMovie";
-import BookingOnline from "../customer/bookingOnline/BookingOnline";
-import BookingChair from "../customer/bookingOnline/BookingChair";
-import BookingDish from "../customer/bookingOnline/BookingDish";
+import CreateAccount from "../admin/create/CreateAccount";
+import ListManagement from "../admin/list/ListManagement";
+import ListEmploy from "../admin/list/ListEmploy";
+import LayoutAdmin from "../admin/LayoutAdmin";
+import HomeAdmin from "../admin/HomeAdmin";
+import CreateLocation from "../admin/create/CreateLocation";
+import ListLocation from "../admin/list/ListLocation";
+import CreateTheater from "../admin/create/CreateTheater";
+import ListTheater from "../admin/list/ListTheater";
+import CreateRoom from "../admin/create/CreateRoom";
+import ListRoom from "../admin/list/ListRoom";
+import CreateTimeSlot from "../admin/create/CreateTimeSlot";
+import ListTimeSlot from "../admin/list/ListTimeSlot";
+import CreateGenre from "../admin/create/CreateGenre";
+import ListGenre from "../admin/list/ListGenre";
+import CreateMovie from "../admin/create/CreateMovie";
+import ListMovie from "../admin/list/ListMovie";
+import CreateFood from "../admin/create/CreateFood";
+import ListFood from "../admin/list/ListFood";
+import CreateDrinks from "../admin/create/CreateDrinks";
+import ListDrinks from "../admin/list/ListDrinks";
+import CreateCoupons from "../admin/create/CreateCoupons";
+import CreateEvent from "../admin/create/CreateEvent";
+import ListCustomer from "../admin/list/ListCustomer";
 
 function Routers() {
   return (
@@ -44,43 +60,54 @@ function Routers() {
               element={<Notification />}
             ></Route>
           </Route>
-          <Route path="/coming-soon" element={<ComingSoon />}></Route>
-          <Route path="/now-howing" element={<NowHowing />}></Route>
-          <Route path="/detail-movie" element={<DetailMovie />}></Route>
-          <Route path="/booking-online" element={<BookingOnline />}>
-            <Route path="booking-chair" element={<BookingChair />}></Route>
-            <Route path="booking-dish" element={<BookingDish />}></Route>
-          </Route>
         </Route>
-
-        <Route></Route>
-
-        {/* register */}
-        <Route></Route>
-
         {/* Admin */}
-        <Route></Route>
-
-        {/* Management */}
-        <Route></Route>
+        <Route path="/admin" element={<LayoutAdmin />}>
+          <Route index element={<HomeAdmin />}></Route>
+          <Route
+            path="/admin/create-account"
+            element={<CreateAccount />}
+          ></Route>
+          <Route
+            path="/admin/create-coupons"
+            element={<CreateCoupons />}
+          ></Route>
+          <Route path="/admin/create-event" element={<CreateEvent />}></Route>
+          <Route
+            path="/admin/list-management"
+            element={<ListManagement />}
+          ></Route>
+          <Route path="/admin/list-employ" element={<ListEmploy />}></Route>
+          <Route path="/admin/list-customer" element={<ListCustomer />}></Route>
+          <Route
+            path="/admin/create-location"
+            element={<CreateLocation />}
+          ></Route>
+          <Route path="/admin/list-location" element={<ListLocation />}></Route>
+          <Route
+            path="/admin/create-theater"
+            element={<CreateTheater />}
+          ></Route>
+          <Route path="/admin/list-theater" element={<ListTheater />}></Route>
+          <Route path="/admin/create-room" element={<CreateRoom />}></Route>
+          <Route path="/admin/list-room" element={<ListRoom />}></Route>
+          <Route path="/admin/create-time" element={<CreateTimeSlot />}></Route>
+          <Route path="/admin/list-time" element={<ListTimeSlot />}></Route>
+          <Route path="/admin/create-genre" element={<CreateGenre />}></Route>
+          <Route path="/admin/list-genre" element={<ListGenre />}></Route>
+          <Route path="/admin/create-movie" element={<CreateMovie />}></Route>
+          <Route path="/admin/list-movie" element={<ListMovie />}></Route>
+          <Route path="/admin/create-food" element={<CreateFood />}></Route>
+          <Route path="/admin/list-food" element={<ListFood />}></Route>
+          <Route path="/admin/create-drinks" element={<CreateDrinks />}></Route>
+          <Route path="/admin/list-drinks" element={<ListDrinks />}></Route>
+        </Route>
 
         {/* Management */}
         <Route></Route>
 
         {/* Emplpyee */}
         <Route></Route>
-
-
-
-        {/* admin */}
-        {/*                 
-        <Route path="/admin" element={<IndexAdmin />}>
-          <Route index element={<LayoutAdmin />}></Route>
-          <Route path="/admin/add-user" element={<Login />}></Route>
-       
-        </Route> */}
-        <Route path="/admin/test" element={<LayoutAdmin />}></Route>
-        <Route path="/admin/login" element={<LoginAdmin />}></Route>
       </Routes>
     </div>
   );

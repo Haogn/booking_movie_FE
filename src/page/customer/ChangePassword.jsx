@@ -28,6 +28,12 @@ function ChangePassword() {
             </label>
             <input type="text" className="form-control" id="input1" />
           </div>
+          <button
+            type="submit"
+            className="btn btn-dark font-mono mb-4 text-gray-950"
+          >
+            Lưu thay đổi
+          </button>
         </form>
       </div>
     </div>

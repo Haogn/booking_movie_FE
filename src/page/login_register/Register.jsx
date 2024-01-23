@@ -1,190 +1,137 @@
-import React from "react";
+import React,{useState} from "react";
+import Carousel from "react-bootstrap/Carousel";
+import { registerUser } from "../../redux/api/service/authRequest";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 function Register() {
-  return <>
-  <div className="main-container col1-layout">
-  <div className="main">
-    <div className="col-main">
-      <div className="account-wrap">
-        <div className="col2-set">
-          <div className="cgv-login-register-form">
-            <div className="r-login">
-              <h2>
-                <span id="form-login-content">
-                  <a href="/login">Đăng nhập</a>
-                </span>
-                <span id="form-register-content" className="active">
-                  Đăng ký
-                </span>
-              </h2>
-              <div className="cgvfc form-register-content">
-                <form
-                  className="cgv-signup-form"
-                  name="cgv-signup-form"
-                  id="cgv-signup-form"
-                  method="post"
-                  action="/register"
-                >
-                  <fieldset>
-                    <label htmlFor="r-fname">
-                      Tên<span>*</span>
-                    </label>
-                    <input
-                      type="text"
-                      id="r-fname"
-                      name="register_fullname"
-                      className="input-text required-entry"
-                      placeholder="Tên"
-                      autoComplete="off"
-                    />
-                    <small
-                      style={{ color: "red", fontStyle: "italic" }}
-                    />
-                    <label htmlFor="r-phone">
-                      Số điện thoại<span>*</span>
-                    </label>
-                    <input
-                      type="text"
-                      id="r-phone"
-                      name="register_phone"
-                      className="input-text required-entry"
-                      placeholder="Số điện thoại"
-                      autoComplete="off"
-                    />
-                    <small
-                      style={{ color: "red", fontStyle: "italic" }}
-                    />
-                    <label htmlFor="r-email">
-                      Email<span>*</span>
-                    </label>
-                    <input
-                      type="text"
-                      id="r-email"
-                      name="register_email"
-                      className="input-text required-entry"
-                      placeholder="Email"
-                      autoComplete="off"
-                    />
-                    <small
-                      style={{ color: "red", fontStyle: "italic" }}
-                    />
-                    <small
-                      style={{ color: "red", fontStyle: "italic" }}
-                    >
-                      Email đã tồn tại, yêu cầu đăng nhập!!
-                    </small>
-                    <label htmlFor="r-password">
-                      Mật khẩu<span>*</span>
-                    </label>
-                    <input
-                      type="password"
-                      id="r-password"
-                      name="register_password"
-                      className="input-text required-entry"
-                      placeholder="Mật khẩu"
-                      autoComplete="new-password"
-                    />
-                    <small
-                      style={{ color: "red", fontStyle: "italic" }}
-                    />
-                    <label htmlFor="r-email">Tuổi</label>
-                    <input
-                      type="text"
-                      id="age"
-                      name="register_email"
-                      className="input-text required-entry"
-                      placeholder="Tuổi"
-                      autoComplete="off"
-                    />
-                    <label htmlFor="r-fname" className="gender-title">
-                      <span className="sp-gender">Giới tính</span>
-                      <span>*</span>
-                      <input
-                        type="radio"
-                        name="r-gender"
-                        id="male-gender"
-                        defaultValue={1}
-                        defaultChecked=""
-                      />{" "}
-                      Nam
-                      <input
-                        type="radio"
-                        name="r-gender"
-                        id="female-gender"
-                        defaultValue={0}
-                      />{" "}
-                      Nữ
-                    </label>
-                  </fieldset>
-                  <div className="terms-register">
-                    <label className="r-terms">
-                      <input
-                        type="checkbox"
-                        defaultChecked="checked"
-                        name="cgv-termsdob"
-                        id="cgv-termsdob"
-                        defaultValue="ok"
-                      />
-                      Xác nhận email chính xác và ngày sinh khớp với thông tin
-                      trên CMND/CCCD. Nếu không trùng khớp, các thông tin này sẽ
-                      không được hỗ trợ cập nhật thay đổi và có thể không được
-                      hưởng các <a href="#">Quyền lợi thành viên</a>
-                      <br />
-                      <input
-                        type="checkbox"
-                        defaultChecked="checked"
-                        name="cgv-terms"
-                        id="cgv-terms"
-                        defaultValue="ok"
-                      />
-                      Tôi đồng ý với <a href="#">Điều Khoản Sử Dụng Của CGV</a>{" "}
-                    </label>
-                    <input type="submit" defaultValue="Đăng ký" />
-                  </div>
-                  <div className="cgv-register-requirement" />
-                </form>
+const [username,setUsername] = useState("");
+const [password,setPassword] = useState("");
+const [phone,setPhone] = useState("");
+const [email,setEmail] = useState("");
+const [dateOfBirth,setDateOfBirth] = useState("");
+const dispatch = useDispatch();
+const navigate = useNavigate();
+
+const handleRegister = (e)=>{
+  e.preventDefault();
+  const newUser = {
+    username: username,
+    email: email,
+    phone: phone,
+    password: password,
+    dateOfBirth:dateOfBirth,
+  }
+  registerUser(newUser,dispatch,navigate)
+}
+
+
+  return (
+    <div>
+      <div className="flex w-[70%] h-[700px] mx-auto mt-3 ">
+        <div className="w-[60%] h-full  pt-10">
+          <h1 className="font-mono text-2xl font-bold text-center">Đăng Ký</h1>
+          <div className="w-[80%] h-full mx-auto">
+            <form action="" onSubmit={handleRegister}>
+              <div className="mb-3">
+                <label className="form-label font-mono font-semibold">
+                  Tên đăng nhập: <span className="text-red-400">*</span>
+                </label>
+                <input 
+                onChange={(e)=>setUsername(e.target.value)}
+                type="text" className="form-control" id="username" />
               </div>
-              <span id="error-validate" />
-              <div id="correct" />
-              <div id="seconds" />
-            </div>
-            <div className="l-login">
-              <div id="slider-container">
-                <div className="mySlides fade">
-                  <img src="https://www.cgv.vn/media/wysiwyg/2020/3.jpg" />
-                </div>
-                <div className="mySlides fade">
-                  <img src="https://www.cgv.vn/media/wysiwyg/2020/1.jpg" />
-                </div>
-                <div className="mySlides fade">
-                  <img src="https://www.cgv.vn/media/wysiwyg/2020/2.jpg" />
-                </div>
-                {/* Next and previous buttons */}
-                <a className="prev" onclick="plusSlides(-1)">
-                  ❮
-                </a>
-                <a className="next" onclick="plusSlides(1)">
-                  ❯
-                </a>
+
+              <div className="mb-3">
+                <label className="form-label font-mono font-semibold">
+                  Số điện thoại: <span className="text-red-400">*</span>
+                </label>
+                <input 
+                 onChange={(e)=>setPhone(e.target.value)}
+                type="text" className="form-control" id="phone" />
               </div>
-              {/* The dots/circles */}
-              <div className="cgv-dots">
-                <span className="dot" onclick="currentSlide(0)" />
-                <span className="dot" onclick="currentSlide(1)" />
-                <span className="dot" onclick="currentSlide(2)" />
+
+              <div className="mb-3">
+                <label className="form-label font-mono font-semibold">
+                  Email: <span className="text-red-400">*</span>
+                </label>
+                <input 
+                  onChange={(e)=>setEmail(e.target.value)}
+                type="text" className="form-control" id="email" />
               </div>
-            </div>
+
+              <div className="mb-3">
+                <label className="form-label font-mono font-semibold">
+                  Ngày sinh: <span className="text-red-400">*</span>
+                </label>
+                <input 
+                 onChange={(e)=>setDateOfBirth(e.target.value)}
+                type="date" className="form-control" id="dateOfBirth" />
+              </div>
+              <div className="mb-3">
+                <label className="form-label font-mono font-semibold">
+                  Mật khẩu: <span className="text-red-400">*</span>
+                </label>
+                <input 
+                 onChange={(e)=>setPassword(e.target.value)}
+                type="password" className="form-control" id="password" />
+              </div>
+              {/* <div className="flex justify-between">
+                <div className="mb-3">
+                  <label className="form-label font-mono font-semibold">
+                    Vui lòng nhập ký tự bên dưới:{" "}
+                    <span className="text-red-400">*</span>
+                  </label>
+                  <input type="text" className="form-control" id="input1" />
+                </div>
+                <div className="mb-3">
+                  <label className="form-label font-mono font-semibold">
+                    Mã xác nhận: <span className="text-red-400">*</span>
+                  </label>
+                  <p className="font-mono font-bold text-xl">bcvsf</p>
+                </div>
+              </div> */}
+
+              <button className="font-medium text-xl font-mono pl-3 py-2 w-[100%] text-center text-white bg-red-500 rounded-md">
+                Đăng ký
+              </button>
+            </form>
           </div>
-          <div className="col-2">
-            <div className="banner-login-page"></div>
-          </div>
+        </div>
+        <div className="w-[40%] h-full  ">
+          <Carousel slide={false}>
+            <Carousel.Item>
+              <div>
+                <img
+                  className="w-full h-full"
+                  src="https://www.cgv.vn/media/wysiwyg/2020/2.jpg"
+                  alt=""
+                />
+              </div>
+            </Carousel.Item>
+            <Carousel.Item>
+              <div>
+                <img
+                  className="w-full h-full"
+                  src="https://www.cgv.vn/media/wysiwyg/2020/1.jpg"
+                  alt=""
+                />
+              </div>
+            </Carousel.Item>
+            <Carousel.Item>
+              <div>
+                <img
+                  className="w-full h-full"
+                  src="https://www.cgv.vn/media/wysiwyg/2020/3.jpg"
+                  alt=""
+                />
+              </div>
+            </Carousel.Item>
+          </Carousel>
         </div>
       </div>
     </div>
-  </div>
-</div>
-
-  </>;
+  );
 }
 
 export default Register;
