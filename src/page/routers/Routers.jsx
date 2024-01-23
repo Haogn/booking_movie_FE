@@ -56,16 +56,6 @@ function Routers() {
 
         {/* Emplpyee */}
         <Route></Route>
-
-        {/* admin */}
-        {/*         
-        <Route path="/admin" element={<IndexAdmin />}>
-          <Route index element={<LayoutAdmin />}></Route>
-          <Route path="/admin/add-user" element={<Login />}></Route>
-       
-        </Route> */}
-        <Route path="/admin/test" element={<LayoutAdmin />}></Route>
-        <Route path="/admin/login" element={<LoginAdmin />}></Route>
       </Routes>
     </div>
   );
