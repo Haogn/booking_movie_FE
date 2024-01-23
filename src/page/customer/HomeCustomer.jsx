@@ -156,55 +156,6 @@ function HomeCustomer() {
           </OwlCarousel>
           ;
         </div>
-        {/* event */}
-        {/* <div className="event" id="event">
-          <h2>-EVENT-</h2>
-
-          <Slider {...settingEvent}>
-            <div>
-              <img
-                className="w-full h-full"
-                src="https://www.cgv.vn/media/banner/cache/1/b58515f018eb873dafa430b6f9ae0c1e/u/2/u22-240x201-04.png"
-                alt=""
-              />
-            </div>
-            <div>
-              <img
-                className="w-full h-full"
-                src="https://www.cgv.vn/media/banner/cache/1/b58515f018eb873dafa430b6f9ae0c1e/n/_/n_o_hssv_240x201_1.jpg"
-                alt=""
-              />
-            </div>
-            <div>
-              <img
-                className="w-full h-full"
-                src="https://www.cgv.vn/media/banner/cache/1/b58515f018eb873dafa430b6f9ae0c1e/d/h/dhd_n_o_240x201_1.jpg"
-                alt=""
-              />
-            </div>
-            <div>
-              <img
-                className="w-full h-full"
-                src="https://www.cgv.vn/media/banner/cache/1/b58515f018eb873dafa430b6f9ae0c1e/n/_/n_o-240x201_1.jpg"
-                alt=""
-              />
-            </div>
-            <div>
-              <img
-                className="w-full h-full"
-                src="https://www.cgv.vn/media/banner/cache/1/b58515f018eb873dafa430b6f9ae0c1e/b/i/birthday_popcorn_box_240x201.png"
-                alt=""
-              />
-            </div>
-            <div>
-              <img
-                className="w-full h-full"
-                src="https://www.cgv.vn/media/banner/cache/1/b58515f018eb873dafa430b6f9ae0c1e/2/4/240x201_3_2.png"
-                alt=""
-              />
-            </div>
-          </Slider>
-        </div> */}
       </div>
     </div>
   );
