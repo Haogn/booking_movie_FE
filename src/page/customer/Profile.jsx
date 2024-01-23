@@ -1,8 +1,7 @@
 import React from "react";
-import { useSelector } from "react-redux";
 
 function Profile() {
-  const user = useSelector((state) => state.auth.login.currentUser);
+  
 
   return (
     <div>
@@ -41,7 +40,7 @@ function Profile() {
                   Tên: <span className="text-red-500">*</span>
                 </label>
                 <input 
-                value={user.username}
+              
                 type="text" className="form-control" id="username" />
               </div>
               <div className="mb-3">
@@ -49,10 +48,18 @@ function Profile() {
                   Email: <span className="text-red-500">*</span>
                 </label>
                 <p className="font-mono font-semibold mt-2">
-                  {user.email}
+                  2324
                 </p>
               </div>
 
+              <div className="mb-3">
+                <label className="form-label font-mono font-semibold">
+                  Thành phố: <span className="text-red-500">*</span>
+                </label>
+                <p className="font-mono font-semibold mt-2">
+                  ewwer
+                </p>
+              </div>
               <div className="mb-3">
                 <label className="form-label font-mono font-semibold">
                   Giới tính: <span className="text-red-500">*</span>
@@ -99,14 +106,20 @@ function Profile() {
                 <label className="form-label font-mono font-semibold">
                   Sinh nhật:
                 </label>
-                <p className="font-mono font-semibold mt-2">{user.dateOfBirth}</p>
+                <p className="font-mono font-semibold mt-2">4234</p>
+              </div>
+              <div className="mb-3">
+                <label className="form-label font-mono font-semibold">
+                  Địa chỉ:
+                </label>
+                <p className="font-mono font-semibold mt-2">4234</p>
               </div>
 
               <div className="mb-3">
                 <label className="form-label font-mono font-semibold">
                   Hạng thành viên:
                 </label>
-                <p className="font-mono font-semibold mt-2">{user.level}</p>
+                <p className="font-mono font-semibold mt-2">fsdfs</p>
               </div>
             </div>
           </div>
