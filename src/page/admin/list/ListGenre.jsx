@@ -32,7 +32,6 @@ function ListGenre() {
                 <th scope="col">Email</th>
                 <th scope="col">Số điện thoại</th>
                 <th scope="col">Ảnh đại diện</th>
-                <th scope="col">Ngày sinh</th>
                 <th scope="col">Action</th>
               </tr>
             </thead>
@@ -49,7 +48,6 @@ function ListGenre() {
                     alt=""
                   />
                 </td>
-                <td>27/02/1998</td>
                 <td colSpan={2}>
                   <button
                     type="button"
