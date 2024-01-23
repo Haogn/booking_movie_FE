@@ -8,8 +8,6 @@ import Register from "../login_register/Register";
 import IndexProfile from "../customer/IndexProfile";
 import Point from "../customer/Point";
 import Profile from "../customer/Profile";
-import LayoutAdmin from "../../components/admin/page/LayoutAdmin";
-import LoginAdmin from "../../components/admin/page/LoginAdmin";
 import HistoryBooking from "../customer/HistoryBooking";
 import Notification from "../customer/Notification";
 import ChangePassword from "../customer/ChangePassword";
