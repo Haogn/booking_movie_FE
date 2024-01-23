@@ -1,8 +1,11 @@
 import React from "react";
 import "./NavbarCustomer.css";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function NavbarCustomer() {
+  const user = useSelector((state)=>state.auth.login.currentUser)
+
   return (
     <div>
       <div className="w-[70%] m-auto">
@@ -14,9 +17,19 @@ function NavbarCustomer() {
           <div className="vecuatoi">
             <i className="fa-solid fa-ticket"></i> VÉ CỦA TÔI
           </div>
-          <Link to={"/login"}>
+          {user ? (
+            <>
+            <Link to={"/logout"}>
+            <i className="fa-solid fa-circle-user" />{user.username} /ĐĂNG XUẤT
+          </Link>
+            </>
+          ):(
+            <Link to={"/login"}>
             <i className="fa-solid fa-circle-user" /> ĐĂNG NHẬP/ĐĂNG KÝ
           </Link>
+          )
+        
+        }
         </div>
       </div>
       <div className="header-page">
