@@ -150,7 +150,7 @@ function HomeCustomer() {
         ;
       </div>
       {/* event */}
-      <div className="event" id="event">
+      {/* <div className="event" id="event">
         <h2>-EVENT-</h2>
         <Slider {...settingEvent}>
           <div>
@@ -196,7 +196,7 @@ function HomeCustomer() {
             />
           </div>
         </Slider>
-      </div>
+      </div> */}
     </div>
   );
 }
