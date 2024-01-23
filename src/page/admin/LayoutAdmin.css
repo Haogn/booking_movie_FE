@@ -1,0 +1,7 @@
+.dropdown-menu .dropdown-item:hover {
+  color: rgb(175, 44, 44);
+}
+
+.dropdown-item {
+  width: 220px;
+}

@@ -46,16 +46,7 @@ function IndexProfile() {
               >
                 <Link to="/profile/point"> ĐIỂM THƯỞNG</Link>
               </p>
-              <p
-                className={`cursor-pointer font-medium text-xl font-mono pl-3 py-2 ${
-                  selectedTab === "transactions"
-                    ? "text-white bg-red-500 py-2 rounded-md"
-                    : ""
-                }`}
-                onClick={() => handleTabClick("transactions")}
-              >
-                <Link to={"/profile/history"}>LỊCH SỬ GIAO DỊCH</Link>
-              </p>
+
               <p
                 className={`cursor-pointer font-medium text-xl font-mono pl-3 py-2 ${
                   selectedTab === "notification"
