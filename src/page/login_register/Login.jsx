@@ -1,26 +1,19 @@
-
 import React from "react";
 import Carousel from "react-bootstrap/Carousel";
-import React, { useState } from "react";
-import { Link,useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { Carousel } from "react-bootstrap";
 import { loginUser } from "../../redux/api/service/authRequest";
 
-
 function Login() {
-  const [username,setUsername] = useState("");
-  const [password,setPassword] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-
-
-
   // useEffect(() => {
   //   handleGetCaptcha();
-  // }, []); 
-
+  // }, []);
 
   // const  handleGetCaptcha = async () => {
   //   try {
@@ -29,24 +22,24 @@ function Login() {
   //     console.log(resp)
   //     if (resp && resp.data) {
   //       setCaptcha(resp.data);
-  //       setError(""); 
+  //       setError("");
   //     } else {
-  //       setError("Không có dữ liệu captcha"); 
+  //       setError("Không có dữ liệu captcha");
   //     }
   //   } catch(err) {
   //       console.error(err);
   //       setError(err.response?.data || "Có lỗi xảy ra khi lấy captcha");
   //   }
   // };
-  
-  const handleLogin = (e)=>{
+
+  const handleLogin = (e) => {
     e.preventDefault();
     const user = {
-      username : username,
-      password : password,
-    }
-    loginUser(user,dispatch,navigate)
-  }
+      username: username,
+      password: password,
+    };
+    loginUser(user, dispatch, navigate);
+  };
 
   return (
     <div>
@@ -62,7 +55,7 @@ function Login() {
                   Tên đăng nhập: <span className="text-red-400">*</span>
                 </label>
                 <input
-                  onChange={(e)=>setUsername(e.target.value)}
+                  onChange={(e) => setUsername(e.target.value)}
                   type="text"
                   className="form-control"
                   id="username"
@@ -75,7 +68,7 @@ function Login() {
                   Mật khẩu: <span className="text-red-400">*</span>
                 </label>
                 <input
-                 onChange={(e)=>setPassword(e.target.value)}
+                  onChange={(e) => setPassword(e.target.value)}
                   type="password"
                   className="form-control"
                   id="username"
