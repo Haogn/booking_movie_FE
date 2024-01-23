@@ -11,9 +11,11 @@ function NavbarCustomer() {
             <i className="fa-sharp fa-solid fa-tags" />
             TIN MỚI &amp; ƯU ĐÃI
           </div>
-          <div className="vecuatoi">
-            <i className="fa-solid fa-ticket"></i> VÉ CỦA TÔI
-          </div>
+          <Link to={"/history"}>
+            <div className="vecuatoi">
+              <i className="fa-solid fa-ticket"></i> VÉ CỦA TÔI
+            </div>
+          </Link>
           <Link to={"/login"}>
             <i className="fa-solid fa-circle-user" /> ĐĂNG NHẬP/ĐĂNG KÝ
           </Link>
@@ -31,8 +33,12 @@ function NavbarCustomer() {
               <p>PHIM</p>
               <div className="movie-status">
                 <ul>
-                  <li>Phim Đang Chiếu</li>
-                  <li>Phim Sắp Chiếu</li>
+                  <Link to={"/now-howing"}>
+                    <li>Phim Đang Chiếu</li>
+                  </Link>
+                  <Link to={"/coming-soon"}>
+                    <li>Phim Sắp Chiếu</li>
+                  </Link>
                 </ul>
               </div>
             </div>
