@@ -1,8 +1,12 @@
+
+import React from "react";
+import Carousel from "react-bootstrap/Carousel";
 import React, { useState } from "react";
 import { Link,useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { Carousel } from "react-bootstrap";
 import { loginUser } from "../../redux/api/service/authRequest";
+
 
 function Login() {
   const [username,setUsername] = useState("");
@@ -46,7 +50,7 @@ function Login() {
 
   return (
     <div>
-      <div className="flex w-[70%] h-[500px] mx-auto ">
+      <div className="flex w-[70%] h-[500px] mx-auto mt-3 ">
         <div className="w-[60%] h-full  pt-10">
           <h1 className="font-mono text-2xl font-bold text-center">
             Đăng nhập

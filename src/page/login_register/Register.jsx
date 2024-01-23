@@ -28,7 +28,7 @@ const handleRegister = (e)=>{
 
   return (
     <div>
-      <div className="flex w-[70%] h-[700px] mx-auto ">
+      <div className="flex w-[70%] h-[700px] mx-auto mt-3 ">
         <div className="w-[60%] h-full  pt-10">
           <h1 className="font-mono text-2xl font-bold text-center">Đăng Ký</h1>
           <div className="w-[80%] h-full mx-auto">

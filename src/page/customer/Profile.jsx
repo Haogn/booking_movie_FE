@@ -111,7 +111,10 @@ function Profile() {
               </div>
             </div>
           </div>
-          <button type="file" className="btn btn-dark font-mono mb-4">
+          <button
+            type="sunmit"
+            className="btn btn-dark font-mono mb-4 text-gray-950"
+          >
             Lưu thay đổi
           </button>
         </form>
