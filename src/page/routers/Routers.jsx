@@ -35,7 +35,15 @@ import ListDrinks from "../admin/list/ListDrinks";
 import CreateCoupons from "../admin/create/CreateCoupons";
 import CreateEvent from "../admin/create/CreateEvent";
 import ListCustomer from "../admin/list/ListCustomer";
+<<<<<<< HEAD
 import ProfoleAccount from "../admin/ProfoleAccount";
+=======
+import DetailMovie from "../customer/detailMovie/DetailMovie";
+import BookingOnline from "./../customer/bookingOnline/BookingOnline";
+import BookingChair from "./../customer/bookingOnline/BookingChair";
+import BookingDish from "./../customer/bookingOnline/BookingDish";
+import ComingSoon from "./../customer/movieList/ComingSoon";
+>>>>>>> 1de8554a136f8fb1ae5e78a478270daef16d4f2e
 
 function Routers() {
   return (
@@ -46,8 +54,14 @@ function Routers() {
           <Route index element={<HomeCustomer />}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/register" element={<Register />}></Route>
-          <Route path="/detail" element={<Detail />}></Route>
+          <Route path="/detail" element={<DetailMovie />}></Route>
           <Route path="/history" element={<HistoryBooking />}></Route>
+          <Route path="/list-movie" element={<ComingSoon />}></Route>
+          <Route path="/booking" element={<BookingOnline />}>
+            <Route index element={<BookingChair />}></Route>
+            {/* <Route path="/booking/dish" element={<BookingChair/>}></Route> */}
+            <Route path="dish" element={<BookingDish />}></Route>
+          </Route>
           <Route path="/profile" element={<IndexProfile />}>
             <Route index element={<Profile />}></Route>
             <Route path="/profile/point" element={<Point />}></Route>
