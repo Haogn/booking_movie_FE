@@ -35,15 +35,12 @@ import ListDrinks from "../admin/list/ListDrinks";
 import CreateCoupons from "../admin/create/CreateCoupons";
 import CreateEvent from "../admin/create/CreateEvent";
 import ListCustomer from "../admin/list/ListCustomer";
-<<<<<<< HEAD
 import ProfoleAccount from "../admin/ProfoleAccount";
-=======
 import DetailMovie from "../customer/detailMovie/DetailMovie";
 import BookingOnline from "./../customer/bookingOnline/BookingOnline";
 import BookingChair from "./../customer/bookingOnline/BookingChair";
 import BookingDish from "./../customer/bookingOnline/BookingDish";
 import ComingSoon from "./../customer/movieList/ComingSoon";
->>>>>>> 1de8554a136f8fb1ae5e78a478270daef16d4f2e
 
 function Routers() {
   return (
