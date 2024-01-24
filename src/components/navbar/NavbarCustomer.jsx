@@ -5,18 +5,20 @@ import { useDispatch } from "react-redux";
 import { logout } from "../../redux/api/service/authRequest";
 
 function NavbarCustomer() {
-  const storedUsername  = localStorage.getItem('username');
-  const username = storedUsername && storedUsername.startsWith('"') && storedUsername.endsWith('"')
-  ? storedUsername.slice(1, -1) 
-  : storedUsername;
-  console.log(username)
-  const distpatch = useDispatch()
-  const navigate = useNavigate()
+  const storedUsername = localStorage.getItem("username");
+  const username =
+    storedUsername &&
+    storedUsername.startsWith('"') &&
+    storedUsername.endsWith('"')
+      ? storedUsername.slice(1, -1)
+      : storedUsername;
+  console.log(username);
+  const distpatch = useDispatch();
+  const navigate = useNavigate();
 
-
-  const handleLogout = ()=>{
-    logout(distpatch,navigate)
-  }
+  const handleLogout = () => {
+    logout(distpatch, navigate);
+  };
 
   return (
     <div>
@@ -30,17 +32,17 @@ function NavbarCustomer() {
             <i className="fa-solid fa-ticket"></i> VÉ CỦA TÔI
           </div>
           {username ? (
-        <>
-          <Link onClick={handleLogout}>
-            <i className="fa-solid fa-circle-user" />
-            {username} / ĐĂNG XUẤT
-          </Link>
-        </>
-      ) : (
-        <Link to={"/login"}>
-          <i className="fa-solid fa-circle-user" /> ĐĂNG NHẬP/ĐĂNG KÝ
-        </Link>
-      )}
+            <>
+              <Link onClick={handleLogout}>
+                <i className="fa-solid fa-circle-user" />
+                {username} / ĐĂNG XUẤT
+              </Link>
+            </>
+          ) : (
+            <Link to={"/login"}>
+              <i className="fa-solid fa-circle-user" /> ĐĂNG NHẬP/ĐĂNG KÝ
+            </Link>
+          )}
         </div>
       </div>
       <div className="header-page">
@@ -55,7 +57,10 @@ function NavbarCustomer() {
               <p>PHIM</p>
               <div className="movie-status">
                 <ul>
-                  <li>Phim Đang Chiếu</li>
+                  <Link to="/list-movie">
+                    <li>Phim Đang Chiếu</li>
+                  </Link>
+
                   <li>Phim Sắp Chiếu</li>
                 </ul>
               </div>
@@ -74,15 +79,18 @@ function NavbarCustomer() {
               <p>THÀNH VIÊN</p>
               <div className="member-status">
                 <ul>
-                  {username ? (
-                    <>
-                      <Link to={"/profile"}>Tài Khoản CGV</Link>
-                    </>
-                  ) : (
-                    <>
-                      <Link to={"/login"}>Tài Khoản CGV</Link>
-                    </>
-                  )}
+                  <li>
+                    {" "}
+                    {username ? (
+                      <>
+                        <Link to={"/profile"}>Tài Khoản CGV</Link>
+                      </>
+                    ) : (
+                      <>
+                        <Link to={"/login"}>Tài Khoản CGV</Link>
+                      </>
+                    )}
+                  </li>
                   <li>Quyền Lợi</li>
                 </ul>
               </div>

@@ -1,48 +1,16 @@
-.body_detail_movie{
-    margin: 30px 16%;
+.b {
+  margin-top: 20px;
+  text-align: center;
+  color: #fff;
+  width: 110px;
+  height: 40px;
+  background-color: #e71a0f;
+  padding: 2px;
+  border-radius: 5px;
 }
-.description{
-    margin: 30px 16%;
-    border-bottom: 1px solid #c3c0c0;
-}
-.des{
-    margin: 30px 16%;
-    font-size: 14px;
-}
-.description h1{
-    text-align: center;
-    font-size: 26px;
-    padding: 15px 0px;
-}
-.tit{
-    font-size: 24px;
-    font-weight: 700;
-    padding: 20px 0px;
-    border-bottom: 1px solid rgb(167, 164, 164);
-    margin-bottom: 10px;
-}
-.right .b{
-    margin-top: 20px;
-    text-align: center;
-    color: #fff;
-    width: 70px;
-    background-color: #e71a0f;
-    padding: 2px;
-    border-radius: 5px ;
-}
-.right .b button{
-    width: 100%;
-    height: 100%;
-    border: 1px solid #fff;
-    border-radius: 5px;
-}
-.right .detail{
-    line-height: 150%;
-}
-.detail{
-all: initial;
-}
-.left img{
-    height: 330px;
-    object-fit: cover;
+.b button {
+  width: 100%;
+  height: 100%;
+  border: 1px solid #fff;
+  border-radius: 5px;
 }

@@ -1,39 +1,77 @@
-import React from 'react'
-import './DetailMovie.css'
+import React from "react";
+import "./DetailMovie.css";
 function DetailMovie() {
-    return (
-        <div className="detail_movie">
-            <div className="title_movie">
-                <h1>Nội Dung Phim</h1>
-            </div>
-            <div className='body_detail_movie row'>
-                <div className="left col-3">
-                    <img src="https://www.cgv.vn/media/catalog/product/cache/1/image/c5f0a1eff4c394a251036189ccddaacd/a/w/aw-69k-700x1000.jpg" alt="" />
-                </div>
-                <div className="right col-9">
-                    <div className="tit">
-                        <h1>Tên phim</h1>
-                    </div>
-                    <div className="detail">
-                        <p><b>Đạo diễn: </b><span>Park Jin-pyo</span></p>
-                        <p><b>Diễn viên: </b><span>Park Jin-pyo</span></p>
-                        <p><b>Thể loại: </b><span>Hành động</span></p>
-                        <p><b>Khởi chiếu: </b><span>29/01/2024</span></p>
-                        <p><b>Thời lượng: </b><span>120</span> phút</p>
-                        <p><b>Ngôn Ngữ: </b><span>VI</span></p>
-                        <p><b>Rated: </b><span>18 +</span> phút</p>
-                        <p>
-                            <div className='b'><button className='booking-btn'>Mua vé</button></div>
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div className="description">
-                <h1>Mô tả</h1>
-            </div>
-            <p className='des'>Si-min (do Shin Hae-sun thủ vai) là một võ sĩ quyền anh đầy triển vọng nhưng đã từ bỏ quyền thi đấu tại kỳ Thế vận hội Olympic để lấy tiền trả nợ cho cha. Từ đó, Si-min cũng nhận ra rằng, cuộc sống vốn không công bằng và “công lý không thể mài ra cơm”. Si-min gạt phăng giấc mơ trở thành võ sĩ quyền anh và quyết tâm trở thành giáo viên, với mong muốn về một cuộc sống ổn định hơn. Cô trở thành giáo viên hợp đồng của một trường trung học có tiếng cùng mục tiêu trở thành giáo viên chính thức ở đây. Để có thể nhanh chóng hoàn thành nguyện vọng, cô đã nỗ lực kìm nén cái tôi xuống đáy, luôn mỉm cười cho qua, bất chấp mọi tình huống trớ trêu xảy đến với mình. Tuy nhiên, Su-gang (do Lee Jun-young thủ vai) - kẻ cầm đầu của một băng đảng quậy phá, chuyên đi bắt nạt và hành hạ người yếu thế đã phá vỡ quy tắc của Si-min. Không thể chịu đựng được những hành vi bạo lực học đường của Su-gang, Si-min đeo lên một chiếc mặt nạ mèo và dạy cho tên côn đồ một bài học đáng nhớ. Nhận thấy quyền lực của mình bị đe dọa, Su-gang điên cuồng tìm kiếm người đeo mặt nạ mèo, Si-min đứng trước nguy cơ bị bại lộ danh tính và phải đối mặt với sự lựa chọn giữa “CÔNG LÝ hay CÔNG VIỆC.”</p>
+  return (
+    <div>
+      <div className="w-screen h-[30px] bg-gray-100">
+        <div className="mx-auto w-[70%] h-full py-[5px] flex gap-2">
+          <div className="flex pt-[2px]">
+            <i className="fa-solid fa-house-chimney"></i>{" "}
+            <i className="fa-solid fa-angle-right opacity-30"></i>
+          </div>
+          <h4 className="font-black font-mono ">Tên phim</h4>
         </div>
-    )
+      </div>
+      {/* movie */}
+      <div className="h-[500px] w-[70%] mx-auto">
+        <div className="pb-[10px] py-[30px] border-b-2 border-gray-700 h-[80px]">
+          <h1 className="text-3xl">NỘI DUNG PHIM</h1>
+        </div>
+
+        <div className="flex w-full h-[400px] my-3 gap-4">
+          <div className="h-full w-[25%]">
+            <img
+              src="https://www.cgv.vn/media/catalog/product/cache/1/image/c5f0a1eff4c394a251036189ccddaacd/a/w/aw-69k-700x1000.jpg"
+              alt=""
+            />
+          </div>
+          <div className="h-full">
+            <h1 className="text-3xl mb-4 ">Mật Vụ Ong</h1>
+            <p className="border-b-2 border-gray-400 w-[720px]"></p>
+
+            <div className="flex flex-col gap-2 mt-3 ml-3">
+              <p className="font-mono font-medium text-lg">
+                <b>Đạo diễn</b> : <span className="font-normal">abc</span>
+              </p>
+              <p className="font-mono font-medium text-lg">
+                <b>Diễn viên</b> : <span className="font-normal">abc</span>
+              </p>
+              <p className="font-mono font-medium text-lg">
+                <b>Thể loại</b> : <span className="font-normal">abc</span>
+              </p>
+              <p className="font-mono font-medium text-lg">
+                <b>Khởi chiếu</b> : <span className="font-normal">abc</span>
+              </p>
+              <p className="font-mono font-medium text-lg">
+                <b>Thời lượng</b> : <span className="font-normal">abc</span>
+              </p>
+              <p className="font-mono font-medium text-lg">
+                <b> Ngôn ngữ </b> : <span className="font-normal">abc</span>
+              </p>
+              <p>
+                <div className="b">
+                  <button className="booking-btn font-mono text-lg">
+                    Mua vé <i className="fa-solid fa-ticket"></i>
+                  </button>
+                </div>
+              </p>
+            </div>
+
+            <div className="mt-5"></div>
+          </div>
+        </div>
+      </div>
+
+      <div className="w-[70%] h-[200px] mx-auto ">
+        <p className="font-mono text-lg">
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quod
+          deserunt non atque fuga! Dolorum excepturi sint, eaque, officia
+          perferendis vero quidem cumque magnam ullam dignissimos, corrupti
+          itaque? Non, voluptatibus tenetur!
+        </p>
+      </div>
+    </div>
+  );
 }
 
-export default DetailMovie
+export default DetailMovie;
