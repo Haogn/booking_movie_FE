@@ -1,10 +1,22 @@
 import React from "react";
 import "./NavbarCustomer.css";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logout } from "../../redux/api/service/authRequest";
 
 function NavbarCustomer() {
-  const user = useSelector((state)=>state.auth.login.currentUser)
+  const storedUsername  = localStorage.getItem('username');
+  const username = storedUsername && storedUsername.startsWith('"') && storedUsername.endsWith('"')
+  ? storedUsername.slice(1, -1) 
+  : storedUsername;
+  console.log(username)
+  const distpatch = useDispatch()
+  const navigate = useNavigate()
+
+
+  const handleLogout = ()=>{
+    logout(distpatch,navigate)
+  }
 
   return (
     <div>
@@ -17,19 +29,18 @@ function NavbarCustomer() {
           <div className="vecuatoi">
             <i className="fa-solid fa-ticket"></i> VÉ CỦA TÔI
           </div>
-          {user ? (
-            <>
-            <Link to={"/logout"}>
-            <i className="fa-solid fa-circle-user" />{user.username} /ĐĂNG XUẤT
+          {username ? (
+        <>
+          <Link onClick={handleLogout}>
+            <i className="fa-solid fa-circle-user" />
+            {username} / ĐĂNG XUẤT
           </Link>
-            </>
-          ):(
-            <Link to={"/login"}>
-            <i className="fa-solid fa-circle-user" /> ĐĂNG NHẬP/ĐĂNG KÝ
-          </Link>
-          )
-        
-        }
+        </>
+      ) : (
+        <Link to={"/login"}>
+          <i className="fa-solid fa-circle-user" /> ĐĂNG NHẬP/ĐĂNG KÝ
+        </Link>
+      )}
         </div>
       </div>
       <div className="header-page">
@@ -63,9 +74,15 @@ function NavbarCustomer() {
               <p>THÀNH VIÊN</p>
               <div className="member-status">
                 <ul>
-                  <li>
-                    <Link to={"/profile"}>Tài Khoản CGV</Link>
-                  </li>
+                  {username ? (
+                    <>
+                      <Link to={"/profile"}>Tài Khoản CGV</Link>
+                    </>
+                  ) : (
+                    <>
+                      <Link to={"/login"}>Tài Khoản CGV</Link>
+                    </>
+                  )}
                   <li>Quyền Lợi</li>
                 </ul>
               </div>
