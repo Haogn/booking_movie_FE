@@ -1,27 +1,16 @@
 import React from "react";
-import Slider from "react-slick";
+
 import "./HomeCustomer.css";
 import Carousel from "react-bootstrap/Carousel";
 import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
-import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 
 function HomeCustomer() {
-  const settingEvent = {
-    dots: false,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 3000,
-    arrows: false,
-  };
   return (
     <div>
-      <div className="w-screen h-[1000px] mt-2">
+      <div className="w-screen h-[1000px]">
         <div className="content-top">
           <ul>
             <li>
@@ -98,24 +87,28 @@ function HomeCustomer() {
                   />
                 </div>
                 <div className="movie-informations">
-                  <h4 className="text-center font-black font-mono text-white mt-2">
+                  <h4 className="text-center font-bold font-mono text-white mt-2">
                     tên phim
                   </h4>
-                  <div className="mt-4 flex justify-around">
-                    <Link to={"/detail"}>
-                      <Button
+                  <div className=" flex justify-around">
+                    <div className="movie-button">
+                      <Link to={"/detail"}>
+                        <button
+                          variant="outline-secondary"
+                          className="text-center font-medium font-mono text-white "
+                        >
+                          Chi tiết
+                        </button>{" "}
+                      </Link>
+                    </div>
+                    <div className="movie-button">
+                      <button
                         variant="outline-secondary"
-                        className="text-center font-black font-sans text-white"
+                        className="text-center font-medium font-mono text-white "
                       >
-                        Xem chi tiết
-                      </Button>{" "}
-                    </Link>
-                    <Button
-                      variant="outline-secondary"
-                      className="text-center font-black font-sans text-white"
-                    >
-                      Mua vé <i class="fa-solid fa-ticket"></i>
-                    </Button>{" "}
+                        Mua vé <i class="fa-solid fa-ticket"></i>
+                      </button>{" "}
+                    </div>
                   </div>
                 </div>
               </div>
