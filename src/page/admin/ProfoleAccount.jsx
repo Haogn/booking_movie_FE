@@ -1,19 +1,15 @@
 import React from "react";
 
-function Profile() {
+function ProfoleAccount() {
   const handleFileChange = (e) => {
     e.preventDefault();
   };
   const openFileInput = () => {};
   return (
     <div>
-      <div className="bg-gray-900 text-white text-3xl font-medium font-mono text-center py-1">
-        Thông tin tài khoản
-      </div>
-      <div className="w-[80%] h-full mx-auto">
-        {/* avatar */}
+      <div className="w-[50%] h-screen mx-auto ">
         <div className="mx-auto h-[200px] w-[200px] my-3">
-          <div className="w-[118px] h-[118px] border-2 border-gray-900 rounded-[50%] mb-2">
+          <div className="w-[118px] h-[118px] border-1 border-gray-900 rounded-[50%] mb-2">
             <img
               className="w-[116px] h-[116px] rounded-[50%] object-cover "
               src="../../../public/image/avatar.jpg"
@@ -54,38 +50,6 @@ function Profile() {
                     Nshoang2702@gmail.com
                   </p>
                 </div>
-
-                {/* <div className="mb-3">
-                <label className="form-label font-mono font-semibold">
-                  Giới tính: <span className="text-red-500">*</span>
-                </label>
-                <div className="flex gap-2">
-                  <div className="form-check">
-                    <input
-                      type="radio"
-                      className="form-check-input"
-                      id="genderMale"
-                      name="gender"
-                      value="Nam"
-                    />
-                    <label className="form-check-label" htmlFor="genderMale">
-                      Nam
-                    </label>
-                  </div>
-                  <div className="form-check">
-                    <input
-                      type="radio"
-                      className="form-check-input"
-                      id="genderFemale"
-                      name="gender"
-                      value="Nữ"
-                    />
-                    <label className="form-check-label" htmlFor="genderFemale">
-                      Nữ
-                    </label>
-                  </div>
-                </div>
-              </div> */}
               </div>
 
               {/* Cột 2 */}
@@ -115,4 +79,4 @@ function Profile() {
   );
 }
 
-export default Profile;
+export default ProfoleAccount;

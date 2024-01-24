@@ -34,7 +34,7 @@ function CreateLocation() {
             type="submit"
             className="btn btn-dark font-mono mb-4 text-gray-950"
           >
-            Lưu thay đổi
+            Thêm mới
           </button>
         </form>
       </div>

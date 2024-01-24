@@ -8,7 +8,7 @@ function CreateAccount() {
           Tạo mới tài khoản
         </h1>
         <form action="">
-          <div className="mb-3">
+          <div className="mb-2">
             <label className="form-label font-mono font-semibold">
               Tên đăng nhập: <span className="text-red-500">*</span>
             </label>
@@ -18,13 +18,13 @@ function CreateAccount() {
               placeholder="Tên đăng nhập"
             />
           </div>
-          <div className="mb-3">
+          <div className="mb-2">
             <label className="form-label font-mono font-semibold">
               Email: <span className="text-red-500">*</span>
             </label>
             <input type="text" className="form-control" placeholder="Email" />
           </div>
-          <div className="mb-3">
+          <div className="mb-2">
             <label className="form-label font-mono font-semibold">
               Số điện thoại: <span className="text-red-500">*</span>
             </label>
@@ -34,7 +34,7 @@ function CreateAccount() {
               placeholder="Số điện thoại"
             />
           </div>
-          <div className="mb-3">
+          <div className="mb-2">
             <label className="form-label font-mono font-semibold">
               Password: <span className="text-red-500">*</span>
             </label>
@@ -44,7 +44,7 @@ function CreateAccount() {
               placeholder="Password"
             />
           </div>
-          <div className="mb-3">
+          <div className="mb-2">
             <label className="form-label font-mono font-semibold">
               Ngày sinh: <span className="text-red-500">*</span>
             </label>
@@ -54,7 +54,7 @@ function CreateAccount() {
               placeholder="Ngày sinh"
             />
           </div>
-          <div className="mb-3">
+          <div className="mb-2">
             <label className="form-label font-mono font-semibold">
               Role: <span className="text-red-500">*</span>
             </label>
@@ -70,7 +70,7 @@ function CreateAccount() {
             type="submit"
             className="btn btn-dark font-mono mb-4 text-gray-950"
           >
-            Lưu thay đổi
+            Thêm mới
           </button>
         </form>
       </div>

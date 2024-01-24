@@ -5,25 +5,25 @@ function CreateFood() {
     <div>
       <div className="w-[50%] h-screen mx-auto ">
         <h1 className="text-center text-2xl font-mono font-semibold my-6 pb-3 border-b-2 border-gray-400">
-          Tạo mới Phiếu giảm giá
+          Tạo mới đồ ăn
         </h1>
         <form action="">
           <div className="mb-3">
             <label className="form-label font-mono font-semibold">
-              Mã Khách hàng: <span className="text-red-500">*</span>
+              Tên đồ ăn: <span className="text-red-500">*</span>
             </label>
             <input
               type="text"
               className="form-control"
-              placeholder="Mã khách hàng"
+              placeholder="Tên đồ ăn"
             />
           </div>
 
           <div className="mb-3">
             <label className="form-label font-mono font-semibold">
-              Hiệu lực: <span className="text-red-500">*</span>
+              Giá: <span className="text-red-500">*</span>
             </label>
-            <input type="date" className="form-control" />
+            <input type="text" className="form-control" placeholder="Giá" />
           </div>
           <div className="mb-3">
             <label className="form-label font-mono font-semibold">
@@ -51,7 +51,7 @@ function CreateFood() {
             type="submit"
             className="btn btn-dark font-mono mb-4 text-gray-950"
           >
-            Lưu thay đổi
+            Thêm mới
           </button>
         </form>
       </div>
