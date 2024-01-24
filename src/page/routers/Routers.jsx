@@ -35,6 +35,7 @@ import ListDrinks from "../admin/list/ListDrinks";
 import CreateCoupons from "../admin/create/CreateCoupons";
 import CreateEvent from "../admin/create/CreateEvent";
 import ListCustomer from "../admin/list/ListCustomer";
+import ProfoleAccount from "../admin/ProfoleAccount";
 
 function Routers() {
   return (
@@ -63,7 +64,7 @@ function Routers() {
         </Route>
         {/* Admin */}
         <Route path="/admin" element={<LayoutAdmin />}>
-          <Route index element={<HomeAdmin />}></Route>
+          <Route index element={<ListCustomer />}></Route>
           <Route
             path="/admin/create-account"
             element={<CreateAccount />}
@@ -78,7 +79,7 @@ function Routers() {
             element={<ListManagement />}
           ></Route>
           <Route path="/admin/list-employ" element={<ListEmploy />}></Route>
-          <Route path="/admin/list-customer" element={<ListCustomer />}></Route>
+          <Route path="/admin" element={<ListCustomer />}></Route>
           <Route
             path="/admin/create-location"
             element={<CreateLocation />}
@@ -97,10 +98,9 @@ function Routers() {
           <Route path="/admin/list-genre" element={<ListGenre />}></Route>
           <Route path="/admin/create-movie" element={<CreateMovie />}></Route>
           <Route path="/admin/list-movie" element={<ListMovie />}></Route>
-          <Route path="/admin/create-food" element={<CreateFood />}></Route>
-          <Route path="/admin/list-food" element={<ListFood />}></Route>
-          <Route path="/admin/create-drinks" element={<CreateDrinks />}></Route>
-          <Route path="/admin/list-drinks" element={<ListDrinks />}></Route>
+          <Route path="/admin/create-food" element={<CreateDrinks />}></Route>
+          <Route path="/admin/list-food" element={<ListDrinks />}></Route>
+          <Route path="/admin/profile" element={<ProfoleAccount />}></Route>
         </Route>
 
         {/* Management */}

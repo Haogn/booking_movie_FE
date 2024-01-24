@@ -4,6 +4,9 @@ function ListLocation() {
   return (
     <div>
       <div className="w-[70%] h-full mx-auto ">
+        <h1 className="text-center text-2xl font-mono font-semibold my-6 pb-3 border-b-2 border-gray-400">
+          Danh sách Vị trí
+        </h1>
         <nav className="navbar bg-body-tertiary mt-3">
           <div className="container-fluid">
             <a className="navbar-brand"></a>
@@ -20,9 +23,6 @@ function ListLocation() {
             </form>
           </div>
         </nav>
-        <h1 className="text-center text-2xl font-mono font-semibold my-6 pb-3 border-b-2 border-gray-400">
-          Danh sách Vị trí
-        </h1>
         <div className="container mt-4">
           <table className="table table-hover font-mono">
             <thead>
