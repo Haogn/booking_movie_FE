@@ -8,7 +8,7 @@ function CreateRoom() {
           Tạo mới Phòng chiếu
         </h1>
         <form action="">
-          <div className="mb-2">
+          <div className="mb-3">
             <label className="form-label font-mono font-semibold">
               Tên phòng chiếu: <span className="text-red-500">*</span>
             </label>
@@ -19,32 +19,28 @@ function CreateRoom() {
             />
           </div>
 
-          <div className="mb-2">
+          <div className="mb-3">
             <label className="form-label font-mono font-semibold">
               Số ghế hàng dọc: <span className="text-red-500">*</span>
             </label>
-            <select class="form-select" aria-label="Default select example">
-              <option selected>Số ghế hàng dọc</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
-            </select>
+            <input
+              type="text"
+              className="form-control"
+              placeholder=" Số ghế hàng dọc"
+            />
           </div>
 
-          <div className="mb-2">
+          <div className="mb-3">
             <label className="form-label font-mono font-semibold">
               Số ghế hàng ngang: <span className="text-red-500">*</span>
             </label>
-            <select class="form-select" aria-label="Default select example">
-              <option selected>Số ghế hàng ngang</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
-              <option value="10">10</option>
-            </select>
+            <input
+              type="text"
+              className="form-control"
+              placeholder=" Số ghế hàng ngang"
+            />
           </div>
-          <div className="mb-2">
+          <div className="mb-3">
             <label className="form-label font-mono font-semibold">
               Type phòng chiêu: <span className="text-red-500">*</span>
             </label>
@@ -56,7 +52,7 @@ function CreateRoom() {
             </select>
           </div>
 
-          <div className="mb-2">
+          <div className="mb-3">
             <label className="form-label font-mono font-semibold">
               Rạp chiếu: <span className="text-red-500">*</span>
             </label>

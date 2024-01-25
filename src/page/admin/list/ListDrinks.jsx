@@ -1,6 +1,6 @@
 import React from "react";
 
-function ListEmploy() {
+function ListDrinks() {
   return (
     <div>
       <div className="w-full h-full px-2 ">
@@ -28,28 +28,20 @@ function ListEmploy() {
             <thead>
               <tr className="text-center">
                 <th scope="col">Id</th>
-                <th scope="col">Tên đăng nhập</th>
-                <th scope="col">Email</th>
-                <th scope="col">Số điện thoại</th>
-                <th scope="col">Ảnh đại diện</th>
-                <th scope="col">Ngày sinh</th>
+                <th scope="col">Tên sản phẩm</th>
+                <th scope="col">Giá</th>
+                <th scope="col">Thể loại</th>
                 <th scope="col">Action</th>
               </tr>
             </thead>
             <tbody>
               <tr className="text-center ">
                 <td>1</td>
-                <td>nshoang</td>
-                <td>nshoang270298@gmail.com</td>
-                <td>0987654321</td>
-                <td className="w-[192px] h-[192px]">
-                  <img
-                    className="w-full h-full rounded-[50%] "
-                    src="https://inkythuatso.com/uploads/thumbnails/800/2023/03/8-anh-dai-dien-trang-inkythuatso-03-15-26-54.jpg"
-                    alt=""
-                  />
+                <td>Bỏng ngô vị matcha</td>
+                <td>
+                  <span>80000</span> VND
                 </td>
-                <td>27/02/1998</td>
+                <td>Đồ ăn</td>
                 <td colSpan={2}>
                   <button
                     type="button"
@@ -109,4 +101,4 @@ function ListEmploy() {
   );
 }
 
-export default ListEmploy;
+export default ListDrinks;

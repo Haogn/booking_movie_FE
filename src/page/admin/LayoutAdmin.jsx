@@ -1,13 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import "./LayoutAdmin.css";
 
 function LayoutAdmin() {
+  const [selectedTab, setSelectedTab] = useState("details"); // Default selected tab
+
+  const handleTabClick = (tab) => {
+    setSelectedTab(tab);
+  };
   return (
     <div>
-      <div className="w-screen h-screen flex  ">
-        <div className="w-[20%] h-screen ">
-          <div className="w-full h-screen flex flex-col justify-start px-[8%] gap-3 bg-slate-50 layout-admin border-r-2 border-red-100">
+      <div className="w-screen h-full flex layout-admin ">
+        <div className="w-[20%] h-screen  ">
+          <div className="w-full h-screen flex flex-col justify-start px-[8%] gap-3 bg-slate-50 layout-admin border-r-2 border-red-300">
             {/* logo */}
             <div>
               <img
@@ -16,7 +21,12 @@ function LayoutAdmin() {
               />
             </div>
             {/* thống kê */}
-            {/* <div className="dropdown">
+            {/* <div className={`cursor-pointer dropdown ${
+                selectedTab === "location"
+                  ? "text-gray-800 bg-red-100 py-2 rounded-md pl-1"
+                  : ""
+              }`}
+              onClick={() => handleTabClick("location")}>
               <button
                 className="text-xl font-mono font-bold dropdown-toggle "
                 data-bs-toggle="dropdown"
@@ -44,8 +54,8 @@ function LayoutAdmin() {
               </ul>
             </div> */}
 
-            {/* user */}
-            <div className="dropdown">
+            {/* user  */}
+            <div className="cursor-pointer dropdown mt-4">
               <button
                 className="text-xl font-mono font-bold dropdown-toggle "
                 data-bs-toggle="dropdown"
@@ -56,9 +66,9 @@ function LayoutAdmin() {
               </button>
               <ul className="dropdown-menu bg-gray-200 font-bold font-mono">
                 <li>
-                  <a className="dropdown-item" href="/admin/create-account">
+                  <Link className="dropdown-item" to="/admin/create-account">
                     <i className="fa-solid fa-folder-plus"></i> Tạo tài khoản
-                  </a>
+                  </Link>
                 </li>
                 <li>
                   <a className="dropdown-item" href="/admin/list-management">
@@ -80,7 +90,7 @@ function LayoutAdmin() {
               </ul>
             </div>
 
-            {/* location */}
+            {/* location*/}
             <div className="dropdown">
               <button
                 className="text-xl font-mono font-bold dropdown-toggle "
@@ -148,7 +158,12 @@ function LayoutAdmin() {
               </ul>
             </div>
             {/* chair */}
-            {/* <div className="dropdown">
+            {/* <div className={`cursor-pointer dropdown ${
+                selectedTab === "location"
+                  ? "text-gray-800 bg-red-100 py-2 rounded-md pl-1"
+                  : ""
+              }`}
+              onClick={() => handleTabClick("location")}>
               <button
                 className="text-xl font-mono font-bold dropdown-toggle "
                 data-bs-toggle="dropdown"
@@ -236,16 +251,14 @@ function LayoutAdmin() {
                 </li>
               </ul>
             </div>
-
-            {/* đồ ăn */}
+            {/* đồ uống */}
             <div className="dropdown">
               <button
                 className="text-xl font-mono font-bold dropdown-toggle "
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                <i className="fa-solid fa-bowl-food"></i>/
-                <i className="fa-solid fa-mug-saucer"></i> Menu
+                <i className="fa-solid fa-mug-saucer"></i> Đồ uống
               </button>
               <ul className="dropdown-menu bg-gray-200 font-bold font-mono">
                 <li>
@@ -299,7 +312,9 @@ function LayoutAdmin() {
                   />
                 </Link>
               </div>
-              <p className="font-mono font-bold">Logout</p>
+              <p>
+                <i className="fa-solid fa-right-from-bracket text-2xl"></i>
+              </p>
             </div>
           </div>
           <div>
