@@ -9,7 +9,7 @@ function IndexProfile() {
   };
   return (
     <div>
-      <div className="w-[70%] h-[700px] mx-auto mt-4 ">
+      <div className="w-[70%] h-[500px] mx-auto py-auto ">
         <div className="flex w-full h-full gap-3">
           <div className="h-full w-[25%]  pl-2 ">
             <h1 className="text-3xl font-medium font-sans text-red-600 text-center ">
@@ -47,16 +47,21 @@ function IndexProfile() {
                 <Link to="/profile/point"> ĐIỂM THƯỞNG</Link>
               </p>
 
-              <p
-                className={`cursor-pointer font-medium text-xl font-mono pl-3 py-2 ${
+              <div
+                className={`cursor-pointer font-medium text-xl font-mono pl-3 py-2 relative ${
                   selectedTab === "notification"
                     ? "text-white bg-red-500 py-2 rounded-md"
                     : ""
                 }`}
                 onClick={() => handleTabClick("notification")}
               >
-                <Link to={"/profile/notification"}>KHUYẾN MÃI CỦA BẠN</Link>
-              </p>
+                <p>
+                  <Link to={"/profile/notification"}>KHUYẾN MÃI CỦA BẠN</Link>
+                </p>
+                <p className="bg-red-50 absolute top-[-15px] right-[-7px] text-black w-[35px] h-[35px] rounded-[50%]  text-center ">
+                  <i className="fa-solid fa-bell text-sm"> 0</i>
+                </p>
+              </div>
             </div>
           </div>
           <div className="h-full w-[75%] ">

@@ -20,12 +20,13 @@ function NavbarCustomer() {
     logout(distpatch, navigate);
   };
 
+
   return (
     <div>
       <div className="w-[70%] m-auto">
         <div className="my-[10px] flex justify-end gap-[30px] text-base cursor-pointer font-black font-mono">
           <div className="tinmoi">
-            <i className="fa-sharp fa-solid fa-tags" />
+            <i className="fas fa-tags" />
             TIN MỚI &amp; ƯU ĐÃI
           </div>
           <div className="vecuatoi">
@@ -48,7 +49,7 @@ function NavbarCustomer() {
       <div className="header-page">
         <div className="flex justify-center gap-[70px] my-[20px] cursor-pointer pt-[30px]">
           <div>
-            <a href="/">
+            <a href="#">
               <img src="./image/logo.png" alt="" />
             </a>
           </div>
@@ -57,11 +58,13 @@ function NavbarCustomer() {
               <p>PHIM</p>
               <div className="movie-status">
                 <ul>
-                  <Link to="/list-movie">
+                  <Link to="/nowhowing">
                     <li>Phim Đang Chiếu</li>
                   </Link>
 
-                  <li>Phim Sắp Chiếu</li>
+                  <Link to={"/comingsoon"}>
+                    <li>Phim Sắp Chiếu</li>
+                  </Link>
                 </ul>
               </div>
             </div>

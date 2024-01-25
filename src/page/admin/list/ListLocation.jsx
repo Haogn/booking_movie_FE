@@ -1,9 +1,13 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function ListLocation() {
   return (
     <div>
       <div className="w-[70%] h-full mx-auto ">
+        <h1 className="text-center text-2xl font-mono font-semibold my-6 pb-3 border-b-2 border-gray-400">
+          Danh sách Vị trí
+        </h1>
         <nav className="navbar bg-body-tertiary mt-3">
           <div className="container-fluid">
             <a className="navbar-brand"></a>
@@ -14,15 +18,13 @@ function ListLocation() {
                 placeholder="Tìm Kiếm"
                 aria-label="Search"
               />
+
               <button className="btn btn-outline-dark" type="submit">
                 <i className="fa-solid fa-magnifying-glass"></i>
               </button>
             </form>
           </div>
         </nav>
-        <h1 className="text-center text-2xl font-mono font-semibold my-6 pb-3 border-b-2 border-gray-400">
-          Danh sách Vị trí
-        </h1>
         <div className="container mt-4">
           <table className="table table-hover font-mono">
             <thead>
@@ -38,12 +40,15 @@ function ListLocation() {
                 <td>Hai Bà Trưng</td>
 
                 <td colSpan={2}>
-                  <button
-                    type="button"
-                    className="btn btn-success text-green-600 mr-2"
-                  >
-                    <i className="fa-solid fa-pen-to-square "></i>
-                  </button>
+                  <Link to={"/admin/edit-location"}>
+                    <button
+                      type="button"
+                      className="btn btn-success text-green-600 mr-2"
+                    >
+                      <i className="fa-solid fa-pen-to-square "></i>
+                    </button>
+                  </Link>
+
                   <button
                     type="button"
                     className=" btn btn-danger text-red-600"

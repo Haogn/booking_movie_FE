@@ -1,16 +1,27 @@
 import React from "react";
 
-function CreateMovie() {
+function EditMovie() {
   return (
     <div>
       <div className="w-[90%] h-screen mx-auto ">
         <h1 className="text-center text-2xl font-mono font-semibold my-6 pb-3 border-b-2 border-gray-400">
-          Tạo mới phim
+          Thay đổi thông tin phim
         </h1>
         <form action="">
           <div className="row">
             {/* Cột 1 */}
             <div className="col-md-6">
+              <div className="mb-2">
+                <label className="form-label font-mono font-semibold">
+                  Mã phim: <span className="text-red-500">*</span>
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  value={1}
+                  readOnly={true}
+                />
+              </div>
               <div className="mb-2">
                 <label className="form-label font-mono font-semibold">
                   Tên phim: <span className="text-red-500">*</span>
@@ -166,7 +177,7 @@ function CreateMovie() {
             type="submit"
             className="btn btn-dark font-mono mb-4 text-gray-950"
           >
-            Thêm mới
+            Thay đổi
           </button>
         </form>
       </div>
@@ -174,4 +185,4 @@ function CreateMovie() {
   );
 }
 
-export default CreateMovie;
+export default EditMovie;

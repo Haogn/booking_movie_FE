@@ -4,6 +4,9 @@ function ListManagement() {
   return (
     <div>
       <div className="w-full h-full px-2 ">
+        <h1 className="text-center text-2xl font-mono font-semibold my-6 pb-3 border-b-2 border-gray-400">
+          Danh sách Quản lý
+        </h1>
         <nav className="navbar bg-body-tertiary mt-3">
           <div className="container-fluid">
             <a className="navbar-brand"></a>
@@ -20,9 +23,6 @@ function ListManagement() {
             </form>
           </div>
         </nav>
-        <h1 className="text-center text-2xl font-mono font-semibold my-6 pb-3 border-b-2 border-gray-400">
-          Danh sách Quản lý
-        </h1>
         <div class="container mt-4">
           <table class="table table-hover font-mono">
             <thead>
@@ -50,13 +50,7 @@ function ListManagement() {
                   />
                 </td>
                 <td>27/02/1998</td>
-                <td colSpan={2}>
-                  <button
-                    type="button"
-                    className="btn btn-success text-green-600 mr-2"
-                  >
-                    <i className="fa-solid fa-pen-to-square "></i>
-                  </button>
+                <td>
                   <button
                     type="button"
                     className=" btn btn-danger text-red-600"

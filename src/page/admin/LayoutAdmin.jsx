@@ -1,13 +1,18 @@
-import React from "react";
-import { Outlet } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, Outlet } from "react-router-dom";
 import "./LayoutAdmin.css";
 
 function LayoutAdmin() {
+  const [selectedTab, setSelectedTab] = useState("details"); // Default selected tab
+
+  const handleTabClick = (tab) => {
+    setSelectedTab(tab);
+  };
   return (
     <div>
-      <div className="w-screen h-screen flex  ">
-        <div className="w-[20%] h-screen ">
-          <div className=" flex flex-col justify-start px-[12%] gap-3">
+      <div className="w-screen h-full flex layout-admin ">
+        <div className="w-[20%] h-full  ">
+          <div className="w-full h-[1000px] flex flex-col justify-start px-[8%] gap-3 bg-slate-50 layout-admin border-r-2 border-red-300">
             {/* logo */}
             <div>
               <img
@@ -16,7 +21,12 @@ function LayoutAdmin() {
               />
             </div>
             {/* thống kê */}
-            <div className="dropdown">
+            {/* <div className={`cursor-pointer dropdown ${
+                selectedTab === "location"
+                  ? "text-gray-800 bg-red-100 py-2 rounded-md pl-1"
+                  : ""
+              }`}
+              onClick={() => handleTabClick("location")}>
               <button
                 className="text-xl font-mono font-bold dropdown-toggle "
                 data-bs-toggle="dropdown"
@@ -42,33 +52,10 @@ function LayoutAdmin() {
                   </a>
                 </li>
               </ul>
-            </div>
+            </div> */}
 
-            {/* phiếu giảm giá */}
-            <div className="dropdown">
-              <button
-                className="text-xl font-mono font-bold dropdown-toggle "
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                <i class="fa-solid fa-ticket"></i> Phiếu giảm giá
-              </button>
-              <ul className="dropdown-menu bg-gray-200 font-bold font-mono">
-                <li>
-                  <a className="dropdown-item" href="/admin/create-coupons">
-                    <i className="fa-solid fa-folder-plus"></i> Coupons
-                  </a>
-                </li>
-
-                <li>
-                  <a className="dropdown-item" href="/admin/create-event">
-                    <i className="fa-solid fa-folder-plus"></i> Event
-                  </a>
-                </li>
-              </ul>
-            </div>
-            {/* user */}
-            <div className="dropdown">
+            {/* user  */}
+            <div className="cursor-pointer dropdown mt-4">
               <button
                 className="text-xl font-mono font-bold dropdown-toggle "
                 data-bs-toggle="dropdown"
@@ -79,9 +66,9 @@ function LayoutAdmin() {
               </button>
               <ul className="dropdown-menu bg-gray-200 font-bold font-mono">
                 <li>
-                  <a className="dropdown-item" href="/admin/create-account">
+                  <Link className="dropdown-item" to="/admin/create-account">
                     <i className="fa-solid fa-folder-plus"></i> Tạo tài khoản
-                  </a>
+                  </Link>
                 </li>
                 <li>
                   <a className="dropdown-item" href="/admin/list-management">
@@ -95,7 +82,7 @@ function LayoutAdmin() {
                   </a>
                 </li>
                 <li>
-                  <a className="dropdown-item" href="/admin/list-customer">
+                  <a className="dropdown-item" href="/admin">
                     <i className="fa-solid fa-list-check"></i> Danh sách người
                     dùng
                   </a>
@@ -103,7 +90,7 @@ function LayoutAdmin() {
               </ul>
             </div>
 
-            {/* location */}
+            {/* location*/}
             <div className="dropdown">
               <button
                 className="text-xl font-mono font-bold dropdown-toggle "
@@ -171,7 +158,12 @@ function LayoutAdmin() {
               </ul>
             </div>
             {/* chair */}
-            {/* <div className="dropdown">
+            {/* <div className={`cursor-pointer dropdown ${
+                selectedTab === "location"
+                  ? "text-gray-800 bg-red-100 py-2 rounded-md pl-1"
+                  : ""
+              }`}
+              onClick={() => handleTabClick("location")}>
               <button
                 className="text-xl font-mono font-bold dropdown-toggle "
                 data-bs-toggle="dropdown"
@@ -259,15 +251,14 @@ function LayoutAdmin() {
                 </li>
               </ul>
             </div>
-
-            {/* đồ ăn */}
+            {/* đồ uống */}
             <div className="dropdown">
               <button
                 className="text-xl font-mono font-bold dropdown-toggle "
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                <i className="fa-solid fa-bowl-food"></i> Đồ ăn
+                <i className="fa-solid fa-mug-saucer"></i> Menu
               </button>
               <ul className="dropdown-menu bg-gray-200 font-bold font-mono">
                 <li>
@@ -282,33 +273,51 @@ function LayoutAdmin() {
                 </li>
               </ul>
             </div>
-            {/* đồ uống */}
+
+            {/* phiếu giảm giá */}
             <div className="dropdown">
               <button
                 className="text-xl font-mono font-bold dropdown-toggle "
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                <i className="fa-solid fa-mug-saucer"></i> Đồ uống
+                <i class="fa-solid fa-ticket"></i> Phiếu giảm giá
               </button>
               <ul className="dropdown-menu bg-gray-200 font-bold font-mono">
                 <li>
-                  <a className="dropdown-item" href="#">
-                    <i className="fa-solid fa-folder-plus"></i> Tạo mới
+                  <a className="dropdown-item" href="/admin/create-coupons">
+                    <i className="fa-solid fa-folder-plus"></i> Coupons
                   </a>
                 </li>
+
                 <li>
-                  <a className="dropdown-item" href="#">
-                    <i className="fa-solid fa-list-check"></i> Danh sách
+                  <a className="dropdown-item" href="/admin/create-event">
+                    <i className="fa-solid fa-folder-plus"></i> Event
                   </a>
                 </li>
               </ul>
             </div>
           </div>
         </div>
-        <div className="w-[80%] h-screen ">
-          <div className="h-[70px] w-full bg-red-300"></div>
-          <div>
+        <div className="w-[80%] h-full  ">
+          <div className="h-[70px] w-full bg-slate-50 nav-admin ">
+            <div className="w-full h-full flex items-center justify-end gap-3 pr-5">
+              <p className="font-bold font-mono">Xin Chào Admin</p>
+              <div className="w-[50px] h-[50px]">
+                <Link to="/admin/profile">
+                  <img
+                    className="w-full h-full rounded-[50%] "
+                    src="https://inkythuatso.com/uploads/thumbnails/800/2023/03/8-anh-dai-dien-trang-inkythuatso-03-15-26-54.jpg"
+                    alt=""
+                  />
+                </Link>
+              </div>
+              <p>
+                <i className="fa-solid fa-right-from-bracket text-2xl"></i>
+              </p>
+            </div>
+          </div>
+          <div className="w-full h-full">
             <Outlet></Outlet>
           </div>
         </div>

@@ -1,43 +1,53 @@
 import axios from "axios";
-import { getCustomeFailed, getCustomeSuccess, getEmployerFailed, getEmployerSuccess, getManagerFailed, getManagerSuccess } from "../../reducers/userSlice";
+import { 
+    getCustomeSuccess,
+    getCustomeFailed,
+    getEmployerSuccess,
+    getEmployerFailed,
+    getManagerSuccess,
+    getManagerFailed, } from "../../reducers/userSlice";
 
-export const getAllCustomer = async(accessToken,distpatch)=>{
-    distpatch.getCustomerStart()
+    export const getAllCustomer = async (dispatch, token, username, page) => {
+        try {
+          const res = await axios.get(
+            "http://localhost:6789/api/booking/v1/users/customers",
+            {
+              headers: { Authorization: `Bearer ${token}` },
+              params: {
+                username: username,
+                page: page,
+              },
+            }
+          );
+          dispatch(getCustomeSuccess(res.data));
+        } catch (error) {
+          dispatch(getCustomeFailed());
+        }
+      };
+export const getAllEmployer = async(distpatch,token,page)=>{
     try{
-        const res = await axios.get("http://localhost:6789/api/booking/v1/user/customer",
+        const res = await axios.get("http://localhost:6789/api/booking/v1/users/employer",
         {
-            headers: {token:`Bearer ${accessToken}` }
+            headers: {token:`Bearer ${token}` },
+            params: {
+              // username: username,
+              page: page,
+            },
         });
-        distpatch(getCustomeSuccess(res.data))
-
-    }catch(error){
-        distpatch(getCustomeFailed())
-    }
-} 
-
-export const getAllEmployer = async(accessToken,distpatch)=>{
-    distpatch.getEmployerStart()
-    try{
-        const res = await axios.get("http://localhost:6789/api/booking/v1/user/employer",
-        {
-            headers: {token:`Bearer ${accessToken}` }
-        });
-        distpatch(getEmployerSuccess(res.data))
-
+        distpatch(getEmployerSuccess(res.data.content))
+        console.log(res.data.content);
     }catch(error){
         distpatch(getEmployerFailed())
     }
 } 
 
 export const getAllMaganer= async(accessToken,distpatch)=>{
-    distpatch.getManagerStart()
     try{
-        const res = await axios.get("http://localhost:6789/api/booking/v1/user/manager",
+        const res = await axios.get("http://localhost:6789/api/booking/v1/users/manager",
         {
             headers: {token:`Bearer ${accessToken}` }
         });
-        distpatch(getManagerSuccess(res.data))
-
+        distpatch(getManagerSuccess(res.data.content))
     }catch(error){
         distpatch(getManagerFailed())
     }

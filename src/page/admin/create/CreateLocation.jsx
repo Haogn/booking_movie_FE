@@ -19,22 +19,11 @@ function CreateLocation() {
             />
           </div>
 
-          {/* <div className="mb-3">
-            <label className="form-label font-mono font-semibold">
-              Trạng thái: <span className="text-red-500">*</span>
-            </label>
-            <select class="form-select" aria-label="Default select example">
-              <option selected>Trạng thái</option>
-              <option value="true">Mở cửa</option>
-              <option value="false">Đóng</option>
-            </select>
-          </div> */}
-
           <button
             type="submit"
             className="btn btn-dark font-mono mb-4 text-gray-950"
           >
-            Lưu thay đổi
+            Thêm mới
           </button>
         </form>
       </div>
