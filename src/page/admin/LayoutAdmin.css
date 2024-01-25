@@ -5,3 +5,15 @@
 .dropdown-item {
   width: 220px;
 }
+
+.nav-admin {
+  background-image: url(../../../public/image/bg-top.png);
+  width: 100%;
+  margin: auto;
+  background-size: 10px 70px;
+  height: 70px;
+}
+
+.layout-admin {
+  background-color: #fdf8de;
+}

@@ -5,53 +5,73 @@ function CreateRoom() {
     <div>
       <div className="w-[50%] h-screen mx-auto ">
         <h1 className="text-center text-2xl font-mono font-semibold my-6 pb-3 border-b-2 border-gray-400">
-          Tạo mới Phiếu giảm giá
+          Tạo mới Phòng chiếu
         </h1>
         <form action="">
-          <div className="mb-3">
+          <div className="mb-2">
             <label className="form-label font-mono font-semibold">
-              Mã Khách hàng: <span className="text-red-500">*</span>
+              Tên phòng chiếu: <span className="text-red-500">*</span>
             </label>
             <input
               type="text"
               className="form-control"
-              placeholder="Mã khách hàng"
+              placeholder="Tên phòng chiếu"
             />
           </div>
 
-          <div className="mb-3">
+          <div className="mb-2">
             <label className="form-label font-mono font-semibold">
-              Hiệu lực: <span className="text-red-500">*</span>
-            </label>
-            <input type="date" className="form-control" />
-          </div>
-          <div className="mb-3">
-            <label className="form-label font-mono font-semibold">
-              Giảm giá: <span className="text-red-500">*</span>
+              Số ghế hàng dọc: <span className="text-red-500">*</span>
             </label>
             <select class="form-select" aria-label="Default select example">
-              <option selected>Giảm giá</option>
-              <option value="1">5%</option>
-              <option value="2">10%</option>
-              <option value="3">15%</option>
+              <option selected>Số ghế hàng dọc</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
             </select>
           </div>
 
-          <div className="mb-3">
+          <div className="mb-2">
             <label className="form-label font-mono font-semibold">
-              Thông tin giảmg giá: <span className="text-red-500">*</span>
+              Số ghế hàng ngang: <span className="text-red-500">*</span>
             </label>
-            <text
-              type="text"
-              className="form-control"
-              placeholder="Thông tin giảm giá"
-            />
+            <select class="form-select" aria-label="Default select example">
+              <option selected>Số ghế hàng ngang</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+            </select>
+          </div>
+          <div className="mb-2">
+            <label className="form-label font-mono font-semibold">
+              Type phòng chiêu: <span className="text-red-500">*</span>
+            </label>
+            <select class="form-select" aria-label="Default select example">
+              <option selected>Type</option>
+              <option value="2D">2D</option>
+              <option value="3D">3D</option>
+              <option value="4D">4D</option>
+            </select>
+          </div>
+
+          <div className="mb-2">
+            <label className="form-label font-mono font-semibold">
+              Rạp chiếu: <span className="text-red-500">*</span>
+            </label>
+            <select class="form-select" aria-label="Default select example">
+              <option selected>Rạp chiếu</option>
+              <option value="1">CGV Bà Triệu</option>
+              <option value="3">CGV Tràng Tiền Plaza</option>
+              <option value="4">CGV Phạm Ngọc Thạch</option>
+            </select>
           </div>
           <button
             type="submit"
             className="btn btn-dark font-mono mb-4 text-gray-950"
           >
-            Lưu thay đổi
+            Thêm mới
           </button>
         </form>
       </div>

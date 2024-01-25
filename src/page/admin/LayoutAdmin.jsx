@@ -1,5 +1,5 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import "./LayoutAdmin.css";
 
 function LayoutAdmin() {
@@ -7,7 +7,7 @@ function LayoutAdmin() {
     <div>
       <div className="w-screen h-screen flex  ">
         <div className="w-[20%] h-screen ">
-          <div className=" flex flex-col justify-start px-[12%] gap-3">
+          <div className="w-full h-screen flex flex-col justify-start px-[8%] gap-3 bg-slate-50 layout-admin border-r-2 border-red-100">
             {/* logo */}
             <div>
               <img
@@ -16,7 +16,7 @@ function LayoutAdmin() {
               />
             </div>
             {/* thống kê */}
-            <div className="dropdown">
+            {/* <div className="dropdown">
               <button
                 className="text-xl font-mono font-bold dropdown-toggle "
                 data-bs-toggle="dropdown"
@@ -42,31 +42,8 @@ function LayoutAdmin() {
                   </a>
                 </li>
               </ul>
-            </div>
+            </div> */}
 
-            {/* phiếu giảm giá */}
-            <div className="dropdown">
-              <button
-                className="text-xl font-mono font-bold dropdown-toggle "
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                <i class="fa-solid fa-ticket"></i> Phiếu giảm giá
-              </button>
-              <ul className="dropdown-menu bg-gray-200 font-bold font-mono">
-                <li>
-                  <a className="dropdown-item" href="/admin/create-coupons">
-                    <i className="fa-solid fa-folder-plus"></i> Coupons
-                  </a>
-                </li>
-
-                <li>
-                  <a className="dropdown-item" href="/admin/create-event">
-                    <i className="fa-solid fa-folder-plus"></i> Event
-                  </a>
-                </li>
-              </ul>
-            </div>
             {/* user */}
             <div className="dropdown">
               <button
@@ -95,7 +72,7 @@ function LayoutAdmin() {
                   </a>
                 </li>
                 <li>
-                  <a className="dropdown-item" href="/admin/list-customer">
+                  <a className="dropdown-item" href="/admin">
                     <i className="fa-solid fa-list-check"></i> Danh sách người
                     dùng
                   </a>
@@ -267,7 +244,8 @@ function LayoutAdmin() {
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                <i className="fa-solid fa-bowl-food"></i> Đồ ăn
+                <i className="fa-solid fa-bowl-food"></i>/
+                <i className="fa-solid fa-mug-saucer"></i> Menu
               </button>
               <ul className="dropdown-menu bg-gray-200 font-bold font-mono">
                 <li>
@@ -282,32 +260,48 @@ function LayoutAdmin() {
                 </li>
               </ul>
             </div>
-            {/* đồ uống */}
+
+            {/* phiếu giảm giá */}
             <div className="dropdown">
               <button
                 className="text-xl font-mono font-bold dropdown-toggle "
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                <i className="fa-solid fa-mug-saucer"></i> Đồ uống
+                <i class="fa-solid fa-ticket"></i> Phiếu giảm giá
               </button>
               <ul className="dropdown-menu bg-gray-200 font-bold font-mono">
                 <li>
-                  <a className="dropdown-item" href="#">
-                    <i className="fa-solid fa-folder-plus"></i> Tạo mới
+                  <a className="dropdown-item" href="/admin/create-coupons">
+                    <i className="fa-solid fa-folder-plus"></i> Coupons
                   </a>
                 </li>
+
                 <li>
-                  <a className="dropdown-item" href="#">
-                    <i className="fa-solid fa-list-check"></i> Danh sách
+                  <a className="dropdown-item" href="/admin/create-event">
+                    <i className="fa-solid fa-folder-plus"></i> Event
                   </a>
                 </li>
               </ul>
             </div>
           </div>
         </div>
-        <div className="w-[80%] h-screen ">
-          <div className="h-[70px] w-full bg-red-300"></div>
+        <div className="w-[80%] h-screen  ">
+          <div className="h-[70px] w-full bg-slate-50 nav-admin ">
+            <div className="w-full h-full flex items-center justify-end gap-3 pr-5">
+              <p className="font-bold font-mono">Xin Chào Admin</p>
+              <div className="w-[50px] h-[50px]">
+                <Link to="/admin/profile">
+                  <img
+                    className="w-full h-full rounded-[50%] "
+                    src="https://inkythuatso.com/uploads/thumbnails/800/2023/03/8-anh-dai-dien-trang-inkythuatso-03-15-26-54.jpg"
+                    alt=""
+                  />
+                </Link>
+              </div>
+              <p className="font-mono font-bold">Logout</p>
+            </div>
+          </div>
           <div>
             <Outlet></Outlet>
           </div>

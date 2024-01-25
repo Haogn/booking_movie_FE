@@ -3,7 +3,6 @@ import { Route, Routes } from "react-router-dom";
 import HomeCustomer from "../customer/HomeCustomer";
 import IndexCustomer from "../customer/IndexCustomer";
 import Login from "../login_register/Login";
-import Detail from "../customer/Detail";
 import Register from "../login_register/Register";
 import IndexProfile from "../customer/IndexProfile";
 import Point from "../customer/Point";
@@ -15,7 +14,6 @@ import CreateAccount from "../admin/create/CreateAccount";
 import ListManagement from "../admin/list/ListManagement";
 import ListEmploy from "../admin/list/ListEmploy";
 import LayoutAdmin from "../admin/LayoutAdmin";
-import HomeAdmin from "../admin/HomeAdmin";
 import CreateLocation from "../admin/create/CreateLocation";
 import ListLocation from "../admin/list/ListLocation";
 import CreateTheater from "../admin/create/CreateTheater";
@@ -30,16 +28,16 @@ import CreateMovie from "../admin/create/CreateMovie";
 import ListMovie from "../admin/list/ListMovie";
 import CreateFood from "../admin/create/CreateFood";
 import ListFood from "../admin/list/ListFood";
-import CreateDrinks from "../admin/create/CreateDrinks";
-import ListDrinks from "../admin/list/ListDrinks";
 import CreateCoupons from "../admin/create/CreateCoupons";
 import CreateEvent from "../admin/create/CreateEvent";
 import ListCustomer from "../admin/list/ListCustomer";
+
 import DetailMovie from "../customer/detailMovie/DetailMovie";
 import BookingOnline from "./../customer/bookingOnline/BookingOnline";
 import BookingChair from "./../customer/bookingOnline/BookingChair";
 import BookingDish from "./../customer/bookingOnline/BookingDish";
 import ComingSoon from "./../customer/movieList/ComingSoon";
+import ProfileAccount from "../admin/ProfileAccount";
 
 function Routers() {
   return (
@@ -74,7 +72,7 @@ function Routers() {
         </Route>
         {/* Admin */}
         <Route path="/admin" element={<LayoutAdmin />}>
-          <Route index element={<HomeAdmin />}></Route>
+          <Route index element={<ListCustomer />}></Route>
           <Route
             path="/admin/create-account"
             element={<CreateAccount />}
@@ -89,7 +87,7 @@ function Routers() {
             element={<ListManagement />}
           ></Route>
           <Route path="/admin/list-employ" element={<ListEmploy />}></Route>
-          <Route path="/admin/list-customer" element={<ListCustomer />}></Route>
+          <Route path="/admin" element={<ListCustomer />}></Route>
           <Route
             path="/admin/create-location"
             element={<CreateLocation />}
@@ -110,8 +108,7 @@ function Routers() {
           <Route path="/admin/list-movie" element={<ListMovie />}></Route>
           <Route path="/admin/create-food" element={<CreateFood />}></Route>
           <Route path="/admin/list-food" element={<ListFood />}></Route>
-          <Route path="/admin/create-drinks" element={<CreateDrinks />}></Route>
-          <Route path="/admin/list-drinks" element={<ListDrinks />}></Route>
+          <Route path="/admin/profile" element={<ProfileAccount />}></Route>
         </Route>
 
         {/* Management */}

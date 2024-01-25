@@ -41,7 +41,7 @@ function CreateCoupons() {
             <label className="form-label font-mono font-semibold">
               Thông tin giảmg giá: <span className="text-red-500">*</span>
             </label>
-            <text
+            <input
               type="text"
               className="form-control"
               placeholder="Thông tin giảm giá"
