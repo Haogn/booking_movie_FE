@@ -11,8 +11,8 @@ function LayoutAdmin() {
   return (
     <div>
       <div className="w-screen h-full flex layout-admin ">
-        <div className="w-[20%] h-screen  ">
-          <div className="w-full h-screen flex flex-col justify-start px-[8%] gap-3 bg-slate-50 layout-admin border-r-2 border-red-300">
+        <div className="w-[20%] h-full  ">
+          <div className="w-full h-[1000px] flex flex-col justify-start px-[8%] gap-3 bg-slate-50 layout-admin border-r-2 border-red-300">
             {/* logo */}
             <div>
               <img
@@ -258,7 +258,7 @@ function LayoutAdmin() {
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                <i className="fa-solid fa-mug-saucer"></i> Đồ uống
+                <i className="fa-solid fa-mug-saucer"></i> Menu
               </button>
               <ul className="dropdown-menu bg-gray-200 font-bold font-mono">
                 <li>
@@ -299,7 +299,7 @@ function LayoutAdmin() {
             </div>
           </div>
         </div>
-        <div className="w-[80%] h-screen  ">
+        <div className="w-[80%] h-full  ">
           <div className="h-[70px] w-full bg-slate-50 nav-admin ">
             <div className="w-full h-full flex items-center justify-end gap-3 pr-5">
               <p className="font-bold font-mono">Xin Chào Admin</p>
@@ -317,7 +317,7 @@ function LayoutAdmin() {
               </p>
             </div>
           </div>
-          <div>
+          <div className="w-full h-full">
             <Outlet></Outlet>
           </div>
         </div>

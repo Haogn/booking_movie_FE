@@ -50,13 +50,7 @@ function ListManagement() {
                   />
                 </td>
                 <td>27/02/1998</td>
-                <td colSpan={2}>
-                  <button
-                    type="button"
-                    className="btn btn-success text-green-600 mr-2"
-                  >
-                    <i className="fa-solid fa-pen-to-square "></i>
-                  </button>
+                <td>
                   <button
                     type="button"
                     className=" btn btn-danger text-red-600"
