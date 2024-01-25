@@ -1,9 +1,7 @@
 export const validateBlank = (text) => {
-    if ((text + "").trim() == "") {
-      return true;
-    }
-    return false;
-  }
+  return (text.trim() === "");
+};
+
   
   export const validateNumber = (text) => {
     if (Number(text) <= 0) {
