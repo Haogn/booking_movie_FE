@@ -11,8 +11,32 @@ function Point() {
         <h1 className="text-3xl font-bold font-mono">Tổng quan </h1>
       </div>
 
-      <div className="flex justify-around">
-        <div className=""></div>
+      <div className="flex justify-around pt-3">
+        <div className="flex gap-5 ">
+          <div className="text-lg font-normal font-mono">
+            <p className="pt-3">Tổng chi tiêu 2024:</p>
+            <p className="pt-3">Điểm sẽ nhận:</p>
+            <p className="pt-3">Điểm hiện tại</p>
+          </div>
+          <div className="text-lg font-bold font-mono">
+            <p className="pt-3">
+              <span>0</span> VNĐ
+            </p>
+            <p className="pt-3">
+              <span>0</span> Point
+            </p>
+            <p className="pt-3">
+              <span>0</span> Point
+            </p>
+          </div>
+        </div>
+        <div>
+          <img
+            className="w-[250px] h-[150px]"
+            src="https://www.cgv.vn/skin//frontend/cgv/default/images/cgv-point.jpg"
+            alt=""
+          />
+        </div>
       </div>
     </div>
   );

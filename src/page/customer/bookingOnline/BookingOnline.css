@@ -1,0 +1,182 @@
+.booking_online {
+  margin: 30px 15%;
+  border: 2px solid rgb(171, 169, 169);
+  background-color: #fff;
+}
+.info-wrapper {
+  all: initial;
+  color: #fff;
+}
+.head_booking_online {
+  background-color: #231d1c;
+  padding: 20px;
+}
+.booking_online h1 {
+  text-align: center;
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+}
+.product-primary {
+  font-weight: 700;
+  padding: 7px;
+  background-color: #fdf8de;
+  border-bottom: 2px solid rgb(171, 169, 169);
+}
+.foot_booking_online {
+  color: #fff;
+  background-color: black;
+}
+.info-wrapper td {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  padding: 10px 10px;
+}
+.info-wrapper img {
+  height: 150px;
+}
+.foot_booking_online {
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+.previous {
+  background-color: #666464;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.previous:hover {
+  background-color: #444444;
+}
+.previous i {
+  font-size: 24px;
+}
+.next {
+  background-color: #ca3d3d;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.next:hover {
+  background-color: #cb2b2b;
+}
+.next i {
+  font-size: 24px;
+}
+.head_chair {
+  margin: 15px 0px;
+  background-color: #bcbdc0;
+  border-top: 2 px solid rgb(72, 70, 70);
+  border-bottom: 2 px solid rgb(66, 64, 64);
+  padding: 5px 0px;
+}
+.head_chair h1 {
+  color: #231d1c !important;
+}
+.screen h1 {
+  background-image: url(https://www.cgv.vn/skin/frontend/cgv/default/images/bg-cgv/bg-screen.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  margin: auto;
+  text-indent: -9999px;
+  margin-top: 12px;
+  height: 60px;
+}
+
+.chairs {
+  margin: 30px auto;
+  /* border: 1px solid black !important;
+  width: 440px;
+  height: 340px; */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.chair {
+  text-align: center;
+  line-height: 22px;
+  width: 30px;
+  height: 30px;
+  border: 1px solid #444444;
+}
+.ticketbox-notice {
+  margin: 20px auto;
+  width: 400px;
+  display: flex;
+  line-height: 30px;
+}
+.as {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-top: 5px;
+}
+.checked {
+  background-color: #bc1a55;
+}
+.chon {
+  background-color: #787575;
+}
+.not {
+  line-height: 22px;
+  background-color: #787575;
+  color: #fff;
+}
+.thuong {
+  border: 1px solid #2fa352;
+}
+.vip {
+  border: 1px solid #c21307;
+}
+.left_card img {
+  height: 200px;
+  object-fit: contain;
+}
+.btn_s_b {
+  display: flex;
+}
+.btn_s_b .text {
+  text-align: center;
+  width: 25px;
+  border: 1px solid rgb(157, 156, 156);
+}
+.btn_s_b button {
+  margin: 0px 5px;
+  color: #fff;
+  background-color: #e71a0f;
+  width: 20px;
+}
+.btn_s_b button:hover {
+  background-color: #86140e;
+}
+.card_list {
+  display: flex;
+}
+.card_list .cards {
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+.right_card h2 {
+  font-size: 20px;
+  font-weight: 700;
+}
+.right_card {
+  line-height: 200%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}

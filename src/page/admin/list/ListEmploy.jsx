@@ -26,6 +26,9 @@ function ListEmploy() {
   return  listEmployer ? (
     <div>
       <div className="w-full h-full px-2 ">
+        <h1 className="text-center text-2xl font-mono font-semibold my-6 pb-3 border-b-2 border-gray-400">
+          Danh sách Nhân viên
+        </h1>
         <nav className="navbar bg-body-tertiary mt-3">
           <div className="container-fluid">
             <a className="navbar-brand"></a>
@@ -42,9 +45,6 @@ function ListEmploy() {
             </form>
           </div>
         </nav>
-        <h1 className="text-center text-2xl font-mono font-semibold my-6 pb-3 border-b-2 border-gray-400">
-          Danh sách Nhân viên
-        </h1>
         <div class="container mt-4">
           <table class="table table-hover font-mono">
             <thead>
