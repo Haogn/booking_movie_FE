@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 
 function Profile() {
   const user = useSelector((state) => state.auth.login.currentUser);
+  console.log(user);
 
   return (
     <div>
@@ -18,15 +19,8 @@ function Profile() {
             alt=""
           />
         </div>
-        <input
-          type="submit"
-          id="avatarInput"
-          className="hidden"
-        />
-        <button
-          type="file"
-          className="btn btn-dark font-mono mb-4 w-[116px]"         
-        >
+        <input type="submit" id="avatarInput" className="hidden" />
+        <button type="file" className="btn btn-dark font-mono mb-4 w-[116px]">
           Thay đổi
         </button>
       </div>
@@ -40,20 +34,17 @@ function Profile() {
                 <label className="form-label font-mono font-semibold">
                   Tên: <span className="text-red-500">*</span>
                 </label>
-                <input 
-                value={user.username}
-                type="text" className="form-control" id="username" />
+
+                <p className="font-mono font-semibold mt-2">{user.username}</p>
               </div>
               <div className="mb-3">
                 <label className="form-label font-mono font-semibold">
                   Email: <span className="text-red-500">*</span>
                 </label>
-                <p className="font-mono font-semibold mt-2">
-                  {user.email}
-                </p>
+                <p className="font-mono font-semibold mt-2">{user.email}</p>
               </div>
 
-              <div className="mb-3">
+              {/* <div className="mb-3">
                 <label className="form-label font-mono font-semibold">
                   Giới tính: <span className="text-red-500">*</span>
                 </label>
@@ -83,7 +74,7 @@ function Profile() {
                     </label>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
 
             {/* Cột 2 */}
@@ -92,14 +83,21 @@ function Profile() {
                 <label className="form-label font-mono font-semibold">
                   Số điện thoại: <span className="text-red-500">*</span>
                 </label>
-                <input type="text" className="form-control" id="input3" />
+                <input
+                  type="text"
+                  className="form-control"
+                  id="phone"
+                  value={user.phone}
+                />
               </div>
 
               <div className="mb-3">
                 <label className="form-label font-mono font-semibold">
                   Sinh nhật:
                 </label>
-                <p className="font-mono font-semibold mt-2">{user.dateOfBirth}</p>
+                <p className="font-mono font-semibold mt-2">
+                  {user.dateOfBirth}
+                </p>
               </div>
 
               <div className="mb-3">
@@ -112,7 +110,7 @@ function Profile() {
           </div>
           <button
             type="sunmit"
-            className="btn btn-dark font-mono mb-4 text-gray-950"
+            className="btn btn-dark font-mono mb-4 text-white"
           >
             Lưu thay đổi
           </button>
