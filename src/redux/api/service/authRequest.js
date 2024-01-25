@@ -9,11 +9,16 @@ export const loginUser = async (user, dispatch, navigate) => {
     const expirationTime = new Date(new Date().getTime() + 20 * 60 * 1000);
     localStorage.setItem('username', JSON.stringify(res.data.username), expirationTime);
     localStorage.setItem('acessToken', JSON.stringify(res.data.token), expirationTime);
-    navigate("/");
+ if(res.data.setRoles.includes("CUSTOMER")){
+  navigate("/");
+ }
+  if(res.data.setRoles.includes("ADMIN")){
+    navigate("/admin");
+  }  
   } catch (error) {
-    dispatch(loginFailed());
+    dispatch(loginFailed(error.response));
   }
-};
+};  
 
 export const registerUser = async(user,dispath,navigate)=>{
     dispath(registerStart())
@@ -22,8 +27,9 @@ export const registerUser = async(user,dispath,navigate)=>{
         dispath(registerSuccess(res.data))
         navigate("/login")
     }catch(error){
-        dispath(registerFailed());
-    }
+      console.error("Đăng ký thất bại:", error);
+      dispath(registerFailed());
+  }
 };
 
 export const logout = (dispatch, navigate) => {
@@ -32,7 +38,8 @@ export const logout = (dispatch, navigate) => {
       localStorage.removeItem('username');
       localStorage.removeItem('acessToken');
       dispatch(logoutSuccess());
-      navigate("/login");
+      console.log("chuyển hướng");
+      navigate("/");
     } catch (error) {
       dispatch(loginFailed());
     }
