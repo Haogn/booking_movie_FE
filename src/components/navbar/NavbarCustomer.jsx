@@ -8,11 +8,10 @@ function NavbarCustomer() {
   const storedUsername  = localStorage.getItem('username');
   const username = storedUsername && storedUsername.startsWith('"') && storedUsername.endsWith('"')
   ? storedUsername.slice(1, -1) 
-  : storedUsername;
-  console.log(username)
+  : storedUsername
+
   const distpatch = useDispatch()
   const navigate = useNavigate()
-
 
   const handleLogout = ()=>{
     logout(distpatch,navigate)
@@ -23,7 +22,7 @@ function NavbarCustomer() {
       <div className="w-[70%] m-auto">
         <div className="my-[10px] flex justify-end gap-[30px] text-base cursor-pointer font-black font-mono">
           <div className="tinmoi">
-            <i className="fa-sharp fa-solid fa-tags" />
+            <i className="fas fa-tags" />
             TIN MỚI &amp; ƯU ĐÃI
           </div>
           <div className="vecuatoi">
@@ -33,7 +32,7 @@ function NavbarCustomer() {
         <>
           <Link onClick={handleLogout}>
             <i className="fa-solid fa-circle-user" />
-            {username} / ĐĂNG XUẤT
+              {username} / ĐĂNG XUẤT
           </Link>
         </>
       ) : (
@@ -46,7 +45,7 @@ function NavbarCustomer() {
       <div className="header-page">
         <div className="flex justify-center gap-[70px] my-[20px] cursor-pointer pt-[30px]">
           <div>
-            <a href="/">
+            <a href="#">
               <img src="./image/logo.png" alt="" />
             </a>
           </div>

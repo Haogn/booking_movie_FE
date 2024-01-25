@@ -3,6 +3,9 @@ import { Outlet } from "react-router-dom";
 import "./LayoutAdmin.css";
 
 function LayoutAdmin() {
+
+
+  
   return (
     <div>
       <div className="w-screen h-screen flex  ">
