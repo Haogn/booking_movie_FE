@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import "./HomeCustomer.css";
 import Carousel from "react-bootstrap/Carousel";
@@ -8,6 +8,24 @@ import "owl.carousel/dist/assets/owl.theme.default.css";
 import { Link } from "react-router-dom";
 
 function HomeCustomer() {
+  const [selectedTab, setSelectedTab] = useState("default-day"); // Default selected tab
+
+  const handleTabDay = (tab) => {
+    setSelectedTab(tab);
+  };
+
+  const [selectedLocation, setSelectedLocation] = useState("default-location"); // Default selected tab
+
+  const handleTabLocation = (tab) => {
+    setSelectedLocation(tab);
+  };
+
+  const [selectedType, setSelectedType] = useState("default-type"); // Default selected tab
+
+  const handleTabType = (tab) => {
+    setSelectedType(tab);
+  };
+
   return (
     <div>
       <div className="w-screen h-[1000px]">
@@ -71,6 +89,163 @@ function HomeCustomer() {
         {/* movie-selection */}
         <div className="movie-selection" id="movie-selection">
           <h2>-MOVIE SELECTION-</h2>
+          {/* modal booking movie */}
+          <div
+            className="modal fade "
+            id="exampleModalToggle"
+            aria-hidden="true"
+            aria-labelledby="exampleModalToggleLabel"
+            tabindex="-1"
+          >
+            <div className="modal-dialog modal-dialog-centered w-screen h-screen">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h1 className="modal-title fs-5" id="exampleModalToggleLabel">
+                    Đặt vé xem phim
+                  </h1>
+                  <button
+                    type="button"
+                    className="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                {/* day */}
+                <div className="modal-body w-full h-[90px] p-[20px] bg-slate-300 flex gap-2 days border-y-2 border-black my-1">
+                  <div
+                    className={`cursor-pointer w-[74px] h-[45px] p-1  rounded-[3px]  font-mono flex items-center justify-around day-item ${
+                      selectedTab === "default-day"
+                        ? "text-gray-950 border border-black rounded-[3px] bg-red-100 py-2 "
+                        : ""
+                    }`}
+                    onClick={() => handleTabDay("default-day")}
+                  >
+                    <div className="flex flex-col">
+                      <p>01</p>
+                      <p>Thu</p>
+                    </div>
+                    <div className="">
+                      <p className="text-3xl">25</p>
+                    </div>
+                  </div>
+
+                  <div
+                    className={`cursor-pointer w-[74px] h-[45px] p-1  rounded-[3px]  font-mono flex items-center justify-around day-item ${
+                      selectedTab === "next-day"
+                        ? "text-gray-950 border border-black rounded-[3px] bg-red-100 py-2 "
+                        : ""
+                    }`}
+                    onClick={() => handleTabDay("next-day")}
+                  >
+                    <div className="flex flex-col">
+                      <p>01</p>
+                      <p>Thu</p>
+                    </div>
+                    <div className="">
+                      <p className="text-3xl">25</p>
+                    </div>
+                  </div>
+                </div>
+                {/* location */}
+                <div className="modal-body w-[95%] h-[70px] border-b-2 border-black mx-auto ">
+                  <div className="flex items-center gap-2">
+                    {/*  */}
+                    <p
+                      className={`cursor-pointer h-[40px] w-[110px] font-mono text-center rounded-[5px] py-[7px] ${
+                        selectedLocation === "default-location"
+                          ? " bg-gray-950 text-white border border-black rounded-[3px]  py-2 "
+                          : ""
+                      }`}
+                      onClick={() => handleTabLocation("default-location")}
+                    >
+                      Hồ Chí Minh
+                    </p>
+
+                    <p
+                      className={`cursor-pointer h-[40px] w-[110px] font-mono text-center rounded-[5px] py-[7px] ${
+                        selectedLocation === "next-location"
+                          ? " bg-gray-950 text-white border border-black rounded-[3px]  py-2 "
+                          : ""
+                      }`}
+                      onClick={() => handleTabLocation("next-location")}
+                    >
+                      Hà Nội
+                    </p>
+                  </div>
+                </div>
+                {/* type */}
+                <div className="modal-body w-[95%] h-[70px] p-[20px] bg-slate-300 flex gap-2 days border-b-2 border-black mx-auto">
+                  <div className="flex gap-3">
+                    <p
+                      className={`cursor-pointer h-[35px] w-[150px] font-mono text-center rounded-[5px] py-[5px] ${
+                        selectedType === "default-type"
+                          ? " bg-gray-950 text-white border border-black rounded-[3px]  py-2 "
+                          : ""
+                      }`}
+                      onClick={() => handleTabType("default-type")}
+                    >
+                      2D Phụ Đề Việt
+                    </p>
+
+                    <p
+                      className={`cursor-pointer h-[35px] w-[150px] font-mono text-center rounded-[5px] py-[5px] ${
+                        selectedType === "next-type"
+                          ? " bg-gray-950 text-white border border-black rounded-[3px]  py-2 "
+                          : ""
+                      }`}
+                      onClick={() => handleTabType("next-type")}
+                    >
+                      3D Phụ Đề Việt
+                    </p>
+                  </div>
+                </div>
+                {/* theater and time */}
+                <div className="modal-body w-[95%] h-[110px] p-[20px] bg-slate-300  days border-b-2 border-black mx-auto">
+                  <h3 className="font-mono font-bold text-lg">
+                    CGV Lý Chính Thắng
+                  </h3>
+                  <div className="flex gap-2 items-center times">
+                    <p className="w-[126px] h-[35px] text-center  py-[5px] font-mono font-medium border border-black time-item">
+                      10:05 PM
+                    </p>
+                  </div>
+                </div>{" "}
+                <div className="modal-body w-[95%] h-[110px] p-[20px] bg-slate-300  days border-b-2 border-black mx-auto">
+                  <h3 className="font-mono font-bold text-lg">
+                    CGV Lý Chính Thắng
+                  </h3>
+                  <div className="flex gap-2 items-center times">
+                    <p className="w-[126px] h-[35px] text-center  py-[5px] font-mono font-medium border border-black time-item">
+                      10:05 PM
+                    </p>
+                  </div>
+                </div>
+                <div className="modal-body w-[95%] h-[110px] p-[20px] bg-slate-300  days border-b-2 border-black mx-auto">
+                  <h3 className="font-mono font-bold text-lg">
+                    CGV Lý Chính Thắng
+                  </h3>
+                  <div className="flex gap-2 items-center times">
+                    <p className="w-[126px] h-[35px] text-center  py-[5px] font-mono font-medium border border-black time-item">
+                      10:05 PM
+                    </p>
+                  </div>
+                </div>
+                <div className="modal-body w-[95%] h-[110px] p-[20px] bg-slate-300  days border-b-2 border-black mx-auto">
+                  <h3 className="font-mono font-bold text-lg">
+                    CGV Lý Chính Thắng
+                  </h3>
+                  <div className="flex gap-2 items-center times">
+                    <p className="w-[126px] h-[35px] text-center  py-[5px] font-mono font-medium border border-black time-item">
+                      10:05 PM
+                    </p>
+                  </div>
+                </div>
+                <div className="modal-footer">
+                  <p>footer booking</p>
+                </div>
+              </div>
+            </div>
+          </div>
           <OwlCarousel
             className="owl-theme mt-3"
             loop
@@ -78,7 +253,7 @@ function HomeCustomer() {
             nav
             items={4}
           >
-            <div class="item">
+            <div className="item">
               <div className="movie-item ">
                 <div className="movie-image">
                   <img
@@ -105,45 +280,48 @@ function HomeCustomer() {
                       <button
                         variant="outline-secondary"
                         className="text-center font-medium font-mono text-white "
+                        data-bs-target="#exampleModalToggle"
+                        data-bs-toggle="modal"
                       >
-                        Mua vé <i class="fa-solid fa-ticket"></i>
+                        Mua vé <i className="fa-solid fa-ticket"></i>
                       </button>{" "}
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="item">
+
+            <div className="item">
               <h4>2</h4>
             </div>
-            <div class="item">
+            <div className="item">
               <h4>3</h4>
             </div>
-            <div class="item">
+            <div className="item">
               <h4>4</h4>
             </div>
-            <div class="item">
+            <div className="item">
               <h4>5</h4>
             </div>
-            <div class="item">
+            <div className="item">
               <h4>6</h4>
             </div>
-            <div class="item">
+            <div className="item">
               <h4>7</h4>
             </div>
-            <div class="item">
+            <div className="item">
               <h4>8</h4>
             </div>
-            <div class="item">
+            <div className="item">
               <h4>9</h4>
             </div>
-            <div class="item">
+            <div className="item">
               <h4>10</h4>
             </div>
-            <div class="item">
+            <div className="item">
               <h4>11</h4>
             </div>
-            <div class="item">
+            <div className="item">
               <h4>12</h4>
             </div>
           </OwlCarousel>

@@ -9,24 +9,18 @@ function ListEmploy() {
   : storedToken;
   const dispatch = useDispatch();
   const [page,setPage] = useState(0);
-  const [search,setSearch] = useState("");
 
 
   const listEmployer = useSelector((state) => state.user.employer.listEmployer);
   
 
   useEffect(() => {
-    getAllEmployer(dispatch, token,search,page);
-  }, [dispatch, token,search,page]);
+    getAllEmployer(dispatch, token,page);
+  }, [dispatch, token,page]);
 
   const handleChangePage = (newPage)=>{
     setPage(newPage-1)
   }
-
-  const handleSearch = (e) => {
-    e.preventDefault();
-    setSearch( e.target.elements.search.value);
-  };
 
 
   return  listEmployer ? (
@@ -38,13 +32,12 @@ function ListEmploy() {
         <nav className="navbar bg-body-tertiary mt-3">
           <div className="container-fluid">
             <a className="navbar-brand"></a>
-            <form className="d-flex" role="search"  onSubmit={handleSearch}>
+            <form className="d-flex" role="search">
               <input
                 className="form-control me-2"
                 type="search"
                 placeholder="Tìm Kiếm"
                 aria-label="Search"
-                name="search"
               />
               <button className="btn btn-outline-dark" type="submit">
                 <i className="fa-solid fa-magnifying-glass"></i>

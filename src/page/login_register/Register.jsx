@@ -1,30 +1,29 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import Carousel from "react-bootstrap/Carousel";
 import { registerUser } from "../../redux/api/service/authRequest";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 function Register() {
-const [username,setUsername] = useState("");
-const [password,setPassword] = useState("");
-const [phone,setPhone] = useState("");
-const [email,setEmail] = useState("");
-const [dateOfBirth,setDateOfBirth] = useState("");
-const dispatch = useDispatch();
-const navigate = useNavigate();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+  const [dateOfBirth, setDateOfBirth] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-const handleRegister = (e)=>{
-  e.preventDefault();
-  const newUser = {
-    username: username,
-    email: email,
-    phone: phone,
-    password: password,
-    dateOfBirth:dateOfBirth,
-  }
-  registerUser(newUser,dispatch,navigate)
-}
-
+  const handleRegister = (e) => {
+    e.preventDefault();
+    const newUser = {
+      username: username,
+      email: email,
+      phone: phone,
+      password: password,
+      dateOfBirth: dateOfBirth,
+    };
+    registerUser(newUser, dispatch, navigate);
+  };
 
   return (
     <div>
@@ -37,60 +36,60 @@ const handleRegister = (e)=>{
                 <label className="form-label font-mono font-semibold">
                   Tên đăng nhập: <span className="text-red-400">*</span>
                 </label>
-                <input 
-                onChange={(e)=>setUsername(e.target.value)}
-                type="text" className="form-control" id="username" />
+                <input
+                  onChange={(e) => setUsername(e.target.value)}
+                  type="text"
+                  className="form-control"
+                  id="username"
+                />
               </div>
 
               <div className="mb-3">
                 <label className="form-label font-mono font-semibold">
                   Số điện thoại: <span className="text-red-400">*</span>
                 </label>
-                <input 
-                 onChange={(e)=>setPhone(e.target.value)}
-                type="text" className="form-control" id="phone" />
+                <input
+                  onChange={(e) => setPhone(e.target.value)}
+                  type="text"
+                  className="form-control"
+                  id="phone"
+                />
               </div>
 
               <div className="mb-3">
                 <label className="form-label font-mono font-semibold">
                   Email: <span className="text-red-400">*</span>
                 </label>
-                <input 
-                  onChange={(e)=>setEmail(e.target.value)}
-                type="text" className="form-control" id="email" />
+                <input
+                  onChange={(e) => setEmail(e.target.value)}
+                  type="text"
+                  className="form-control"
+                  id="email"
+                />
               </div>
 
               <div className="mb-3">
                 <label className="form-label font-mono font-semibold">
                   Ngày sinh: <span className="text-red-400">*</span>
                 </label>
-                <input 
-                 onChange={(e)=>setDateOfBirth(e.target.value)}
-                type="date" className="form-control" id="dateOfBirth" />
+                <input
+                  onChange={(e) => setDateOfBirth(e.target.value)}
+                  type="date"
+                  className="form-control"
+                  id="dateOfBirth"
+                />
               </div>
               <div className="mb-3">
                 <label className="form-label font-mono font-semibold">
                   Mật khẩu: <span className="text-red-400">*</span>
                 </label>
-                <input 
-                 onChange={(e)=>setPassword(e.target.value)}
-                type="password" className="form-control" id="password" />
+                <input
+                  onChange={(e) => setPassword(e.target.value)}
+                  type="password"
+                  className="form-control"
+                  id="password"
+                />
               </div>
-              {/* <div className="flex justify-between">
-                <div className="mb-3">
-                  <label className="form-label font-mono font-semibold">
-                    Vui lòng nhập ký tự bên dưới:{" "}
-                    <span className="text-red-400">*</span>
-                  </label>
-                  <input type="text" className="form-control" id="input1" />
-                </div>
-                <div className="mb-3">
-                  <label className="form-label font-mono font-semibold">
-                    Mã xác nhận: <span className="text-red-400">*</span>
-                  </label>
-                  <p className="font-mono font-bold text-xl">bcvsf</p>
-                </div>
-              </div> */}
 
               <button className="font-medium text-xl font-mono pl-3 py-2 w-[100%] text-center text-white bg-red-500 rounded-md">
                 Đăng ký

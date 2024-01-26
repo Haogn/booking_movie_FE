@@ -38,7 +38,18 @@ import BookingOnline from "./../customer/bookingOnline/BookingOnline";
 import BookingChair from "./../customer/bookingOnline/BookingChair";
 import BookingDish from "./../customer/bookingOnline/BookingDish";
 import ComingSoon from "./../customer/movieList/ComingSoon";
+<<<<<<< HEAD
 import ProtectedRoute from './ProtectedRoute';
+=======
+import NowHowing from "../customer/movieList/NowHowing";
+import EditLocation from "../admin/edit/EditLocation";
+import EditTheater from "../admin/edit/EditTheater";
+import EditRoom from "../admin/edit/EditRoom";
+import EditTime from "../admin/edit/EditTime";
+import EditGenre from "../admin/edit/EditGenre";
+import EditMovie from "../admin/edit/EditMovie";
+import EditDrinks from "../admin/edit/EditDrinks";
+>>>>>>> 50578dd48d191fb81505adb0526ea5bcbc306db7
 
 function Routers() {
   return (
@@ -46,77 +57,67 @@ function Routers() {
       <Routes>
         {/* Customer */}
         <Route path="/" element={<IndexCustomer />}>
-          <Route index element={<HomeCustomer />}></Route>
-          <Route path="/login" element={<Login />}></Route>
-          <Route path="/register" element={<Register />}></Route>
-          <Route path="/detail" element={<DetailMovie />}></Route>
-          <Route path="/history" element={<HistoryBooking />}></Route>
-          <Route path="/list-movie" element={<ComingSoon />}></Route>
+          <Route index element={<HomeCustomer />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/detail" element={<DetailMovie />} />
+          <Route path="/comingsoon" element={<ComingSoon />} />
+          <Route path="/nowhowing" element={<NowHowing />} />
+          <Route path="/history" element={<HistoryBooking />} />
           <Route path="/booking" element={<BookingOnline />}>
-            <Route index element={<BookingChair />}></Route>
-            {/* <Route path="/booking/dish" element={<BookingChair/>}></Route> */}
-            <Route path="dish" element={<BookingDish />}></Route>
+            <Route index element={<BookingChair />} />
+            {/* <Route path="/booking/dish" element={<BookingChair/>}/> */}
+            <Route path="dish" element={<BookingDish />} />
           </Route>
           <Route path="/profile" element={<IndexProfile />}>
-            <Route index element={<Profile />}></Route>
-            <Route path="/profile/point" element={<Point />}></Route>
-            <Route path="/profile/history" element={<HistoryBooking />}></Route>
+            <Route index element={<Profile />} />
+            <Route path="/profile/point" element={<Point />} />
+            <Route path="/profile/history" element={<HistoryBooking />} />
             <Route
               path="/profile/changePassword"
               element={<ChangePassword />}
-            ></Route>
-            <Route
-              path="/profile/notification"
-              element={<Notification />}
-            ></Route>
+            />
+            <Route path="/profile/notification" element={<Notification />} />
           </Route>
         </Route>
         {/* Admin */}
         <Route path="/admin" element={<LayoutAdmin />}>
-          <Route index element={<ListCustomer />}></Route>
-          <Route
-            path="/admin/create-account"
-            element={<CreateAccount />}
-          ></Route>
-          <Route
-            path="/admin/create-coupons"
-            element={<CreateCoupons />}
-          ></Route>
-          <Route path="/admin/create-event" element={<CreateEvent />}></Route>
-          <Route
-            path="/admin/list-management"
-            element={<ListManagement />}
-          ></Route>
-          <Route path="/admin/list-employ" element={<ListEmploy />}></Route>
-          <Route path="/admin" element={<ListCustomer />}></Route>
-          <Route
-            path="/admin/create-location"
-            element={<CreateLocation />}
-          ></Route>
-          <Route path="/admin/list-location" element={<ListLocation />}></Route>
-          <Route
-            path="/admin/create-theater"
-            element={<CreateTheater />}
-          ></Route>
-          <Route path="/admin/list-theater" element={<ListTheater />}></Route>
-          <Route path="/admin/create-room" element={<CreateRoom />}></Route>
-          <Route path="/admin/list-room" element={<ListRoom />}></Route>
-          <Route path="/admin/create-time" element={<CreateTimeSlot />}></Route>
-          <Route path="/admin/list-time" element={<ListTimeSlot />}></Route>
-          <Route path="/admin/create-genre" element={<CreateGenre />}></Route>
-          <Route path="/admin/list-genre" element={<ListGenre />}></Route>
-          <Route path="/admin/create-movie" element={<CreateMovie />}></Route>
-          <Route path="/admin/list-movie" element={<ListMovie />}></Route>
-          <Route path="/admin/create-food" element={<CreateDrinks />}></Route>
-          <Route path="/admin/list-food" element={<ListDrinks />}></Route>
-          <Route path="/admin/profile" element={<ProfoleAccount />}></Route>
+          <Route index element={<ListCustomer />} />
+          <Route path="/admin/create-account" element={<CreateAccount />} />
+          <Route path="/admin/create-coupons" element={<CreateCoupons />} />
+          <Route path="/admin/create-event" element={<CreateEvent />} />
+          <Route path="/admin/list-management" element={<ListManagement />} />
+          <Route path="/admin/list-employ" element={<ListEmploy />} />
+          <Route path="/admin" element={<ListCustomer />} />
+          <Route path="/admin/create-location" element={<CreateLocation />} />
+          <Route path="/admin/edit-location" element={<EditLocation />} />
+          <Route path="/admin/list-location" element={<ListLocation />} />
+          <Route path="/admin/create-theater" element={<CreateTheater />} />
+          <Route path="/admin/edit-theater" element={<EditTheater />} />
+          <Route path="/admin/list-theater" element={<ListTheater />} />
+          <Route path="/admin/create-room" element={<CreateRoom />} />
+          <Route path="/admin/edit-room" element={<EditRoom />} />
+          <Route path="/admin/list-room" element={<ListRoom />} />
+          <Route path="/admin/create-time" element={<CreateTimeSlot />} />
+          <Route path="/admin/edit-time" element={<EditTime />} />
+          <Route path="/admin/list-time" element={<ListTimeSlot />} />
+          <Route path="/admin/create-genre" element={<CreateGenre />} />
+          <Route path="/admin/edit-genre" element={<EditGenre />} />
+          <Route path="/admin/list-genre" element={<ListGenre />} />
+          <Route path="/admin/create-movie" element={<CreateMovie />} />
+          <Route path="/admin/edit-movie" element={<EditMovie />} />
+          <Route path="/admin/list-movie" element={<ListMovie />} />
+          <Route path="/admin/create-food" element={<CreateDrinks />} />
+          <Route path="/admin/edit-food" element={<EditDrinks />} />
+          <Route path="/admin/list-food" element={<ListDrinks />} />
+          <Route path="/admin/profile" element={<ProfoleAccount />} />
         </Route>
 
         {/* Management */}
-        <Route></Route>
+        <Route />
 
         {/* Emplpyee */}
-        <Route></Route>
+        <Route />
       </Routes>
     </div>
   );

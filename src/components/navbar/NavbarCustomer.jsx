@@ -57,11 +57,13 @@ function NavbarCustomer() {
               <p>PHIM</p>
               <div className="movie-status">
                 <ul>
-                  <Link to="/list-movie">
+                  <Link to="/nowhowing">
                     <li>Phim Đang Chiếu</li>
                   </Link>
 
-                  <li>Phim Sắp Chiếu</li>
+                  <Link to={"/comingsoon"}>
+                    <li>Phim Sắp Chiếu</li>
+                  </Link>
                 </ul>
               </div>
             </div>

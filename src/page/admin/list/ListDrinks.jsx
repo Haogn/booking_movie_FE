@@ -1,11 +1,12 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function ListDrinks() {
   return (
     <div>
       <div className="w-full h-full px-2 ">
         <h1 className="text-center text-2xl font-mono font-semibold my-6 pb-3 border-b-2 border-gray-400">
-          Danh sách Nhân viên
+          Danh sách
         </h1>
         <nav className="navbar bg-body-tertiary mt-3">
           <div className="container-fluid">
@@ -43,12 +44,15 @@ function ListDrinks() {
                 </td>
                 <td>Đồ ăn</td>
                 <td colSpan={2}>
-                  <button
-                    type="button"
-                    className="btn btn-success text-green-600 mr-2"
-                  >
-                    <i className="fa-solid fa-pen-to-square "></i>
-                  </button>
+                  <Link to={"/admin/edit-food"}>
+                    <button
+                      type="button"
+                      className="btn btn-success text-green-600 mr-2"
+                    >
+                      <i className="fa-solid fa-pen-to-square "></i>
+                    </button>
+                  </Link>
+
                   <button
                     type="button"
                     className=" btn btn-danger text-red-600"

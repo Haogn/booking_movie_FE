@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function ListTimeSlot() {
   return (
@@ -42,12 +43,15 @@ function ListTimeSlot() {
                 <td>08:00 PM</td>
                 <td>Cinema 01</td>
                 <td colSpan={2}>
-                  <button
-                    type="button"
-                    className="btn btn-success text-green-600 mr-2"
-                  >
-                    <i className="fa-solid fa-pen-to-square "></i>
-                  </button>
+                  <Link to={"/admin/edit-time"}>
+                    <button
+                      type="button"
+                      className="btn btn-success text-green-600 mr-2"
+                    >
+                      <i className="fa-solid fa-pen-to-square "></i>
+                    </button>
+                  </Link>
+
                   <button
                     type="button"
                     className=" btn btn-danger text-red-600"

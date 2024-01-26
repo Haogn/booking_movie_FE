@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function ListLocation() {
   return (
@@ -17,6 +18,7 @@ function ListLocation() {
                 placeholder="Tìm Kiếm"
                 aria-label="Search"
               />
+
               <button className="btn btn-outline-dark" type="submit">
                 <i className="fa-solid fa-magnifying-glass"></i>
               </button>
@@ -38,12 +40,15 @@ function ListLocation() {
                 <td>Hai Bà Trưng</td>
 
                 <td colSpan={2}>
-                  <button
-                    type="button"
-                    className="btn btn-success text-green-600 mr-2"
-                  >
-                    <i className="fa-solid fa-pen-to-square "></i>
-                  </button>
+                  <Link to={"/admin/edit-location"}>
+                    <button
+                      type="button"
+                      className="btn btn-success text-green-600 mr-2"
+                    >
+                      <i className="fa-solid fa-pen-to-square "></i>
+                    </button>
+                  </Link>
+
                   <button
                     type="button"
                     className=" btn btn-danger text-red-600"

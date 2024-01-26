@@ -1,50 +1,18 @@
-.list_movie h1{
-    font-size: 24px;
-    font-weight: 700;
+.foot_booking {
+  display: flex;
+  justify-content: space-between;
 }
-.list_movie{
-    margin: 30px 16%;
-    padding: 20px 0px;
+.btn-booking {
+  width: 100%;
+  border: 1px solid rgb(255, 255, 255);
+  border-radius: 5px;
 }
-.list_movie .col-3{
-    padding: 20px 20px;
-}
-.title_movie{
-    margin: 0px 16%;
-    border-bottom: 2px solid #222;
-    padding: 30px 0px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.title_movie h1{
-    font-size: 38px;
-}
-.title_movie h2{
-    all: initial;
-    font-size: 24px;
-    cursor: pointer;
-    color: #666565;
-}
-.body_booking{
-    line-height: 150%;
-    padding-bottom: 40px;
-}
-.foot_booking{
-    display: flex;
-    justify-content: space-between;
-}
-.btn-booking{
-    width: 100%;
-    border: 1px solid rgb(255, 255, 255);
-    border-radius: 5px;
-}
-.foot_booking p{
-    text-align: center;
-    padding: 2px;
-    background-color: #e71a0f;
-    border-radius: 5px;
-    font-weight:bold;
-    color: #fff;
-    width: 80px;
+.foot_booking p {
+  text-align: center;
+  padding: 2px;
+  background-color: #e71a0f;
+  border-radius: 5px;
+  font-weight: bold;
+  color: #fff;
+  width: 80px;
 }

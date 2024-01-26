@@ -1,33 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from 'react-redux';
-import { getAllMananger } from "../../../redux/api/service/userRequest";
+import React from "react";
 
 function ListManagement() {
-  const storedToken  = localStorage.getItem('acessToken');
-  const token = storedToken && storedToken.startsWith('"') && storedToken.endsWith('"')
-  ? storedToken.slice(1, -1) 
-  : storedToken;
-  const dispatch = useDispatch();
-  const [page,setPage] = useState(0);
-  const [search,setSearch] = useState("");
-
-  const listManager = useSelector((state) => state.user.manager.listManager);
-
-  useEffect(() => {
-    getAllMananger(dispatch, token,search,page);
-  }, [dispatch, token,search,page]);
-
-  const handleChangePage = (newPage)=>{
-    setPage(newPage-1)
-  }
-
-  const handleSearch = (e) => {
-    e.preventDefault();
-    setSearch( e.target.elements.search.value);
-  };
-
-
-  return  listManager?(
+  return (
     <div>
       <div className="w-full h-full px-2 ">
         <h1 className="text-center text-2xl font-mono font-semibold my-6 pb-3 border-b-2 border-gray-400">
@@ -36,13 +10,12 @@ function ListManagement() {
         <nav className="navbar bg-body-tertiary mt-3">
           <div className="container-fluid">
             <a className="navbar-brand"></a>
-            <form className="d-flex" role="search"  onSubmit={handleSearch}>
+            <form className="d-flex" role="search">
               <input
                 className="form-control me-2"
                 type="search"
                 placeholder="Tìm Kiếm"
                 aria-label="Search"
-                name="search"
               />
               <button className="btn btn-outline-dark" type="submit">
                 <i className="fa-solid fa-magnifying-glass"></i>
@@ -64,15 +37,20 @@ function ListManagement() {
               </tr>
             </thead>
             <tbody>
-            {listManager.map((manager) => (
-    <tr key={manager.id} className="text-center">
-      <td>{manager.id}</td>
-      <td>{manager.username}</td>
-      <td>{manager.email}</td>
-      <td>{manager.phone}</td>
-      <td>{manager.avatar}</td>
-      <td>{manager.dateOfBirth}</td>
-      <td colSpan={2}>
+              <tr className="text-center ">
+                <td>1</td>
+                <td>nshoang</td>
+                <td>nshoang270298@gmail.com</td>
+                <td>0987654321</td>
+                <td className="w-[192px] h-[192px]">
+                  <img
+                    className="w-full h-full rounded-[50%] "
+                    src="https://inkythuatso.com/uploads/thumbnails/800/2023/03/8-anh-dai-dien-trang-inkythuatso-03-15-26-54.jpg"
+                    alt=""
+                  />
+                </td>
+                <td>27/02/1998</td>
+                <td colSpan={2}>
                   <button
                     type="button"
                     className="btn btn-success text-green-600 mr-2"
@@ -87,7 +65,6 @@ function ListManagement() {
                   </button>
                 </td>
               </tr>
-  ))}      
             </tbody>
           </table>
         </div>
@@ -95,63 +72,41 @@ function ListManagement() {
           className="flex justify-center"
           aria-label="Page navigation example"
         >
-           <ul className="pagination">
-  {listManager.first ? (
-    <></>
-  ) : (
-    <li className="page-item">
+          <ul className="pagination">
+            <li className="page-item">
               <a
                 className="page-link text-gray-700"
                 href="#"
                 aria-label="Previous"
-                onClick={() => handleChangePage(page - 1)}
               >
                 <span aria-hidden="true">&laquo;</span>
               </a>
             </li>
-  )}
-
-  {listManager.totalPages <= 2 ? (
-    Array.from({ length: listManager.totalPages }, (_, index) => (
-      <li className="page-item" key={index}>
-              <a className="page-link text-gray-700" href="#"
-               onClick={() => handleChangePage(index + 1)}
-              >
-               {index + 1}
+            <li className="page-item">
+              <a className="page-link text-gray-700" href="#">
+                1
               </a>
             </li>
-    ))
-  ) : (
-    Array.from({ length: 2 }, (_, index) => (
-      <li className="page-item" key={index}>
-        <p
-          className="page-link text-gray-700"
-          href="#"
-          onClick={() => handleChangePage(index + 1)}
-        >
-          {index + 1}
-        </p>
-      </li>
-    ))
-  )}
-
-  {listManager.last ? (
-    <></>
-  ) : (
-    <li className="page-item">
-    <a className="page-link text-gray-700" href="#" aria-label="Next"
-    onClick={() => handleChangePage(page + 1)}
-    >
-      <span aria-hidden="true">&raquo;</span>
-    </a>
-  </li>
-  )}
-</ul>
+            <li className="page-item">
+              <a className="page-link text-gray-700" href="#">
+                2
+              </a>
+            </li>
+            <li className="page-item">
+              <a className="page-link text-gray-700" href="#">
+                3
+              </a>
+            </li>
+            <li className="page-item">
+              <a className="page-link text-gray-700" href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
         </nav>
       </div>
     </div>
-  ):(<>
-  </>);
+  );
 }
 
 export default ListManagement;

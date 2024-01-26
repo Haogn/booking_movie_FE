@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function ListMovie() {
   return (
@@ -65,12 +66,15 @@ function ListMovie() {
                 <td>13/02/2024</td>
                 <td className="w-[150px]">Kinh dị, viễn tưởng</td>
                 <td colSpan={2}>
-                  <button
-                    type="button"
-                    className="btn btn-success text-green-600 mr-2"
-                  >
-                    <i className="fa-solid fa-pen-to-square "></i>
-                  </button>
+                  <Link to={"/admin/edit-movie"}>
+                    <button
+                      type="button"
+                      className="btn btn-success text-green-600 mr-2"
+                    >
+                      <i className="fa-solid fa-pen-to-square "></i>
+                    </button>
+                  </Link>
+
                   <button
                     type="button"
                     className=" btn btn-danger text-red-600"
