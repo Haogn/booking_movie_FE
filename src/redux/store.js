@@ -5,8 +5,8 @@ import customerSlice from "./reducers/customerSlice";
 
 export default configureStore({
   reducer: {
-    auth : authSlice,
-    user:userSlice,
-    customer :customerSlice,
+    auth: authSlice,
+    user: userSlice,
+    customer: customerSlice,
   },
 });
