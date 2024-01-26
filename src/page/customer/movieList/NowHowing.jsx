@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import "./NowHowing.css";
 import { Link } from "react-router-dom";
 
 function NowHowing() {
+  const [movie, setMovie] = useState("");
   return (
     <div>
       <div className="w-[70%] h-full  mx-auto ">
