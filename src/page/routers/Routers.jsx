@@ -15,7 +15,6 @@ import CreateAccount from "../admin/create/CreateAccount";
 import ListManagement from "../admin/list/ListManagement";
 import ListEmploy from "../admin/list/ListEmploy";
 import LayoutAdmin from "../admin/LayoutAdmin";
-import HomeAdmin from "../admin/HomeAdmin";
 import CreateLocation from "../admin/create/CreateLocation";
 import ListLocation from "../admin/list/ListLocation";
 import CreateTheater from "../admin/create/CreateTheater";
@@ -28,8 +27,6 @@ import CreateGenre from "../admin/create/CreateGenre";
 import ListGenre from "../admin/list/ListGenre";
 import CreateMovie from "../admin/create/CreateMovie";
 import ListMovie from "../admin/list/ListMovie";
-import CreateFood from "../admin/create/CreateFood";
-import ListFood from "../admin/list/ListFood";
 import CreateDrinks from "../admin/create/CreateDrinks";
 import ListDrinks from "../admin/list/ListDrinks";
 import CreateCoupons from "../admin/create/CreateCoupons";
@@ -41,6 +38,7 @@ import BookingOnline from "./../customer/bookingOnline/BookingOnline";
 import BookingChair from "./../customer/bookingOnline/BookingChair";
 import BookingDish from "./../customer/bookingOnline/BookingDish";
 import ComingSoon from "./../customer/movieList/ComingSoon";
+import ProtectedRoute from './ProtectedRoute';
 
 function Routers() {
   return (

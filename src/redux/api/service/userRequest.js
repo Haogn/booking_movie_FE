@@ -24,13 +24,13 @@ import {
           dispatch(getCustomeFailed());
         }
       };
-export const getAllEmployer = async(distpatch,token,page)=>{
+export const getAllEmployer = async(distpatch,token,search,page)=>{
     try{
         const res = await axios.get("http://localhost:6789/api/booking/v1/users/employer",
         {
             headers: {token:`Bearer ${token}` },
             params: {
-              // username: username,
+              username: search,
               page: page,
             },
         });
@@ -41,14 +41,18 @@ export const getAllEmployer = async(distpatch,token,page)=>{
     }
 } 
 
-export const getAllMaganer= async(accessToken,distpatch)=>{
+export const getAllMananger= async(accessToken,dispatch,search,page)=>{
     try{
         const res = await axios.get("http://localhost:6789/api/booking/v1/users/manager",
         {
-            headers: {token:`Bearer ${accessToken}` }
+            headers: {token:`Bearer ${accessToken}`,
+            params: {
+              username: search,
+              page: page,
+            }, }
         });
-        distpatch(getManagerSuccess(res.data.content))
+        dispatch(getManagerSuccess(res.data.content))
     }catch(error){
-        distpatch(getManagerFailed())
+      dispatch(getManagerFailed())
     }
 } 

@@ -10,9 +10,8 @@ const authSlice = createSlice({
     },
     register:{
       isFetching:false,
-      error:false,
-      success:false,
-      message: null,
+      error:null,
+      success:null,
     },
     logout:{
       isFetching:false,
@@ -31,7 +30,7 @@ const authSlice = createSlice({
     loginSuccess: (state, action) => {
       state.login.isFetching = false;
       state.login.currentUser=action.payload;
-      state.login.error= false;
+      state.login.error= null;
     },
     loginFailed:(state,action) => {
       state.login.isFetching = false;
@@ -45,14 +44,11 @@ const authSlice = createSlice({
     },
     registerSuccess: (state,action) => {
       state.register.isFetching = false;
-      state.register.error= false;
-      state.register.success = true;
-      state.register.message= action.payload;
+      state.register.success = action.payload;
     },
-    registerFailed:(state) => {
+    registerFailed:(state,action) => {
       state.register.isFetching = false;
-      state.register.error= true;
-      state.register.success = false;
+      state.register.error= action.payload;
     },
     logoutStart:(state)=>{
       state.logout.isFetching=true;

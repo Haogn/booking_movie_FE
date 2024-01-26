@@ -6,9 +6,9 @@ export const loginUser = async (user, dispatch, navigate) => {
   try {
     const res = await axios.post("http://localhost:6789/api/booking/v1/auth/login", user);
     dispatch(loginSuccess(res.data));
-    const expirationTime = new Date(new Date().getTime() + 20 * 60 * 1000);
-    localStorage.setItem('username', JSON.stringify(res.data.username), expirationTime);
-    localStorage.setItem('acessToken', JSON.stringify(res.data.token), expirationTime);
+    localStorage.setItem('username', JSON.stringify(res.data.username));
+    localStorage.setItem('acessToken', JSON.stringify(res.data.token));
+    localStorage.setItem('role', JSON.stringify(res.data.setRoles.includes("ADMIN") ? "ADMIN" : "CUSTOMER"));
  if(res.data.setRoles.includes("CUSTOMER")){
   navigate("/");
  }
@@ -20,15 +20,18 @@ export const loginUser = async (user, dispatch, navigate) => {
   }
 };  
 
-export const registerUser = async(user,dispath,navigate)=>{
-    dispath(registerStart())
-    try{
-        const res = await axios.post("http://localhost:6789/api/booking/v1/auth/register",user)
-        dispath(registerSuccess(res.data))
-        navigate("/login")
-    }catch(error){
-      console.error("Đăng ký thất bại:", error);
-      dispath(registerFailed());
+export const registerUser = async (user, dispatch, navigate) => {
+  dispatch(registerStart());
+  try {
+      const res = await axios.post("http://localhost:6789/api/booking/v1/auth/register", user);
+      dispatch(registerSuccess(res.data));
+      navigate("/login");
+  } catch (error) {
+      if (error.response) {
+          dispatch(registerFailed(error.response));
+      } else {
+          console.error("An error occurred:", error);
+      }
   }
 };
 

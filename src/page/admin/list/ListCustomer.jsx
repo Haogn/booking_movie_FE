@@ -20,8 +20,9 @@ function ListCustomer() {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    setSearch(e.target.value);
+    setSearch( e.target.elements.search.value);
   };
+
 
   const handlePage = (newPage) => {
     if (newPage === listCustomer.totalPages) {
@@ -33,7 +34,7 @@ function ListCustomer() {
     setPage(newPage - 1);
   };
 
-  return listCustomer ?(
+  return listCustomer !== null && listCustomer.content !== 0 ?(
     <div>
       <div className="w-full h-full px-2 ">
         <h1 className="text-center text-2xl font-mono font-semibold my-6 pb-3 border-b-2 border-gray-400">
@@ -49,8 +50,6 @@ function ListCustomer() {
       name="search"
       placeholder="Tìm Kiếm"
       aria-label="Search"
-      value={search}
-      onChange={handleSearch}
     />
               <button className="btn btn-outline-dark" type="submit">
                 <i className="fa-solid fa-magnifying-glass"></i>
@@ -172,8 +171,30 @@ function ListCustomer() {
       </div>
     </div>
   ):(
-    <>
-    </>
+    
+    <div className="w-full h-full px-2 ">
+        <h1 className="text-center text-2xl font-mono font-semibold my-6 pb-3 border-b-2 border-gray-400">
+          Danh sách Khách hàng
+        </h1>
+        <nav className="navbar bg-body-tertiary mt-3">
+          <div className="container-fluid">
+            <a className="navbar-brand"></a>
+            <form className="d-flex" role="search" onSubmit={handleSearch}>
+            <input
+      className="form-control me-2"
+      type="search"
+      name="search"
+      placeholder="Tìm Kiếm"
+      aria-label="Search"
+    />
+              <button className="btn btn-outline-dark" type="submit">
+                <i className="fa-solid fa-magnifying-glass"></i>
+              </button>
+            </form>
+          </div>
+        </nav>
+    <div>Không có kết quả</div>
+    </div>
   );
 }
 
