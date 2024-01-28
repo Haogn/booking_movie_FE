@@ -72,7 +72,6 @@ function Login() {
             Đăng nhập
           </h1>
           <div className="w-[80%] h-full mx-auto">
-            {error ? <span className="text-red-500">{error.data}</span> : <></>}
             <form action="" onSubmit={handleLogin}>
               <div className="mb-3">
                 <label className="form-label font-mono font-semibold">
@@ -86,7 +85,9 @@ function Login() {
                   name="username"
                 />
                 {errorUsername && (
-                  <span className="text-red-500">{errorUsername}</span>
+                  <span className="text-red-500 font-mono font-medium text-center">
+                    {errorUsername}
+                  </span>
                 )}
               </div>
 
@@ -103,37 +104,18 @@ function Login() {
                   autoComplete="password"
                 />
                 {errorPassword && (
-                  <span className="text-red-500">{errorPassword}</span>
+                  <span className="text-red-500 font-mono font-medium text-center">
+                    {errorPassword}
+                  </span>
                 )}
               </div>
-              <div className="flex justify-between">
-                {/* <div className="mb-3">
-                  <label className="form-label font-mono font-semibold">
-                    Vui lòng nhập ký tự bên dưới:{" "}
-                    <span className="text-red-400">*</span>
-                  </label>
-                  <input
-                    onChange={handleChangeInput}
-                    type="text"
-                    className="form-control"
-                    id="captcha"
-                    name="captcha"
-                  />
-                  <button
-                    className="ml-2"
-                    onClick={handleGetCaptcha}
-                    type="button"
-                  >
-                    Lấy Mã Captcha
-                  </button>
-                </div>
-                <div className="mb-3">
-                  <label className="form-label font-mono font-semibold">
-                    Mã xác nhận: <span className="text-red-400">*</span>
-                  </label>
-                  <p className="font-mono font-bold text-xl">{captcha}</p>
-                </div> */}
-              </div>
+              {error ? (
+                <span className="text-red-500 font-mono font-medium text-center">
+                  {error.data}
+                </span>
+              ) : (
+                <></>
+              )}
               <div className="flex mx-auto w-full justify-center gap-5">
                 <p className=" font-medium text-xl font-mono pl-3 py-2 w-[30%] text-center text-white bg-red-500 rounded-md">
                   <Link to={"/register"}>Đăng Ký</Link>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllCustomer } from "../../../redux/api/service/userRequest";
+import { Link } from "react-router-dom";
 
 function ListCustomer() {
   const storedToken = localStorage.getItem("acessToken");
@@ -41,7 +42,9 @@ function ListCustomer() {
         </h1>
         <nav className="navbar bg-body-tertiary mt-3">
           <div className="container-fluid">
-            <a className="navbar-brand"></a>
+            <Link to={"/admin/create-account"}>
+              <a className="btn btn-outline-dark font-mono">Thêm mới</a>
+            </Link>
             <form className="d-flex" role="search" onSubmit={handleSearch}>
               <input
                 className="form-control me-2"
