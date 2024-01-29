@@ -16,7 +16,7 @@ function BookingChair() {
     }
   }
   return (
-    <div className="booking_chair  font-mono">
+    <div className="booking_chair font-mono">
       <div className="head_chair">
         <h1>Người / Ghế</h1>
       </div>
