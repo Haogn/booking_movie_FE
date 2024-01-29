@@ -13,7 +13,6 @@ function ListCustomer() {
   const [page,setPage] = useState(0);
   const [size,setSize] = useState(6)
   
-console.log(listCustomer);
   useEffect(() => {
     getAllCustomer(dispatch, token,search,page,size);
   }, [dispatch, token,search,page,size]);
