@@ -9,8 +9,8 @@ const authSlice = createSlice({
       error:null
     },
     register:{
-      error:false,
-      success:false,
+      errorRegister:null,
+      messageRegister:null,
     },
     logout:{
       isFetching:false,
@@ -43,11 +43,11 @@ const authSlice = createSlice({
     resetError: (state) => {
       state.login.error = null;
     },
-    registerSuccess:(state) => {
-      state.register.success = true ;
+    registerSuccess:(state,action) => {
+      state.register.messageRegister = action.payload ;
     },
-    registerFailed:(state) => {
-      state.register.error = false;
+    registerFailed:(state,action) => {
+      state.register.errorRegister = action.payload;
     }
     ,
     logoutStart:(state)=>{

@@ -21,14 +21,14 @@ export const loginUser = async (user, dispatch, navigate) => {
 };  
 
 export const registerAccount = async(dispatch,navigate,registerForm)=>{
-  console.log(registerForm);
   try {
     const res = await axios.post("http://localhost:6789/api/booking/v1/auth/register", registerForm);
-
+    console.log(res.data);
   dispatch(registerSuccess(res.data));
   navigate("/login")
 } catch (error) {
-  dispatch(registerFailed());
+  console.log(error.response);
+  dispatch(registerFailed(error.response));
 }
 }
 
