@@ -31,9 +31,10 @@ function ListTheater() {
   // console.log("listTheater", listTheater);
 
   // edit
-  const handleFindById = (id) => {
-    getTheater(dispatch, token, id);
-    getALlLocationSeclect(dispatch, token);
+  const handleFindById = async (id) => {
+    console.log(typeof id);
+    await getTheater(dispatch, { token, id });
+    await getALlLocationSeclect(dispatch, token);
     navigate("/admin/edit-theater");
   };
   // search

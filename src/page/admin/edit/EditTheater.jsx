@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import {
   editTheater,
   getTheater,
 } from "../../../redux/api/service/theaterRequest";
+import { useDispatch, useSelector } from "react-redux";
 import {
   validateBlank,
   validateNumber,
 } from "../../../components/validate/validation";
+
 import { getALlLocationSeclect } from "./../../../redux/api/service/locationRequest";
+import { useNavigate } from "react-router-dom";
 
 function EditTheater() {
   const dispatch = useDispatch();
@@ -19,23 +20,23 @@ function EditTheater() {
     storedToken && storedToken.startsWith('"') && storedToken.endsWith('"')
       ? storedToken.slice(1, -1)
       : storedToken;
-  const theater = useSelector((state) => state.theaters.currentTheater);
+  const theater = useSelector((state) => state.theaters.theater.currentTheater);
   const listLocation = useSelector(
     (state) => state.locations.location.listLocationSelect
   );
   const error = useSelector((state) => state.theaters.theater.error);
   useEffect(() => {
-    getTheater(dispatch, token, theater?.id);
+    // if (theater) {
+    //   getTheater(dispatch, { token, id: theater.id });
+    // }
     getALlLocationSeclect(dispatch, token);
   }, [dispatch, token]);
   // console.log("listLocation", listLocation);
   console.log("theater", theater);
 
-  const name = theater?.theaterName;
-  console.log(name);
-
-  const [updateNameTheater, setUpdateNameTheatern] = useState(name);
-  // const [updateNameTheater, setUpdateNameTheatern] = useState("");
+  const [updateNameTheater, setUpdateNameTheatern] = useState(
+    theater.theaterName
+  );
   const [idLocation, setIdLocation] = useState();
   const [errorEdit, setErrorEdit] = useState(null);
   const [errorIdLocation, setErrorIdLocation] = useState("");
@@ -53,12 +54,12 @@ function EditTheater() {
     }
 
     const formEditTheater = {
-      theaterName: updateNameTheater,
-      locationId: idLocation,
+      theaterName: e.target.theaterName.value,
+      locationId: e.target.locationId.value,
       isDeleted: false,
     };
 
-    editTheater(token, dispatch, theater?.id, formEditTheater, navigate);
+    editTheater(token, dispatch, theater.id, formEditTheater, navigate);
   };
   return theater ? (
     <div>
@@ -73,6 +74,7 @@ function EditTheater() {
             </label>
             <input
               type="text"
+              name="id"
               className="form-control"
               value={theater.id}
               readOnly={true}
@@ -86,8 +88,8 @@ function EditTheater() {
               type="text"
               className="form-control"
               placeholder="Tên rạp chiếu"
-              value={updateNameTheater}
-              onChange={(e) => setUpdateNameTheatern(e.target.value)}
+              defaultValue={theater.theaterName}
+              name="theaterName"
             />
             {errorEdit && (
               <span className="text-red-500 font-mono font-medium text-center">
@@ -101,6 +103,7 @@ function EditTheater() {
               Vị trí: <span className="text-red-500">*</span>
             </label>
             <select
+              name="locationId"
               className="form-select"
               aria-label="Default select example"
               value={idLocation}

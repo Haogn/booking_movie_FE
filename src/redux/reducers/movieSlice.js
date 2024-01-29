@@ -6,7 +6,7 @@ const movieSlice = createSlice({
     movie: {
       currentMovie: null,
       listMovie: null,
-      listMovieSelect: null,
+      listMovieSelect: [],
       listMovieByStatus: null,
       isFetching: false,
       error: null,

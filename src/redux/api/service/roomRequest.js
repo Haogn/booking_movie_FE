@@ -20,7 +20,7 @@ import {
   getRoomSuccess,
 } from "../../reducers/roomSlice";
 
-export const getRoom = async (dispatch, token, id) => {
+export const getRoom = async (dispatch, { token, id }) => {
   dispatch(getRoomStart());
   try {
     const res = await axios.get(

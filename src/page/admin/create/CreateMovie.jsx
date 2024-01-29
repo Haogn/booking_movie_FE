@@ -99,19 +99,31 @@ function CreateMovie() {
       return;
     }
 
-    const formMovie = {
-      movieName: nameMovie,
-      movieImage: imageMovie,
-      price: price,
-      director: director,
-      cast: cast,
-      description: description,
-      runningTime: runningTime,
-      genre: genre,
-      language: language,
-      releaseDate: releaseDate,
-      stopDate: stopDate,
-    };
+    let formMovie = new FormData();
+    formMovie.append("movieName", nameMovie);
+    formMovie.append("movieImage", imageMovie);
+    formMovie.append("price", price);
+    formMovie.append("director", director);
+    formMovie.append("cast", cast);
+    formMovie.append("description", description);
+    formMovie.append("runningTime", runningTime);
+    formMovie.append("genreId", genre);
+    formMovie.append("language", language);
+    formMovie.append("releaseDate", releaseDate);
+    formMovie.append("stopDate", stopDate);
+    // {
+    //   movieName: nameMovie,
+    //   movieImage: imageMovie,
+    //   price: price,
+    //   director: director,
+    //   cast: cast,
+    //   description: description,
+    //   runningTime: runningTime,
+    //   genre: genre,
+    //   language: language,
+    //   releaseDate: releaseDate,
+    //   stopDate: stopDate,
+    // };
     createMovie(token, formMovie, dispatch, navigate);
     setNameMovie("");
     setImageMovie("");
@@ -325,7 +337,9 @@ function CreateMovie() {
                       type="checkbox"
                       id={item.id}
                       value={item.id}
-                      onChange={(e) => setGenre(Number(e.target.value))}
+                      onChange={(e) =>
+                        setGenre([...genre, Number(e.target.value)])
+                      }
                     />
                     <label className="form-check-label" htmlFor={item.id}>
                       {item.genreName}

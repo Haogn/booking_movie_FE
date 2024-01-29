@@ -20,8 +20,9 @@ import {
   getTheaterSuccess,
 } from "../../reducers/theaterSlice";
 
-export const getTheater = async (dispatch, token, id) => {
+export const getTheater = async (dispatch, { token, id }) => {
   dispatch(getTheaterStart());
+  console.log("ID: " + id);
   try {
     const res = await axios.get(
       `http://localhost:6789/api/booking/v1/theater/${id}`,

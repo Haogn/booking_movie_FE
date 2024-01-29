@@ -61,9 +61,9 @@ function EditRoom() {
     }
 
     const formEditRoom = {
-      roomName: updateNameRoom,
-      roomType: type,
-      theaterId: idTheater,
+      roomName: e.target.roomName.value,
+      roomType: e.target.roomType.value,
+      theaterId: e.target.idTheater.value,
       isDeleted: false,
     };
     editRoom(token, dispatch, room?.id, formEditRoom, navigate);
@@ -75,7 +75,7 @@ function EditRoom() {
         <h1 className="text-center text-2xl font-mono font-semibold my-6 pb-3 border-b-2 border-gray-400">
           Thay đổi thông tin phòng chiếu
         </h1>
-        <form action="">
+        <form action="" onSubmit={handleUpdateRoom}>
           <div className="mb-3">
             <label className="form-label font-mono font-semibold">
               Mã phòng chiếu: <span className="text-red-500">*</span>
@@ -95,8 +95,8 @@ function EditRoom() {
               type="text"
               className="form-control"
               placeholder="Tên phòng chiếu"
-              value={updateNameRoom}
-              onChange={(e) => setUpdateNameRoom(e.target.value)}
+              defaultValue={room?.roomName}
+              name="roomName"
             />
             {errorNameRoom && (
               <span className="text-red-500 font-mono font-medium text-center">
@@ -112,14 +112,19 @@ function EditRoom() {
             <select
               className="form-select"
               aria-label="Default select example"
-              value={type}
-              onChange={(e) => setType(Number(e.target.value))}
+              value={room?.roomType}
+              name="roomType"
             >
-              <option selected>Type</option>
+              <option disabled>Type</option>
               <option value="2D">2D</option>
               <option value="3D">3D</option>
               <option value="4D">4D</option>
             </select>
+            {errorType && (
+              <span className="text-red-500 font-mono font-medium text-center">
+                {errorType}
+              </span>
+            )}
           </div>
 
           <div className="mb-3">
@@ -130,9 +135,10 @@ function EditRoom() {
               className="form-select"
               aria-label="Default select example"
               value={idTheater}
+              name="idTheater"
               onChange={(e) => setIdTheater(Number(e.target.value))}
             >
-              <option selected>Rạp chiếu</option>
+              <option disabled>Rạp chiếu</option>
               {listTheater?.map((item) => (
                 <option key={item.id} value={item.id}>
                   {item.theaterName}

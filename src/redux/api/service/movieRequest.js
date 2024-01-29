@@ -57,18 +57,18 @@ export const getAllMovie = async (dispatch, token, search, page) => {
   }
 };
 
-export const getAllMovieSelect = async (dispatch, token) => {
+export const getAllMovieSelect = async (dispatch) => {
   dispatch(getALlMovieSelectStart());
   try {
     const res = await axios.get(
-      "http://localhost:6789/api/booking/v1/movie/getAll",
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
+      "http://localhost:6789/api/booking/v1/movie/getAll"
+      // {
+      //   headers: {
+      //     Authorization: `Bearer ${token}`,
+      //   },
+      // }
     );
-    // console.log(res.data);
+    console.log(res.data);
     dispatch(getALlMovieSelectSuccess(res.data));
   } catch (error) {
     dispatch(getALlMovieSelectFailed(error.response));

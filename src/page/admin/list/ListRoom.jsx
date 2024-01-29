@@ -28,10 +28,10 @@ function ListRoom() {
   // console.log("listRoom", listRoom);
 
   // edit
-  const handleFindById = (id) => {
-    getRoom(dispatch, token, id);
-    getAllTheaterSelect(dispatch, token);
-    navigate("/admin/edit-theater");
+  const handleFindById = async (id) => {
+    await getRoom(dispatch, { token, id });
+    await getAllTheaterSelect(dispatch, token);
+    navigate("/admin/edit-room");
   };
   // search
 

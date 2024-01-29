@@ -22,10 +22,10 @@ function EditLocation() {
   useEffect(() => {
     // getLocation(dispatch, token, location.id);
   }, [dispatch, token]);
-
   const [updateNameLocation, setUpdateNameLocation] = useState(
     location?.locationName
   );
+
   const [errorEdit, setErrorEdit] = useState(null);
   const handleUpdateLocation = (e) => {
     e.preventDefault();
@@ -36,7 +36,7 @@ function EditLocation() {
     }
 
     const formEditLocation = {
-      locationName: updateNameLocation,
+      locationName: e.target.locationName.value,
       isDelete: false,
     };
 
@@ -68,9 +68,14 @@ function EditLocation() {
             <input
               type="text"
               className="form-control"
-              value={updateNameLocation}
-              onChange={(e) => setUpdateNameLocation(e.target.value)}
+              defaultValue={location.locationName}
+              name="locationName"
             />
+            {errorEdit && (
+              <span className="text-red-500 font-mono font-medium text-center">
+                {errorEdit}
+              </span>
+            )}
           </div>
 
           <button

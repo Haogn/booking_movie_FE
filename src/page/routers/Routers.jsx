@@ -48,6 +48,7 @@ import EditTime from "../admin/edit/EditTime";
 import EditGenre from "../admin/edit/EditGenre";
 import EditMovie from "../admin/edit/EditMovie";
 import EditDrinks from "../admin/edit/EditDrinks";
+import Payment from "../customer/Payment";
 
 function Routers() {
   return (
@@ -65,7 +66,8 @@ function Routers() {
           <Route path="/booking" element={<BookingOnline />}>
             <Route index element={<BookingChair />} />
             {/* <Route path="/booking/dish" element={<BookingChair/>}/> */}
-            <Route path="dish" element={<BookingDish />} />
+            <Route path="/booking/dish" element={<BookingDish />} />
+            <Route path="/booking/payment" element={<Payment />} />
           </Route>
           <Route path="/profile" element={<IndexProfile />}>
             <Route index element={<Profile />} />

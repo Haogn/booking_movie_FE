@@ -23,9 +23,10 @@ function ListGenre() {
     getAllGenre(dispatch, token, search, page, size);
   }, [dispatch, token, search, page, size]);
   // console.log("listGenre", listGenre);
+
   // edit
-  const handleFindById = (id) => {
-    getGenre(dispatch, token, id);
+  const handleFindById = async (id) => {
+    await getGenre(dispatch, token, id);
     navigate("/admin/edit-genre");
   };
   // search
