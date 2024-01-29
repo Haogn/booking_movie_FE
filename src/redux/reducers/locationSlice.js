@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import userSlice from "./userSlice";
 
 const locationSlice = createSlice({
   name: "locations",

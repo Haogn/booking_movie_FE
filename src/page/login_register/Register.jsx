@@ -3,7 +3,6 @@ import Carousel from "react-bootstrap/Carousel";
 import { registerAccount } from "../../redux/api/service/authRequest";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 
 function Register() {
   const [username, setUsername] = useState("");

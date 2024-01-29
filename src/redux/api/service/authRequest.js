@@ -33,18 +33,15 @@ export const registerAccount = async(dispatch,navigate,registerForm)=>{
 }
 
 export const logout = (dispatch, navigate) => {
-  // Gọi hành động bắt đầu đăng xuất
   dispatch(logoutStart());
 
-  // Xóa thông tin người dùng khỏi localStorage
+
   localStorage.removeItem('username');
-  localStorage.removeItem('accessToken'); // Chú ý kiểm tra lại tên key này
+  localStorage.removeItem('accessToken');
   localStorage.removeItem('role');
 
-  // Gọi hành động thành công đăng xuất
   dispatch(logoutSuccess());
 
-  // Chuyển hướng người dùng về trang chủ
   navigate("/");
 };
   

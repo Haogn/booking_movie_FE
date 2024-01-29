@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllCustomer } from "../../../redux/api/service/userRequest";
 import { Link } from "react-router-dom";
-import { changeStatus, getAllCustomer } from "../../../redux/api/service/userRequest";
+import { changeStatus , getAllCustomer } from "../../../redux/api/service/userRequest";
 
 
 function ListCustomer() {
