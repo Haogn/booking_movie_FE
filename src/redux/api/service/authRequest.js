@@ -1,5 +1,5 @@
 import axios from "axios";
-import { loginFailed, loginStart, loginSuccess, logoutStart, logoutSuccess, registerFailed, registerStart, registerSuccess } from "../../reducers/authSlice";
+import { loginFailed, loginStart, loginSuccess, logoutStart, logoutSuccess,registerSuccess,registerFailed, getMaillingSuccess, getMaillingFailed, retrievalSuccess, retrievalFailed} from "../../reducers/authSlice";
 
 export const loginUser = async (user, dispatch, navigate) => {
   dispatch(loginStart());
@@ -20,31 +20,52 @@ export const loginUser = async (user, dispatch, navigate) => {
   }
 };  
 
-export const registerUser = async (user, dispatch, navigate) => {
-  dispatch(registerStart());
+export const registerAccount = async(dispatch,navigate,registerForm)=>{
+  console.log(registerForm);
   try {
-      const res = await axios.post("http://localhost:6789/api/booking/v1/auth/register", user);
-      dispatch(registerSuccess(res.data));
-      navigate("/login");
-  } catch (error) {
-      if (error.response) {
-          dispatch(registerFailed(error.response));
-      } else {
-          console.error("An error occurred:", error);
-      }
-  }
-};
+    const res = await axios.post("http://localhost:6789/api/booking/v1/auth/register", registerForm);
+
+  dispatch(registerSuccess(res.data));
+  navigate("/login")
+} catch (error) {
+  dispatch(registerFailed());
+}
+}
 
 export const logout = (dispatch, navigate) => {
-    dispatch(logoutStart());
+  // Gọi hành động bắt đầu đăng xuất
+  dispatch(logoutStart());
+
+  // Xóa thông tin người dùng khỏi localStorage
+  localStorage.removeItem('username');
+  localStorage.removeItem('accessToken'); // Chú ý kiểm tra lại tên key này
+  localStorage.removeItem('role');
+
+  // Gọi hành động thành công đăng xuất
+  dispatch(logoutSuccess());
+
+  // Chuyển hướng người dùng về trang chủ
+  navigate("/");
+};
+  
+
+  export const getMailling = async(dispatch,formData)=>{
+    try{
+      const res = await axios.post("http://localhost:6789/api/booking/v1/auth/getLink",formData)
+      dispatch(getMaillingSuccess(res.data))
+    }catch(error){
+      dispatch(getMaillingFailed(error.response));
+    }
+  }
+
+  export const retrievalPassword = async (dispatch, newPassForm, email) => {
+    console.log(newPassForm);
     try {
-      localStorage.removeItem('username');
-      localStorage.removeItem('acessToken');
-      dispatch(logoutSuccess());
-      console.log("chuyển hướng");
-      navigate("/");
+      const res = await axios.put(`http://localhost:6789/api/booking/v1/users/retrieval?email=${encodeURIComponent(email)}`, newPassForm);
+      dispatch(retrievalSuccess(res.data));
     } catch (error) {
-      dispatch(loginFailed());
+      dispatch(retrievalFailed(error.response));
     }
   };
+  
   

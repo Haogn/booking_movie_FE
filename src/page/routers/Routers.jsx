@@ -38,9 +38,7 @@ import BookingOnline from "./../customer/bookingOnline/BookingOnline";
 import BookingChair from "./../customer/bookingOnline/BookingChair";
 import BookingDish from "./../customer/bookingOnline/BookingDish";
 import ComingSoon from "./../customer/movieList/ComingSoon";
-<<<<<<< HEAD
 import ProtectedRoute from './ProtectedRoute';
-=======
 import NowHowing from "../customer/movieList/NowHowing";
 import EditLocation from "../admin/edit/EditLocation";
 import EditTheater from "../admin/edit/EditTheater";
@@ -49,7 +47,9 @@ import EditTime from "../admin/edit/EditTime";
 import EditGenre from "../admin/edit/EditGenre";
 import EditMovie from "../admin/edit/EditMovie";
 import EditDrinks from "../admin/edit/EditDrinks";
->>>>>>> 50578dd48d191fb81505adb0526ea5bcbc306db7
+import Forgotpassword from "../customer/Forgotpassword";
+import RetrievalPassword from "../customer/RetrievalPassword";
+
 
 function Routers() {
   return (
@@ -60,6 +60,8 @@ function Routers() {
           <Route index element={<HomeCustomer />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/forgotpassword" element={<Forgotpassword />} />
+          <Route path="/retrievalPassword" element={<RetrievalPassword />} />
           <Route path="/detail" element={<DetailMovie />} />
           <Route path="/comingsoon" element={<ComingSoon />} />
           <Route path="/nowhowing" element={<NowHowing />} />

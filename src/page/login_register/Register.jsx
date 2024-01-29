@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import Carousel from "react-bootstrap/Carousel";
-import { registerUser } from "../../redux/api/service/authRequest";
+import { registerAccount } from "../../redux/api/service/authRequest";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function Register() {
   const [username, setUsername] = useState("");
@@ -13,16 +14,17 @@ function Register() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+
   const handleRegister = (e) => {
     e.preventDefault();
     const newUser = {
       username: username,
       email: email,
-      phone: phone,
       password: password,
+      phone: phone,
       dateOfBirth: dateOfBirth,
     };
-    registerUser(newUser, dispatch, navigate);
+    registerAccount (dispatch,navigate,newUser);
   };
 
   return (

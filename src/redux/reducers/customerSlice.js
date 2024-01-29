@@ -4,45 +4,59 @@ const customerSlice = createSlice({
     name: "customer",
     initialState:{
         profile: {
-            isFetching: false,
             userProfile: null,
             error: false,
          },
         changePassword:{
-            isFetching: false,
-            success:false,
-            error: false
+            success:null,
+            error: null,
+        },
+        changeAvatar:{
+            messageAvatar:null,
+            errorAvatar: null,
+        },
+        updateProfile:{
+            messageProfile:null,
+            errorProfile: null,
         }
     },
     reducers: {
-        getProfileStart: (state) => {
-            state.profile.isFetching = true;
-        },
         getprofileSuccess: (state, action) => {
-            state.profile.isFetching = false;
             state.profile.userProfile = action.payload;
             state.profile.error = false;
          },
         getProfileFailed: (state) => {
-            state.profile.isFetching = false;
             state.profile.error = true;
         },
-        changePasswordStart: (state) => {
-            state.changePassword.isFetching = true;
-        },
         changePasswordSuccess: (state, action) => {
-            state.changePassword.isFetching = false;
-            state.changePassword.success = true;
-            state.changePassword.error = false;
+            state.changePassword.success = action.payload;
         },
-        changePasswordFailed: (state) => {
-            state.changePassword.isFetching = false;
-            state.changePassword.success = false;
-            state.changePassword.error = true;
+        changePasswordFailed: (state,action) => {
+            state.changePassword.error = action.payload;
+        },
+        changeAvatarSuccess: (state,action) => {
+            state.changeAvatar.success = action.payload;
+        },
+        changeAvatarFailed: (state,action) => {
+            state.changeAvatar.error = action.payload;
+        },
+        updateProfileSuccess:(state,action) => {
+            state.updateProfile.messageProfile = action.payload;
+        },
+        updateProfileFailed:(state,action) => {
+            state.updateProfile.errorProfile = action.payload;
         }
     }
 });
 
-export const { getProfileStart, getprofileSuccess, getProfileFailed,
-changePasswordStart,changePasswordSuccess,changePasswordFailed } = customerSlice.actions;
+export const {  
+getprofileSuccess,
+getProfileFailed,
+changePasswordSuccess,
+changePasswordFailed ,
+changeAvatarSuccess,
+changeAvatarFailed,
+updateProfileSuccess,
+updateProfileFailed,
+} = customerSlice.actions;
 export default customerSlice.reducer;
