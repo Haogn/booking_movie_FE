@@ -23,27 +23,6 @@ function Login() {
     };
   }, [dispatch]);
 
-  // useEffect(() => {
-  //   handleGetCaptcha();
-  // }, []);
-
-  // const  handleGetCaptcha = async () => {
-  //   try {
-  //     const resp = await axios
-  //     .get("http://localhost:6789/api/booking/v1/auth/captcha")
-  //     console.log(resp)
-  //     if (resp && resp.data) {
-  //       setCaptcha(resp.data);
-  //       setError("");
-  //     } else {
-  //       setError("Không có dữ liệu captcha");
-  //     }
-  //   } catch(err) {
-  //       console.error(err);
-  //       setError(err.response?.data || "Có lỗi xảy ra khi lấy captcha");
-  //   }
-  // };
-
   const handleLogin = (e) => {
     e.preventDefault();
     setErrorUsername(null);
@@ -116,6 +95,9 @@ function Login() {
               ) : (
                 <></>
               )}
+
+              <div className="flex justify-between">               
+              </div>er
               <div className="flex mx-auto w-full justify-center gap-5">
                 <p className=" font-medium text-xl font-mono pl-3 py-2 w-[30%] text-center text-white bg-red-500 rounded-md">
                   <Link to={"/register"}>Đăng Ký</Link>
@@ -126,7 +108,7 @@ function Login() {
               </div>
             </form>
             <p className="text-center text-blue-400 font-mono mt-3">
-              <Link to="/laylaimatkhau">Tôi muốn lấy lại mật khẩu ? </Link>
+              <Link to="/forgotpassword">Tôi muốn lấy lại mật khẩu ? </Link>
             </p>
           </div>
         </div>

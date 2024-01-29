@@ -5,7 +5,9 @@ import {
     getEmployerSuccess,
     getEmployerFailed,
     getManagerSuccess,
-    getManagerFailed, } from "../../reducers/userSlice";
+    getManagerFailed,
+    changeStatusSuccess,
+    changeStatusFailed, } from "../../reducers/userSlice";
 
     export const getAllCustomer = async (dispatch, token, username, page) => {
         try {
@@ -19,36 +21,62 @@ import {
               },
             }
           );
+          console.log("Khách hàng: ");
+          console.log(res.data);
           dispatch(getCustomeSuccess(res.data));
         } catch (error) {
           dispatch(getCustomeFailed());
         }
       };
-export const getAllEmployer = async(distpatch,token,page)=>{
+export const getAllEmployer = async(distpatch,token,search,page)=>{
     try{
         const res = await axios.get("http://localhost:6789/api/booking/v1/users/employer",
         {
-            headers: {token:`Bearer ${token}` },
+            headers: {Authorization:`Bearer ${token}` },
             params: {
-              // username: username,
+              username: search,
               page: page,
             },
         });
+        console.log("Nhân viên: ");
+        console.log(res.data);
         distpatch(getEmployerSuccess(res.data.content))
-        console.log(res.data.content);
     }catch(error){
         distpatch(getEmployerFailed())
     }
 } 
 
-export const getAllMaganer= async(accessToken,distpatch)=>{
+export const getAllMananger= async(dispatch,token,search,page)=>{
     try{
+      console.log("lấy danh sách");
         const res = await axios.get("http://localhost:6789/api/booking/v1/users/manager",
         {
-            headers: {token:`Bearer ${accessToken}` }
+            headers: {
+              Authorization: `Bearer ${token}`,
+            params: {
+              username: search,
+              page: page,
+            }, }
         });
-        distpatch(getManagerSuccess(res.data.content))
+        console.log("Quản lí: " );
+        console.log(res.data);
+        dispatch(getManagerSuccess(res.data.content))
     }catch(error){
-        distpatch(getManagerFailed())
+      dispatch(getManagerFailed())
     }
+} 
+
+export const changeStatus= async(dispatch,token,id)=>{
+  try{
+      const res = await axios.put(`http://localhost:6789/api/booking/v1/users/changeStatus/${id}`,
+      {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+      });
+      console.log("Trạng thái"+res.data);
+      dispatch(changeStatusSuccess(res.data))
+  }catch(error){
+    dispatch(changeStatusFailed(error.response))
+  }
 } 

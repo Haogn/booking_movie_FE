@@ -14,15 +14,16 @@ const userSlice = createSlice({
         error:false,
         },
         manager:{
-        listEmployer:null,
+        listManager:null,
         isFetching:false,
         error:false,  
+        },
+        changeStatus:{
+            changeStatusSuccess:null,
+            changeStatusFailed:null
         }
     },
     reducers:{
-        getCustomeStart:(state)=>{
-            state.customer.isFetching = true;
-        },
         getCustomeSuccess:(state,action)=>{
             state.customer.isFetching = false;
             state.customer.listCustomer = action.payload;
@@ -30,9 +31,6 @@ const userSlice = createSlice({
         getCustomeFailed:(state)=>{
             state.customer.isFetching = false;
             state.customer.error = true;
-        },
-        getEmployerStart:(state)=>{
-            state.employer.isFetching = true;
         },
         getEmployerSuccess:(state,action)=>{
             state.employer.isFetching = false;
@@ -43,9 +41,6 @@ const userSlice = createSlice({
             state.employer.error = true;
         }
         ,
-        getManagerStart:(state)=>{
-            state.manager.isFetching = true;
-        },
         getManagerSuccess:(state,action)=>{
             state.manager.isFetching = false;
             state.manager.listManager = action.payload;
@@ -53,20 +48,25 @@ const userSlice = createSlice({
         getManagerFailed:(state)=>{
             state.manager.isFetching = false;
             state.manager.error = true;
+        },
+        changeStatusSuccess:(state,action)=>{
+            state.changeStatus.changeStatusSuccess=action.payload;
+        },
+        changeStatusFailed:(state,action)=>{
+            state.changeStatus.changeStatusFailed=action.payload;
         }
     }
 })
 
 export const {
-    getCustomeStart,
     getCustomeSuccess,
     getCustomeFailed,
-    getEmployerStart,
     getEmployerSuccess,
     getEmployerFailed,
-    getManagerStart,
     getManagerSuccess,
     getManagerFailed,
+    changeStatusSuccess,
+    changeStatusFailed
   } = userSlice.actions;
   
   export default userSlice.reducer;

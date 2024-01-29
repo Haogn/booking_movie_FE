@@ -12,7 +12,6 @@ function NavbarCustomer() {
     storedUsername.endsWith('"')
       ? storedUsername.slice(1, -1)
       : storedUsername;
-  console.log(username);
   const distpatch = useDispatch();
   const navigate = useNavigate();
 

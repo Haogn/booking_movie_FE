@@ -1,9 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { profileUser } from "../../redux/api/service/customerRequest";
+import { changeAvatar, profileUser, updateProfile } from "../../redux/api/service/customerRequest";
+
 
 function Profile() {
   const storedToken = localStorage.getItem("acessToken");
+  const [avatarPreview, setAvatarPreview] = useState();
   const token =
     storedToken && storedToken.startsWith('"') && storedToken.endsWith('"')
       ? storedToken.slice(1, -1)
@@ -12,10 +14,59 @@ function Profile() {
   const userProfile = useSelector(
     (state) => state.customer.profile.userProfile
   );
+  const [avatar, setAvatar] = useState('');
+  const [phone, setPhone] = useState('');
+  const [city, setCity] = useState('');
+  const [address, setAddress] = useState('');
+  const [gender, setGender] = useState('');
 
+  
+
+
+  
   useEffect(() => {
     profileUser(dispatch, token);
   }, [dispatch, token]);
+
+
+
+
+  const handleFileChange = (event) => {
+    if (event.target.files && event.target.files[0]) {
+      const file = event.target.files[0];
+      setAvatar(file);
+      setAvatarPreview(URL.createObjectURL(file));
+    }
+  };
+  
+  
+
+  const handleChangeAvatar = async (event) => {
+    event.preventDefault();
+  
+    if (avatar) {
+      const formData = new FormData();
+      formData.append('file', avatar);
+  
+      try {
+        const response = await changeAvatar(dispatch, token, formData);
+        console.log("Avatar changed successfully", response);
+      } catch (error) {
+        console.error("Error changing avatar", error);
+      }
+    }
+  };
+
+  const handleEditProfile = (e) =>{
+    e.preventDefault();
+    const updateForm = {
+      city: city,
+      address: address,
+      gender:gender,
+      phone: phone,
+    };
+    updateProfile(dispatch,token,updateForm);
+  }
 
   return userProfile ? (
     <div>
@@ -23,22 +74,26 @@ function Profile() {
         Thông tin tài khoản
       </div>
       {/* avatar */}
-      <div className="mx-auto h-[200px] w-[200px] my-3">
-        <div className="w-[118px] h-[118px] border-2 border-gray-900 rounded-[50%] mb-2">
-          <img
-            className="w-[116px] h-[116px] rounded-[50%] object-cover "
-            src="../../public/image/avatar_default.pnj"
-            alt="avatar"
-          />
-        </div>
-        <input type="file" id="avatarInput" className="hidden" />
-        <button type="file" className="btn btn-dark font-mono mb-4 w-[116px]">
-          Thay đổi
-        </button>
-      </div>
+      <form onSubmit={handleChangeAvatar}>
+  <div className="mx-auto h-[200px] w-[200px] my-3">
+    <div className="w-[118px] h-[118px] border-2 border-gray-900 rounded-[50%] mb-2" onClick={() => document.getElementById('avatar').click()}>
+    <img
+  className="w-[116px] h-[116px] rounded-[50%] object-cover"
+  src={avatarPreview || avatar || "https://longduong.s3.us-east-2.amazonaws.com/1706260697543_avatar_defaul.png"}
+  alt="avatar"
+/>
+    </div>
+    <input type="file" id="avatar" name="avatar" className="hidden" onChange={handleFileChange} />
+    <button type="submit" className="btn btn-dark font-mono mb-4 w-[116px]">
+      Thay đổi
+    </button>
+  </div>
+</form>
+
+
       {/* from thông tin */}
       <div className="mt-3">
-        <form action="">
+        <form action="" onSubmit={handleEditProfile}>
           <div className="row">
             {/* Cột 1 */}
             <div className="col-md-6">
@@ -61,7 +116,7 @@ function Profile() {
 
               <div className="mb-3">
                 <label className="form-label font-mono font-semibold">
-                  Ngày sinh:
+                  Ngày sinh:<span className="text-red-500">*</span>
                 </label>
                 <p className="font-mono font-semibold mt-2">
                   {userProfile.dateOfBirth}
@@ -73,27 +128,45 @@ function Profile() {
                 </label>
                 <div className="flex gap-2">
                   <div className="form-check">
-                    <input
-                      type="radio"
-                      className="form-check-input"
-                      id="genderMale"
-                      name="gender"
-                      value="Nam"
-                    />
+                  <input
+  type="radio"
+  className="form-check-input"
+  id="genderMale"
+  name="gender"
+  value="Nam"
+  checked={gender === 'Nam'}
+  onChange={(e) => setGender(e.target.value)}
+/>
                     <label className="form-check-label" htmlFor="genderMale">
                       Nam
                     </label>
                   </div>
                   <div className="form-check">
-                    <input
-                      type="radio"
-                      className="form-check-input"
-                      id="genderFemale"
-                      name="gender"
-                      value="Nữ"
-                    />
+                  <input
+  type="radio"
+  className="form-check-input"
+  id="genderFemale"
+  name="gender"
+  value="Nữ"
+  checked={gender === 'Nữ'}
+  onChange={(e) => setGender(e.target.value)}
+/>
                     <label className="form-check-label" htmlFor="genderFemale">
                       Nữ
+                    </label>
+                  </div>
+                  <div className="form-check">
+                  <input
+  type="radio"
+  className="form-check-input"
+  id="genderOther"
+  name="gender"
+  value="Khác"
+  checked={gender === 'Khác'}
+  onChange={(e) => setGender(e.target.value)}
+/>
+                    <label className="form-check-label" htmlFor="genderFemale">
+                      Khác
                     </label>
                   </div>
                 </div>
@@ -107,33 +180,36 @@ function Profile() {
                   Số điện thoại:
                 </label>
                 <input
-                  value={userProfile.phone}
-                  type="text"
-                  className="form-control"
-                  id="phone"
-                />
+  value={phone}
+  type="text"
+  className="form-control"
+  id="phone"
+  onChange={(e) => setPhone(e.target.value)}
+/>
               </div>
               <div className="mb-3">
                 <label className="form-label font-mono font-semibold">
                   Thành phố:
                 </label>
                 <input
-                  value={userProfile.city}
-                  type="text"
-                  className="form-control"
-                  id="city"
-                />
+  type="text"
+  value={city}
+  className="form-control"
+  id="city"
+  onChange={(e) => setCity(e.target.value)}
+/>
               </div>
               <div className="mb-3">
                 <label className="form-label font-mono font-semibold">
                   Địa chỉ:
                 </label>
                 <input
-                  value={userProfile.address}
-                  type="text"
-                  className="form-control"
-                  id="address"
-                />
+  value={address}
+  type="text"
+  className="form-control"
+  id="address"
+  onChange={(e) => setAddress(e.target.value)}
+/>
               </div>
 
               <div className="mb-3">
