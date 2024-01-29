@@ -9,10 +9,10 @@ import {
   getALlMovieByStatusFailed,
   getALlMovieByStatusStart,
   getALlMovieByStatusSuccess,
-  getALlMovieSelectFailed,
-  getALlMovieSelectStart,
-  getALlMovieSelectSuccess,
   getAllMovieFailed,
+  getAllMovieSelectFailed,
+  getAllMovieSelectStart,
+  getAllMovieSelectSuccess,
   getAllMovieStart,
   getAllMovieSuccess,
   getMovieFailed,
@@ -58,20 +58,16 @@ export const getAllMovie = async (dispatch, token, search, page) => {
 };
 
 export const getAllMovieSelect = async (dispatch) => {
-  dispatch(getALlMovieSelectStart());
+  dispatch(getAllMovieSelectStart());
   try {
     const res = await axios.get(
       "http://localhost:6789/api/booking/v1/movie/getAll"
-      // {
-      //   headers: {
-      //     Authorization: `Bearer ${token}`,
-      //   },
-      // }
     );
     console.log(res.data);
-    dispatch(getALlMovieSelectSuccess(res.data));
+    dispatch(getAllMovieSelectSuccess(res.data));
+    return res.data;
   } catch (error) {
-    dispatch(getALlMovieSelectFailed(error.response));
+    dispatch(getAllMovieSelectFailed(error.response));
   }
 };
 

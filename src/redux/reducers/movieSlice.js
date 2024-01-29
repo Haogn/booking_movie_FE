@@ -40,15 +40,16 @@ const movieSlice = createSlice({
       state.movie.error = action.payload;
     },
     // getAllMovieSelect :
-    getALlMovieSelectStart: (state) => {
-      state.movie.isFetching = false;
+    getAllMovieSelectStart: (state) => {
+      state.movie.isFetching = true;
     },
     getAllMovieSelectSuccess: (state, action) => {
+      console.log(action.payload);
       state.movie.isFetching = false;
       state.movie.listMovieSelect = action.payload;
       state.movie.error = null;
     },
-    getALlMovieSelectFailed: (state, action) => {
+    getAllMovieSelectFailed: (state, action) => {
       state.movie.isFetching = false;
       state.movie.error = action.payload;
     },
@@ -114,12 +115,12 @@ export const {
   getAllMovieStart,
   getAllMovieSuccess,
   getAllMovieFailed,
-  getALlMovieSelectStart,
-  getALlMovieSelectSuccess,
-  getALlMovieSelectFailed,
   getALlMovieByStatusStart,
   getALlMovieByStatusSuccess,
   getALlMovieByStatusFailed,
+  getAllMovieSelectStart,
+  getAllMovieSelectSuccess,
+  getAllMovieSelectFailed,
   createMovieStart,
   createMovieSuccess,
   createMovieFailed,
