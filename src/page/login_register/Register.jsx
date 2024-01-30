@@ -3,6 +3,8 @@ import Carousel from "react-bootstrap/Carousel";
 import { registerAccount } from "../../redux/api/service/authRequest";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { format } from 'date-fns';
+
 
 function Register() {
   const [username, setUsername] = useState("");
@@ -14,6 +16,7 @@ function Register() {
   const navigate = useNavigate();
 
 
+
   const handleRegister = (e) => {
     e.preventDefault();
     const newUser = {
@@ -21,7 +24,7 @@ function Register() {
       email: email,
       password: password,
       phone: phone,
-      dateOfBirth: dateOfBirth,
+      dateOfBirth: format(new Date(dateOfBirth), 'dd-MM-yyyy'),
     };
     registerAccount (dispatch,navigate,newUser);
   };

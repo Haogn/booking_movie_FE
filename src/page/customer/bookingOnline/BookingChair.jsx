@@ -1,19 +1,36 @@
 import React from "react";
 import "./BookingOnline.css";
+import { useSelector } from "react-redux";
 function BookingChair() {
-  const rows = 10;
-  const columns = 10;
-  const chairs = [];
+
+  const chairlist = useSelector((state) => state.order.getChairStatus.listChair);
+  const roomResponse = useSelector((state) => state.order.getRoomMovie.roomResponse);
+  const room = roomResponse?.[0];
+
+  if (!room) {
+    return <div>Loading room information...</div>;
+  }
+
+  const rows = room.numberOfSeatsInAColumn;
+  const columns = room.numberOfSeatsInARow;
+  let chairsGrid = [];
 
   for (let i = 0; i < rows; i++) {
+    let rowChairs = [];
     for (let j = 0; j < columns; j++) {
-      const chairNumber = i * columns + j + 1;
-      chairs.push(
-        <div key={`${i}-${j}`} className="chair">
-          {chairNumber}
+      const chairIndex = i * columns + j;
+      const chair = chairlist[chairIndex];
+      const isBooked = chair?.status !== 'Trống'; 
+      const chairType = chair?.chairType;
+
+      rowChairs.push(
+        <div key={`${i}-${j}`}
+          className={`chair ${isBooked ? 'booked' : ''} ${chairType === 'VIP' ? 'vip' : 'normal'}`}>
+          {chair.chairName}
         </div>
       );
     }
+    chairsGrid.push(<div key={i} className="chair-row">{rowChairs}</div>);
   }
   return (
     <div className="booking_chair font-mono">
@@ -24,7 +41,7 @@ function BookingChair() {
         <h1>SCREEN</h1>
       </div>
       <div className="w-[400px] h-[400px]  mx-auto">
-        <div className="chairs m-1">{chairs}</div>
+        <div className="chairs m-1">{chairsGrid}</div>
       </div>
 
       <div class="ticketbox-notice row">
