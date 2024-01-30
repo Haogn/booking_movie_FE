@@ -8,38 +8,128 @@ import "owl.carousel/dist/assets/owl.theme.default.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllMovieSelect } from "../../redux/api/service/movieRequest";
+import { getChair, getLocation, getMovieInform, getRoom, startBuy } from "../../redux/api/service/orderRequest";
+import { format } from "date-fns";
+import { getOrderInformations } from "../../redux/reducers/orderSlice";
 
 function HomeCustomer() {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
   const storedToken = localStorage.getItem("acessToken");
   const token =
     storedToken && storedToken.startsWith('"') && storedToken.endsWith('"')
       ? storedToken.slice(1, -1)
       : storedToken;
+  const currentDate = new Date();
+  const formattedDate = format(currentDate, "yyyy-MM-dd");
+  const [selectedDate, setSelectedDate] = useState(formattedDate);
+  const [selectedType, setSelectedType] = useState("TWO_D");
+  const [days, setDays] = useState([]);
+  const [selectedTab, setSelectedTab] = useState("");
+  const [selectedLocation, setSelectedLocation] = useState(null);
+  const [isLocationUpdated, setIsLocationUpdated] = useState(false);
+  const [selectedMovieId, setSelectedMovieId] = useState(null);
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const listMovie = useSelector((state) => state.movies.movie.listMovieSelect);
+
+  const listLocation = useSelector(
+    (state) => state.order.getLocation.listLocation
+  );
+
+  const timeSlosts = useSelector((state) => state.order.startBuy.informations);
+
   useEffect(() => {
-    getAllMovieSelect(dispatch);
-  }, [dispatch, token]);
-  console.log("listMovie", listMovie);
-  const [selectedTab, setSelectedTab] = useState("default-day"); // Default selected tab
+    // getAllMovieSelect(dispatch);
+  }, [dispatch]);
 
-  const handleTabDay = (tab) => {
-    setSelectedTab(tab);
+  useEffect(() => {
+    const today = new Date();
+    const nextDays = getNextDays(today, 11);
+    setDays(nextDays);
+    if (nextDays.length > 0) {
+      setSelectedTab(nextDays[0].date);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (listLocation && listLocation.length > 0) {
+      setSelectedLocation(listLocation[0]);
+      setIsLocationUpdated(true); // Cập nhật trạng thái khi listLocation thay đổi
+    }
+  }, [listLocation]);
+
+  useEffect(() => {
+    if (isLocationUpdated && selectedLocation && selectedMovieId !== null) {
+      startBuy(
+        dispatch,
+        selectedMovieId,
+        selectedDate,
+        selectedType,
+        selectedLocation.locationName
+      );
+      setIsLocationUpdated(false); // Reset trạng thái cập nhật
+    }
+  }, [selectedLocation, isLocationUpdated, selectedMovieId]);
+
+  useEffect(() => {
+    const selectedDay = days.find(
+      (day) => day.date.getTime() === selectedTab.getTime()
+    );
+    if (selectedDay) {
+      setSelectedDate(format(selectedDay.date, "yyyy-MM-dd"));
+    }
+  }, [selectedTab, days]);
+
+  const handleTabDay = (selectedDate) => {
+    setSelectedTab(selectedDate);
+    console.log(selectedDate);
   };
 
-  const [selectedLocation, setSelectedLocation] = useState("default-location"); // Default selected tab
-
-  const handleTabLocation = (tab) => {
-    setSelectedLocation(tab);
+  const handleTabLocation = (location) => {
+    setSelectedLocation(location);
+    handleViewTimeSlot(location);
   };
 
-  const [selectedType, setSelectedType] = useState("default-type"); // Default selected tab
-
-  const handleTabType = (tab) => {
-    setSelectedType(tab);
+  const handleTabType = (type) => {
+    setSelectedType(type);
+    console.log(selectedTab);
   };
+
+  const handleViewTimeSlot = (idMovie) => {
+    setSelectedMovieId(idMovie); 
+    getLocation(dispatch, idMovie, selectedDate, selectedType);
+    setIsLocationUpdated(false);
+  };
+
+
+
+  const handleGetTimeSlot = async (theater, time) => {
+ 
+    if (token === null) {
+        navigate("/login");
+    } else {
+        const payload = {
+            idMovie: selectedMovieId,
+            locationName: selectedLocation.locationName,
+            selectedDate,
+            theater,
+            time,
+        };
+        dispatch(getOrderInformations(payload));
+
+        // Đợi cho getRoom hoàn thành và lấy roomId
+        const rooms = await getRoom(dispatch, selectedMovieId, time, selectedType, theater, selectedDate);
+        const roomId = rooms?.[0]?.id; // Truy cập id của phòng đầu tiên
+        console.log(rooms);
+        if (roomId) {
+            getChair(dispatch,roomId,time);
+            getMovieInform(dispatch, navigate, selectedMovieId);
+        } else {
+            // Xử lý khi không tìm thấy phòng
+        }
+    }
+};
+
 
   return (
     <div>
@@ -127,65 +217,46 @@ function HomeCustomer() {
                 </div>
                 {/* day */}
                 <div className="modal-body w-full h-[90px] p-[20px] bg-slate-300 flex gap-2 days border-y-2 border-black my-1">
-                  <div
-                    className={`cursor-pointer w-[74px] h-[45px] p-1  rounded-[3px]  font-mono flex items-center justify-around day-item ${
-                      selectedTab === "default-day"
-                        ? "text-gray-950 border border-black rounded-[3px] bg-red-100 py-2 "
-                        : ""
-                    }`}
-                    onClick={() => handleTabDay("default-day")}
-                  >
-                    <div className="flex flex-col">
-                      <p>01</p>
-                      <p>Thu</p>
+                  {days.map((day, index) => (
+                    <div
+                      key={index}
+                      className={`cursor-pointer w-[74px] h-[45px] p-1 rounded-[3px] font-mono flex items-center justify-around day-item ${
+                        selectedTab.getTime() === day.date.getTime()
+                          ? "text-gray-950 border border-black rounded-[3px] bg-red-100 py-2"
+                          : ""
+                      }`}
+                      onClick={() => handleTabDay(day.date)}
+                    >
+                      <div className="flex flex-col">
+                        <p>{day.dayOfWeek}</p>
+                        <p>{`${String(day.day).padStart(2, "0")}/${String(
+                          day.month
+                        ).padStart(2, "0")}`}</p>
+                      </div>
                     </div>
-                    <div className="">
-                      <p className="text-3xl">25</p>
-                    </div>
-                  </div>
-
-                  <div
-                    className={`cursor-pointer w-[74px] h-[45px] p-1  rounded-[3px]  font-mono flex items-center justify-around day-item ${
-                      selectedTab === "next-day"
-                        ? "text-gray-950 border border-black rounded-[3px] bg-red-100 py-2 "
-                        : ""
-                    }`}
-                    onClick={() => handleTabDay("next-day")}
-                  >
-                    <div className="flex flex-col">
-                      <p>01</p>
-                      <p>Thu</p>
-                    </div>
-                    <div className="">
-                      <p className="text-3xl">25</p>
-                    </div>
-                  </div>
+                  ))}
                 </div>
                 {/* location */}
                 <div className="modal-body w-[95%] h-[70px] border-b-2 border-black mx-auto ">
                   <div className="flex items-center gap-2">
-                    {/*  */}
-                    <p
-                      className={`cursor-pointer h-[40px] w-[110px] font-mono text-center rounded-[5px] py-[7px] ${
-                        selectedLocation === "default-location"
-                          ? " bg-gray-950 text-white border border-black rounded-[3px]  py-2 "
-                          : ""
-                      }`}
-                      onClick={() => handleTabLocation("default-location")}
-                    >
-                      Hồ Chí Minh
-                    </p>
-
-                    <p
-                      className={`cursor-pointer h-[40px] w-[110px] font-mono text-center rounded-[5px] py-[7px] ${
-                        selectedLocation === "next-location"
-                          ? " bg-gray-950 text-white border border-black rounded-[3px]  py-2 "
-                          : ""
-                      }`}
-                      onClick={() => handleTabLocation("next-location")}
-                    >
-                      Hà Nội
-                    </p>
+                    {listLocation ? (
+                      listLocation.map((location, index) => (
+                        <p
+                          key={index}
+                          className={`cursor-pointer h-[40px] w-[110px] font-mono text-center rounded-[5px] py-[7px] ${
+                            selectedLocation &&
+                            selectedLocation.id === location.id
+                              ? "bg-gray-950 text-white border border-black rounded-[3px] py-2"
+                              : ""
+                          }`}
+                          onClick={() => handleTabLocation(location)}
+                        >
+                          {location.locationName}
+                        </p>
+                      ))
+                    ) : (
+                      <></>
+                    )}
                   </div>
                 </div>
                 {/* type */}
@@ -193,70 +264,55 @@ function HomeCustomer() {
                   <div className="flex gap-3">
                     <p
                       className={`cursor-pointer h-[35px] w-[150px] font-mono text-center rounded-[5px] py-[5px] ${
-                        selectedType === "default-type"
-                          ? " bg-gray-950 text-white border border-black rounded-[3px]  py-2 "
+                        selectedType === "Two D"
+                          ? "bg-gray-950 text-white border border-black rounded-[3px] py-2"
                           : ""
                       }`}
-                      onClick={() => handleTabType("default-type")}
+                      onClick={() => handleTabType("TWO_D")}
                     >
                       2D Phụ Đề Việt
                     </p>
 
                     <p
                       className={`cursor-pointer h-[35px] w-[150px] font-mono text-center rounded-[5px] py-[5px] ${
-                        selectedType === "next-type"
-                          ? " bg-gray-950 text-white border border-black rounded-[3px]  py-2 "
+                        selectedType === "Three D"
+                          ? "bg-gray-950 text-white border border-black rounded-[3px] py-2"
                           : ""
                       }`}
-                      onClick={() => handleTabType("next-type")}
+                      onClick={() => handleTabType("THREE_D")}
                     >
                       3D Phụ Đề Việt
                     </p>
                   </div>
                 </div>
                 {/* theater and time */}
-                <div className="modal-body w-[95%] h-[110px] p-[20px] bg-slate-300  days border-b-2 border-black mx-auto">
-                  <h3 className="font-mono font-bold text-lg">
-                    CGV Lý Chính Thắng
-                  </h3>
-                  <div className="flex gap-2 items-center times">
-                    <p className="w-[126px] h-[35px] text-center  py-[5px] font-mono font-medium border border-black time-item">
-                      10:05 PM
-                    </p>
-                  </div>
-                </div>{" "}
-                <div className="modal-body w-[95%] h-[110px] p-[20px] bg-slate-300  days border-b-2 border-black mx-auto">
-                  <h3 className="font-mono font-bold text-lg">
-                    CGV Lý Chính Thắng
-                  </h3>
-                  <div className="flex gap-2 items-center times">
-                    <p className="w-[126px] h-[35px] text-center  py-[5px] font-mono font-medium border border-black time-item">
-                      10:05 PM
-                    </p>
-                  </div>
-                </div>
-                <div className="modal-body w-[95%] h-[110px] p-[20px] bg-slate-300  days border-b-2 border-black mx-auto">
-                  <h3 className="font-mono font-bold text-lg">
-                    CGV Lý Chính Thắng
-                  </h3>
-                  <div className="flex gap-2 items-center times">
-                    <p className="w-[126px] h-[35px] text-center  py-[5px] font-mono font-medium border border-black time-item">
-                      10:05 PM
-                    </p>
-                  </div>
-                </div>
-                <div className="modal-body w-[95%] h-[110px] p-[20px] bg-slate-300  days border-b-2 border-black mx-auto">
-                  <h3 className="font-mono font-bold text-lg">
-                    CGV Lý Chính Thắng
-                  </h3>
-                  <div className="flex gap-2 items-center times">
-                    <p className="w-[126px] h-[35px] text-center  py-[5px] font-mono font-medium border border-black time-item">
-                      10:05 PM
-                    </p>
-                  </div>
-                </div>
+                {timeSlosts ? (
+                  Object.keys(timeSlosts).map((theater) => (
+                    <div
+                      className="modal-body w-[95%] h-[110px] p-[20px] bg-slate-300 days border-b-2 border-black mx-auto"
+                      key={theater}
+                    >
+                      <h3 className="font-mono font-bold text-lg">
+                        CGV - {theater}
+                      </h3>
+                      <div className="flex gap-2 items-center times">
+                        {timeSlosts[theater].map((time) => (
+                          <p
+                          onClick={() => handleGetTimeSlot(theater, time)}
+                            className="w-[126px] h-[35px] text-center py-[5px] font-mono font-medium border border-black time-item"
+                            key={time}
+                          >
+                            {time}
+                          </p>
+                        ))}
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <></>
+                )}
                 <div className="modal-footer">
-                  <p>footer booking</p>
+                  <p>booking movie</p>
                 </div>
               </div>
             </div>
@@ -297,6 +353,7 @@ function HomeCustomer() {
                         className="text-center font-medium font-mono text-white "
                         data-bs-target="#exampleModalToggle"
                         data-bs-toggle="modal"
+                        onClick={() => handleViewTimeSlot(1)}
                       >
                         Mua vé <i className="fa-solid fa-ticket"></i>
                       </button>{" "}
@@ -348,3 +405,20 @@ function HomeCustomer() {
 }
 
 export default HomeCustomer;
+
+function getNextDays(startDate, numDays) {
+  const days = [];
+  for (let i = 0; i < numDays; i++) {
+    const nextDay = new Date(startDate.getTime());
+    nextDay.setDate(startDate.getDate() + i);
+
+    days.push({
+      date: nextDay,
+      dayOfWeek: nextDay.toLocaleString("default", { weekday: "short" }),
+      day: nextDay.getDate(),
+      month: nextDay.getMonth() + 1, // Tháng trong JavaScript bắt đầu từ 0
+      year: nextDay.getFullYear(),
+    });
+  }
+  return days;
+}

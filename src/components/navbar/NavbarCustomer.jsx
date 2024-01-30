@@ -48,9 +48,9 @@ function NavbarCustomer() {
       <div className="header-page">
         <div className="flex justify-center gap-[70px] my-[20px] cursor-pointer pt-[30px]">
           <div>
-            <a href="#">
+            <Link to={"/"}>
               <img src="./image/logo.png" alt="" />
-            </a>
+            </Link>
           </div>
           <div className="flex gap-[70px] font-bold pt-[20px] ">
             <div className="movie">

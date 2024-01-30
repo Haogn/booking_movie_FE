@@ -37,7 +37,7 @@ export const logout = (dispatch, navigate) => {
 
 
   localStorage.removeItem('username');
-  localStorage.removeItem('accessToken');
+  localStorage.removeItem('acessToken');
   localStorage.removeItem('role');
 
   dispatch(logoutSuccess());
