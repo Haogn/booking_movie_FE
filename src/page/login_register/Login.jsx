@@ -51,7 +51,6 @@ function Login() {
             Đăng nhập
           </h1>
           <div className="w-[80%] h-full mx-auto">
-            {error ? <span className="text-red-500">{error.data}</span> : <></>}
             <form action="" onSubmit={handleLogin}>
               <div className="mb-3">
                 <label className="form-label font-mono font-semibold">
@@ -65,7 +64,9 @@ function Login() {
                   name="username"
                 />
                 {errorUsername && (
-                  <span className="text-red-500">{errorUsername}</span>
+                  <span className="text-red-500 font-mono font-medium text-center">
+                    {errorUsername}
+                  </span>
                 )}
               </div>
 
@@ -82,9 +83,19 @@ function Login() {
                   autoComplete="password"
                 />
                 {errorPassword && (
-                  <span className="text-red-500">{errorPassword}</span>
+                  <span className="text-red-500 font-mono font-medium text-center">
+                    {errorPassword}
+                  </span>
                 )}
               </div>
+              {error ? (
+                <span className="text-red-500 font-mono font-medium text-center">
+                  {error.data}
+                </span>
+              ) : (
+                <></>
+              )}
+
               <div className="flex justify-between">               
               </div>
               <div className="flex mx-auto w-full justify-center gap-5">

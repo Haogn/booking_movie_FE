@@ -1,13 +1,46 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { editGenre } from "../../../redux/api/service/genreRequest";
+import { validateBlank } from "../../../components/validate/validation";
 
 function EditGenre() {
-  return (
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const storedToken = localStorage.getItem("acessToken");
+  const token =
+    storedToken && storedToken.startsWith('"') && storedToken.endsWith('"')
+      ? storedToken.slice(1, -1)
+      : storedToken;
+  const genre = useSelector((state) => state.genres.genre.currentGenre);
+  const error = useSelector((state) => state.genres.genre.error);
+  // console.log("genre", genre);
+
+  const [errorEdit, setErrorEdit] = useState("");
+
+  const handleUpdateGenre = (e) => {
+    e.preventDefault();
+    setErrorEdit("");
+    if (validateBlank(e.target.genreName.value)) {
+      setErrorEdit("Tên vị trí không được để trống.");
+      return;
+    }
+
+    const formEditGenre = {
+      genreName: e.target.genreName.value,
+      isDeleted: false,
+    };
+
+    editGenre(token, dispatch, genre.id, formEditGenre, navigate);
+  };
+
+  return genre ? (
     <div>
       <div className="w-[50%] h-screen mx-auto ">
         <h1 className="text-center text-2xl font-mono font-semibold my-6 pb-3 border-b-2 border-gray-400">
           Thay đổi thông tin thể loại
         </h1>
-        <form action="">
+        <form action="" onSubmit={handleUpdateGenre}>
           <div className="mb-3">
             <label className="form-label font-mono font-semibold">
               Mã thể loại: <span className="text-red-500">*</span>
@@ -15,7 +48,7 @@ function EditGenre() {
             <input
               type="text"
               className="form-control"
-              value={1}
+              value={genre.id}
               readOnly={true}
             />
           </div>
@@ -27,9 +60,22 @@ function EditGenre() {
               type="text"
               className="form-control"
               placeholder="Tên thể loại"
+              defaultValue={genre.genreName}
+              name="genreName"
             />
+            {errorEdit && (
+              <span className="text-red-500 font-mono font-medium text-center">
+                {errorEdit}
+              </span>
+            )}
           </div>
-
+          {error ? (
+            <span className="text-red-500 font-mono font-medium text-center">
+              {error.data}
+            </span>
+          ) : (
+            <></>
+          )}
           <button
             type="submit"
             className="btn btn-dark font-mono mb-4 text-gray-950"
@@ -39,6 +85,8 @@ function EditGenre() {
         </form>
       </div>
     </div>
+  ) : (
+    <></>
   );
 }
 

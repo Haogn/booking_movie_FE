@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { changeStatus, getAllCustomer } from "../../../redux/api/service/userRequest";
+import { Link } from "react-router-dom";
+import { changeStatus , getAllCustomer } from "../../../redux/api/service/userRequest";
+
 
 function ListCustomer() {
   const storedToken  = localStorage.getItem('acessToken');
@@ -13,7 +15,6 @@ function ListCustomer() {
   const [page,setPage] = useState(0);
   const [size,setSize] = useState(6)
   
-console.log(listCustomer);
   useEffect(() => {
     getAllCustomer(dispatch, token,search,page,size);
   }, [dispatch, token,search,page,size]);
@@ -46,7 +47,9 @@ console.log(listCustomer);
         </h1>
         <nav className="navbar bg-body-tertiary mt-3">
           <div className="container-fluid">
-            <a className="navbar-brand"></a>
+            <Link to={"/admin/create-account"}>
+              <a className="btn btn-outline-dark font-mono">Thêm mới</a>
+            </Link>
             <form className="d-flex" role="search" onSubmit={handleSearch}>
             <input
       className="form-control me-2"

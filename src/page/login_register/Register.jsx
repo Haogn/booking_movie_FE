@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { format } from 'date-fns';
 
+
 function Register() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");

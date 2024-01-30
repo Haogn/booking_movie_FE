@@ -1,13 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import "./HomeCustomer.css";
 import Carousel from "react-bootstrap/Carousel";
 import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllMovieSelect } from "../../redux/api/service/movieRequest";
 
 function HomeCustomer() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const storedToken = localStorage.getItem("acessToken");
+  const token =
+    storedToken && storedToken.startsWith('"') && storedToken.endsWith('"')
+      ? storedToken.slice(1, -1)
+      : storedToken;
+
+  const listMovie = useSelector((state) => state.movies.movie.listMovieSelect);
+  useEffect(() => {
+    getAllMovieSelect(dispatch);
+  }, [dispatch, token]);
+  console.log("listMovie", listMovie);
   const [selectedTab, setSelectedTab] = useState("default-day"); // Default selected tab
 
   const handleTabDay = (tab) => {
