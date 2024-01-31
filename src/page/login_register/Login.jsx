@@ -100,7 +100,7 @@ function Login() {
               )}
 
               <div className="flex justify-between">               
-              </div>er
+              </div>
               <div className="flex mx-auto w-full justify-center gap-5">
                 <p className=" font-medium text-xl font-mono pl-3 py-2 w-[30%] text-center text-white bg-red-500 rounded-md">
                   <Link to={"/register"}>Đăng Ký</Link>

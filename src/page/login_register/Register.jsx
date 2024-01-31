@@ -7,7 +7,6 @@ import { validateBlank } from "../../components/validate/validation";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { registerAccount } from "../../redux/api/service/authRequest";
-import axios from "axios";
 
 function Register() {
   const dispatch = useDispatch();

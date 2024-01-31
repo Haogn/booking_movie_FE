@@ -1,7 +1,18 @@
-import React from "react";
+import React,{useState} from "react";
 import "./ComingSoon.css";
 import { Link } from "react-router-dom";
 function ComingSoon() {
+  const storedToken = localStorage.getItem("acessToken");
+  const [avatarPreview, setAvatarPreview] = useState();
+  const token =
+    storedToken && storedToken.startsWith('"') && storedToken.endsWith('"')
+      ? storedToken.slice(1, -1)
+      : storedToken;
+
+
+      
+
+
   return (
     <div>
       <div className="w-[70%] h-full  mx-auto ">
