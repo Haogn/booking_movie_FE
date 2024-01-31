@@ -285,14 +285,13 @@ function LayoutAdmin() {
               </button>
               <ul className="dropdown-menu bg-gray-200 font-bold font-mono">
                 <li>
-                  <a className="dropdown-item" href="/admin/create-coupons">
-                    <i className="fa-solid fa-folder-plus"></i> Coupons
-                  </a>
-                </li>
-
-                <li>
                   <a className="dropdown-item" href="/admin/create-event">
                     <i className="fa-solid fa-folder-plus"></i> Event
+                  </a>
+                </li>
+                <li>
+                  <a className="dropdown-item" href="/admin/list-event">
+                    <i className="fa-solid fa-list-check"></i> Danh sách
                   </a>
                 </li>
               </ul>

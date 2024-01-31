@@ -140,9 +140,17 @@
 .vip {
   border: 1px solid #c21307;
 }
+.left_card{
+  border: 1px solid #b0aead;
+  width: 220px;
+  padding: 5px;
+  background-color: #f1eeee;
+}
+
 .left_card img {
   height: 200px;
   object-fit: contain;
+  margin: auto;
 }
 .btn_s_b {
   display: flex;

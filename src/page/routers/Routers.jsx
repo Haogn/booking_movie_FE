@@ -3,7 +3,6 @@ import { Route, Routes } from "react-router-dom";
 import HomeCustomer from "../customer/HomeCustomer";
 import IndexCustomer from "../customer/IndexCustomer";
 import Login from "../login_register/Login";
-import Detail from "../customer/Detail";
 import Register from "../login_register/Register";
 import IndexProfile from "../customer/IndexProfile";
 import Point from "../customer/Point";
@@ -38,9 +37,6 @@ import BookingOnline from "./../customer/bookingOnline/BookingOnline";
 import BookingChair from "./../customer/bookingOnline/BookingChair";
 import BookingDish from "./../customer/bookingOnline/BookingDish";
 import ComingSoon from "./../customer/movieList/ComingSoon";
-<<<<<<< HEAD
-import ProtectedRoute from './ProtectedRoute';
-=======
 import NowHowing from "../customer/movieList/NowHowing";
 import EditLocation from "../admin/edit/EditLocation";
 import EditTheater from "../admin/edit/EditTheater";
@@ -49,7 +45,8 @@ import EditTime from "../admin/edit/EditTime";
 import EditGenre from "../admin/edit/EditGenre";
 import EditMovie from "../admin/edit/EditMovie";
 import EditDrinks from "../admin/edit/EditDrinks";
->>>>>>> 50578dd48d191fb81505adb0526ea5bcbc306db7
+import ListEvent from "../admin/list/ListEvent";
+import EditEvent from "../admin/edit/EditEvent";
 
 function Routers() {
   return (
@@ -86,6 +83,8 @@ function Routers() {
           <Route path="/admin/create-account" element={<CreateAccount />} />
           <Route path="/admin/create-coupons" element={<CreateCoupons />} />
           <Route path="/admin/create-event" element={<CreateEvent />} />
+          <Route path="/admin/list-event" element={<ListEvent />} />
+          <Route path="/admin/edit-event" element={<EditEvent />} />
           <Route path="/admin/list-management" element={<ListManagement />} />
           <Route path="/admin/list-employ" element={<ListEmploy />} />
           <Route path="/admin" element={<ListCustomer />} />
