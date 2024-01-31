@@ -17,3 +17,9 @@
 .layout-admin {
   background-color: #fdf8de;
 }
+.kfc{
+  height: 100px;
+  margin: auto;
+  object-fit: contain;
+
+}
