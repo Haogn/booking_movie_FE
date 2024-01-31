@@ -1,32 +1,56 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import "./HomeCustomer.css";
 import Carousel from "react-bootstrap/Carousel";
 import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
-import { Link } from "react-router-dom";
+import {
+  getAllMovieSelect,
+  getMovie,
+} from "./../../redux/api/service/movieRequest";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 
 function HomeCustomer() {
-  const [selectedTab, setSelectedTab] = useState("default-day"); // Default selected tab
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const storedToken = localStorage.getItem("acessToken");
+  const token =
+    storedToken && storedToken.startsWith('"') && storedToken.endsWith('"')
+      ? storedToken.slice(1, -1)
+      : storedToken;
+  const listMovie = useSelector((state) => state.movies.movie.listMovieSelect);
 
+  useEffect(() => {
+    getAllMovieSelect(dispatch);
+  }, [dispatch]);
+
+  // console.log("listMovie", listMovie);
+  const handleFindById = async (idMovie) => {
+    await getMovie(dispatch, token, idMovie);
+    navigate("/detail");
+  };
+
+  const [selectedTab, setSelectedTab] = useState("default-day");
+  // Default selected tab
   const handleTabDay = (tab) => {
     setSelectedTab(tab);
   };
 
-  const [selectedLocation, setSelectedLocation] = useState("default-location"); // Default selected tab
-
+  const [selectedLocation, setSelectedLocation] = useState("default-location");
+  // Default selected tab
   const handleTabLocation = (tab) => {
     setSelectedLocation(tab);
   };
 
-  const [selectedType, setSelectedType] = useState("default-type"); // Default selected tab
-
+  const [selectedType, setSelectedType] = useState("default-type");
+  // Default selected tab
   const handleTabType = (tab) => {
     setSelectedType(tab);
   };
 
-  return (
+  return listMovie ? (
     <div>
       <div className="w-screen h-[1000px]">
         <div className="content-top">
@@ -59,8 +83,8 @@ function HomeCustomer() {
               <Carousel.Item>
                 <div>
                   <img
-                    className="w-full h-full oje"
-                    src="https://www.cgv.vn/media/banner/cache/3/b58515f018eb873dafa430b6f9ae0c1e/c/g/cgvlive_apr2023_rb_1.png"
+                    className="w-full h-full object-contain"
+                    src="https://www.cgv.vn/media/banner/cache/1/b58515f018eb873dafa430b6f9ae0c1e/t/1/t1_-_movie_-_cgv_merchant_t_t_980x448_.jpg"
                     alt=""
                   />
                 </div>
@@ -68,8 +92,8 @@ function HomeCustomer() {
               <Carousel.Item>
                 <div>
                   <img
-                    className="w-full h-full"
-                    src="https://www.cgv.vn/media/banner/cache/3/b58515f018eb873dafa430b6f9ae0c1e/9/8/980x448_79.png"
+                    className="w-full h-full object-contain"
+                    src="https://www.cgv.vn/media/banner/cache/1/b58515f018eb873dafa430b6f9ae0c1e/m/a/mai_rolling-banner_ban-ve.jpg"
                     alt=""
                   />
                 </div>
@@ -77,8 +101,17 @@ function HomeCustomer() {
               <Carousel.Item>
                 <div>
                   <img
-                    className="w-full h-full"
+                    className="w-full h-full object-contain"
                     src="https://www.cgv.vn/media/banner/cache/3/b58515f018eb873dafa430b6f9ae0c1e/c/g/cgv_rolling_banner_1.jpg"
+                    alt=""
+                  />
+                </div>
+              </Carousel.Item>
+              <Carousel.Item>
+                <div>
+                  <img
+                    className="w-full h-full object-contain"
+                    src="https://www.cgv.vn/media/banner/cache/1/b58515f018eb873dafa430b6f9ae0c1e/r/o/rolling_banner_22.jpg"
                     alt=""
                   />
                 </div>
@@ -97,7 +130,7 @@ function HomeCustomer() {
             aria-labelledby="exampleModalToggleLabel"
             tabindex="-1"
           >
-            <div className="modal-dialog modal-dialog-centered w-screen h-screen">
+            <div className="modal-dialog modal-dialog-centered w-screen h-screen booking-movie">
               <div className="modal-content">
                 <div className="modal-header">
                   <h1 className="modal-title fs-5" id="exampleModalToggleLabel">
@@ -253,82 +286,50 @@ function HomeCustomer() {
             nav
             items={4}
           >
-            <div className="item">
-              <div className="movie-item ">
-                <div className="movie-image">
-                  <img
-                    src="https://www.cgv.vn/media/banner/cache/3/b58515f018eb873dafa430b6f9ae0c1e/c/g/cgvlive_apr2023_rb_1.png"
-                    alt=""
-                  />
-                </div>
-                <div className="movie-informations">
-                  <h4 className="text-center font-bold font-mono text-white mt-2">
-                    tên phim
-                  </h4>
-                  <div className=" flex justify-around">
-                    <div className="movie-button">
-                      <Link to={"/detail"}>
+            {listMovie.slice(0, 6).map((item) => (
+              <div key={item.id} className="item">
+                <div className="movie-item ">
+                  <div className="movie-image">
+                    <img src={item.movieImage} alt="" />
+                  </div>
+                  <div className="movie-informations">
+                    <h4 className="text-center font-bold font-mono text-white mt-2">
+                      {item.movieName}
+                    </h4>
+                    <div className=" flex justify-around mt-2">
+                      <div className="movie-button">
+                        {/* <Link to={"/detail"}> */}
                         <button
                           variant="outline-secondary"
                           className="text-center font-medium font-mono text-white "
+                          onClick={() => handleFindById(item.id)}
                         >
                           Chi tiết
                         </button>{" "}
-                      </Link>
-                    </div>
-                    <div className="movie-button">
-                      <button
-                        variant="outline-secondary"
-                        className="text-center font-medium font-mono text-white "
-                        data-bs-target="#exampleModalToggle"
-                        data-bs-toggle="modal"
-                      >
-                        Mua vé <i className="fa-solid fa-ticket"></i>
-                      </button>{" "}
+                        {/* </Link> */}
+                      </div>
+                      <div className="movie-button">
+                        <button
+                          variant="outline-secondary"
+                          className="text-center font-medium font-mono text-white "
+                          data-bs-target="#exampleModalToggle"
+                          data-bs-toggle="modal"
+                        >
+                          Mua vé <i className="fa-solid fa-ticket"></i>
+                        </button>{" "}
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-
-            <div className="item">
-              <h4>2</h4>
-            </div>
-            <div className="item">
-              <h4>3</h4>
-            </div>
-            <div className="item">
-              <h4>4</h4>
-            </div>
-            <div className="item">
-              <h4>5</h4>
-            </div>
-            <div className="item">
-              <h4>6</h4>
-            </div>
-            <div className="item">
-              <h4>7</h4>
-            </div>
-            <div className="item">
-              <h4>8</h4>
-            </div>
-            <div className="item">
-              <h4>9</h4>
-            </div>
-            <div className="item">
-              <h4>10</h4>
-            </div>
-            <div className="item">
-              <h4>11</h4>
-            </div>
-            <div className="item">
-              <h4>12</h4>
-            </div>
+            ))}
           </OwlCarousel>
           ;
         </div>
       </div>
     </div>
+  ) : (
+    <></>
   );
 }
 

@@ -1,9 +1,11 @@
 import React from "react";
 import "./BookingOnline.css";
+import "../HomeCustomer.css";
 import { Link, Outlet } from "react-router-dom";
+
 function BookingOnline() {
   return (
-    <>
+    <div>
       <div className="booking_online  font-mono">
         <div className="head_booking_online">
           <h1>BOOKING ONLINE</h1>
@@ -100,7 +102,7 @@ function BookingOnline() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

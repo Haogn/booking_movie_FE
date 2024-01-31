@@ -17,6 +17,10 @@ const userSlice = createSlice({
         listManager:null,
         isFetching:false,
         error:false,  
+        },
+        changeStatus:{
+            changeStatusSuccess:null,
+            changeStatusFailed:null
         }
     },
     reducers:{
@@ -44,6 +48,12 @@ const userSlice = createSlice({
         getManagerFailed:(state)=>{
             state.manager.isFetching = false;
             state.manager.error = true;
+        },
+        changeStatusSuccess:(state,action)=>{
+            state.changeStatus.changeStatusSuccess=action.payload;
+        },
+        changeStatusFailed:(state,action)=>{
+            state.changeStatus.changeStatusFailed=action.payload;
         }
     }
 })
@@ -55,6 +65,8 @@ export const {
     getEmployerFailed,
     getManagerSuccess,
     getManagerFailed,
+    changeStatusSuccess,
+    changeStatusFailed
   } = userSlice.actions;
   
   export default userSlice.reducer;

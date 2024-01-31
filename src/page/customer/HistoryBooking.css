@@ -1,42 +1,42 @@
-.history{
-    margin: 30px auto;
-    max-width: 80%;
-    background-color: rgb(240, 228, 205);
-    display: flex;
-    padding: 20px 50px;
-    justify-content: center;
-    flex-direction: column;
-    gap: 30px;
+.history {
+  margin: 30px auto;
+  max-width: 80%;
+  background-color: rgb(240, 228, 205);
+  display: flex;
+  padding: 20px 50px;
+  justify-content: center;
+  flex-direction: column;
+  gap: 30px;
 }
-.history h1{
-    color: brown;
-    font-weight: 900;
+.history h1 {
+  color: brown;
+  font-weight: 900;
 }
-.history .table{
-    margin: auto;
-    font-size: 20px;
-    width: 100%;
-    padding: 20px !important;
+.history .table {
+  margin: auto;
+  font-size: 20px;
+  width: 100%;
+  padding: 20px !important;
 }
-.history .history_foot{
-    font-size: 24px;
-    text-align: end;
-    padding: 0px 10px;
+.history .history_foot {
+  font-size: 24px;
+  text-align: end;
+  padding: 0px 10px;
 }
-.history .history_foot span{
-    margin: 0px 10px;
-    line-height: auto;
-    color: black;
+.history .history_foot span {
+  margin: 0px 10px;
+  line-height: auto;
+  color: black;
 }
-.history .history_foot button{
-    color: rgb(226, 78, 78);
+.history .history_foot button {
+  color: rgb(226, 78, 78);
 }
-.history .history_foot button:hover{
-    color: rgb(233, 148, 148);
+.history .history_foot button:hover {
+  color: rgb(233, 148, 148);
 }
-.wish{
-    margin: auto;
-    width: 90%;
-    text-align: center;
-    min-height: 400px;
+.wish {
+  margin: auto;
+  width: 90%;
+  text-align: center;
+  min-height: 400px;
 }

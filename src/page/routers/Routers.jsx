@@ -38,6 +38,7 @@ import BookingOnline from "./../customer/bookingOnline/BookingOnline";
 import BookingChair from "./../customer/bookingOnline/BookingChair";
 import BookingDish from "./../customer/bookingOnline/BookingDish";
 import ComingSoon from "./../customer/movieList/ComingSoon";
+import ProtectedRoute from './ProtectedRoute';
 import NowHowing from "../customer/movieList/NowHowing";
 import EditLocation from "../admin/edit/EditLocation";
 import EditTheater from "../admin/edit/EditTheater";
@@ -46,6 +47,12 @@ import EditTime from "../admin/edit/EditTime";
 import EditGenre from "../admin/edit/EditGenre";
 import EditMovie from "../admin/edit/EditMovie";
 import EditDrinks from "../admin/edit/EditDrinks";
+import Payment from "../customer/Payment";
+
+import Forgotpassword from "../customer/Forgotpassword";
+import RetrievalPassword from "../customer/RetrievalPassword";
+
+
 
 function Routers() {
   return (
@@ -56,6 +63,8 @@ function Routers() {
           <Route index element={<HomeCustomer />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/forgotpassword" element={<Forgotpassword />} />
+          <Route path="/retrievalPassword" element={<RetrievalPassword />} />
           <Route path="/detail" element={<DetailMovie />} />
           <Route path="/comingsoon" element={<ComingSoon />} />
           <Route path="/nowhowing" element={<NowHowing />} />
@@ -63,7 +72,8 @@ function Routers() {
           <Route path="/booking" element={<BookingOnline />}>
             <Route index element={<BookingChair />} />
             {/* <Route path="/booking/dish" element={<BookingChair/>}/> */}
-            <Route path="dish" element={<BookingDish />} />
+            <Route path="/booking/dish" element={<BookingDish />} />
+            <Route path="/booking/payment" element={<Payment />} />
           </Route>
           <Route path="/profile" element={<IndexProfile />}>
             <Route index element={<Profile />} />
