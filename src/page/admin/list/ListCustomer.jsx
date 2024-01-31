@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllCustomer } from "../../../redux/api/service/userRequest";
 import { Link } from "react-router-dom";
+import {
+  changeStatus,
+  getAllCustomer,
+} from "../../../redux/api/service/userRequest";
 
 function ListCustomer() {
   const storedToken = localStorage.getItem("acessToken");
@@ -15,6 +18,7 @@ function ListCustomer() {
   const [page, setPage] = useState(0);
   const [size, setSize] = useState(6);
 
+  console.log(listCustomer);
   useEffect(() => {
     getAllCustomer(dispatch, token, search, page, size);
   }, [dispatch, token, search, page, size]);
@@ -32,6 +36,10 @@ function ListCustomer() {
       setSize(size);
     }
     setPage(newPage - 1);
+  };
+
+  const handleChangeStatus = (id) => {
+    changeStatus(dispatch, token, id);
   };
 
   return listCustomer ? (
@@ -66,14 +74,15 @@ function ListCustomer() {
             <thead>
               <tr className="text-center">
                 <th scope="col">Id</th>
-                <th scope="col">Tên đăng nhập</th>
+                <th scope="col">Tài khoản</th>
                 <th scope="col">Email</th>
                 <th scope="col">Số điện thoại</th>
-                <th scope="col">Ảnh đại diện</th>
                 <th scope="col">Ngày sinh</th>
                 <th scope="col">Thành viên</th>
-                <th scope="col">Điểm thưởng</th>
-                <th scope="col">Action</th>
+                <th scope="col">Trạng thái</th>
+                <th scope="col" colSpan={2}>
+                  Action
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -83,10 +92,9 @@ function ListCustomer() {
                   <td>{customer.username}</td>
                   <td>{customer.email}</td>
                   <td>{customer.phone}</td>
-                  <td>{customer.avatar}</td>
                   <td>{customer.dateOfBirth}</td>
                   <td>{customer.level}</td>
-                  <td>{customer.point}</td>
+                  <td>{customer.status ? "Hoạt Động" : "Đã Khóa"}</td>
                   <td colSpan={2}>
                     <button
                       type="button"
@@ -95,6 +103,7 @@ function ListCustomer() {
                       <i className="fa-solid fa-pen-to-square "></i>
                     </button>
                     <button
+                      onClick={() => handleChangeStatus(customer.id)}
                       type="button"
                       className=" btn btn-danger text-red-600"
                     >

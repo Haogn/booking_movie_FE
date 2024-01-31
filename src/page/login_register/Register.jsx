@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 import { validateBlank } from "../../components/validate/validation";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { registerAccount } from "../../redux/api/service/authRequest";
+import axios from "axios";
 
 function Register() {
   const dispatch = useDispatch();
@@ -55,11 +57,12 @@ function Register() {
     const newUser = {
       username: username,
       email: email,
-      phone: phone,
       password: password,
+      phone: phone,
       dateOfBirth: dateOfBirth,
     };
     registerUser(newUser, dispatch, navigate, toast);
+    registerAccount(dispatch, navigate, newUser, toast);
   };
 
   return (

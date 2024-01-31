@@ -8,6 +8,8 @@ import roomSlice from "./reducers/roomSlice";
 import timeSlice from "./reducers/timeSlice";
 import genreSlice from "./reducers/genreSlice";
 import movieSlice from "./reducers/movieSlice";
+import orderSlice from "./reducers/orderSlice";
+
 
 export default configureStore({
   reducer: {
@@ -20,5 +22,6 @@ export default configureStore({
     times: timeSlice,
     genres: genreSlice,
     movies: movieSlice,
+    order: orderSlice,
   },
 });

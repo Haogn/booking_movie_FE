@@ -17,6 +17,7 @@ export const validateExistsEmail = (users, email) => {
       return true;
     }
   }
+
   return false;
 };
 
@@ -26,8 +27,42 @@ export const validateExistsPhone = (users, phone) => {
       return true;
     }
   }
+  // Dòng này bị thiếu
   return false;
 };
+
+export const validatePassword = (password) => {
+  if (password.length < 8) {
+    return false; // Đảm bảo mật khẩu có ít nhất 8 ký tự
+  }
+
+  let hasUpperCase = false;
+  let hasLowerCase = false;
+  let hasNumber = false;
+
+  for (let i = 0; i < password.length; i++) {
+    const char = password[i];
+    if (
+      !hasUpperCase &&
+      char === char.toUpperCase() &&
+      char !== char.toLowerCase()
+    ) {
+      hasUpperCase = true;
+    }
+    if (
+      !hasLowerCase &&
+      char === char.toLowerCase() &&
+      char !== char.toUpperCase()
+    ) {
+      hasLowerCase = true;
+    }
+    if (!hasNumber && !isNaN(char)) {
+      hasNumber = true;
+    }
+  }
+
+  return hasUpperCase && hasLowerCase && hasNumber;
+}; // Dòng này thiếu
 
 export const validateExistsEmailUpdate = (users, newEmail, oldEmail) => {
   for (let i = 0; i < users.length; i++) {

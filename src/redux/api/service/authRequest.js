@@ -1,13 +1,20 @@
 import axios from "axios";
+
 import {
-  loginFailed,
   loginStart,
   loginSuccess,
-  logoutStart,
-  logoutSuccess,
-  registerFailed,
+  loginFailed,
+  resetError,
   registerStart,
   registerSuccess,
+  registerFailed,
+  logoutStart,
+  logoutSuccess,
+  logoutFailed,
+  getMaillingFailed,
+  getMaillingSuccess,
+  retrievalFailed,
+  retrievalSuccess,
 } from "../../reducers/authSlice";
 
 export const loginUser = async (user, dispatch, navigate, toast) => {
@@ -47,6 +54,18 @@ export const loginUser = async (user, dispatch, navigate, toast) => {
         navigate("/admin");
       }
     }, 3000);
+    localStorage.setItem("username", JSON.stringify(res.data.username));
+    localStorage.setItem("acessToken", JSON.stringify(res.data.token));
+    localStorage.setItem(
+      "role",
+      JSON.stringify(res.data.setRoles.includes("ADMIN") ? "ADMIN" : "CUSTOMER")
+    );
+    if (res.data.setRoles.includes("CUSTOMER")) {
+      navigate("/");
+    }
+    if (res.data.setRoles.includes("ADMIN")) {
+      navigate("/admin");
+    }
   } catch (error) {
     console.log(error.response);
     dispatch(loginFailed(error.response));
@@ -80,27 +99,72 @@ export const registerUser = async (user, dispath, navigate, toast) => {
   }
 };
 
-export const logout = (dispatch, navigate, toast) => {
-  dispatch(logoutStart());
+export const registerAccount = async (dispatch, navigate, registerForm) => {
+  console.log(registerForm);
   try {
-    localStorage.removeItem("username");
-    localStorage.removeItem("acessToken");
-    dispatch(logoutSuccess());
-    toast("😎 Đăng xuất", {
-      position: "top-right",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
-    console.log("chuyển hướng");
-    setTimeout(() => {
-      navigate("/");
-    }, 3000);
+    const res = await axios.post(
+      "http://localhost:6789/api/booking/v1/auth/register",
+      registerForm
+    );
+
+    dispatch(registerSuccess(res.data));
+    navigate("/login");
   } catch (error) {
-    dispatch(loginFailed(error.response));
+    dispatch(registerFailed());
+  }
+};
+
+export const logout = (dispatch, navigate, toast) => {
+  // Gọi hành động bắt đầu đăng xuất
+  dispatch(logoutStart());
+
+  // Xóa thông tin người dùng khỏi localStorage
+  localStorage.removeItem("username");
+  localStorage.removeItem("accessToken"); // Chú ý kiểm tra lại tên key này
+  localStorage.removeItem("role");
+
+  // Gọi hành động thành công đăng xuất
+  dispatch(logoutSuccess());
+  toast("😎 Đăng xuất", {
+    position: "top-right",
+    autoClose: 3000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+  });
+  console.log("chuyển hướng");
+  setTimeout(() => {
+    // Chuyển hướng người dùng về trang chủ
+    navigate("/");
+  }, 3000);
+};
+
+export const getMailling = async (dispatch, formData) => {
+  try {
+    const res = await axios.post(
+      "http://localhost:6789/api/booking/v1/auth/getLink",
+      formData
+    );
+    dispatch(getMaillingSuccess(res.data));
+  } catch (error) {
+    dispatch(getMaillingFailed(error.response));
+  }
+};
+
+export const retrievalPassword = async (dispatch, newPassForm, email) => {
+  console.log(newPassForm);
+  try {
+    const res = await axios.put(
+      `http://localhost:6789/api/booking/v1/users/retrieval?email=${encodeURIComponent(
+        email
+      )}`,
+      newPassForm
+    );
+    dispatch(retrievalSuccess(res.data));
+  } catch (error) {
+    dispatch(retrievalFailed(error.response));
   }
 };
