@@ -206,6 +206,7 @@ function Footer() {
       <div className="bot-footer">
         <div className="logocgv">
           <img src="./image/pngegg.png" alt="" />
+          {/* <img src="../../../public/image/pngegg.png" alt="" /> */}
         </div>
         <div className="footext">
           <h5>CÔNG TY TNHH CJ CGV VIETNAM</h5>

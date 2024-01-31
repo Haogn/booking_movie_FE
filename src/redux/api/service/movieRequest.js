@@ -63,9 +63,9 @@ export const getAllMovieSelect = async (dispatch) => {
     const res = await axios.get(
       "http://localhost:6789/api/booking/v1/movie/getAll"
     );
-    console.log(res.data);
+    // console.log(res.data);
     dispatch(getAllMovieSelectSuccess(res.data));
-    return res.data;
+    // return res.data;
   } catch (error) {
     dispatch(getAllMovieSelectFailed(error.response));
   }

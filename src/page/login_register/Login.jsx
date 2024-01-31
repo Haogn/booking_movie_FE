@@ -16,6 +16,7 @@ function Login() {
   const navigate = useNavigate();
 
   const error = useSelector((state) => state.auth.login.error);
+  console.log("error", error);
 
   useEffect(() => {
     return () => {
@@ -110,9 +111,9 @@ function Login() {
                 )}
               </div>
               {error ? (
-                <span className="text-red-500 font-mono font-medium text-center">
+                <p className="text-red-500 font-mono font-medium text-center">
                   {error.data}
-                </span>
+                </p>
               ) : (
                 <></>
               )}

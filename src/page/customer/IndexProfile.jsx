@@ -9,7 +9,7 @@ function IndexProfile() {
   };
   return (
     <div>
-      <div className="w-[70%] h-[500px] mx-auto py-auto ">
+      <div className="w-[70%] h-[500px] mx-auto py-auto pt-2">
         <div className="flex w-full h-full gap-3">
           <div className="h-full w-[25%]  pl-2 ">
             <h1 className="text-3xl font-medium font-sans text-red-600 text-center ">

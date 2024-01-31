@@ -20,7 +20,6 @@ function NavbarCustomer() {
     logout(distpatch, navigate);
   };
 
-
   return (
     <div>
       <div className="w-[70%] m-auto">
@@ -30,13 +29,14 @@ function NavbarCustomer() {
             TIN MỚI &amp; ƯU ĐÃI
           </div>
           <div className="vecuatoi">
-            <i className="fa-solid fa-ticket"></i> VÉ CỦA TÔI
+            <Link to={"/history"}>
+              <i className="fa-solid fa-ticket"></i> VÉ CỦA TÔI
+            </Link>
           </div>
           {username ? (
             <>
               <Link onClick={handleLogout}>
-                <i className="fa-solid fa-circle-user" />
-                {username} / ĐĂNG XUẤT
+                <i className="fa-solid fa-circle-user" /> {username} / ĐĂNG XUẤT
               </Link>
             </>
           ) : (
@@ -49,8 +49,11 @@ function NavbarCustomer() {
       <div className="header-page">
         <div className="flex justify-center gap-[70px] my-[20px] cursor-pointer pt-[30px]">
           <div>
-            <a href="#">
-              <img src="./image/logo.png" alt="" />
+            <a href="/">
+              <img
+                src="https://www.cgv.vn/skin/frontend/cgv/default/images/cgvlogo.png"
+                alt=""
+              />
             </a>
           </div>
           <div className="flex gap-[70px] font-bold pt-[20px] ">
@@ -100,7 +103,10 @@ function NavbarCustomer() {
             </div>
           </div>
           <a href="#" className="cine">
-            <img src="./image/mua-ve-ngay.png" alt="" />
+            <img
+              src="https://www.cgv.vn/media/wysiwyg/news-offers/mua-ve_ngay.png"
+              alt=""
+            />
           </a>
         </div>
       </div>

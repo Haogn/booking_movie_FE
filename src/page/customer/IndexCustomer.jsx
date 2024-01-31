@@ -1,9 +1,25 @@
-import React from "react";
-import { Outlet } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
 import Footer from "../../components/footer/Footer";
 import NavbarCustomer from "../../components/navbar/NavbarCustomer";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllMovieSelect } from "../../redux/api/service/movieRequest";
 
 function IndexCustomer() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const storedToken = localStorage.getItem("acessToken");
+  const token =
+    storedToken && storedToken.startsWith('"') && storedToken.endsWith('"')
+      ? storedToken.slice(1, -1)
+      : storedToken;
+  const listMovie = useSelector((state) => state.movies.movie.listMovieSelect);
+
+  useEffect(() => {
+    getAllMovieSelect(dispatch);
+  }, [dispatch]);
+
+  // console.log("listMovie", listMovie);
   return (
     <div className="body">
       <div className="">
@@ -13,7 +29,7 @@ function IndexCustomer() {
         />
       </div>
       <NavbarCustomer />
-      <div className="py-10">
+      <div className="pb-10">
         <Outlet></Outlet>
       </div>
 

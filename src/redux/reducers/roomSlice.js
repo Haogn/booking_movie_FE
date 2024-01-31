@@ -7,6 +7,7 @@ const roomSlice = createSlice({
       currentRoom: null,
       listRoom: null,
       listRoomSelect: null,
+      listRoomByTheaterId: null,
       isFetching: false,
       error: null,
     },
@@ -40,7 +41,7 @@ const roomSlice = createSlice({
     },
     // getAllLocationSelect :
     getAllRoomSelectStart: (state) => {
-      state.room.isFetching = false;
+      state.room.isFetching = true;
     },
     getAllRoomSelectSuccess: (state, action) => {
       state.room.isFetching = false;
@@ -48,8 +49,31 @@ const roomSlice = createSlice({
       state.room.error = null;
     },
     getAllRoomSelectFailed: (state, action) => {
+      state.room.isFetching = true;
+      state.room.error = action.payload;
+    },
+    // getAllRoomByTheaterId :
+    getAllRoomByTheaterIdStart: (state) => {
+      state.room.isFetching = false;
+    },
+    getAllRoomByTheaterIdSuccess: (state, action) => {
+      console.log(action.payload);
+      state.room.isFetching = false;
+      state.room.listRoomByTheaterId = action.payload;
+      state.room.error = null;
+    },
+    getAllRoomByTheaterIdFailed: (state, action) => {
       state.room.isFetching = false;
       state.room.error = action.payload;
+    },
+    // create :
+    createRoomStart: (state) => {
+      state.room.isFetching = true;
+    },
+    createRoomSuccess: (state, action) => {
+      state.room.isFetching = false;
+      state.room.currentRoom = action.payload;
+      state.room.error = null;
     },
     // create :
     createRoomStart: (state) => {
@@ -103,6 +127,9 @@ export const {
   getAllRoomSelectStart,
   getAllRoomSelectSuccess,
   getAllRoomSelectFailed,
+  getAllRoomByTheaterIdStart,
+  getAllRoomByTheaterIdSuccess,
+  getAllRoomByTheaterIdFailed,
   createRoomStart,
   createRoomSuccess,
   createRoomFailed,

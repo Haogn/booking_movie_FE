@@ -44,7 +44,7 @@ const movieSlice = createSlice({
       state.movie.isFetching = true;
     },
     getAllMovieSelectSuccess: (state, action) => {
-      console.log(action.payload);
+      // console.log(action.payload);
       state.movie.isFetching = false;
       state.movie.listMovieSelect = action.payload;
       state.movie.error = null;

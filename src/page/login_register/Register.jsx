@@ -1,20 +1,55 @@
 import React, { useState } from "react";
 import Carousel from "react-bootstrap/Carousel";
 import { registerUser } from "../../redux/api/service/authRequest";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { validateBlank } from "../../components/validate/validation";
 
 function Register() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [dateOfBirth, setDateOfBirth] = useState("");
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+
+  const [errorName, setErrorName] = useState(null);
+  const [errorPassword, setErrorPassword] = useState(null);
+  const [errorPhone, setErrorPhone] = useState(null);
+  const [errorEmail, setErrorEmail] = useState(null);
+  const [errorDateOfBirth, setErrorDateOfBirth] = useState(null);
+
+  const error = useSelector((state) => state.auth.register.error);
 
   const handleRegister = (e) => {
     e.preventDefault();
+    if (validateBlank(username)) {
+      setErrorName("Tài khoản không được để trống.");
+      return;
+    }
+
+    if (validateBlank(email)) {
+      setErrorEmail("Email không được để trống.");
+      return;
+    }
+
+    if (validateBlank(phone)) {
+      setErrorPhone("Số điện thoại không được để trống.");
+      return;
+    }
+
+    if (validateBlank(password)) {
+      setErrorPassword("Mật khẩu không được để trống.");
+      return;
+    }
+
+    if (validateBlank(dateOfBirth)) {
+      setErrorDateOfBirth("Ngày sinh không được để trống.");
+      return;
+    }
+
     const newUser = {
       username: username,
       email: email,
@@ -42,6 +77,11 @@ function Register() {
                   className="form-control"
                   id="username"
                 />
+                {errorName && (
+                  <span className="text-red-500 font-mono font-medium text-center">
+                    {errorName}
+                  </span>
+                )}
               </div>
 
               <div className="mb-3">
@@ -54,6 +94,11 @@ function Register() {
                   className="form-control"
                   id="phone"
                 />
+                {errorPhone && (
+                  <span className="text-red-500 font-mono font-medium text-center">
+                    {errorPhone}
+                  </span>
+                )}
               </div>
 
               <div className="mb-3">
@@ -66,6 +111,11 @@ function Register() {
                   className="form-control"
                   id="email"
                 />
+                {errorEmail && (
+                  <span className="text-red-500 font-mono font-medium text-center">
+                    {errorEmail}
+                  </span>
+                )}
               </div>
 
               <div className="mb-3">
@@ -78,6 +128,11 @@ function Register() {
                   className="form-control"
                   id="dateOfBirth"
                 />
+                {errorDateOfBirth && (
+                  <span className="text-red-500 font-mono font-medium text-center">
+                    {errorDateOfBirth}
+                  </span>
+                )}
               </div>
               <div className="mb-3">
                 <label className="form-label font-mono font-semibold">
@@ -89,8 +144,19 @@ function Register() {
                   className="form-control"
                   id="password"
                 />
+                {errorPassword && (
+                  <span className="text-red-500 font-mono font-medium text-center">
+                    {errorPassword}
+                  </span>
+                )}
               </div>
-
+              {error ? (
+                <p className="text-red-500 font-mono font-medium text-center">
+                  {error.data}
+                </p>
+              ) : (
+                <></>
+              )}
               <button className="font-medium text-xl font-mono pl-3 py-2 w-[100%] text-center text-white bg-red-500 rounded-md">
                 Đăng ký
               </button>
