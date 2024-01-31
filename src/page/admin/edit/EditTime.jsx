@@ -1,6 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { getAllTheaterSelect } from "../../../redux/api/service/theaterRequest";
 
 function EditTime() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const storedToken = localStorage.getItem("acessToken");
+  const token =
+    storedToken && storedToken.startsWith('"') && storedToken.endsWith('"')
+      ? storedToken.slice(1, -1)
+      : storedToken;
+  const timeSlot = useSelector((state) => state.times.time.currentTime);
+  const listTheater = useSelector(
+    (state) => state.theaters.theater.listTheaterSelect
+  );
+  useEffect(() => {
+    getAllTheaterSelect(dispatch, token);
+  }, [dispatch, token]);
+  console.log("timeSlot", timeSlot);
   return (
     <div>
       <div className="w-[50%] h-screen mx-auto ">

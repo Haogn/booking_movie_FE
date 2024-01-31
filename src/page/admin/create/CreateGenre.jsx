@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { validateBlank } from "../../../components/validate/validation";
 import { createGenre } from "../../../redux/api/service/genreRequest";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function CreateGenre() {
   const dispatch = useDispatch();
@@ -26,12 +28,13 @@ function CreateGenre() {
       genreName: nameGenre,
       isDeleted: false,
     };
-    createGenre(token, formGenre, dispatch, navigate);
+    createGenre(token, formGenre, dispatch, navigate, toast);
     setNameGenre("");
   };
   return (
     <div>
       <div className="w-[50%] h-screen mx-auto ">
+        <ToastContainer className="custom-toast-container" />
         <h1 className="text-center text-2xl font-mono font-semibold my-6 pb-3 border-b-2 border-gray-400">
           Tạo mới thể loại
         </h1>
@@ -55,7 +58,7 @@ function CreateGenre() {
           </div>
 
           {error ? (
-            <span className="text-red-500 font-mono font-medium text-center">
+            <span className="text-red-500 font-mono font-medium text-center mb-2">
               {error.data}
             </span>
           ) : (

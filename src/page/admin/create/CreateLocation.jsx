@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { createLocation } from "../../../redux/api/service/locationRequest";
 import { validateBlank } from "../../../components/validate/validation";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function CreateLocation() {
   const dispatch = useDispatch();
@@ -29,16 +31,18 @@ function CreateLocation() {
       locationName: nameLocation,
       isDelete: false,
     };
-    createLocation(token, formLocation, dispatch, navigate);
+    createLocation(token, formLocation, dispatch, navigate, toast);
     setNameLocation("");
   };
 
   return (
     <div>
       <div className="w-[50%] h-screen mx-auto ">
+        <ToastContainer className="custom-toast-container" />
         <h1 className="text-center text-2xl font-mono font-semibold my-6 pb-3 border-b-2 border-gray-400">
           Tạo mới Vị trí
         </h1>
+
         <form action="post" onSubmit={handleCreateLocation}>
           <div className="mb-3">
             <label className="form-label font-mono font-semibold">

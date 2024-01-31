@@ -5,133 +5,52 @@ import Carousel from "react-bootstrap/Carousel";
 import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
-import { Link, useNavigate } from "react-router-dom";
+import {
+  getAllMovieSelect,
+  getMovie,
+} from "./../../redux/api/service/movieRequest";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllMovieSelect } from "../../redux/api/service/movieRequest";
-import { getChair, getLocation, getMovieInform, getRoom, startBuy } from "../../redux/api/service/orderRequest";
-import { format } from "date-fns";
-import { getOrderInformations } from "../../redux/reducers/orderSlice";
+import { Link, useNavigate } from "react-router-dom";
 
 function HomeCustomer() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const storedToken = localStorage.getItem("acessToken");
   const token =
     storedToken && storedToken.startsWith('"') && storedToken.endsWith('"')
       ? storedToken.slice(1, -1)
       : storedToken;
-  const currentDate = new Date();
-  const formattedDate = format(currentDate, "yyyy-MM-dd");
-  const [selectedDate, setSelectedDate] = useState(formattedDate);
-  const [selectedType, setSelectedType] = useState("TWO_D");
-  const [days, setDays] = useState([]);
-  const [selectedTab, setSelectedTab] = useState("");
-  const [selectedLocation, setSelectedLocation] = useState(null);
-  const [isLocationUpdated, setIsLocationUpdated] = useState(false);
-  const [selectedMovieId, setSelectedMovieId] = useState(null);
-
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
   const listMovie = useSelector((state) => state.movies.movie.listMovieSelect);
 
-  const listLocation = useSelector(
-    (state) => state.order.getLocation.listLocation
-  );
-
-  const timeSlosts = useSelector((state) => state.order.startBuy.informations);
-
   useEffect(() => {
-    // getAllMovieSelect(dispatch);
+    getAllMovieSelect(dispatch);
   }, [dispatch]);
 
-  useEffect(() => {
-    const today = new Date();
-    const nextDays = getNextDays(today, 11);
-    setDays(nextDays);
-    if (nextDays.length > 0) {
-      setSelectedTab(nextDays[0].date);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (listLocation && listLocation.length > 0) {
-      setSelectedLocation(listLocation[0]);
-      setIsLocationUpdated(true); // Cập nhật trạng thái khi listLocation thay đổi
-    }
-  }, [listLocation]);
-
-  useEffect(() => {
-    if (isLocationUpdated && selectedLocation && selectedMovieId !== null) {
-      startBuy(
-        dispatch,
-        selectedMovieId,
-        selectedDate,
-        selectedType,
-        selectedLocation.locationName
-      );
-      setIsLocationUpdated(false); // Reset trạng thái cập nhật
-    }
-  }, [selectedLocation, isLocationUpdated, selectedMovieId]);
-
-  useEffect(() => {
-    const selectedDay = days.find(
-      (day) => day.date.getTime() === selectedTab.getTime()
-    );
-    if (selectedDay) {
-      setSelectedDate(format(selectedDay.date, "yyyy-MM-dd"));
-    }
-  }, [selectedTab, days]);
-
-  const handleTabDay = (selectedDate) => {
-    setSelectedTab(selectedDate);
-    console.log(selectedDate);
+  // console.log("listMovie", listMovie);
+  const handleFindById = async (idMovie) => {
+    await getMovie(dispatch, token, idMovie);
+    navigate("/detail");
   };
 
-  const handleTabLocation = (location) => {
-    setSelectedLocation(location);
-    handleViewTimeSlot(location);
+  const [selectedTab, setSelectedTab] = useState("default-day");
+  // Default selected tab
+  const handleTabDay = (tab) => {
+    setSelectedTab(tab);
   };
 
-  const handleTabType = (type) => {
-    setSelectedType(type);
-    console.log(selectedTab);
+  const [selectedLocation, setSelectedLocation] = useState("default-location");
+  // Default selected tab
+  const handleTabLocation = (tab) => {
+    setSelectedLocation(tab);
   };
 
-  const handleViewTimeSlot = (idMovie) => {
-    setSelectedMovieId(idMovie); 
-    getLocation(dispatch, idMovie, selectedDate, selectedType);
-    setIsLocationUpdated(false);
+  const [selectedType, setSelectedType] = useState("default-type");
+  // Default selected tab
+  const handleTabType = (tab) => {
+    setSelectedType(tab);
   };
 
-
-
-  const handleGetTimeSlot = async (theater, time) => {
- 
-    if (token === null) {
-        navigate("/login");
-    } else {
-        const payload = {
-            idMovie: selectedMovieId,
-            locationName: selectedLocation.locationName,
-            selectedDate,
-            theater,
-            time,
-        };
-        dispatch(getOrderInformations(payload));
-
-        // Đợi cho getRoom hoàn thành và lấy roomId
-        const rooms = await getRoom(dispatch, selectedMovieId, time, selectedType, theater, selectedDate);
-        const roomId = rooms?.[0]?.id; // Truy cập id của phòng đầu tiên
-        console.log(rooms);
-        if (roomId) {
-            getChair(dispatch,roomId,time);
-            getMovieInform(dispatch, navigate, selectedMovieId);
-        } else {
-            // Xử lý khi không tìm thấy phòng
-        }
-    }
-};
-
-
-  return (
+  return listMovie ? (
     <div>
       <div className="w-screen h-[1000px]">
         <div className="content-top">
@@ -164,8 +83,8 @@ function HomeCustomer() {
               <Carousel.Item>
                 <div>
                   <img
-                    className="w-full h-full oje"
-                    src="https://www.cgv.vn/media/banner/cache/3/b58515f018eb873dafa430b6f9ae0c1e/c/g/cgvlive_apr2023_rb_1.png"
+                    className="w-full h-full object-contain"
+                    src="https://www.cgv.vn/media/banner/cache/1/b58515f018eb873dafa430b6f9ae0c1e/t/1/t1_-_movie_-_cgv_merchant_t_t_980x448_.jpg"
                     alt=""
                   />
                 </div>
@@ -173,8 +92,8 @@ function HomeCustomer() {
               <Carousel.Item>
                 <div>
                   <img
-                    className="w-full h-full"
-                    src="https://www.cgv.vn/media/banner/cache/3/b58515f018eb873dafa430b6f9ae0c1e/9/8/980x448_79.png"
+                    className="w-full h-full object-contain"
+                    src="https://www.cgv.vn/media/banner/cache/1/b58515f018eb873dafa430b6f9ae0c1e/m/a/mai_rolling-banner_ban-ve.jpg"
                     alt=""
                   />
                 </div>
@@ -182,8 +101,17 @@ function HomeCustomer() {
               <Carousel.Item>
                 <div>
                   <img
-                    className="w-full h-full"
+                    className="w-full h-full object-contain"
                     src="https://www.cgv.vn/media/banner/cache/3/b58515f018eb873dafa430b6f9ae0c1e/c/g/cgv_rolling_banner_1.jpg"
+                    alt=""
+                  />
+                </div>
+              </Carousel.Item>
+              <Carousel.Item>
+                <div>
+                  <img
+                    className="w-full h-full object-contain"
+                    src="https://www.cgv.vn/media/banner/cache/1/b58515f018eb873dafa430b6f9ae0c1e/r/o/rolling_banner_22.jpg"
                     alt=""
                   />
                 </div>
@@ -202,7 +130,7 @@ function HomeCustomer() {
             aria-labelledby="exampleModalToggleLabel"
             tabindex="-1"
           >
-            <div className="modal-dialog modal-dialog-centered w-screen h-screen">
+            <div className="modal-dialog modal-dialog-centered w-screen h-screen booking-movie">
               <div className="modal-content">
                 <div className="modal-header">
                   <h1 className="modal-title fs-5" id="exampleModalToggleLabel">
@@ -217,46 +145,65 @@ function HomeCustomer() {
                 </div>
                 {/* day */}
                 <div className="modal-body w-full h-[90px] p-[20px] bg-slate-300 flex gap-2 days border-y-2 border-black my-1">
-                  {days.map((day, index) => (
-                    <div
-                      key={index}
-                      className={`cursor-pointer w-[74px] h-[45px] p-1 rounded-[3px] font-mono flex items-center justify-around day-item ${
-                        selectedTab.getTime() === day.date.getTime()
-                          ? "text-gray-950 border border-black rounded-[3px] bg-red-100 py-2"
-                          : ""
-                      }`}
-                      onClick={() => handleTabDay(day.date)}
-                    >
-                      <div className="flex flex-col">
-                        <p>{day.dayOfWeek}</p>
-                        <p>{`${String(day.day).padStart(2, "0")}/${String(
-                          day.month
-                        ).padStart(2, "0")}`}</p>
-                      </div>
+                  <div
+                    className={`cursor-pointer w-[74px] h-[45px] p-1  rounded-[3px]  font-mono flex items-center justify-around day-item ${
+                      selectedTab === "default-day"
+                        ? "text-gray-950 border border-black rounded-[3px] bg-red-100 py-2 "
+                        : ""
+                    }`}
+                    onClick={() => handleTabDay("default-day")}
+                  >
+                    <div className="flex flex-col">
+                      <p>01</p>
+                      <p>Thu</p>
                     </div>
-                  ))}
+                    <div className="">
+                      <p className="text-3xl">25</p>
+                    </div>
+                  </div>
+
+                  <div
+                    className={`cursor-pointer w-[74px] h-[45px] p-1  rounded-[3px]  font-mono flex items-center justify-around day-item ${
+                      selectedTab === "next-day"
+                        ? "text-gray-950 border border-black rounded-[3px] bg-red-100 py-2 "
+                        : ""
+                    }`}
+                    onClick={() => handleTabDay("next-day")}
+                  >
+                    <div className="flex flex-col">
+                      <p>01</p>
+                      <p>Thu</p>
+                    </div>
+                    <div className="">
+                      <p className="text-3xl">25</p>
+                    </div>
+                  </div>
                 </div>
                 {/* location */}
                 <div className="modal-body w-[95%] h-[70px] border-b-2 border-black mx-auto ">
                   <div className="flex items-center gap-2">
-                    {listLocation ? (
-                      listLocation.map((location, index) => (
-                        <p
-                          key={index}
-                          className={`cursor-pointer h-[40px] w-[110px] font-mono text-center rounded-[5px] py-[7px] ${
-                            selectedLocation &&
-                            selectedLocation.id === location.id
-                              ? "bg-gray-950 text-white border border-black rounded-[3px] py-2"
-                              : ""
-                          }`}
-                          onClick={() => handleTabLocation(location)}
-                        >
-                          {location.locationName}
-                        </p>
-                      ))
-                    ) : (
-                      <></>
-                    )}
+                    {/*  */}
+                    <p
+                      className={`cursor-pointer h-[40px] w-[110px] font-mono text-center rounded-[5px] py-[7px] ${
+                        selectedLocation === "default-location"
+                          ? " bg-gray-950 text-white border border-black rounded-[3px]  py-2 "
+                          : ""
+                      }`}
+                      onClick={() => handleTabLocation("default-location")}
+                    >
+                      Hồ Chí Minh
+                    </p>
+
+                    <p
+                      className={`cursor-pointer h-[40px] w-[110px] font-mono text-center rounded-[5px] py-[7px] ${
+                        selectedLocation === "next-location"
+                          ? " bg-gray-950 text-white border border-black rounded-[3px]  py-2 "
+                          : ""
+                      }`}
+                      onClick={() => handleTabLocation("next-location")}
+                    >
+                      Hà Nội
+                    </p>
                   </div>
                 </div>
                 {/* type */}
@@ -264,55 +211,70 @@ function HomeCustomer() {
                   <div className="flex gap-3">
                     <p
                       className={`cursor-pointer h-[35px] w-[150px] font-mono text-center rounded-[5px] py-[5px] ${
-                        selectedType === "Two D"
-                          ? "bg-gray-950 text-white border border-black rounded-[3px] py-2"
+                        selectedType === "default-type"
+                          ? " bg-gray-950 text-white border border-black rounded-[3px]  py-2 "
                           : ""
                       }`}
-                      onClick={() => handleTabType("TWO_D")}
+                      onClick={() => handleTabType("default-type")}
                     >
                       2D Phụ Đề Việt
                     </p>
 
                     <p
                       className={`cursor-pointer h-[35px] w-[150px] font-mono text-center rounded-[5px] py-[5px] ${
-                        selectedType === "Three D"
-                          ? "bg-gray-950 text-white border border-black rounded-[3px] py-2"
+                        selectedType === "next-type"
+                          ? " bg-gray-950 text-white border border-black rounded-[3px]  py-2 "
                           : ""
                       }`}
-                      onClick={() => handleTabType("THREE_D")}
+                      onClick={() => handleTabType("next-type")}
                     >
                       3D Phụ Đề Việt
                     </p>
                   </div>
                 </div>
                 {/* theater and time */}
-                {timeSlosts ? (
-                  Object.keys(timeSlosts).map((theater) => (
-                    <div
-                      className="modal-body w-[95%] h-[110px] p-[20px] bg-slate-300 days border-b-2 border-black mx-auto"
-                      key={theater}
-                    >
-                      <h3 className="font-mono font-bold text-lg">
-                        CGV - {theater}
-                      </h3>
-                      <div className="flex gap-2 items-center times">
-                        {timeSlosts[theater].map((time) => (
-                          <p
-                          onClick={() => handleGetTimeSlot(theater, time)}
-                            className="w-[126px] h-[35px] text-center py-[5px] font-mono font-medium border border-black time-item"
-                            key={time}
-                          >
-                            {time}
-                          </p>
-                        ))}
-                      </div>
-                    </div>
-                  ))
-                ) : (
-                  <></>
-                )}
+                <div className="modal-body w-[95%] h-[110px] p-[20px] bg-slate-300  days border-b-2 border-black mx-auto">
+                  <h3 className="font-mono font-bold text-lg">
+                    CGV Lý Chính Thắng
+                  </h3>
+                  <div className="flex gap-2 items-center times">
+                    <p className="w-[126px] h-[35px] text-center  py-[5px] font-mono font-medium border border-black time-item">
+                      10:05 PM
+                    </p>
+                  </div>
+                </div>{" "}
+                <div className="modal-body w-[95%] h-[110px] p-[20px] bg-slate-300  days border-b-2 border-black mx-auto">
+                  <h3 className="font-mono font-bold text-lg">
+                    CGV Lý Chính Thắng
+                  </h3>
+                  <div className="flex gap-2 items-center times">
+                    <p className="w-[126px] h-[35px] text-center  py-[5px] font-mono font-medium border border-black time-item">
+                      10:05 PM
+                    </p>
+                  </div>
+                </div>
+                <div className="modal-body w-[95%] h-[110px] p-[20px] bg-slate-300  days border-b-2 border-black mx-auto">
+                  <h3 className="font-mono font-bold text-lg">
+                    CGV Lý Chính Thắng
+                  </h3>
+                  <div className="flex gap-2 items-center times">
+                    <p className="w-[126px] h-[35px] text-center  py-[5px] font-mono font-medium border border-black time-item">
+                      10:05 PM
+                    </p>
+                  </div>
+                </div>
+                <div className="modal-body w-[95%] h-[110px] p-[20px] bg-slate-300  days border-b-2 border-black mx-auto">
+                  <h3 className="font-mono font-bold text-lg">
+                    CGV Lý Chính Thắng
+                  </h3>
+                  <div className="flex gap-2 items-center times">
+                    <p className="w-[126px] h-[35px] text-center  py-[5px] font-mono font-medium border border-black time-item">
+                      10:05 PM
+                    </p>
+                  </div>
+                </div>
                 <div className="modal-footer">
-                  <p>booking movie</p>
+                  <p>footer booking</p>
                 </div>
               </div>
             </div>
@@ -324,101 +286,51 @@ function HomeCustomer() {
             nav
             items={4}
           >
-            <div className="item">
-              <div className="movie-item ">
-                <div className="movie-image">
-                  <img
-                    src="https://www.cgv.vn/media/banner/cache/3/b58515f018eb873dafa430b6f9ae0c1e/c/g/cgvlive_apr2023_rb_1.png"
-                    alt=""
-                  />
-                </div>
-                <div className="movie-informations">
-                  <h4 className="text-center font-bold font-mono text-white mt-2">
-                    tên phim
-                  </h4>
-                  <div className=" flex justify-around">
-                    <div className="movie-button">
-                      <Link to={"/detail"}>
+            {listMovie.slice(0, 6).map((item) => (
+              <div key={item.id} className="item">
+                <div className="movie-item ">
+                  <div className="movie-image">
+                    <img src={item.movieImage} alt="" />
+                  </div>
+                  <div className="movie-informations">
+                    <h4 className="text-center font-bold font-mono text-white mt-2">
+                      {item.movieName}
+                    </h4>
+                    <div className=" flex justify-around mt-2">
+                      <div className="movie-button">
+                        {/* <Link to={"/detail"}> */}
                         <button
                           variant="outline-secondary"
                           className="text-center font-medium font-mono text-white "
+                          onClick={() => handleFindById(item.id)}
                         >
                           Chi tiết
                         </button>{" "}
-                      </Link>
-                    </div>
-                    <div className="movie-button">
-                      <button
-                        variant="outline-secondary"
-                        className="text-center font-medium font-mono text-white "
-                        data-bs-target="#exampleModalToggle"
-                        data-bs-toggle="modal"
-                        onClick={() => handleViewTimeSlot(1)}
-                      >
-                        Mua vé <i className="fa-solid fa-ticket"></i>
-                      </button>{" "}
+                        {/* </Link> */}
+                      </div>
+                      <div className="movie-button">
+                        <button
+                          variant="outline-secondary"
+                          className="text-center font-medium font-mono text-white "
+                          data-bs-target="#exampleModalToggle"
+                          data-bs-toggle="modal"
+                        >
+                          Mua vé <i className="fa-solid fa-ticket"></i>
+                        </button>{" "}
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-
-            <div className="item">
-              <h4>2</h4>
-            </div>
-            <div className="item">
-              <h4>3</h4>
-            </div>
-            <div className="item">
-              <h4>4</h4>
-            </div>
-            <div className="item">
-              <h4>5</h4>
-            </div>
-            <div className="item">
-              <h4>6</h4>
-            </div>
-            <div className="item">
-              <h4>7</h4>
-            </div>
-            <div className="item">
-              <h4>8</h4>
-            </div>
-            <div className="item">
-              <h4>9</h4>
-            </div>
-            <div className="item">
-              <h4>10</h4>
-            </div>
-            <div className="item">
-              <h4>11</h4>
-            </div>
-            <div className="item">
-              <h4>12</h4>
-            </div>
+            ))}
           </OwlCarousel>
           ;
         </div>
       </div>
     </div>
+  ) : (
+    <></>
   );
 }
 
 export default HomeCustomer;
-
-function getNextDays(startDate, numDays) {
-  const days = [];
-  for (let i = 0; i < numDays; i++) {
-    const nextDay = new Date(startDate.getTime());
-    nextDay.setDate(startDate.getDate() + i);
-
-    days.push({
-      date: nextDay,
-      dayOfWeek: nextDay.toLocaleString("default", { weekday: "short" }),
-      day: nextDay.getDate(),
-      month: nextDay.getMonth() + 1, // Tháng trong JavaScript bắt đầu từ 0
-      year: nextDay.getFullYear(),
-    });
-  }
-  return days;
-}

@@ -9,6 +9,9 @@ import {
   editRoomFailed,
   editRoomStart,
   editRoomSuccess,
+  getAllRoomByTheaterIdFailed,
+  getAllRoomByTheaterIdStart,
+  getAllRoomByTheaterIdSuccess,
   getAllRoomFailed,
   getAllRoomSelectFailed,
   getAllRoomSelectStart,
@@ -72,6 +75,24 @@ export const getAllRoomSelect = async (dispatch, token) => {
     dispatch(getAllRoomSelectSuccess(res.data));
   } catch (error) {
     dispatch(getAllRoomSelectFailed(error.response));
+  }
+};
+
+export const getAllRoomByTheaterId = async (dispatch, token, id) => {
+  dispatch(getAllRoomByTheaterIdStart());
+  try {
+    const res = await axios.get(
+      `http://localhost:6789/api/booking/v1/room/byIdTheater/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    console.log(res.data);
+    dispatch(getAllRoomByTheaterIdSuccess(res.data));
+  } catch (error) {
+    dispatch(getAllRoomByTheaterIdFailed(error.response));
   }
 };
 

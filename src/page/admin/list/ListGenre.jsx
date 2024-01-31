@@ -106,10 +106,49 @@ function ListGenre() {
                     <button
                       type="button"
                       className=" btn btn-danger text-red-600"
-                      onClick={() => handleDeleteLocation(item.id)}
+                      data-bs-toggle="modal"
+                      data-bs-target={`#exampleModal-${item.id}`}
                     >
                       <i className="fa-regular fa-trash-can"></i>
                     </button>
+                    {/* modal xoá */}
+                    <div
+                      className="modal fade"
+                      id={`exampleModal-${item.id}`}
+                      tabIndex="-1"
+                      aria-labelledby={`exampleModalLabel-${item.id}`}
+                      aria-hidden="true"
+                    >
+                      <div className="modal-dialog modal-dialog-centered">
+                        <div className="modal-content">
+                          <div className="modal-header">
+                            <h1
+                              className="modal-title fs-5"
+                              id="exampleModalLabel"
+                            ></h1>
+                            <button
+                              type="button"
+                              className="btn-close text-gray-700"
+                              data-bs-dismiss="modal"
+                              aria-label="Close"
+                            ></button>
+                          </div>
+                          <div className="modal-body">
+                            Bạn chắc chắn muốn xoá thể loại{" "}
+                            <span>{item.genreName}</span>
+                          </div>
+                          <div className="modal-footer">
+                            <button
+                              type="button"
+                              className="btn btn-secondary text-gray-700"
+                              onClick={() => handleDeleteLocation(item.id)}
+                            >
+                              Xoá
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </td>
                 </tr>
               ))}

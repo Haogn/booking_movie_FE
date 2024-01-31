@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { getAllTheaterSelect } from "../../../redux/api/service/theaterRequest";
 import {
   getAllRoom,
+  getAllRoomByTheaterId,
   getAllRoomSelect,
 } from "../../../redux/api/service/roomRequest";
 import moment from "moment";
@@ -24,36 +25,48 @@ function CreateTimeSlot() {
   const listTheater = useSelector(
     (state) => state.theaters.theater.listTheaterSelect
   );
-  const listRoom = useSelector((state) => state.rooms.room.listRoomSelect);
-  const error = useSelector((state) => state.rooms.room.error);
+  // const listRoom = useSelector((state) => state.rooms.room.listRoomSelect);
+  const listRoomByIdTheater = useSelector(
+    (state) => state.rooms.room.listRoomByTheaterId
+  );
+  const error = useSelector((state) => state.times.time.error);
 
   useEffect(() => {
     getAllTheaterSelect(dispatch, token);
     getAllRoomSelect(dispatch, token);
+    // getAllRoomByTheaterId(dispatch, token, id);
   }, [dispatch, token]);
 
   // console.log("listTheater", listTheater);
   // console.log("listRoom", listRoom);
+  // console.log("listRoomByIdTheater", listRoomByIdTheater);
 
   const [idMovie, setIdMovie] = useState();
   const [idRoom, setIdRoom] = useState();
   const [idTheater, setIdTheater] = useState();
   const [startTime, setStartTime] = useState();
+  const [dateMovie, setDateMovie] = useState();
 
   const [errorIdMovie, setErrorIdMovie] = useState();
   const [errorIdRoom, setErrorIdRoom] = useState();
   const [errorIdTheater, setErrorIdTheater] = useState();
   const [errorTime, setErrorTime] = useState();
+  const [errorDateMovie, setErrorDateMovie] = useState();
 
   const onChangeStartTime = (e) => {
     const inputTime = e.target.value;
-
     // Chuyển đổi giá trị sang định dạng chuỗi 'HH:mm'
     const formattedTime = moment(inputTime, "HH:mm").format("HH:mm");
-
     setStartTime(formattedTime);
   };
   // console.log("startTime", startTime);
+
+  // lay idTheater va lay ra danh sach rap tai theater do
+  const onChangeTheaterAndFindAllRoom = (e) => {
+    setIdTheater(Number(e.target.value));
+    getAllRoomByTheaterId(dispatch, token, Number(e.target.value));
+  };
+
   const handleCreateTime = (e) => {
     e.preventDefault();
     if (validateNumber(idMovie)) {
@@ -71,7 +84,11 @@ function CreateTimeSlot() {
     }
 
     if (validateBlank(startTime)) {
-      setErrorTime("Th��i gian chiếu không được để trống");
+      setErrorTime("Thời gian chiếu không được để trống");
+      return;
+    }
+    if (validateBlank(dateMovie)) {
+      setErrorDateMovie("Ngày khởi chiếu không được để trống");
       return;
     }
 
@@ -80,6 +97,7 @@ function CreateTimeSlot() {
       roomId: idRoom,
       theaterId: idTheater,
       startTime: startTime,
+      showDateMovie: dateMovie,
       isDeleted: false,
     };
     createTime(token, formTime, dispatch, navigate);
@@ -95,7 +113,7 @@ function CreateTimeSlot() {
           Tạo mới xuất chiếu
         </h1>
         <form action="" onSubmit={handleCreateTime}>
-          <div className="mb-3">
+          <div className="mb-2">
             <label className="form-label font-mono font-semibold">
               Phim: <span className="text-red-500">*</span>
             </label>
@@ -113,7 +131,7 @@ function CreateTimeSlot() {
             )}
           </div>
 
-          <div className="mb-3">
+          <div className="mb-2">
             <label className="form-label font-mono font-semibold">
               Rạp chiếu: <span className="text-red-500">*</span>
             </label>
@@ -121,7 +139,7 @@ function CreateTimeSlot() {
               className="form-select"
               aria-label="Default select example"
               value={idTheater}
-              onChange={(e) => setIdTheater(Number(e.target.value))}
+              onChange={(e) => onChangeTheaterAndFindAllRoom(e)}
             >
               <option selected>Rạp chiếu</option>
               {listTheater?.map((item) => (
@@ -137,7 +155,7 @@ function CreateTimeSlot() {
             )}
           </div>
 
-          <div className="mb-3">
+          <div className="mb-2">
             <label className="form-label font-mono font-semibold">
               Phòng chiếu: <span className="text-red-500">*</span>
             </label>
@@ -148,7 +166,7 @@ function CreateTimeSlot() {
               onChange={(e) => setIdRoom(Number(e.target.value))}
             >
               <option selected>Phòng chiếu</option>
-              {listRoom?.map((item) => (
+              {listRoomByIdTheater?.map((item) => (
                 <option key={item.id} value={item.id}>
                   {item.roomName}
                 </option>
@@ -161,7 +179,24 @@ function CreateTimeSlot() {
             )}
           </div>
 
-          <div className="mb-3">
+          <div className="mb-2">
+            <label className="form-label font-mono font-semibold">
+              Ngày chiếu: <span className="text-red-500">*</span>
+            </label>
+            <input
+              type="date"
+              class="form-control"
+              value={dateMovie}
+              onChange={(e) => setDateMovie(e.target.value)}
+            />
+            {errorDateMovie && (
+              <span className="text-red-500 font-mono font-medium text-center">
+                {errorDateMovie}
+              </span>
+            )}
+          </div>
+
+          <div className="mb-2">
             <label className="form-label font-mono font-semibold">
               Thời gian bắt đầu: <span className="text-red-500">*</span>
             </label>
@@ -178,9 +213,9 @@ function CreateTimeSlot() {
             )}
           </div>
           {error ? (
-            <span className="text-red-500 font-mono font-medium text-center">
+            <p className="text-red-500 font-mono font-medium text-center">
               {error.data}
-            </span>
+            </p>
           ) : (
             <></>
           )}

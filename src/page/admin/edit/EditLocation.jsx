@@ -6,6 +6,8 @@ import {
 } from "../../../redux/api/service/locationRequest";
 import { useNavigate, useParams } from "react-router-dom";
 import { validateBlank } from "../../../components/validate/validation";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function EditLocation() {
   const dispatch = useDispatch();
@@ -40,12 +42,20 @@ function EditLocation() {
       isDelete: false,
     };
 
-    editLocation(token, dispatch, location.id, formEditLocation, navigate);
+    editLocation(
+      token,
+      dispatch,
+      location.id,
+      formEditLocation,
+      navigate,
+      toast
+    );
   };
 
   return location ? (
     <div>
       <div className="w-[50%] h-screen mx-auto ">
+        <ToastContainer className="custom-toast-container" />
         <h1 className="text-center text-2xl font-mono font-semibold my-6 pb-3 border-b-2 border-gray-400">
           Thay đổi thông tin Vị trí
         </h1>
@@ -72,9 +82,9 @@ function EditLocation() {
               name="locationName"
             />
             {errorEdit && (
-              <span className="text-red-500 font-mono font-medium text-center">
+              <p className="text-red-500 font-mono font-medium text-center mb-2">
                 {errorEdit}
-              </span>
+              </p>
             )}
           </div>
 

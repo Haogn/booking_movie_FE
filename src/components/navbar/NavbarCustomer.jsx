@@ -3,6 +3,7 @@ import "./NavbarCustomer.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../../redux/api/service/authRequest";
+import { toast } from "react-toastify";
 
 function NavbarCustomer() {
   const storedUsername = localStorage.getItem("username");
@@ -16,9 +17,8 @@ function NavbarCustomer() {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    logout(distpatch, navigate);
+    logout(distpatch, navigate, toast);
   };
-
 
   return (
     <div>
@@ -29,13 +29,14 @@ function NavbarCustomer() {
             TIN MỚI &amp; ƯU ĐÃI
           </div>
           <div className="vecuatoi">
-            <i className="fa-solid fa-ticket"></i> VÉ CỦA TÔI
+            <Link to={"/history"}>
+              <i className="fa-solid fa-ticket"></i> VÉ CỦA TÔI
+            </Link>
           </div>
           {username ? (
             <>
               <Link onClick={handleLogout}>
-                <i className="fa-solid fa-circle-user" />
-                {username} / ĐĂNG XUẤT
+                <i className="fa-solid fa-circle-user" /> {username} / ĐĂNG XUẤT
               </Link>
             </>
           ) : (
@@ -48,6 +49,12 @@ function NavbarCustomer() {
       <div className="header-page">
         <div className="flex justify-center gap-[70px] my-[20px] cursor-pointer pt-[30px]">
           <div>
+            <a href="/">
+              <img
+                src="https://www.cgv.vn/skin/frontend/cgv/default/images/cgvlogo.png"
+                alt=""
+              />
+            </a>
             <Link to={"/"}>
               <img src="./image/logo.png" alt="" />
             </Link>
@@ -99,7 +106,10 @@ function NavbarCustomer() {
             </div>
           </div>
           <a href="#" className="cine">
-            <img src="./image/mua-ve-ngay.png" alt="" />
+            <img
+              src="https://www.cgv.vn/media/wysiwyg/news-offers/mua-ve_ngay.png"
+              alt=""
+            />
           </a>
         </div>
       </div>

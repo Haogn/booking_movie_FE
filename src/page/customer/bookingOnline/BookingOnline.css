@@ -104,12 +104,17 @@
   flex-wrap: wrap;
   gap: 10px;
 }
+
 .chair {
   text-align: center;
   line-height: 22px;
   width: 30px;
   height: 30px;
   border: 1px solid #444444;
+}
+.chair:hover {
+  border: 2px solid black;
+  cursor: pointer;
 }
 .ticketbox-notice {
   margin: 20px auto;

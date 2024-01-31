@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { editGenre } from "../../../redux/api/service/genreRequest";
+import { editGenre, getGenre } from "../../../redux/api/service/genreRequest";
 import { validateBlank } from "../../../components/validate/validation";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function EditGenre() {
   const dispatch = useDispatch();
@@ -31,12 +33,13 @@ function EditGenre() {
       isDeleted: false,
     };
 
-    editGenre(token, dispatch, genre.id, formEditGenre, navigate);
+    editGenre(token, dispatch, genre.id, formEditGenre, navigate, toast);
   };
 
   return genre ? (
     <div>
       <div className="w-[50%] h-screen mx-auto ">
+        <ToastContainer className="custom-toast-container" />
         <h1 className="text-center text-2xl font-mono font-semibold my-6 pb-3 border-b-2 border-gray-400">
           Thay đổi thông tin thể loại
         </h1>
@@ -70,9 +73,9 @@ function EditGenre() {
             )}
           </div>
           {error ? (
-            <span className="text-red-500 font-mono font-medium text-center">
+            <p className="text-red-500 font-mono font-medium text-center mb-2">
               {error.data}
-            </span>
+            </p>
           ) : (
             <></>
           )}
