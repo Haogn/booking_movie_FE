@@ -35,16 +35,11 @@ export const loginUser = async (user, dispatch, navigate, toast) => {
       progress: undefined,
       theme: "light",
     });
-    const expirationTime = new Date(new Date().getTime() + 20 * 60 * 1000);
+    localStorage.setItem("username", JSON.stringify(res.data.username));
+    localStorage.setItem("acessToken", JSON.stringify(res.data.token));
     localStorage.setItem(
-      "username",
-      JSON.stringify(res.data.username),
-      expirationTime
-    );
-    localStorage.setItem(
-      "acessToken",
-      JSON.stringify(res.data.token),
-      expirationTime
+      "role",
+      JSON.stringify(res.data.setRoles.includes("ADMIN") ? "ADMIN" : "CUSTOMER")
     );
     setTimeout(() => {
       if (res.data.setRoles.includes("CUSTOMER")) {
@@ -54,18 +49,6 @@ export const loginUser = async (user, dispatch, navigate, toast) => {
         navigate("/admin");
       }
     }, 3000);
-    localStorage.setItem("username", JSON.stringify(res.data.username));
-    localStorage.setItem("acessToken", JSON.stringify(res.data.token));
-    localStorage.setItem(
-      "role",
-      JSON.stringify(res.data.setRoles.includes("ADMIN") ? "ADMIN" : "CUSTOMER")
-    );
-    if (res.data.setRoles.includes("CUSTOMER")) {
-      navigate("/");
-    }
-    if (res.data.setRoles.includes("ADMIN")) {
-      navigate("/admin");
-    }
   } catch (error) {
     console.log(error.response);
     dispatch(loginFailed(error.response));

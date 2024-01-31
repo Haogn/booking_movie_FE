@@ -55,9 +55,6 @@ function NavbarCustomer() {
                 alt=""
               />
             </a>
-            <Link to={"/"}>
-              <img src="./image/logo.png" alt="" />
-            </Link>
           </div>
           <div className="flex gap-[70px] font-bold pt-[20px] ">
             <div className="movie">

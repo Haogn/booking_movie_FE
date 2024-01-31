@@ -25,6 +25,7 @@ function Register() {
   const [errorDateOfBirth, setErrorDateOfBirth] = useState(null);
 
   const error = useSelector((state) => state.auth.register.error);
+  console.log("error", error);
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -61,7 +62,6 @@ function Register() {
       dateOfBirth: dateOfBirth,
     };
     registerUser(newUser, dispatch, navigate, toast);
-    registerAccount(dispatch, navigate, newUser, toast);
   };
 
   return (
