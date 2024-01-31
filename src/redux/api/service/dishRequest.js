@@ -19,6 +19,7 @@ import {
   deleteDishSuccess,
   deleteDishFailed,
 } from "../../reducers/dishSlice";
+import { de } from "date-fns/locale";
 
 export const getDish = async (dispatch, token, id, navigate) => {
   dispatch(getDishStart());
@@ -66,7 +67,13 @@ export const getAllDish = async (dispatch) => {
   }
 };
 
-export const createDish = async (dishRequestDto, dispatch, token, navigate) => {
+export const createDish = async (
+  dishRequestDto,
+  dispatch,
+  token,
+  navigate,
+  toast
+) => {
   dispatch(createDishStart());
   try {
     const formData = new FormData();
@@ -87,9 +94,20 @@ export const createDish = async (dishRequestDto, dispatch, token, navigate) => {
       formData,
       config
     );
-
+    toast("Tạo mới thành công!", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
     dispatch(createDishSuccess(res.data));
-    navigate("/admin/list-food");
+    setTimeout(() => {
+      navigate("/admin/list-food");
+    }, 3000);
   } catch (error) {
     dispatch(createDishFailed(error));
   }
@@ -98,10 +116,12 @@ export const editDish = async (
   dishUpdateRequestDto,
   dispatch,
   navigate,
-  token
+  token,
+  toast
 ) => {
   dispatch(editDishStart());
   try {
+    debugger;
     const res = await axios.put(
       "http://localhost:6789/api/booking/v1/dish",
       dishUpdateRequestDto,
@@ -109,13 +129,25 @@ export const editDish = async (
         headers: { Authorization: `Bearer ${token}` },
       }
     );
+    toast("Chỉnh sửa thành công!", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
     dispatch(editDishSuccess(res.data));
-    navigate("/admin/list-food");
+    setTimeout(() => {
+      navigate("/admin/list-food");
+    }, 3000);
   } catch (err) {
     dispatch(editDishFailed(err.response));
   }
 };
-export const deleteDish = async (id, dispatch, navigate, token) => {
+export const deleteDish = async (id, dispatch, navigate, token, toast) => {
   dispatch(deleteDishStart());
   try {
     const res = await axios.delete(
@@ -126,6 +158,16 @@ export const deleteDish = async (id, dispatch, navigate, token) => {
     );
     console.log(res.data);
     dispatch(deleteDishSuccess(res.data));
+    toast("😎 Xoá vị trí nhập thành công!", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
     navigate("/admin/list-food");
   } catch (err) {
     dispatch(deleteDishFailed(err.response));

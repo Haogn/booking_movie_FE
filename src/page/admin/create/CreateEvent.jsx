@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { createEvent } from "../../../redux/api/service/promotionRequest";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 
 function CreateEvent() {
@@ -62,7 +64,7 @@ function CreateEvent() {
         startDate: startDate,
         endDate: endDate
       };
-      createEvent(eventCreate, dispath, token, navigate);
+      createEvent(eventCreate, dispath, token, navigate, toast);
     }
   };
 
@@ -76,9 +78,7 @@ function CreateEvent() {
         <form action="" onSubmit={hendleCreateEvent}>
           <div className="mb-3">
             <label className="form-label font-mono font-semibold">
-              Tên sự kiện: {errors.eventName && (
-                <span className="text-red-500">{errors.eventName}</span>
-              )}
+              Tên sự kiện: <span className="text-red-500">*</span>
             </label>
             <input
               onChange={(e) => setEventName(e.target.value)}
@@ -87,6 +87,9 @@ function CreateEvent() {
               className="form-control"
               placeholder="Tên sự kiện"
             />
+            {errors.eventName && (
+              <span className="text-red-500">{errors.eventName}</span>
+            )}
           </div>
 
           <div className="mb-3">
@@ -96,9 +99,7 @@ function CreateEvent() {
             <div className="flex gap-3">
               <div>
                 <label className="form-label font-mono font-semibold">
-                  Bắt đầu: {errors.startDate && (
-                    <span className="text-red-500">{errors.startDate}</span>
-                  )}
+                  Bắt đầu: <span className="text-red-500">*</span>
                 </label>
                 <input
                   onChange={(e) => setStartDate(e.target.value)}
@@ -107,10 +108,13 @@ function CreateEvent() {
                   className="form-control"
                   placeholder="Bắt đầu"
                 />
+                {errors.startDate && (
+                  <span className="text-red-500">{errors.startDate}</span>
+                )}
               </div>
               <div>
                 <label className="form-label font-mono font-semibold">
-                  Kết thúc:  {errors.endDate && (<span className="text-red-500">{errors.endDate}</span>)}
+                  Kết thúc: <span className="text-red-500">*</span>
                 </label>
                 <input
                   onChange={(e) => setEndDate(e.target.value)}
@@ -119,15 +123,14 @@ function CreateEvent() {
                   className="form-control"
                   placeholder="Kết thúc"
                 />
+                {errors.endDate && (<span className="text-red-500">{errors.endDate}</span>)}
               </div>
             </div>
           </div>
 
           <div className="mb-3">
             <label className="form-label font-mono font-semibold">
-              Giảm giá:  {errors.salePrice && (
-                <span className="text-red-500">{errors.salePrice}</span>
-              )}
+              Giảm giá: <span className="text-red-500">*</span>
             </label>
             <select class="form-select" aria-label="Default select example"
               onChange={(e) => setSalesPrice(e.target.value)}
@@ -137,13 +140,14 @@ function CreateEvent() {
               <option value="10">10%</option>
               <option value="15">15%</option>
             </select>
+            {errors.salePrice && (
+              <span className="text-red-500">{errors.salePrice}</span>
+            )}
           </div>
 
           <div className="mb-3">
             <label className="form-label font-mono font-semibold">
-              Thông tin giảmg giá:  {errors.description && (
-                <span className="text-red-500">{errors.description}</span>
-              )}
+              Thông tin giảmg giá: <span className="text-red-500">*</span>
             </label>
             <input
               onChange={(e) => setDescription(e.target.value)}
@@ -152,6 +156,9 @@ function CreateEvent() {
               className="form-control"
               placeholder="Thông tin giảm giá"
             />
+            {errors.description && (
+              <span className="text-red-500">{errors.description}</span>
+            )}
           </div>
           <button
             type="submit"

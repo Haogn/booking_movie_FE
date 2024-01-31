@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getDish, selectAllDish, deleteDish } from "../../../redux/api/service/dishRequest";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 
 function ListDrinks() {
@@ -36,7 +38,7 @@ function ListDrinks() {
   const hendleDelete = (id) => {
     return async () => {
       try {
-        await deleteDish(id, dispatch, navigate, token);
+        await deleteDish(id, dispatch, navigate, token, toast);
         selectAllDish(dispatch, token, page, search);
       } catch (error) {
         console.error("Error deleting dish:", error);
@@ -45,6 +47,7 @@ function ListDrinks() {
   }
   return (
     listDish && <div>
+      <ToastContainer className="custom-toast-container" />
       <div className="w-full h-full px-2 ">
         <h1 className="text-center text-2xl font-mono font-semibold my-6 pb-3 border-b-2 border-gray-400">
           Danh sách
@@ -102,12 +105,52 @@ function ListDrinks() {
                     </button>
 
                     <button
-                      onClick={hendleDelete(dish.id)}
                       type="button"
                       className=" btn btn-danger text-red-600"
+                      data-bs-toggle="modal"
+                      data-bs-target={`#exampleModal-${dish.id}`}
                     >
                       <i className="fa-regular fa-trash-can"></i>
                     </button>
+                    {/* modal xoá */}
+                    <div
+                      className="modal fade"
+                      id={`exampleModal-${dish.id}`}
+                      tabIndex="-1"
+                      aria-labelledby={`exampleModalLabel-${dish.id}`}
+                      aria-hidden="true"
+                    >
+                      <div className="modal-dialog modal-dialog-centered">
+                        <div className="modal-content">
+                          <div className="modal-header">
+                            <h1
+                              className="modal-title fs-5"
+                              id="exampleModalLabel"
+                            ></h1>
+                            <button
+                              type="button"
+                              className="btn-close text-gray-700"
+                              data-bs-dismiss="modal"
+                              aria-label="Close"
+                            ></button>
+                          </div>
+                          <div className="modal-body">
+                            Bạn chắc chắn muốn xoá sản phẩm{" "}
+                            <span>{dish.dishName}</span>
+                          </div>
+                          <div className="modal-footer">
+                            <button
+                              type="button"
+                              data-bs-dismiss="modal"
+                              className="btn btn-secondary text-gray-700"
+                              onClick={hendleDelete(dish.id)}
+                            >
+                              Xoá
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </td>
                 </tr>
               )}

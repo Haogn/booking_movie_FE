@@ -3,6 +3,10 @@ import { getAllCategoryApi } from "../../../redux/api/service/categoryRequest";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { createDish } from "../../../redux/api/service/dishRequest";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import FormInput from "../edit/FormInput";
+import { de } from "date-fns/locale";
 
 function CreateDrinks() {
   const dispatch = useDispatch();
@@ -17,11 +21,10 @@ function CreateDrinks() {
   const [errCategoryId, setErrCategoryId] = useState(null);
   const [errPrice, setErrPrice] = useState(null);
   const listCategory = useSelector((state) => state.category.ListCategory)
-  const [showError, setShowError] = useState(false);
   console.log(dishError && dishError.response.data);
   useEffect(() => {
     getAllCategoryApi(dispatch);
-  }, [dispatch, showError])
+  }, [dispatch])
 
   const storedToken = localStorage.getItem("acessToken");
   const token =
@@ -29,13 +32,20 @@ function CreateDrinks() {
       ? storedToken.slice(1, -1)
       : storedToken;
 
-  const hendleCreateDish = async (e) => {
+  const formatPrice = (value) => {
+    // Chuyển đổi giá trị sang chuỗi và định dạng
+    const formattedPrice = Number(value).toLocaleString();
+    return formattedPrice;
+  };
+
+  const hendleCreateDish = (e) => {
     e.preventDefault();
     setErrorName(null);
     setErrImage(null);
     setErrCategoryId(null);
     setErrPrice(null);
 
+    debugger
     let isValid = true;
     if (!dishName) {
       setErrorName("Tên sản phẩm không được để trống");
@@ -64,8 +74,7 @@ function CreateDrinks() {
         categoryId: categoryId,
         price: price,
       };
-
-      await createDish(dishRequestDto, dispatch, token, navigate);
+      createDish(dishRequestDto, dispatch, token, navigate, toast);
     }
   };
 
@@ -79,10 +88,8 @@ function CreateDrinks() {
         <form action="" onSubmit={hendleCreateDish} encType="multipart/form-data">
           <div className="mb-3">
             <label className="form-label font-mono font-semibold">
-              Tên sản phẩm:             {errName && errName && (
-                <span className="text-red-500">{errName}</span>
-              )}
             </label>
+            Tên sản phẩm: <span className="text-red-500">*</span>
             <input
               onChange={(e) => { setDishName(e.target.value); setErrorName(null) }}
               value={dishName}
@@ -90,29 +97,40 @@ function CreateDrinks() {
               className="form-control"
               placeholder="Tên sản phẩm"
             />
+            {errName && errName && (
+              <span className="text-red-500">{errName}</span>
+            )}
+            {dishError?.response?.data === "Dish is exist" && (
+              <span className="text-red-500">Tên sản phẩm đã tồn tại!</span>
+            )}
           </div>
 
           <div className="mb-3">
             <label className="form-label font-mono font-semibold">
-              ảnh: {errImage && (
-                <span className="text-red-500">{errImage}</span>
-              )}
+              ảnh: <span className="text-red-500">*</span>
             </label>
             <input onChange={(e) => { setImage(e.target.files[0]); setErrImage(null) }} type="file" className="form-control" placeholder="Image" />
+            {errImage && (
+              <span className="text-red-500">{errImage}</span>
+            )}
+          </div>
+          <div className="mb-3">
+            <FormInput
+              label="Giá:"
+              value={formatPrice(price)}
+              onChange={(e) => {
+                setPrice(e.target.value.replace(/\D/g, ''));
+                setErrPrice(null);
+              }}
+              error={errPrice}
+            />
+            {errPrice && (
+              <span className="text-red-500">{errPrice}</span>
+            )}
           </div>
           <div className="mb-3">
             <label className="form-label font-mono font-semibold">
-              Giá: {errPrice && (
-                <span className="text-red-500">{errPrice}</span>
-              )}
-            </label>
-            <input onChange={(e) => { setPrice(Number(e.target.value)); setErrPrice(null) }} value={price} type="text" className="form-control" placeholder="Giá" />
-          </div>
-          <div className="mb-3">
-            <label className="form-label font-mono font-semibold">
-              Loại:             {errCategoryId && (
-                <span className="text-red-500">{errCategoryId}</span>
-              )}
+              Loại: <span className="text-red-500">*</span>
             </label>
             <select className="form-select"
               aria-label="Default select example"
@@ -127,6 +145,9 @@ function CreateDrinks() {
               )
               }
             </select>
+            {errCategoryId && (
+              <span className="text-red-500">{errCategoryId}</span>
+            )}
           </div>
           <button
             type="submit"

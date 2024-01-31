@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { deleteEvent, getEvent, selectAllEvent } from '../../../redux/api/service/promotionRequest';
 import { useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function ListEvent() {
     const dispatch = useDispatch();
@@ -34,7 +36,7 @@ function ListEvent() {
     const hendleDelete = (id) => {
         return async () => {
             try {
-                await deleteEvent(id, dispatch, navigate, token);
+                await deleteEvent(id, dispatch, navigate, token, toast);
                 selectAllEvent(dispatch, token, page, search);
             } catch (error) {
                 console.error("Error deleting dish:", error);
@@ -43,6 +45,8 @@ function ListEvent() {
     }
     return (
         listEvent && <div>
+            <ToastContainer className="custom-toast-container" />
+
             <div className="w-full h-full px-2 ">
                 <h1 className="text-center text-2xl font-mono font-semibold my-6 pb-3 border-b-2 border-gray-400">
                     Danh sách sự kiện
@@ -97,12 +101,52 @@ function ListEvent() {
                                                 <i className="fa-solid fa-pen-to-square "></i>
                                             </button>
                                             <button
-                                                onClick={hendleDelete(e.id)}
+                                                data-bs-toggle="modal"
+                                                data-bs-target={`#exampleModal-${e.id}`}
                                                 type="button"
                                                 className=" btn btn-danger text-red-600"
                                             >
                                                 <i className="fa-regular fa-trash-can"></i>
                                             </button>
+                                            {/* modal xoá */}
+                                            <div
+                                                className="modal fade"
+                                                id={`exampleModal-${e.id}`}
+                                                tabIndex="-1"
+                                                aria-labelledby={`exampleModalLabel-${e.id}`}
+                                                aria-hidden="true"
+                                            >
+                                                <div className="modal-dialog modal-dialog-centered">
+                                                    <div className="modal-content">
+                                                        <div className="modal-header">
+                                                            <h1
+                                                                className="modal-title fs-5"
+                                                                id="exampleModalLabel"
+                                                            ></h1>
+                                                            <button
+                                                                type="button"
+                                                                className="btn-close text-gray-700"
+                                                                data-bs-dismiss="modal"
+                                                                aria-label="Close"
+                                                            ></button>
+                                                        </div>
+                                                        <div className="modal-body">
+                                                            Bạn chắc chắn muốn xoá sự kiện{" "}
+                                                            <span>{e.eventName}</span>
+                                                        </div>
+                                                        <div className="modal-footer">
+                                                            <button
+                                                                type="button"
+                                                                data-bs-dismiss="modal"
+                                                                className="btn btn-secondary text-gray-700"
+                                                                onClick={hendleDelete(e.id)}
+                                                            >
+                                                                Xoá
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
 

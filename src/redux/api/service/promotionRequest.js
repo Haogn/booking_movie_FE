@@ -64,7 +64,13 @@ export const getAllEvent = async (dispatch) => {
   }
 };
 
-export const createEvent = async (eventCreate, dispatch, token, navigate) => {
+export const createEvent = async (
+  eventCreate,
+  dispatch,
+  token,
+  navigate,
+  toast
+) => {
   dispatch(createEventStart());
   try {
     const res = await axios.post(
@@ -74,14 +80,32 @@ export const createEvent = async (eventCreate, dispatch, token, navigate) => {
         headers: { Authorization: `Bearer ${token}` },
       }
     );
+    toast("😎 Tại mới thành công!", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
     dispatch(createEventSuccess(res.data));
-    navigate("/admin/list-event");
+    setTimeout(() => {
+      navigate("/admin/list-event");
+    }, 3000);
   } catch (err) {
     dispatch(createEventFailed(err.response));
   }
 };
 
-export const editEvent = async (eventEdit, dispatch, navigate, token) => {
+export const editEvent = async (
+  eventEdit,
+  dispatch,
+  navigate,
+  token,
+  toast
+) => {
   dispatch(editEventStart());
   try {
     debugger;
@@ -92,14 +116,26 @@ export const editEvent = async (eventEdit, dispatch, navigate, token) => {
         headers: { Authorization: `Bearer ${token}` },
       }
     );
+    toast("😎 Cập nhập thành công!", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
     dispatch(editEventSuccess(res.data));
-    navigate("/admin/list-event");
+    setTimeout(() => {
+      navigate("/admin/list-event");
+    }, 3000);
   } catch (err) {
     dispatch(editEventFailed(err.response));
   }
 };
 
-export const deleteEvent = async (id, dispatch, navigate, token) => {
+export const deleteEvent = async (id, dispatch, navigate, token, toast) => {
   dispatch(deleteEventStart());
   try {
     const res = await axios.delete(
@@ -108,8 +144,20 @@ export const deleteEvent = async (id, dispatch, navigate, token) => {
         headers: { Authorization: `Bearer ${token}` },
       }
     );
+    toast("😎 Xoá vị trí nhập thành công!", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
     dispatch(deleteEventSuccess(res.data));
-    navigate("/admin/list-event");
+    setTimeout(() => {
+      navigate("/admin/list-event");
+    }, 3000);
   } catch (err) {
     dispatch(deleteEventFailed(err.response));
   }
