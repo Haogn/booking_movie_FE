@@ -4,6 +4,8 @@ import { registerUser } from "../../redux/api/service/authRequest";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { validateBlank } from "../../components/validate/validation";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Register() {
   const dispatch = useDispatch();
@@ -57,7 +59,7 @@ function Register() {
       password: password,
       dateOfBirth: dateOfBirth,
     };
-    registerUser(newUser, dispatch, navigate);
+    registerUser(newUser, dispatch, navigate, toast);
   };
 
   return (
@@ -151,7 +153,7 @@ function Register() {
                 )}
               </div>
               {error ? (
-                <p className="text-red-500 font-mono font-medium text-center">
+                <p className="text-red-500 font-mono font-medium text-center mb-2">
                   {error.data}
                 </p>
               ) : (
@@ -194,6 +196,7 @@ function Register() {
             </Carousel.Item>
           </Carousel>
         </div>
+        <ToastContainer className="custom-toast-container" />
       </div>
     </div>
   );

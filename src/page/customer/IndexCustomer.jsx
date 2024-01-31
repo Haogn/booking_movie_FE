@@ -4,6 +4,8 @@ import Footer from "../../components/footer/Footer";
 import NavbarCustomer from "../../components/navbar/NavbarCustomer";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllMovieSelect } from "../../redux/api/service/movieRequest";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function IndexCustomer() {
   const dispatch = useDispatch();
@@ -30,6 +32,7 @@ function IndexCustomer() {
       </div>
       <NavbarCustomer />
       <div className="pb-10">
+        <ToastContainer className="custom-toast-container" />
         <Outlet></Outlet>
       </div>
 

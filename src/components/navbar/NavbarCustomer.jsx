@@ -3,6 +3,7 @@ import "./NavbarCustomer.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../../redux/api/service/authRequest";
+import { toast } from "react-toastify";
 
 function NavbarCustomer() {
   const storedUsername = localStorage.getItem("username");
@@ -17,7 +18,7 @@ function NavbarCustomer() {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    logout(distpatch, navigate);
+    logout(distpatch, navigate, toast);
   };
 
   return (

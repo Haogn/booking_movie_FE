@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../redux/api/service/authRequest";
 import { resetError } from "../../redux/reducers/authSlice";
 import { validateBlank } from "../../components/validate/validation";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -24,27 +26,6 @@ function Login() {
     };
   }, [dispatch]);
 
-  // useEffect(() => {
-  //   handleGetCaptcha();
-  // }, []);
-
-  // const  handleGetCaptcha = async () => {
-  //   try {
-  //     const resp = await axios
-  //     .get("http://localhost:6789/api/booking/v1/auth/captcha")
-  //     console.log(resp)
-  //     if (resp && resp.data) {
-  //       setCaptcha(resp.data);
-  //       setError("");
-  //     } else {
-  //       setError("Không có dữ liệu captcha");
-  //     }
-  //   } catch(err) {
-  //       console.error(err);
-  //       setError(err.response?.data || "Có lỗi xảy ra khi lấy captcha");
-  //   }
-  // };
-
   const handleLogin = (e) => {
     e.preventDefault();
     setErrorUsername(null);
@@ -62,7 +43,7 @@ function Login() {
       username: username,
       password: password,
     };
-    loginUser(user, dispatch, navigate);
+    loginUser(user, dispatch, navigate, toast);
   };
 
   return (
@@ -111,7 +92,7 @@ function Login() {
                 )}
               </div>
               {error ? (
-                <p className="text-red-500 font-mono font-medium text-center">
+                <p className="text-red-500 font-mono font-medium text-center mb-2">
                   {error.data}
                 </p>
               ) : (
@@ -131,6 +112,7 @@ function Login() {
             </p>
           </div>
         </div>
+
         <div className="w-[40%] h-full bg-slate-400 ">
           <Carousel slide={false}>
             <Carousel.Item>
@@ -162,6 +144,7 @@ function Login() {
             </Carousel.Item>
           </Carousel>
         </div>
+        <ToastContainer className="custom-toast-container" />
       </div>
     </div>
   );

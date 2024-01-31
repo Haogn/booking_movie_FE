@@ -75,7 +75,13 @@ export const getAllGenreSelect = async (dispatch, token) => {
   }
 };
 
-export const createGenre = async (token, formGenre, dispatch, navigate) => {
+export const createGenre = async (
+  token,
+  formGenre,
+  dispatch,
+  navigate,
+  toast
+) => {
   dispatch(createGenreStart());
   try {
     const res = await axios.post(
@@ -88,7 +94,19 @@ export const createGenre = async (token, formGenre, dispatch, navigate) => {
       }
     );
     dispatch(createGenreSuccess(res.data));
-    navigate("/admin/list-genre");
+    toast("😎 Thêm mới thể loại nhập thành công!", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+    setTimeout(() => {
+      navigate("/admin/list-genre");
+    }, 3000);
   } catch (error) {
     //   console.log("Tao moi that bai", error);
     dispatch(createGenreFailed(error.response));
@@ -100,7 +118,8 @@ export const editGenre = async (
   dispatch,
   id,
   formEditGenre,
-  navigate
+  navigate,
+  toast
 ) => {
   dispatch(editGenreStart());
   try {
@@ -114,13 +133,25 @@ export const editGenre = async (
       }
     );
     dispatch(editGenreSuccess(res.data));
-    navigate("/admin/list-genre");
+    toast("😎 Thay đổi thông tin thể loại nhập thành công!", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+    setTimeout(() => {
+      navigate("/admin/list-genre");
+    }, 3000);
   } catch (error) {
     dispatch(editGenreFailed(error.response));
   }
 };
 
-export const deleteGenre = async (token, dispatch, id, navigate) => {
+export const deleteGenre = async (token, dispatch, id, navigate, toast) => {
   dispatch(deleteGenreStart());
   try {
     const res = await axios.patch(
@@ -133,7 +164,19 @@ export const deleteGenre = async (token, dispatch, id, navigate) => {
       }
     );
     dispatch(deleteGenreSuccess(res.data));
-    navigate("/admin/list-genre");
+    toast("😎 Xoá thể loại nhập thành công!", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+    setTimeout(() => {
+      navigate("/admin/list-genre");
+    }, 3000);
   } catch (error) {
     dispatch(deleteGenreFailed(error.response));
   }

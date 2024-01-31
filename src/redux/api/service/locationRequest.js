@@ -82,7 +82,8 @@ export const createLocation = async (
   token,
   formLocation,
   dispatch,
-  navigate
+  navigate,
+  toast
 ) => {
   dispatch(createLocationStart());
   try {
@@ -96,7 +97,19 @@ export const createLocation = async (
       }
     );
     dispatch(createLocationSuccess(res.data));
-    navigate("/admin/list-location");
+    toast("😎 Thêm mới vị trí nhập thành công!", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+    setTimeout(() => {
+      navigate("/admin/list-location");
+    }, 3000);
   } catch (error) {
     console.log("Tao moi that bai", error);
     dispatch(createLocationFailed(error.response));
@@ -108,7 +121,8 @@ export const editLocation = async (
   dispatch,
   id,
   formEditLocation,
-  navigate
+  navigate,
+  toast
 ) => {
   dispatch(editLocationStart());
   try {
@@ -122,13 +136,25 @@ export const editLocation = async (
       }
     );
     dispatch(editLocationSuccess(res.data));
-    navigate("/admin/list-location");
+    toast("😎 Thay đổi thông tin vị trí nhập thành công!", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+    setTimeout(() => {
+      navigate("/admin/list-location");
+    }, 3000);
   } catch (error) {
     dispatch(editLocationFailed(error.response));
   }
 };
 
-export const deleteLocation = async (token, dispatch, id, navigate) => {
+export const deleteLocation = async (token, dispatch, id, navigate, toast) => {
   dispatch(deleteLocationStart());
   try {
     const res = await axios.patch(
@@ -141,7 +167,19 @@ export const deleteLocation = async (token, dispatch, id, navigate) => {
       }
     );
     dispatch(deleteLocationSuccess(res.data));
-    navigate("/admin/list-location");
+    toast("😎 Xoá vị trí nhập thành công!", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+    setTimeout(() => {
+      navigate("/admin/list-location");
+    }, 3000);
   } catch (error) {
     dispatch(deleteLocationFailed(error.response));
   }
