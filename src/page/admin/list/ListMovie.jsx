@@ -1,8 +1,52 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { getAllMovie, getMovie } from "../../../redux/api/service/movieRequest";
+import { getAllGenreSelect } from "../../../redux/api/service/genreRequest";
 
 function ListMovie() {
-  return (
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const storedToken = localStorage.getItem("acessToken");
+  const token =
+    storedToken && storedToken.startsWith('"') && storedToken.endsWith('"')
+      ? storedToken.slice(1, -1)
+      : storedToken;
+  const [search, setSearch] = useState("");
+  const [page, setPage] = useState(0);
+  const [size, setSize] = useState(6);
+  const listMovie = useSelector((state) => state.movies.movie.listMovie);
+
+  useEffect(() => {
+    getAllMovie(dispatch, token, search, page, size);
+  }, [dispatch, token, search, page, size]);
+
+  // console.log("listMovie", listMovie);
+
+  // edit
+  const handleFindById = async (id) => {
+    await getMovie(dispatch, { token, id });
+    await getAllGenreSelect(dispatch, token);
+    navigate("/admin/edit-movie");
+  };
+  // search
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+  };
+
+  // page
+  const handlePage = (newPage) => {
+    if (newPage === listMovie.totalPages) {
+      const remainingSize = listMovie.totalElements % listMovie.size;
+      setSize(remainingSize === 0 ? listMovie.size : remainingSize);
+    } else {
+      setSize(size);
+    }
+    setPage(newPage - 1);
+  };
+
+  return listMovie ? (
     <div>
       <div className="w-full h-full px-2 ">
         <h1 className="text-center text-2xl font-mono font-semibold my-6 pb-3 border-b-2 border-gray-400">
@@ -10,13 +54,17 @@ function ListMovie() {
         </h1>
         <nav className="navbar bg-body-tertiary mt-3">
           <div className="container-fluid">
-            <a className="navbar-brand"></a>
+            <Link to={"/admin/create-movie"}>
+              <a className="btn btn-outline-dark font-mono">Thêm mới</a>
+            </Link>
             <form className="d-flex" role="search">
               <input
                 className="form-control me-2"
                 type="search"
                 placeholder="Tìm Kiếm"
                 aria-label="Search"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
               />
               <button className="btn btn-outline-dark" type="submit">
                 <i className="fa-solid fa-magnifying-glass"></i>
@@ -45,44 +93,42 @@ function ListMovie() {
               </tr>
             </thead>
             <tbody>
-              <tr className="text-center ">
-                <td className="w-[20px]">1</td>
-                <td className="w-[150px] h-[150px]">Aquamen</td>
-                <td className="w-[100px] h-[100px]">
-                  <img
-                    className="w-full h-full rounded-[50%] "
-                    src="https://inkythuatso.com/uploads/thumbnails/800/2023/03/8-anh-dai-dien-trang-inkythuatso-03-15-26-54.jpg"
-                    alt=""
-                  />
-                </td>
-                <td className="w-[100px] h-[100px]">
-                  <span>100000</span> VNĐ
-                </td>
-                <td className="w-[100px] h-[100px]">aaa</td>
-                <td className="w-[100px] h-[100px]">
-                  <span>120</span> Phút
-                </td>
-                <td>23/01/2024</td>
-                <td>13/02/2024</td>
-                <td className="w-[150px]">Kinh dị, viễn tưởng</td>
-                <td colSpan={2}>
-                  <Link to={"/admin/edit-movie"}>
-                    <button
-                      type="button"
-                      className="btn btn-success text-green-600 mr-2"
-                    >
-                      <i className="fa-solid fa-pen-to-square "></i>
-                    </button>
-                  </Link>
-
-                  <button
-                    type="button"
-                    className=" btn btn-danger text-red-600"
-                  >
-                    <i className="fa-regular fa-trash-can"></i>
-                  </button>
-                </td>
-              </tr>
+              {listMovie.content?.map((item) => (
+                <tr key={item.id} className="text-center ">
+                  <td className="w-[20px]">{item.id}</td>
+                  <td className="w-[150px] h-[150px]">{item.movieName}</td>
+                  <td className="w-[130px] h-[130px]">
+                    <img
+                      //  rounded-[50%]
+                      className="w-full h-full mt-2 rounded-xl object-contain"
+                      src={item.movieImage}
+                      alt=""
+                    />
+                  </td>
+                  <td className="w-[100px] h-[100px]">
+                    <span>{item.price}</span> VNĐ
+                  </td>
+                  <td className="w-[100px] h-[100px]">{item.description}</td>
+                  <td className="w-[100px] h-[100px]">
+                    <span>{item.runningTime}</span> Phút
+                  </td>
+                  <td>{item.releaseDate}</td>
+                  <td>{item.stopDate}</td>
+                  <td className="w-[150px]">
+                    {item.genreName.map((gen) => gen + ", ")}
+                  </td>
+                  <td className="w-[80px]">
+                    <Link to={"/admin/edit-movie"}>
+                      <button
+                        type="button"
+                        className="btn btn-success text-green-600 mr-2"
+                      >
+                        <i className="fa-solid fa-pen-to-square "></i>
+                      </button>
+                    </Link>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
@@ -91,39 +137,65 @@ function ListMovie() {
           aria-label="Page navigation example"
         >
           <ul className="pagination">
-            <li className="page-item">
-              <a
-                className="page-link text-gray-700"
-                href="#"
-                aria-label="Previous"
-              >
-                <span aria-hidden="true">&laquo;</span>
-              </a>
-            </li>
-            <li className="page-item">
-              <a className="page-link text-gray-700" href="#">
-                1
-              </a>
-            </li>
-            <li className="page-item">
-              <a className="page-link text-gray-700" href="#">
-                2
-              </a>
-            </li>
-            <li className="page-item">
-              <a className="page-link text-gray-700" href="#">
-                3
-              </a>
-            </li>
-            <li className="page-item">
-              <a className="page-link text-gray-700" href="#" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-              </a>
-            </li>
+            {listMovie.first ? (
+              <></>
+            ) : (
+              <li className="page-item">
+                <div
+                  className="page-link text-gray-700"
+                  role="button"
+                  onClick={() => handlePage(page - 1)}
+                  aria-label="Previous"
+                >
+                  <span aria-hidden="true">&laquo;</span>
+                </div>
+              </li>
+            )}
+
+            {listMovie.totalPages <= 2
+              ? Array.from({ length: listMovie.totalPages }, (_, index) => (
+                  <li className="page-item" key={index}>
+                    <p
+                      className="page-link text-gray-700"
+                      href="#"
+                      onClick={() => handlePage(index + 1)}
+                    >
+                      {index + 1}
+                    </p>
+                  </li>
+                ))
+              : Array.from({ length: 2 }, (_, index) => (
+                  <li className="page-item" key={index}>
+                    <p
+                      className="page-link text-gray-700"
+                      href="#"
+                      onClick={() => handlePage(index + 1)}
+                    >
+                      {index + 1}
+                    </p>
+                  </li>
+                ))}
+
+            {listMovie.last ? (
+              <></>
+            ) : (
+              <li className="page-item">
+                <p
+                  className="page-link text-gray-700"
+                  href="#"
+                  aria-label="Next"
+                  onClick={() => handlePage(page + 1)}
+                >
+                  <span aria-hidden="true">&raquo;</span>
+                </p>
+              </li>
+            )}
           </ul>
         </nav>
       </div>
     </div>
+  ) : (
+    <></>
   );
 }
 

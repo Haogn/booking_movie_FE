@@ -1,13 +1,46 @@
 import React, { useState } from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import "./LayoutAdmin.css";
+import { useDispatch } from "react-redux";
+import { getALlLocationSeclect } from "../../redux/api/service/locationRequest";
+import { getAllTheaterSelect } from "../../redux/api/service/theaterRequest";
+import { getAllRoomSelect } from "./../../redux/api/service/roomRequest";
+import { getAllGenreSelect } from "../../redux/api/service/genreRequest";
 
 function LayoutAdmin() {
-  const [selectedTab, setSelectedTab] = useState("details"); // Default selected tab
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const storedToken = localStorage.getItem("acessToken");
+  const token =
+    storedToken && storedToken.startsWith('"') && storedToken.endsWith('"')
+      ? storedToken.slice(1, -1)
+      : storedToken;
 
-  const handleTabClick = (tab) => {
-    setSelectedTab(tab);
+  // getALlLocation
+  const handleFindAllLocation = () => {
+    getALlLocationSeclect(dispatch, token);
+    navigate("/admin/create-theater");
   };
+
+  // getALlTheater
+  const handleFinAllTheater = () => {
+    getAllTheaterSelect(dispatch, token);
+    navigate("/admin/create-room");
+  };
+
+  // getAllRoom and AllTheater
+  const handleFindAllRoomAndTheater = () => {
+    getAllTheaterSelect(dispatch, token);
+    getAllRoomSelect(dispatch, token);
+    navigate("/admin/create-time");
+  };
+
+  // getALlGenre
+  const handleFinAllGenre = () => {
+    getAllGenreSelect(dispatch, token);
+    navigate("/admin/create-movie");
+  };
+
   return (
     <div>
       <div className="w-screen h-full flex layout-admin ">
@@ -123,7 +156,11 @@ function LayoutAdmin() {
               </button>
               <ul className="dropdown-menu bg-gray-200 font-bold font-mono">
                 <li>
-                  <a className="dropdown-item" href="/admin/create-theater">
+                  <a
+                    onClick={handleFindAllLocation}
+                    className="dropdown-item"
+                    href=""
+                  >
                     <i className="fa-solid fa-folder-plus"></i> Tạo mới
                   </a>
                 </li>
@@ -146,7 +183,11 @@ function LayoutAdmin() {
               </button>
               <ul className="dropdown-menu bg-gray-200 font-bold font-mono">
                 <li>
-                  <a className="dropdown-item" href="/admin/create-room">
+                  <a
+                    onClick={handleFinAllTheater}
+                    className="dropdown-item"
+                    href=""
+                  >
                     <i className="fa-solid fa-folder-plus"></i> Tạo mới
                   </a>
                 </li>
@@ -196,7 +237,11 @@ function LayoutAdmin() {
               </button>
               <ul className="dropdown-menu bg-gray-200 font-bold font-mono">
                 <li>
-                  <a className="dropdown-item" href="/admin/create-time">
+                  <a
+                    className="dropdown-item"
+                    href=""
+                    onClick={handleFindAllRoomAndTheater}
+                  >
                     <i className="fa-solid fa-folder-plus"></i> Tạo mới
                   </a>
                 </li>
@@ -240,7 +285,11 @@ function LayoutAdmin() {
               </button>
               <ul className="dropdown-menu bg-gray-200 font-bold font-mono">
                 <li>
-                  <a className="dropdown-item" href="/admin/create-movie">
+                  <a
+                    onClick={handleFinAllGenre}
+                    className="dropdown-item"
+                    href=""
+                  >
                     <i className="fa-solid fa-folder-plus"></i> Tạo mới
                   </a>
                 </li>
