@@ -322,11 +322,11 @@ function HomeCustomer() {
                         {timeSlosts[theater].map((time) => (
                           <p
                             onClick={() => handleGetTimeSlot(theater, time)}
-                            className="w-[126px] h-[30px] text-center py-[5px] font-mono font-medium border border-black time-item btn-close"
+                            className="w-[126px] h-[30px] text-center py-[5px] font-mono font-medium border border-black time-item "
                             key={time}
                             type="button"
                             data-bs-dismiss="modal"
-                            aria-label="Close"
+                           
                           >
                             {time}
                           </p>

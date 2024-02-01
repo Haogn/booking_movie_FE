@@ -5,11 +5,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { format } from "date-fns";
 import { bookingMovie, paymentVNPay } from "../../../redux/api/service/orderRequest";
 function BookingOnline() {
-  const storedToken = localStorage.getItem('accessToken');
+  const storedToken = localStorage.getItem('acessToken');
   const token = storedToken && storedToken.startsWith('"') && storedToken.endsWith('"')
     ? storedToken.slice(1, -1)
     : storedToken;
   
+ 
   const dispatch = useDispatch();
   const location = useLocation();
   const currentPath = location.pathname;
@@ -87,26 +88,39 @@ function BookingOnline() {
   }
  
   let total = ticketPrice+totalMenu;
-  console.log(total);
 
-  const createPayment = () => {
-    
-    paymentVNPay(dispatch, total);
-  }
 
-    const createOrder = () => {
+ 
+ 
+ 
+  const createOrder = async () => {
+    try {
       const orderForm = {
-        movieId : movie.id,
-        roomId  : room.id,
+        movieId: movie.id,
+        roomId: room.id,
         startTime: orderInform.time,
         bookingDate: orderInform.selectedDate,
         chairIds: chairIds,
-        theater:orderInform.theater,
-        location: orderInform.locationName,  
+        theater: orderInform.theater,
+        location: orderInform.locationName,
+        total: total,
+      };
+  
+      const order = await bookingMovie(dispatch, token, orderForm);
+      console.log(order);
+      if (order && order.code) {
+        const orderCode = order.code;
+        paymentVNPay(dispatch, total, orderCode);
+      } else {
+        // Xử lý khi không nhận được mã đơn hàng
+        console.error('Order creation failed or missing order code.');
       }
-
-    bookingMovie(dispatch,token,orderForm)
+    } catch (error) {
+      // Xử lý lỗi khi gọi API hoặc logic bên trong
+      console.error('Failed to create order:', error);
     }
+  };
+  
   return (
     <>
       {hasData ? (
@@ -219,7 +233,7 @@ function BookingOnline() {
             <div>
               <Link
                 to={linkTo}
-                onClick={linkText === "Thanh toán" ?  createPayment : undefined}
+                onClick={linkText === "Thanh toán" ?  createOrder : undefined}
               >
                 <div className="next">
                   <i className="fas fa-chevron-right"></i>

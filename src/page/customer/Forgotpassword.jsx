@@ -22,7 +22,7 @@ const handleMailing = (e)=> {
 }
 
 
-return message ? (<div>
+return message && message ? (<div>
   <div className="flex w-[70%] h-[500px] mx-auto mt-3 ">
     <div className="w-[60%] h-full  pt-10">
       <h1 className="font-mono text-2xl font-bold text-center">
