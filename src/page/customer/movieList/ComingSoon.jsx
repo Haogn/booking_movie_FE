@@ -1,19 +1,25 @@
-import React,{useState} from "react";
+import React, { useEffect, useState } from "react";
 import "./ComingSoon.css";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllMovieByStatusShowing } from "../../../redux/api/service/movieRequest";
 function ComingSoon() {
+  const dispatch = useDispatch();
+  const [page, setPage] = useState(null);
+  const [search, setSeach] = useState(null)
   const storedToken = localStorage.getItem("acessToken");
   const [avatarPreview, setAvatarPreview] = useState();
   const token =
     storedToken && storedToken.startsWith('"') && storedToken.endsWith('"')
       ? storedToken.slice(1, -1)
       : storedToken;
-
-
-      
-
-
+  const listMovie = useSelector((state) => state.movies.movie.listMovieByStatus)
+  console.log(listMovie);
+  useEffect(() => {
+    getAllMovieByStatusShowing(dispatch, page, search)
+  }, [dispatch])
   return (
+    listMovie &&
     <div>
       <div className="w-[70%] h-full  mx-auto ">
         <div className="flex justify-between px-2 border-b-2 border-black pb-3">
@@ -25,31 +31,34 @@ function ComingSoon() {
           </Link>
         </div>
         <div className="flex flex-wrap gap-3 px-3">
-          <div className="w-[240px] h-[450px]  mt-3">
-            <img
-              className="w-[200px] h-[260px] object-cover mx-auto"
-              src="https://www.galaxycine.vn/_next/image/?url=https%3A%2F%2Fcdn.galaxycine.vn%2Fmedia%2F2024%2F1%2F3%2Fbeekeeper-500_1704265069414.jpg&w=256&q=75"
-              alt=""
-            />
-            <div className="px-2 mt-1">
-              <h1 className="font-mono font-bold text-2xl">Mật vụ ong</h1>
-              <p className="font-mono">
-                <strong>Thể loại:</strong> Hành động
-              </p>
-              <p className="font-mono">
-                <strong>Thời lượng:</strong> 105 phút
-              </p>
-              <p className="font-mono">
-                <strong>Khởi chiếu:</strong> 26/01/2024
-              </p>
-            </div>
-            <div className="foot_booking mt-4">
-              <span></span>
-              <p>
-                <button className="btn-booking">Mua vé</button>
-              </p>
-            </div>
-          </div>
+          {
+            listMovie.content.map((movie, index) => {
+              <div className="w-[240px] h-[450px]  mt-3" key={movie.id}>
+                <img
+                  className="w-[200px] h-[260px] object-cover mx-auto"
+                  src={movie.movieImage}
+                  alt=""
+                />
+                <div className="px-2 mt-1">
+                  <h1 className="font-mono font-bold text-2xl">{movie.movieName}</h1>
+                  <p className="font-mono">
+                    <strong>Thể loại:</strong> {movie.rated}
+                  </p>
+                  <p className="font-mono">
+                    <strong>Thời lượng:</strong> {movie.runningTime} phút
+                  </p>
+                  <p className="font-mono">
+                    <strong>Khởi chiếu:</strong> {movie.releaseDate}
+                  </p>
+                </div>
+                <div className="foot_booking mt-4">
+                  <span></span>
+                  <p>
+                  </p>
+                </div>
+              </div>
+            })
+          }
         </div>
         <nav
           className="flex justify-center"

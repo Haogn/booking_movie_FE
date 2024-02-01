@@ -71,13 +71,8 @@ export const getAllMovieSelect = async (dispatch) => {
   }
 };
 
-export const getAllMovieByStatus = async (
-  dispatch,
-  token,
-  page,
-  search,
-  status
-) => {
+// phim sắp chiếu
+export const getAllMovieByStatusShowing = async (dispatch, page, search) => {
   dispatch(getALlMovieByStatusStart());
   try {
     const res = await axios.get(
@@ -88,7 +83,7 @@ export const getAllMovieByStatus = async (
           params: {
             search: search,
             page: page,
-            status: status,
+            status: "SHOWING",
           },
         },
       }
@@ -100,6 +95,29 @@ export const getAllMovieByStatus = async (
   }
 };
 
+// phim đang chiếu
+export const getAllMovieByStatusUpComing = async (dispatch, page, search) => {
+  dispatch(getALlMovieByStatusStart());
+  try {
+    const res = await axios.get(
+      "http://localhost:6789/api/booking/v1/movie/status",
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          params: {
+            search: search,
+            page: page,
+            status: "UPCOMING",
+          },
+        },
+      }
+    );
+    // console.log(res.data);
+    dispatch(getALlMovieByStatusSuccess(res.data));
+  } catch (error) {
+    dispatch(getALlMovieByStatusFailed(error.response));
+  }
+};
 export const createMovie = async (
   token,
   formMovie,
