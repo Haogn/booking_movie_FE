@@ -7,7 +7,7 @@ import {
   getAllRoomByTheaterId,
   getAllRoomSelect,
 } from "../../../redux/api/service/roomRequest";
-import moment from "moment";
+// import moment from "moment";
 import {
   validateBlank,
   validateNumber,
@@ -58,8 +58,8 @@ function CreateTimeSlot() {
   const onChangeStartTime = (e) => {
     const inputTime = e.target.value;
     // Chuyển đổi giá trị sang định dạng chuỗi 'HH:mm'
-    const formattedTime = moment(inputTime, "HH:mm").format("HH:mm");
-    setStartTime(formattedTime);
+    // const formattedTime = moment(inputTime, "HH:mm").format("HH:mm");
+    setStartTime(inputTime);
   };
   // console.log("startTime", startTime);
 

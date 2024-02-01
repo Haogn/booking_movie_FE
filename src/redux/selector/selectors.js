@@ -1,5 +1,7 @@
 export const USER = (state) => state.user;
 
+export const DISHS = (state) => state.dishs;
+
 export const LOCATIONS = (state) => state.locations;
 
 export const THEATERS = (state) => state.theaters;

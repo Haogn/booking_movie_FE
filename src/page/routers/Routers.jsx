@@ -3,7 +3,6 @@ import { Route, Routes } from "react-router-dom";
 import HomeCustomer from "../customer/HomeCustomer";
 import IndexCustomer from "../customer/IndexCustomer";
 import Login from "../login_register/Login";
-import Detail from "../customer/Detail";
 import Register from "../login_register/Register";
 import IndexProfile from "../customer/IndexProfile";
 import Point from "../customer/Point";
@@ -47,8 +46,9 @@ import EditTime from "../admin/edit/EditTime";
 import EditGenre from "../admin/edit/EditGenre";
 import EditMovie from "../admin/edit/EditMovie";
 import EditDrinks from "../admin/edit/EditDrinks";
+import ListEvent from "../admin/list/ListEvent";
+import EditEvent from "../admin/edit/EditEvent";
 import Payment from "../customer/Payment";
-
 import Forgotpassword from "../customer/Forgotpassword";
 import RetrievalPassword from "../customer/RetrievalPassword";
 
@@ -92,6 +92,8 @@ function Routers() {
           <Route path="/admin/create-account" element={<CreateAccount />} />
           <Route path="/admin/create-coupons" element={<CreateCoupons />} />
           <Route path="/admin/create-event" element={<CreateEvent />} />
+          <Route path="/admin/list-event" element={<ListEvent />} />
+          <Route path="/admin/edit-event" element={<EditEvent />} />
           <Route path="/admin/list-management" element={<ListManagement />} />
           <Route path="/admin/list-employ" element={<ListEmploy />} />
           <Route path="/admin" element={<ListCustomer />} />

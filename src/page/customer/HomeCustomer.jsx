@@ -21,7 +21,7 @@ function HomeCustomer() {
       ? storedToken.slice(1, -1)
       : storedToken;
   const listMovie = useSelector((state) => state.movies.movie.listMovieSelect);
-
+  console.log(listMovie);
   useEffect(() => {
     getAllMovieSelect(dispatch);
   }, [dispatch]);

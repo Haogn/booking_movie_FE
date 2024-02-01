@@ -16,12 +16,13 @@ function IndexCustomer() {
       ? storedToken.slice(1, -1)
       : storedToken;
   const listMovie = useSelector((state) => state.movies.movie.listMovieSelect);
+  
 
   useEffect(() => {
     getAllMovieSelect(dispatch);
   }, [dispatch]);
 
-  // console.log("listMovie", listMovie);
+  console.log("listMovie", listMovie);
   return (
     <div className="body">
       <div className="">
