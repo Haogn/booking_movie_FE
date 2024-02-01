@@ -22,7 +22,7 @@ function IndexCustomer() {
     getAllMovieSelect(dispatch);
   }, [dispatch]);
 
-  console.log("listMovie", listMovie);
+
   return (
     <div className="body">
       <div className="">

@@ -29,6 +29,16 @@ const orderSlice = createSlice({
         getRoomMovie:{
             roomResponse:null,
             errorRoom:null,
+        },
+        getListChair:{
+            chairs:[]
+        },
+        paymentVNPay:{
+            paymentResponse:null,
+            paymentError:null,
+        },
+        addToMenu:{
+            menu:[],
         }
     },
     reducers:{
@@ -70,6 +80,18 @@ const orderSlice = createSlice({
         },
         getRoomMovieFailed:(state,action) =>{
             state.getRoomMovie.errorRoom=action.payload;
+        },
+        getListChairSuccess:(state,action) =>{
+            state.getListChair.chairs=action.payload;
+        },
+        getPaymentVNPaySuccess:(state,action)=>{
+            state.paymentVNPay.paymentResponse=action.payload;
+        },
+        getPaymentVNPayFailed:(state,action)=>{
+            state.paymentVNPay.paymentError=action.payload;
+        },
+        addToMenuSuccess:(state,action)=>{ 
+            state.addToMenu.menu=action.payload;
         }
     },
 });
@@ -81,6 +103,8 @@ export const {
     getMovieInformationSuccess,getMovieInformationFailed,
     getChairStatusSuccess,getChairStatusFailed,
     getRoomMovieSuccess,getRoomMovieFailed,
+    getListChairSuccess,addToMenuSuccess,
+    getPaymentVNPaySuccess,getPaymentVNPayFailed,
 } = orderSlice.actions;
 
 export default orderSlice.reducer;

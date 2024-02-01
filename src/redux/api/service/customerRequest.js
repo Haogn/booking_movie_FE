@@ -22,7 +22,7 @@ export const profileUser = async (dispatch, token) => {
 
 
 
-export const changePassword = async(newPass,dispatch,navigate,token)=>{
+export const changePassword = async(newPass,dispatch,navigate,token,toast)=>{
   try {
     const res = await axios.post("http://localhost:6789/api/booking/v1/users/changePassword", newPass,{
         headers: {
@@ -30,13 +30,23 @@ export const changePassword = async(newPass,dispatch,navigate,token)=>{
         }
       });
   dispatch(changePasswordSuccess(res.data));
+  toast("😎 Cập nhật thành công! 🤞🏻", {
+    position: "top-right",
+    autoClose: 3000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+  });
   navigate("/profile");
 } catch (error) {
   dispatch(changePasswordFailed(error.response));
 }
 }
 
-export const changeAvatar = async (dispatch, token, avatarForm) => {
+export const changeAvatar = async (dispatch, token, avatarForm,toast) => {
   try {
     const res = await axios.post("http://localhost:6789/api/booking/v1/users/changeAvatar", avatarForm, {
       headers: {
@@ -45,12 +55,22 @@ export const changeAvatar = async (dispatch, token, avatarForm) => {
       }
     });
     dispatch(changeAvatarSuccess(res.data));
+    toast("😎 Cập nhật thành công! 🤞🏻", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
   } catch (error) {
     dispatch(changeAvatarFailed(error.response));
   }
 };
 
-export const updateProfile = async(dispatch,token,updateForm)=>{
+export const updateProfile = async(dispatch,token,updateForm,toast)=>{
   try {
     const res = await axios.patch("http://localhost:6789/api/booking/v1/users/updateProfile", updateForm,{
         headers: {
@@ -58,6 +78,16 @@ export const updateProfile = async(dispatch,token,updateForm)=>{
         }
       });
   dispatch(updateProfileSuccess(res.data));
+  toast("😎 Cập nhật thành công! 🤞🏻", {
+    position: "top-right",
+    autoClose: 3000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+  });
 } catch (error) {
   dispatch(updateProfileFailed(error.response));
 }

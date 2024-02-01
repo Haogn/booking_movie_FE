@@ -1,12 +1,16 @@
 import axios from "axios";
-import { startBuySuccess,startBuyFailed, getLocationSuccess, getLocationFailed, getMovieInformationSuccess, getMovieInformationFailed, getChairStatusSuccess, getChairStatusFailed, getRoomMovieSuccess, getRoomMovieFailed } from "../../reducers/orderSlice";
+import { startBuySuccess,startBuyFailed, getLocationSuccess, getLocationFailed, getMovieInformationSuccess, getMovieInformationFailed, getChairStatusSuccess, getChairStatusFailed, getRoomMovieSuccess, getRoomMovieFailed, getPaymentVNPaySuccess, getPaymentVNPayFailed, createOrderSuccess, createOrderError } from "../../reducers/orderSlice";
 
-export const createOrder = async()=>{
-    try{
-        const res = await axios.post()
-
-    }catch{
-
+export const bookingMovie = async(dispatch,token,orderForm)=>{
+    try {
+        const res = await axios.post("http://localhost:6789/api/booking/v1/orders",orderForm ,{
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          });
+      dispatch(createOrderSuccess(res.data)); 
+    } catch (error) {
+      dispatch(createOrderError(error.response));
     }
 }
 
@@ -19,8 +23,6 @@ export const startBuy = async(dispatch, idMovie, selectDate, roomType, locationN
                 locationName: locationName
             }
         });
-        console.log("Xuất chiếu: ");
-        console.log(res.data);
         dispatch(startBuySuccess(res.data));
     } catch (error) {
         dispatch(startBuyFailed(error.response));
@@ -28,16 +30,11 @@ export const startBuy = async(dispatch, idMovie, selectDate, roomType, locationN
 };
 
 
-export const getLocation = async (dispatch, idMovie, selectDate, roomType, callback) => {
+export const getLocation = async (dispatch) => {
     try {
-        const res = await axios.get(`http://localhost:6789/api/booking/v1/view/locationOfMovie/${idMovie}`, {
-            params: {
-                selectDate: selectDate,
-                roomType: roomType,
-            }
-        });
+        const res = await axios.get(`http://localhost:6789/api/booking/v1/location/getLocation`)   
+        
         dispatch(getLocationSuccess(res.data));
-        if (callback) callback();
     } catch (error) {
         dispatch(getLocationFailed(error.response));
     }
@@ -92,5 +89,20 @@ export const getChair = async (dispatch, idRoom, startTime) => {
         dispatch(getChairStatusSuccess(res.data));
     } catch (error) {
         dispatch(getChairStatusFailed(error.response));
+    }
+};
+
+export const paymentVNPay = async (dispatch, total) => {
+    try {
+        const res = await axios.get(`http://localhost:6789/api/booking/v1/payments/createVNPay`, {
+            params: {
+                total: total,
+            }
+        });
+        console.log(res.data);
+        dispatch(getPaymentVNPaySuccess(res.data));
+        window.location.href = res.data.url;
+    } catch (error) {
+        dispatch(getPaymentVNPayFailed(error.response));
     }
 };
