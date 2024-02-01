@@ -80,6 +80,7 @@ export const getAllRoomSelect = async (dispatch, token) => {
 
 export const getAllRoomByTheaterId = async (dispatch, token, id) => {
   dispatch(getAllRoomByTheaterIdStart());
+  console.log("ID: " + id);
   try {
     const res = await axios.get(
       `http://localhost:6789/api/booking/v1/room/byIdTheater/${id}`,
@@ -96,7 +97,13 @@ export const getAllRoomByTheaterId = async (dispatch, token, id) => {
   }
 };
 
-export const createRoom = async (token, formRoom, dispatch, navigate) => {
+export const createRoom = async (
+  token,
+  formRoom,
+  dispatch,
+  navigate,
+  toast
+) => {
   dispatch(createRoomStart());
   try {
     const res = await axios.post(
@@ -109,14 +116,33 @@ export const createRoom = async (token, formRoom, dispatch, navigate) => {
       }
     );
     dispatch(createRoomSuccess(res.data));
-    navigate("/admin/list-room");
+    toast("😎 Thêm mới rạp chiếu nhập thành công!", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+    setTimeout(() => {
+      navigate("/admin/list-room");
+    }, 3000);
   } catch (error) {
     //   console.log("Tao moi that bai", error);
     dispatch(createRoomFailed(error.response));
   }
 };
 
-export const editRoom = async (token, dispatch, id, formEditRoom, navigate) => {
+export const editRoom = async (
+  token,
+  dispatch,
+  id,
+  formEditRoom,
+  navigate,
+  toast
+) => {
   dispatch(editRoomStart());
   try {
     const res = await axios.patch(
@@ -129,16 +155,28 @@ export const editRoom = async (token, dispatch, id, formEditRoom, navigate) => {
       }
     );
     dispatch(editRoomSuccess(res.data));
-    navigate("/admin/list-room");
+    toast("😎 Thay đổi thông tin rạp chiếu nhập thành công!", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+    setTimeout(() => {
+      navigate("/admin/list-room");
+    }, 3000);
   } catch (error) {
     dispatch(editRoomFailed(error.response));
   }
 };
 
-export const deleteRoom = async (token, dispatch, id, navigate) => {
+export const deleteRoom = async (token, dispatch, id, toast) => {
   dispatch(deleteRoomStart());
   try {
-    const res = await axios.patch(
+    const res = await axios.delete(
       `http://localhost:6789/api/booking/v1/room/${id}`,
 
       {
@@ -148,7 +186,16 @@ export const deleteRoom = async (token, dispatch, id, navigate) => {
       }
     );
     dispatch(deleteRoomSuccess(res.data));
-    navigate("/admin/list-room");
+    toast("😎 Xoá rạp chiếu nhập thành công!", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
   } catch (error) {
     dispatch(deleteRoomFailed(error.response));
   }

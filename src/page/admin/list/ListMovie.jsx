@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { getAllMovie, getMovie } from "../../../redux/api/service/movieRequest";
 import { getAllGenreSelect } from "../../../redux/api/service/genreRequest";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function ListMovie() {
   const dispatch = useDispatch();
@@ -25,7 +27,7 @@ function ListMovie() {
 
   // edit
   const handleFindById = async (id) => {
-    await getMovie(dispatch, { token, id });
+    await getMovie(dispatch, token, id);
     await getAllGenreSelect(dispatch, token);
     navigate("/admin/edit-movie");
   };
@@ -120,6 +122,7 @@ function ListMovie() {
                   <td className="w-[80px]">
                     <Link to={"/admin/edit-movie"}>
                       <button
+                        onClick={() => handleFindById(item.id)}
                         type="button"
                         className="btn btn-success text-green-600 mr-2"
                       >

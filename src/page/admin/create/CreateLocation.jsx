@@ -63,9 +63,9 @@ function CreateLocation() {
           </div>
 
           {error ? (
-            <span className="text-red-500 font-mono font-medium text-center">
+            <p className="text-red-500 font-mono font-medium text-center mb-2">
               {error.data}
-            </span>
+            </p>
           ) : (
             <></>
           )}

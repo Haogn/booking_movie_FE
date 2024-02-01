@@ -24,15 +24,12 @@ function EditLocation() {
   useEffect(() => {
     // getLocation(dispatch, token, location.id);
   }, [dispatch, token]);
-  const [updateNameLocation, setUpdateNameLocation] = useState(
-    location?.locationName
-  );
 
   const [errorEdit, setErrorEdit] = useState(null);
   const handleUpdateLocation = (e) => {
     e.preventDefault();
     setErrorEdit("");
-    if (validateBlank(updateNameLocation)) {
+    if (validateBlank(e.target.locationName.value)) {
       setErrorEdit("Tên vị trí không được để trống.");
       return;
     }

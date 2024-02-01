@@ -7,7 +7,7 @@
 }
 
 .nav-admin {
-  background-image: url(../../../public/image/bg-top.png);
+  background-image: url("https://www.cgv.vn/skin/frontend/cgv/default/images/bg-cgv/bg-top.png");
   width: 100%;
   margin: auto;
   background-size: 10px 70px;

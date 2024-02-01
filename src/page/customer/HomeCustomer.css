@@ -1,5 +1,5 @@
 .header-page {
-  background-image: url(../../../public/image/bg-top.png);
+  background-image: url("https://www.cgv.vn/skin/frontend/cgv/default/images/bg-cgv/bg-top.png");
   width: 100%;
   margin: auto;
   background-size: 10px 135px;
@@ -7,7 +7,7 @@
 }
 
 .content-top {
-  background-image: url("../../../public/image/banner.jpg");
+  background-image: url("https://www.cgv.vn/skin/frontend/cgv/default/images/bg-cgv/bg-header-transparent-home.png");
   background-size: 100% 100%;
   background-repeat: no-repeat;
   width: 70%;
@@ -29,7 +29,7 @@
 }
 
 .slide {
-  background-image: url("../../../public/image/tuonggach.jpg");
+  background-image: url("https://hinhgoc.net/upload/img/H392.jpg?quality=100&width=1200&height=1200");
   background-size: 100% 100%;
 }
 .slide-content {
@@ -43,7 +43,7 @@
 }
 
 .movie-selection h2 {
-  background-image: url(../../../public/image/h3_movie_selection.gif);
+  background-image: url("https://www.cgv.vn/skin/frontend/cgv/default/images/bg-cgv/h3_movie_selection.gif");
   background-repeat: no-repeat;
   background-position: center;
   margin: auto;
@@ -125,7 +125,7 @@
   color: rgb(97, 104, 104);
 }
 
-.event {
+/* .event {
   margin: auto;
   width: 100%;
 }
@@ -138,11 +138,11 @@
   text-indent: -9999px;
   margin-top: 12px;
   height: 60px;
-}
+} */
 
 /* modal */
 .booking-movie {
-  /* max-height: 900px !important ; */
+  /* max-height: 500px !important ; */
   overflow-y: scroll;
   background: linear-gradient(
       to bottom,

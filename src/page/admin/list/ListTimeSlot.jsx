@@ -7,6 +7,8 @@ import {
   getTime,
 } from "../../../redux/api/service/timeRequest";
 import { getAllTheaterSelect } from "../../../redux/api/service/theaterRequest";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function ListTimeSlot() {
   const dispatch = useDispatch();
@@ -30,7 +32,7 @@ function ListTimeSlot() {
 
   // edit
   const handleFindById = async (id) => {
-    // console.log(typeof id);
+    console.log(typeof id);
     await getTime(dispatch, { token, id });
     await getAllTheaterSelect(dispatch, token);
     navigate("/admin/edit-time");
@@ -42,8 +44,9 @@ function ListTimeSlot() {
   };
 
   // delete
-  const handleDeleteLocation = (id) => {
-    deleteTime(token, dispatch, id, navigate);
+  const handleDeleteTime = async (id) => {
+    await deleteTime(token, dispatch, id, toast);
+    getAllTime(dispatch, token, search, page, size);
   };
 
   // page
@@ -60,6 +63,7 @@ function ListTimeSlot() {
   return listTime ? (
     <div>
       <div className="w-full h-full px-2 ">
+        <ToastContainer className="custom-toast-container" />
         <h1 className="text-center text-2xl font-mono font-semibold my-6 pb-3 border-b-2 border-gray-400">
           Danh sách xuất chiếu
         </h1>
@@ -120,10 +124,50 @@ function ListTimeSlot() {
                     <button
                       type="button"
                       className=" btn btn-danger text-red-600"
-                      onClick={() => handleDeleteLocation(item.id)}
+                      data-bs-toggle="modal"
+                      data-bs-target={`#exampleModal-${item.id}`}
                     >
                       <i className="fa-regular fa-trash-can"></i>
                     </button>
+                    {/* modal xoá */}
+                    <div
+                      className="modal fade"
+                      id={`exampleModal-${item.id}`}
+                      tabIndex="-1"
+                      aria-labelledby={`exampleModalLabel-${item.id}`}
+                      aria-hidden="true"
+                    >
+                      <div className="modal-dialog modal-dialog-centered">
+                        <div className="modal-content">
+                          <div className="modal-header">
+                            <h1
+                              className="modal-title fs-5"
+                              id="exampleModalLabel"
+                            ></h1>
+                            <button
+                              type="button"
+                              className="btn-close text-gray-700"
+                              data-bs-dismiss="modal"
+                              aria-label="Close"
+                            ></button>
+                          </div>
+                          <div className="modal-body">
+                            Bạn chắc chắn muốn xoá khung giờ{" "}
+                            <span>{item.startTime}</span>
+                          </div>
+                          <div className="modal-footer">
+                            <button
+                              type="button"
+                              className="btn btn-secondary text-gray-700"
+                              data-bs-dismiss="modal"
+                              onClick={() => handleDeleteTime(item.id)}
+                            >
+                              Xoá
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </td>
                 </tr>
               ))}

@@ -6,6 +6,7 @@ import {
   getAllGenre,
   getGenre,
 } from "../../../redux/api/service/genreRequest";
+import { toast } from "react-toastify";
 
 function ListGenre() {
   const dispatch = useDispatch();
@@ -36,8 +37,9 @@ function ListGenre() {
   };
 
   // delete
-  const handleDeleteLocation = (id) => {
-    deleteGenre(token, dispatch, id, navigate);
+  const handleDeleteGenre = async (id) => {
+    await deleteGenre(token, dispatch, id, toast);
+    getAllGenre(dispatch, token, search, page, size);
   };
 
   // page
@@ -140,8 +142,9 @@ function ListGenre() {
                           <div className="modal-footer">
                             <button
                               type="button"
+                              data-bs-dismiss="modal"
                               className="btn btn-secondary text-gray-700"
-                              onClick={() => handleDeleteLocation(item.id)}
+                              onClick={() => handleDeleteGenre(item.id)}
                             >
                               Xoá
                             </button>

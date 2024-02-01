@@ -23,8 +23,11 @@ function Notification() {
           <div className="font-mono font-medium mt-2 pl-2">
             <p>
               <span>
-                <i className="fa-solid fa-envelope-open"></i>
-                <i className="fa-solid fa-envelope"></i>
+                {!showFullContent ? (
+                  <i className="fa-solid fa-envelope"></i>
+                ) : (
+                  <i className="fa-solid fa-envelope-open"></i>
+                )}
               </span>{" "}
               {notificationContent}
               {!showFullContent && (
@@ -38,46 +41,44 @@ function Notification() {
                   Đọc thêm
                 </span>
               )}
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {/* Bootstrap Modal */}
-      <div
-        className="modal fade"
-        id="notificationModal"
-        tabIndex="-1"
-        aria-labelledby="notificationModalLabel"
-        aria-hidden="true"
-      >
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title" id="notificationModalLabel">
-                Thông báo
-              </h5>
-              <button
-                type="button"
-                className="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-                onClick={closeModal}
-              ></button>
-            </div>
-            <div className="modal-body">
-              <p>{notificationContent}</p>
-            </div>
-            <div className="modal-footer">
-              <button
-                type="button"
-                className="btn btn-secondary"
-                data-bs-dismiss="modal"
-                onClick={closeModal}
+              {/* Bootstrap Modal */}
+              <div
+                className="modal fade"
+                id="notificationModal"
+                tabIndex="-1"
+                aria-labelledby="notificationModalLabel"
+                aria-hidden="true"
               >
-                Đóng
-              </button>
-            </div>
+                <div className="modal-dialog">
+                  <div className="modal-content">
+                    <div className="modal-header">
+                      <h5 className="modal-title" id="notificationModalLabel">
+                        Thông báo
+                      </h5>
+                      <button
+                        type="button"
+                        className="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                      ></button>
+                    </div>
+                    <div className="modal-body">
+                      <p>{notificationContent}</p>
+                    </div>
+                    <div className="modal-footer">
+                      <button
+                        type="button"
+                        className="btn btn-secondary text-gray-800"
+                        data-bs-dismiss="modal"
+                        onClick={closeModal}
+                      >
+                        Đóng
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </p>
           </div>
         </div>
       </div>

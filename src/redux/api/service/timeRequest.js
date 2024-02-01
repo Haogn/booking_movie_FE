@@ -20,8 +20,9 @@ import {
   getTimeSuccess,
 } from "../../reducers/timeSlice";
 
-export const getTime = async (dispatch, token, id) => {
+export const getTime = async (dispatch, { token, id }) => {
   dispatch(getTimeStart());
+  // console.log("ID: " + id);
   try {
     const res = await axios.get(
       `http://localhost:6789/api/booking/v1/timeSlot/${id}`,
@@ -78,7 +79,13 @@ export const getAllTimeSelect = async (dispatch, token) => {
   }
 };
 
-export const createTime = async (token, formTime, dispatch, navigate) => {
+export const createTime = async (
+  token,
+  formTime,
+  dispatch,
+  navigate,
+  toast
+) => {
   dispatch(createTimeStart());
   try {
     const res = await axios.post(
@@ -91,14 +98,33 @@ export const createTime = async (token, formTime, dispatch, navigate) => {
       }
     );
     dispatch(createTimeSuccess(res.data));
-    navigate("/admin/list-time");
+    toast("😎 Thêm mới khung giờ thành công!", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+    setTimeout(() => {
+      navigate("/admin/list-time");
+    }, 3000);
   } catch (error) {
     //   console.log("Tao moi that bai", error);
     dispatch(createTimeFailed(error.response));
   }
 };
 
-export const editTime = async (token, dispatch, id, formEditTime, navigate) => {
+export const editTime = async (
+  token,
+  dispatch,
+  id,
+  formEditTime,
+  navigate,
+  toast
+) => {
   dispatch(editTimeStart());
   try {
     const res = await axios.put(
@@ -111,16 +137,29 @@ export const editTime = async (token, dispatch, id, formEditTime, navigate) => {
       }
     );
     dispatch(editTimeSuccess(res.data));
-    navigate("/admin/list-time");
+    toast("😎 Thay đổi thông tin khung giờ thành công!", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+    setTimeout(() => {
+      navigate("/admin/list-time");
+    }, 3000);
   } catch (error) {
     dispatch(editTimeFailed(error.response));
   }
 };
 
-export const deleteTime = async (token, dispatch, id, navigate) => {
+export const deleteTime = async (token, dispatch, id, toast) => {
   dispatch(deleteTimeStart());
+  console.log("ID: " + id);
   try {
-    const res = await axios.patch(
+    const res = await axios.delete(
       `http://localhost:6789/api/booking/v1/timeSlot/${id}`,
 
       {
@@ -130,7 +169,16 @@ export const deleteTime = async (token, dispatch, id, navigate) => {
       }
     );
     dispatch(deleteTimeSuccess(res.data));
-    navigate("/admin/list-time");
+    toast("😎 Xoá khung giờ thành công!", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
   } catch (error) {
     dispatch(deleteTimeFailed(error.response));
   }

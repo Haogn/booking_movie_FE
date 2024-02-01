@@ -10,6 +10,8 @@ import {
   validateBlank,
   validateNumber,
 } from "../../../components/validate/validation";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function EditRoom() {
   const dispatch = useDispatch();
@@ -33,10 +35,7 @@ function EditRoom() {
   // console.log("room", room);
   const name = room?.roomName;
   const typeRoom = room?.roomType;
-
-  const [updateNameRoom, setUpdateNameRoom] = useState(name);
   const [idTheater, setIdTheater] = useState();
-  const [type, setType] = useState(typeRoom);
 
   const [errorNameRoom, setErrorNameRoom] = useState("");
   const [errorIdTheater, setErrorIdTheater] = useState("");
@@ -47,15 +46,15 @@ function EditRoom() {
     setErrorNameRoom("");
     setErrorIdTheater("");
     setErrorType("");
-    if (validateBlank(updateNameRoom)) {
+    if (validateBlank(e.target.roomName.value)) {
       setErrorNameRoom("Tên phòng không được để trống.");
       return;
     }
-    if (validateNumber(idTheater)) {
+    if (validateNumber(e.target.idTheater.value)) {
       setErrorIdTheater("Phòng không hợp lệ.");
       return;
     }
-    if (validateBlank(type)) {
+    if (validateBlank(e.target.roomType.value)) {
       setErrorType("Loại phòng không được để trống.");
       return;
     }
@@ -66,12 +65,13 @@ function EditRoom() {
       theaterId: e.target.idTheater.value,
       isDeleted: false,
     };
-    editRoom(token, dispatch, room?.id, formEditRoom, navigate);
+    editRoom(token, dispatch, room?.id, formEditRoom, navigate, toast);
   };
 
   return room ? (
     <div>
       <div className="w-[50%] h-full mx-auto ">
+        <ToastContainer className="custom-toast-container" />
         <h1 className="text-center text-2xl font-mono font-semibold my-6 pb-3 border-b-2 border-gray-400">
           Thay đổi thông tin phòng chiếu
         </h1>
