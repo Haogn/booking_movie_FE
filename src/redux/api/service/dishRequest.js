@@ -40,6 +40,7 @@ export const getDish = async (dispatch, token, id, navigate) => {
 export const selectAllDish = async (dispatch, token, page, seach) => {
   dispatch(selectAllDishStart());
   try {
+    debugger;
     const res = await axios.get("http://localhost:6789/api/booking/v1/dish", {
       headers: { Authorization: `Bearer ${token}` },
       params: {
