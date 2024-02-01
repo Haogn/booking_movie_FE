@@ -154,10 +154,10 @@ export const editLocation = async (
   }
 };
 
-export const deleteLocation = async (token, dispatch, id, navigate, toast) => {
+export const deleteLocation = async (token, dispatch, id, toast) => {
   dispatch(deleteLocationStart());
   try {
-    const res = await axios.patch(
+    const res = await axios.delete(
       `http://localhost:6789/api/booking/v1/location/${id}`,
 
       {
@@ -177,9 +177,9 @@ export const deleteLocation = async (token, dispatch, id, navigate, toast) => {
       progress: undefined,
       theme: "light",
     });
-    setTimeout(() => {
-      navigate("/admin/list-location");
-    }, 3000);
+    // setTimeout(() => {
+    //   navigate("/admin/list-location");
+    // }, 3000);
   } catch (error) {
     dispatch(deleteLocationFailed(error.response));
   }

@@ -100,7 +100,13 @@ export const getAllMovieByStatus = async (
   }
 };
 
-export const createMovie = async (token, formMovie, dispatch, navigate) => {
+export const createMovie = async (
+  token,
+  formMovie,
+  dispatch,
+  navigate,
+  toast
+) => {
   dispatch(createMovieStart());
   try {
     const res = await axios.post(
@@ -113,7 +119,19 @@ export const createMovie = async (token, formMovie, dispatch, navigate) => {
       }
     );
     dispatch(createMovieSuccess(res.data));
-    navigate("/admin/list-movie");
+    toast("😎 Thêm mới phim thành công!", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+    setTimeout(() => {
+      navigate("/admin/list-movie");
+    }, 3000);
   } catch (error) {
     //   console.log("Tao moi that bai", error);
     dispatch(createMovieFailed(error.response));
@@ -125,12 +143,13 @@ export const editMovie = async (
   dispatch,
   id,
   formEditMovie,
-  navigate
+  navigate,
+  toast
 ) => {
   dispatch(editMovieStart());
   try {
-    const res = await axios.put(
-      `http://localhost:6789/api/booking/v1/mocie/${id}`,
+    const res = await axios.patch(
+      `http://localhost:6789/api/booking/v1/movie/${id}`,
       formEditMovie,
       {
         headers: {
@@ -139,7 +158,19 @@ export const editMovie = async (
       }
     );
     dispatch(editMovieSuccess(res.data));
-    navigate("/admin/list-movie");
+    toast("😎 Thay đổi thông tin phim thành công!", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+    setTimeout(() => {
+      navigate("/admin/list-movie");
+    }, 3000);
   } catch (error) {
     dispatch(editMovieFailed(error.response));
   }

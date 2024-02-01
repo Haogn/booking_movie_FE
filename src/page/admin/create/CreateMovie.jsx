@@ -7,6 +7,8 @@ import {
   validateNumber,
 } from "../../../components/validate/validation";
 import { createMovie } from "./../../../redux/api/service/movieRequest";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function CreateMovie() {
   const dispatch = useDispatch();
@@ -94,8 +96,12 @@ function CreateMovie() {
       return;
     }
 
-    if (validateNumber(genre)) {
+    if (genre === null) {
       setErrorGenre("Chọn thể loại phim");
+      return;
+    }
+    if (imageMovie === null) {
+      setErrorImage("Hình ảnh phim không được để trống.");
       return;
     }
 
@@ -111,20 +117,8 @@ function CreateMovie() {
     formMovie.append("language", language);
     formMovie.append("releaseDate", releaseDate);
     formMovie.append("stopDate", stopDate);
-    // {
-    //   movieName: nameMovie,
-    //   movieImage: imageMovie,
-    //   price: price,
-    //   director: director,
-    //   cast: cast,
-    //   description: description,
-    //   runningTime: runningTime,
-    //   genre: genre,
-    //   language: language,
-    //   releaseDate: releaseDate,
-    //   stopDate: stopDate,
-    // };
-    createMovie(token, formMovie, dispatch, navigate);
+
+    createMovie(token, formMovie, dispatch, navigate, toast);
     setNameMovie("");
     setImageMovie("");
     setPrice("");
@@ -141,6 +135,7 @@ function CreateMovie() {
   return (
     <div>
       <div className="w-[90%] h-screen mx-auto ">
+        <ToastContainer className="custom-toast-container" />
         <h1 className="text-center text-2xl font-mono font-semibold my-6 pb-3 border-b-2 border-gray-400">
           Tạo mới phim
         </h1>
@@ -355,9 +350,9 @@ function CreateMovie() {
             </div>
           </div>
           {error ? (
-            <span className="text-red-500 font-mono font-medium text-center">
+            <p className="text-red-500 font-mono font-medium text-center mb-2">
               {error.data}
-            </span>
+            </p>
           ) : (
             <></>
           )}

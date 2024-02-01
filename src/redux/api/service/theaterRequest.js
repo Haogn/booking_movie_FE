@@ -79,7 +79,13 @@ export const getAllTheaterSelect = async (dispatch, token) => {
   }
 };
 
-export const createTheater = async (token, formTheater, dispatch, navigate) => {
+export const createTheater = async (
+  token,
+  formTheater,
+  dispatch,
+  navigate,
+  toast
+) => {
   dispatch(createTheaterStart());
   try {
     const res = await axios.post(
@@ -92,7 +98,19 @@ export const createTheater = async (token, formTheater, dispatch, navigate) => {
       }
     );
     dispatch(createTheaterSuccess(res.data));
-    navigate("/admin/list-theater");
+    toast("😎 Thêm mới rạp chiếu nhập thành công!", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+    setTimeout(() => {
+      navigate("/admin/list-theater");
+    }, 3000);
   } catch (error) {
     //   console.log("Tao moi that bai", error);
     dispatch(createTheaterFailed(error.response));
@@ -104,7 +122,8 @@ export const editTheater = async (
   dispatch,
   id,
   formEditTheater,
-  navigate
+  navigate,
+  toast
 ) => {
   dispatch(editTheaterStart());
   try {
@@ -118,16 +137,28 @@ export const editTheater = async (
       }
     );
     dispatch(editTheaterSuccess(res.data));
-    navigate("/admin/list-theater");
+    toast("😎 Thay đổi thông tin rạp chiếu nhập thành công!", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+    setTimeout(() => {
+      navigate("/admin/list-theater");
+    }, 3000);
   } catch (error) {
     dispatch(editTheaterFailed(error.response));
   }
 };
 
-export const deleteTheater = async (token, dispatch, id, navigate) => {
+export const deleteTheater = async (token, dispatch, id, toast) => {
   dispatch(deleteTheaterStart());
   try {
-    const res = await axios.patch(
+    const res = await axios.delete(
       `http://localhost:6789/api/booking/v1/theater/${id}`,
 
       {
@@ -137,7 +168,16 @@ export const deleteTheater = async (token, dispatch, id, navigate) => {
       }
     );
     dispatch(deleteTheaterSuccess(res.data));
-    navigate("/admin/list-theater");
+    toast("😎 Thêm mới rạp chiếu nhập thành công!", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
   } catch (error) {
     dispatch(deleteTheaterFailed(error.response));
   }

@@ -151,7 +151,7 @@ export const editGenre = async (
   }
 };
 
-export const deleteGenre = async (token, dispatch, id, navigate, toast) => {
+export const deleteGenre = async (token, dispatch, id, toast) => {
   dispatch(deleteGenreStart());
   try {
     const res = await axios.patch(
@@ -174,9 +174,6 @@ export const deleteGenre = async (token, dispatch, id, navigate, toast) => {
       progress: undefined,
       theme: "light",
     });
-    setTimeout(() => {
-      navigate("/admin/list-genre");
-    }, 3000);
   } catch (error) {
     dispatch(deleteGenreFailed(error.response));
   }

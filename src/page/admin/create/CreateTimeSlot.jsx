@@ -13,6 +13,8 @@ import {
   validateNumber,
 } from "./../../../components/validate/validation";
 import { createTime } from "../../../redux/api/service/timeRequest";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function CreateTimeSlot() {
   const dispatch = useDispatch();
@@ -100,7 +102,7 @@ function CreateTimeSlot() {
       showDateMovie: dateMovie,
       isDeleted: false,
     };
-    createTime(token, formTime, dispatch, navigate);
+    createTime(token, formTime, dispatch, navigate, toast);
     setIdMovie("");
     setIdRoom("");
     setIdTheater("");
@@ -109,6 +111,7 @@ function CreateTimeSlot() {
   return (
     <div>
       <div className="w-[50%] h-screen mx-auto ">
+        <ToastContainer className="custom-toast-container" />
         <h1 className="text-center text-2xl font-mono font-semibold my-6 pb-3 border-b-2 border-gray-400">
           Tạo mới xuất chiếu
         </h1>
@@ -213,7 +216,7 @@ function CreateTimeSlot() {
             )}
           </div>
           {error ? (
-            <p className="text-red-500 font-mono font-medium text-center">
+            <p className="text-red-500 font-mono font-medium text-center mb-2">
               {error.data}
             </p>
           ) : (

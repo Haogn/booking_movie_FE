@@ -7,6 +7,8 @@ import {
   validateNumber,
 } from "../../../components/validate/validation";
 import { createRoom } from "../../../redux/api/service/roomRequest";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function CreateRoom() {
   const dispatch = useDispatch();
@@ -74,7 +76,7 @@ function CreateRoom() {
       theaterId: idTheater,
       isDeleted: false,
     };
-    createRoom(token, formRoom, dispatch, navigate);
+    createRoom(token, formRoom, dispatch, navigate, toast);
     setNameRoom("");
     setNumBerColumn("");
     setNumBerRow("");
@@ -88,6 +90,7 @@ function CreateRoom() {
   return (
     <div>
       <div className="w-[50%] h-screen mx-auto ">
+        <ToastContainer className="custom-toast-container" />
         <h1 className="text-center text-2xl font-mono font-semibold my-6 pb-3 border-b-2 border-gray-400">
           Tạo mới Phòng chiếu
         </h1>
@@ -201,9 +204,9 @@ function CreateRoom() {
             )}
           </div>
           {error ? (
-            <span className="text-red-500 font-mono font-medium text-center">
+            <p className="text-red-500 font-mono font-medium text-center mb-2">
               {error.data}
-            </span>
+            </p>
           ) : (
             <></>
           )}

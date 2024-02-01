@@ -6,6 +6,8 @@ import {
   getALlLocation,
   getLocation,
 } from "../../../redux/api/service/locationRequest";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function ListLocation() {
   const dispatch = useDispatch();
@@ -41,8 +43,9 @@ function ListLocation() {
   };
 
   // delete
-  const handleDeleteLocation = (id) => {
-    deleteLocation(token, dispatch, id, navigate);
+  const handleDeleteLocation = async (id) => {
+    await deleteLocation(token, dispatch, id, toast);
+    getALlLocation(dispatch, token, search, page, size);
   };
 
   // page
@@ -58,6 +61,7 @@ function ListLocation() {
   return listLocation ? (
     <div>
       <div className="w-[70%] h-full mx-auto ">
+        <ToastContainer className="custom-toast-container" />
         <h1 className="text-center text-2xl font-mono font-semibold my-6 pb-3 border-b-2 border-gray-400">
           Danh sách Vị trí
         </h1>
@@ -108,10 +112,50 @@ function ListLocation() {
                     <button
                       type="button"
                       className=" btn btn-danger text-red-600"
-                      onClick={() => handleDeleteLocation(item.id)}
+                      data-bs-toggle="modal"
+                      data-bs-target={`#exampleModal-${item.id}`}
                     >
                       <i className="fa-regular fa-trash-can"></i>
                     </button>
+                    {/* modal xoá */}
+                    <div
+                      className="modal fade"
+                      id={`exampleModal-${item.id}`}
+                      tabIndex="-1"
+                      aria-labelledby={`exampleModalLabel-${item.id}`}
+                      aria-hidden="true"
+                    >
+                      <div className="modal-dialog modal-dialog-centered">
+                        <div className="modal-content">
+                          <div className="modal-header">
+                            <h1
+                              className="modal-title fs-5"
+                              id="exampleModalLabel"
+                            ></h1>
+                            <button
+                              type="button"
+                              className="btn-close text-gray-700"
+                              data-bs-dismiss="modal"
+                              aria-label="Close"
+                            ></button>
+                          </div>
+                          <div className="modal-body">
+                            Bạn chắc chắn muốn xoá vị trí{" "}
+                            <span>{item.locationName}</span>
+                          </div>
+                          <div className="modal-footer">
+                            <button
+                              type="button"
+                              className="btn btn-secondary text-gray-700"
+                              data-bs-dismiss="modal"
+                              onClick={() => handleDeleteLocation(item.id)}
+                            >
+                              Xoá
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </td>
                 </tr>
               ))}

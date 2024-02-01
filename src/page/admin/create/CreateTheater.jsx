@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { getALlLocationSeclect } from "./../../../redux/api/service/locationRequest";
 import { createTheater } from "../../../redux/api/service/theaterRequest";
 import { validateBlank } from "../../../components/validate/validation";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function CreateTheater() {
   const dispatch = useDispatch();
@@ -16,7 +18,8 @@ function CreateTheater() {
   const listLocation = useSelector(
     (state) => state.locations.location.listLocationSelect
   );
-  const error = useSelector((state) => state.locations.location.error);
+  const error = useSelector((state) => state.theaters.theater.error);
+  console.log(error);
 
   const [nameTheater, setNameTheater] = useState("");
   const [idLocation, setIdLocation] = useState("");
@@ -42,7 +45,7 @@ function CreateTheater() {
       locationId: idLocation,
       isDeleted: false,
     };
-    createTheater(token, formTheater, dispatch, navigate);
+    createTheater(token, formTheater, dispatch, navigate, toast);
     setNameTheater("");
     setIdLocation(""); // Reset the idLocation after form submission
   };
@@ -50,6 +53,7 @@ function CreateTheater() {
   return (
     <div>
       <div className="w-[50%] h-screen mx-auto ">
+        <ToastContainer className="custom-toast-container" />
         <h1 className="text-center text-2xl font-mono font-semibold my-6 pb-3 border-b-2 border-gray-400">
           Tạo mới Rạp chiếu phim
         </h1>
@@ -96,9 +100,9 @@ function CreateTheater() {
             )}
           </div>
           {error ? (
-            <span className="text-red-500 font-mono font-medium text-center">
+            <p className="text-red-500 font-mono font-medium text-center mb-2">
               {error.data}
-            </span>
+            </p>
           ) : (
             <></>
           )}

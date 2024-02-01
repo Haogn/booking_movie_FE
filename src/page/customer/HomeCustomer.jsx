@@ -26,7 +26,7 @@ function HomeCustomer() {
     getAllMovieSelect(dispatch);
   }, [dispatch]);
 
-  // console.log("listMovie", listMovie);
+  console.log("listMovie", listMovie);
   const handleFindById = async (idMovie) => {
     await getMovie(dispatch, token, idMovie);
     navigate("/detail");
@@ -130,7 +130,7 @@ function HomeCustomer() {
             aria-labelledby="exampleModalToggleLabel"
             tabindex="-1"
           >
-            <div className="modal-dialog modal-dialog-centered w-screen h-screen booking-movie">
+            <div className="modal-dialog modal-dialog-centered  booking-movie">
               <div className="modal-content">
                 <div className="modal-header">
                   <h1 className="modal-title fs-5" id="exampleModalToggleLabel">

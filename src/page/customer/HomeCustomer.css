@@ -142,7 +142,7 @@
 
 /* modal */
 .booking-movie {
-  /* max-height: 900px !important ; */
+  /* max-height: 500px !important ; */
   overflow-y: scroll;
   background: linear-gradient(
       to bottom,

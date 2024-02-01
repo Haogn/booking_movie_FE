@@ -6,7 +6,12 @@ import {
   getAllTheater,
   getTheater,
 } from "../../../redux/api/service/theaterRequest";
-import { getALlLocationSeclect } from "../../../redux/api/service/locationRequest";
+import {
+  getALlLocation,
+  getALlLocationSeclect,
+} from "../../../redux/api/service/locationRequest";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function ListTheater() {
   const dispatch = useDispatch();
@@ -44,8 +49,9 @@ function ListTheater() {
   };
 
   // delete
-  const handleDeleteLocation = (id) => {
-    deleteTheater(token, dispatch, id, navigate);
+  const handleDeleteTheater = async (id) => {
+    await deleteTheater(token, dispatch, id, toast);
+    getAllTheater(dispatch, token, search, page, size);
   };
 
   // page
@@ -61,6 +67,7 @@ function ListTheater() {
   return listTheater ? (
     <div>
       <div className="w-full h-full px-2 ">
+        <ToastContainer className="custom-toast-container" />
         <h1 className="text-center text-2xl font-mono font-semibold my-6 pb-3 border-b-2 border-gray-400">
           Danh sách Rạp chiếu
         </h1>
@@ -114,10 +121,51 @@ function ListTheater() {
                     <button
                       type="button"
                       className=" btn btn-danger text-red-600"
-                      onClick={() => handleDeleteLocation(item.id)}
+                      data-bs-toggle="modal"
+                      data-bs-target={`#exampleModal-${item.id}`}
+                      // onClick={() => handleDeleteLocation(item.id)}
                     >
                       <i className="fa-regular fa-trash-can"></i>
                     </button>
+                    {/* modal xoá */}
+                    <div
+                      className="modal fade"
+                      id={`exampleModal-${item.id}`}
+                      tabIndex="-1"
+                      aria-labelledby={`exampleModalLabel-${item.id}`}
+                      aria-hidden="true"
+                    >
+                      <div className="modal-dialog modal-dialog-centered">
+                        <div className="modal-content">
+                          <div className="modal-header">
+                            <h1
+                              className="modal-title fs-5"
+                              id="exampleModalLabel"
+                            ></h1>
+                            <button
+                              type="button"
+                              className="btn-close text-gray-700"
+                              data-bs-dismiss="modal"
+                              aria-label="Close"
+                            ></button>
+                          </div>
+                          <div className="modal-body">
+                            Bạn chắc chắn muốn xoá rạp chiếu{" "}
+                            <span>{item.theaterName}</span>
+                          </div>
+                          <div className="modal-footer">
+                            <button
+                              type="button"
+                              className="btn btn-secondary text-gray-700"
+                              data-bs-dismiss="modal"
+                              onClick={() => handleDeleteTheater(item.id)}
+                            >
+                              Xoá
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </td>
                 </tr>
               ))}
