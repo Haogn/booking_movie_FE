@@ -18,8 +18,22 @@ const authSlice = createSlice({
       isFetching: false,
       error: false,
     },
+    getMailling: {
+      message: null,
+      errorMail: null,
+    },
+    retrieval: {
+      message: null,
+      errorRetrieval: null,
+    },
   },
   reducers: {
+    getCaptcha: (state, action) => {
+      return action.payload;
+    },
+    resetError: (state) => {
+      state.login.error = null;
+    },
     loginStart: (state) => {
       state.login.isFetching = true;
       state.login.error = null;
@@ -28,15 +42,10 @@ const authSlice = createSlice({
       state.login.isFetching = false;
       state.login.currentUser = action.payload;
       state.login.error = false;
-      state.login.currentUser = action.payload;
-      state.login.error = null;
     },
     loginFailed: (state, action) => {
       state.login.isFetching = false;
       state.login.error = action.payload;
-    },
-    resetError: (state) => {
-      state.login.error = null;
     },
     registerStart: (state) => {
       state.register.isFetching = true;
@@ -60,7 +69,6 @@ const authSlice = createSlice({
       state.login.currentUser = null;
       state.logout.error = false;
     },
-
     logoutFailed: (state) => {
       state.logout.isFetching = false;
       state.logout.error = true;
@@ -82,10 +90,11 @@ const authSlice = createSlice({
 });
 
 export const {
+  getCaptcha,
+  resetError,
   loginStart,
   loginSuccess,
   loginFailed,
-  resetError,
   registerStart,
   registerSuccess,
   registerFailed,
