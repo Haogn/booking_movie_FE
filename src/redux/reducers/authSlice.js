@@ -20,27 +20,6 @@ const authSlice = createSlice({
     },
   },
   reducers: {
-    getCaptcha: (state, action) => {
-      return action.payload;
-    },
-    register: {
-      error: false,
-      success: false,
-    },
-    logout: {
-      isFetching: false,
-      error: false,
-    },
-    getMailling: {
-      message: null,
-      errorMail: null,
-    },
-    retrieval: {
-      message: null,
-      errorRetrieval: null,
-    },
-  },
-  reducers: {
     loginStart: (state) => {
       state.login.isFetching = true;
       state.login.error = null;
