@@ -16,12 +16,12 @@ function Payment() {
 
         <div className="flex gap-4">
           <div className=" w-[70%] h-[600px] mt-4">
-            <p className="pl-3 pt-1 w-full h-[40px] bg-slate-300">
-              Bước 1 : <strong className="font-bold text-2xl">Giảm Giá</strong>
+            <p className="pl-3 pt-1 w-full h-[40px] bg-slate-400">
+              Bước 1 : <strong className="font-bold text-2xl ">Giảm Giá</strong>
             </p>
             {/* voucher */}
             <div className="mt-2">
-              <p className="pl-3 pt-1 w-full h-[40px] text-xl font-medium bg-pink-100 ">
+              <p className="pl-3 pt-1 w-full h-[40px] text-xl font-medium bg-gray-200 ">
                 CGV Voucher
               </p>
               <div className="flex justify-around mt-1">
@@ -46,7 +46,7 @@ function Payment() {
             </div>
             {/* điểm thưởng */}
             <div className="mt-2">
-              <p className="pl-3 pt-1 w-full h-[40px] text-xl font-medium bg-pink-100 ">
+              <p className="pl-3 pt-1 w-full h-[40px] text-xl font-medium bg-gray-200 ">
                 Điểm CGV
               </p>
               <div className="flex justify-around mt-1">
@@ -72,13 +72,13 @@ function Payment() {
                 </p>
               </div>
             </div>
-            <p className="pl-3 pt-1 w-full h-[40px] bg-slate-300">
+            <p className="pl-3 pt-1 w-full h-[40px] bg-slate-400">
               Bước 2 :{" "}
               <strong className="font-bold text-2xl">
                 Hình Thức Thanh Toán
               </strong>
             </p>
-            <div className=" bg-pink-100 pl-3 mt-3">
+            <div className=" bg-gray-200 pl-3 mt-3">
               <dl className="flex flex-col gap-3 py-3">
                 <dt>
                   <input
@@ -168,25 +168,25 @@ function Payment() {
             </div>
           </div>
           <div className=" w-[30%] h-[600px] mt-4">
-            <p className="pl-3 pt-1 w-full h-[40px] bg-pink-100 text-xl font-medium text-center border-b-2 border-gray-500">
+            <p className="pl-3 pt-1 w-full h-[40px] bg-gray-200 text-xl font-medium text-center border-b-2 border-gray-500">
               Tổng cộng
             </p>
-            <div className="pl-3 pt-1 w-full h-[40px] bg-pink-100 text-xl font-medium flex justify-evenly border-b-2 border-gray-500">
+            <div className="pl-3 pt-1 w-full h-[40px] bg-gray-200 text-xl font-medium flex justify-evenly border-b-2 border-gray-500">
               <p className="w-[50%] justify-start">Vé:</p>
               <p className="w-[50%]">120000 VNĐ</p>
             </div>
-            <div className="pl-3 pt-1 w-full h-[40px] bg-pink-100 text-xl font-medium border-b-2 border-gray-500 flex justify-evenly">
+            <div className="pl-3 pt-1 w-full h-[40px] bg-gray-200 text-xl font-medium border-b-2 border-gray-500 flex justify-evenly">
               <p className="w-[50%] justify-start">Bỏng nước:</p>
               <p className="w-[50%]">0 VNĐ</p>
             </div>
-            <p className="pl-3 pt-1 w-full h-[40px] bg-gray-300 text-xl font-medium text-center ">
+            <p className="pl-3 pt-1 w-full h-[40px] bg-gray-500 text-xl font-medium text-center ">
               <span>120000</span> VNĐ
             </p>
 
-            <p className="pl-3 pt-1 w-full h-[40px] bg-pink-100 text-xl font-medium text-center mt-3 border-b-2 border-gray-500 ">
+            <p className="pl-3 pt-1 w-full h-[40px] bg-gray-200 text-xl font-medium text-center mt-3 border-b-2 border-gray-500 ">
               Khuyến mãi
             </p>
-            <p className="pl-3 pt-1 w-full h-[40px] bg-gray-300 text-xl font-medium text-center">
+            <p className="pl-3 pt-1 w-full h-[40px] bg-gray-500 text-xl font-medium text-center">
               <span>0</span> VNĐ
             </p>
 
