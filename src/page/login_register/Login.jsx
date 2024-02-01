@@ -18,7 +18,6 @@ function Login() {
   const navigate = useNavigate();
 
   const error = useSelector((state) => state.auth.login.error);
-  console.log("error", error);
 
   useEffect(() => {
     return () => {

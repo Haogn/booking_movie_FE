@@ -193,3 +193,18 @@
   flex-direction: column;
   justify-content: space-between;
 }
+
+.chair.selected {
+  background-color: #bc1a55;
+}
+
+.booked {
+  background-color: #787575;
+}
+.VIP {
+  border: 2px solid #c21307;
+}
+
+.NORMAL {
+  border: 2px solid #2fa352;
+}

@@ -16,18 +16,31 @@ function Profile() {
       ? storedToken.slice(1, -1)
       : storedToken;
   const dispatch = useDispatch();
+  const [avatar, setAvatar] = useState('');
+  const [phone, setPhone] = useState('');
+  const [city, setCity] = useState('');
+  const [address, setAddress] = useState('');
+  const [gender, setGender] = useState('');
   const userProfile = useSelector(
     (state) => state.customer.profile.userProfile
   );
-  const [avatar, setAvatar] = useState("");
-  const [phone, setPhone] = useState("");
-  const [city, setCity] = useState("");
-  const [address, setAddress] = useState("");
-  const [gender, setGender] = useState("");
 
+  useEffect(() => {
+    if (userProfile) {    
+      setAvatarPreview(userProfile.avatar); 
+      setPhone(userProfile.phone);
+      setCity(userProfile.city);
+      setAddress(userProfile.address);
+      setGender(userProfile.gender); 
+    }
+  }, [userProfile]);
+  
   useEffect(() => {
     profileUser(dispatch, token);
   }, [dispatch, token]);
+
+
+
 
   const handleFileChange = (event) => {
     if (event.target.files && event.target.files[0]) {
@@ -36,16 +49,18 @@ function Profile() {
       setAvatarPreview(URL.createObjectURL(file));
     }
   };
+  
+  
 
   const handleChangeAvatar = async (event) => {
     event.preventDefault();
-
+  
     if (avatar) {
       const formData = new FormData();
-      formData.append("file", avatar);
-
+      formData.append('file', avatar);
+  
       try {
-        const response = await changeAvatar(dispatch, token, formData, toast);
+        const response = await changeAvatar(dispatch, token, formData,toast);
         console.log("Avatar changed successfully", response);
       } catch (error) {
         console.error("Error changing avatar", error);
@@ -53,16 +68,17 @@ function Profile() {
     }
   };
 
-  const handleEditProfile = (e) => {
+  const handleEditProfile = (e) =>{
     e.preventDefault();
     const updateForm = {
       city: city,
       address: address,
-      gender: gender,
+      gender:gender,
       phone: phone,
     };
-    updateProfile(dispatch, token, updateForm, toast);
-  };
+    updateProfile(dispatch,token,updateForm,toast);
+  }
+
 
   return userProfile ? (
     <div>
