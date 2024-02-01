@@ -1,110 +1,131 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const orderSlice = createSlice({
-    name:"order",
-    initialState:{
-        createOrder:{
-            orderResponse: null,
-            orderError:null,
-        },
-        startBuy:{
-            informations:null,
-            errorInform:null,
-        },
-        getLocation:{
-            listLocation:null,
-            errorLocation:null,
-        },
-        getOrderInform:{
-            orderInform:null,
-        },
-        getMovieInform:{
-            movieInform:null,
-            errorMovie:null,
-        },
-        getChairStatus:{
-            listChair:null,
-            errorChair:null,
-        },
-        getRoomMovie:{
-            roomResponse:null,
-            errorRoom:null,
-        },
-        getListChair:{
-            chairs:[]
-        },
-        paymentVNPay:{
-            paymentResponse:null,
-            paymentError:null,
-        },
-        addToMenu:{
-            menu:[],
-        }
+  name: "order",
+  initialState: {
+    createOrder: {
+      orderResponse: null,
+      orderError: null,
     },
-    reducers:{
-        createOrderSuccess:(state,action) =>{
-            state.createOrder.orderResponse=action.payload;
-        },
-        createOrderError:(state,action) =>{
-            state.createOrder.orderResponse=action.payload;
-        },
-        startBuySuccess:(state,action) =>{
-            state.startBuy.informations=action.payload;
-        },
-        startBuyFailed:(state,action) =>{
-            state.startBuy.errorInform=action.payload;
-        },
-        getLocationSuccess:(state,action) =>{
-            state.getLocation.listLocation=action.payload;
-        },
-        getLocationFailed:(state,action) =>{
-            state.getLocation.errorLocation=action.payload;
-        },
-        getOrderInformations:(state,action) =>{
-            state.getOrderInform.orderInform = action.payload;
-        },
-        getMovieInformationSuccess:(state,action) =>{
-            state.getMovieInform.movieInform = action.payload;
-        },
-        getMovieInformationFailed:(state,action) =>{
-            state.getMovieInform.errorMovie = action.payload;
-        },
-        getChairStatusSuccess:(state,action) =>{
-            state.getChairStatus.listChair=action.payload;
-        },
-        getChairStatusFailed:(state,action) =>{
-            state.getChairStatus.errorChair = action.payload;
-        },
-        getRoomMovieSuccess:(state,action) =>{
-            state.getRoomMovie.roomResponse=action.payload;
-        },
-        getRoomMovieFailed:(state,action) =>{
-            state.getRoomMovie.errorRoom=action.payload;
-        },
-        getListChairSuccess:(state,action) =>{
-            state.getListChair.chairs=action.payload;
-        },
-        getPaymentVNPaySuccess:(state,action)=>{
-            state.paymentVNPay.paymentResponse=action.payload;
-        },
-        getPaymentVNPayFailed:(state,action)=>{
-            state.paymentVNPay.paymentError=action.payload;
-        },
-        addToMenuSuccess:(state,action)=>{ 
-            state.addToMenu.menu=action.payload;
-        }
+    startBuy: {
+      informations: null,
+      errorInform: null,
     },
+    getLocation: {
+      listLocation: null,
+      errorLocation: null,
+    },
+    getOrderInform: {
+      orderInform: null,
+    },
+    getMovieInform: {
+      movieInform: null,
+      errorMovie: null,
+    },
+    getChairStatus: {
+      listChair: null,
+      errorChair: null,
+    },
+    getRoomMovie: {
+      roomResponse: null,
+      errorRoom: null,
+    },
+    getListChair: {
+      chairs: [],
+    },
+    paymentVNPay: {
+      paymentResponse: null,
+      paymentError: null,
+    },
+    addToMenu: {
+      menu: [],
+    },
+    // tổng tiền đã chi tiêu
+    getTotalUser: {
+      totalResponse: 0,
+      totalError: null,
+    },
+  },
+  reducers: {
+    createOrderSuccess: (state, action) => {
+      state.createOrder.orderResponse = action.payload;
+    },
+    createOrderError: (state, action) => {
+      state.createOrder.orderResponse = action.payload;
+    },
+    startBuySuccess: (state, action) => {
+      state.startBuy.informations = action.payload;
+    },
+    startBuyFailed: (state, action) => {
+      state.startBuy.errorInform = action.payload;
+    },
+    getLocationSuccess: (state, action) => {
+      state.getLocation.listLocation = action.payload;
+    },
+    getLocationFailed: (state, action) => {
+      state.getLocation.errorLocation = action.payload;
+    },
+    getOrderInformations: (state, action) => {
+      state.getOrderInform.orderInform = action.payload;
+    },
+    getMovieInformationSuccess: (state, action) => {
+      state.getMovieInform.movieInform = action.payload;
+    },
+    getMovieInformationFailed: (state, action) => {
+      state.getMovieInform.errorMovie = action.payload;
+    },
+    getChairStatusSuccess: (state, action) => {
+      state.getChairStatus.listChair = action.payload;
+    },
+    getChairStatusFailed: (state, action) => {
+      state.getChairStatus.errorChair = action.payload;
+    },
+    getRoomMovieSuccess: (state, action) => {
+      state.getRoomMovie.roomResponse = action.payload;
+    },
+    getRoomMovieFailed: (state, action) => {
+      state.getRoomMovie.errorRoom = action.payload;
+    },
+    getListChairSuccess: (state, action) => {
+      state.getListChair.chairs = action.payload;
+    },
+    getPaymentVNPaySuccess: (state, action) => {
+      state.paymentVNPay.paymentResponse = action.payload;
+    },
+    getPaymentVNPayFailed: (state, action) => {
+      state.paymentVNPay.paymentError = action.payload;
+    },
+    addToMenuSuccess: (state, action) => {
+      state.addToMenu.menu = action.payload;
+    },
+    getTotalUserSuccess: (state, action) => {
+      state.getTotalUser.totalResponse = action.payload;
+    },
+    getTotalUserError: (state, action) => {
+      state.getTotalUser.totalError = action.payload;
+    },
+  },
 });
 export const {
-    createOrderSuccess,createOrderError,
-    startBuySuccess,startBuyFailed,
-    getLocationSuccess,getLocationFailed,
-    getOrderInformations,
-    getMovieInformationSuccess,getMovieInformationFailed,
-    getChairStatusSuccess,getChairStatusFailed,
-    getRoomMovieSuccess,getRoomMovieFailed,
-    getListChairSuccess,addToMenuSuccess,
-    getPaymentVNPaySuccess,getPaymentVNPayFailed,
+  createOrderSuccess,
+  createOrderError,
+  startBuySuccess,
+  startBuyFailed,
+  getLocationSuccess,
+  getLocationFailed,
+  getOrderInformations,
+  getMovieInformationSuccess,
+  getMovieInformationFailed,
+  getChairStatusSuccess,
+  getChairStatusFailed,
+  getRoomMovieSuccess,
+  getRoomMovieFailed,
+  getListChairSuccess,
+  addToMenuSuccess,
+  getPaymentVNPaySuccess,
+  getPaymentVNPayFailed,
+  getTotalUserSuccess,
+  getTotalUserError,
 } = orderSlice.actions;
 
 export default orderSlice.reducer;
