@@ -8,7 +8,9 @@ export const bookingMovie = async(dispatch,token,orderForm)=>{
               Authorization: `Bearer ${token}`
             }
           });
+          console.log(res.data);
       dispatch(createOrderSuccess(res.data)); 
+      return res.data; 
     } catch (error) {
       dispatch(createOrderError(error.response));
     }
@@ -92,11 +94,12 @@ export const getChair = async (dispatch, idRoom, startTime) => {
     }
 };
 
-export const paymentVNPay = async (dispatch, total) => {
+export const paymentVNPay = async (dispatch, total,orderCode) => {
     try {
         const res = await axios.get(`http://localhost:6789/api/booking/v1/payments/createVNPay`, {
             params: {
                 total: total,
+                orderCode:orderCode
             }
         });
         console.log(res.data);
