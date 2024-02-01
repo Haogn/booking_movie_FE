@@ -78,13 +78,10 @@ export const getAllMovieByStatusShowing = async (dispatch, page, search) => {
     const res = await axios.get(
       "http://localhost:6789/api/booking/v1/movie/status",
       {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          params: {
-            search: search,
-            page: page,
-            status: "SHOWING",
-          },
+        params: {
+          search: search,
+          page: page,
+          status: "SHOWING",
         },
       }
     );
@@ -99,20 +96,18 @@ export const getAllMovieByStatusShowing = async (dispatch, page, search) => {
 export const getAllMovieByStatusUpComing = async (dispatch, page, search) => {
   dispatch(getALlMovieByStatusStart());
   try {
+    debugger;
     const res = await axios.get(
       "http://localhost:6789/api/booking/v1/movie/status",
       {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          params: {
-            search: search,
-            page: page,
-            status: "UPCOMING",
-          },
+        params: {
+          search: search,
+          page: page,
+          status: "UPCOMING",
         },
       }
     );
-    // console.log(res.data);
+    console.log(res.data);
     dispatch(getALlMovieByStatusSuccess(res.data));
   } catch (error) {
     dispatch(getALlMovieByStatusFailed(error.response));

@@ -18,6 +18,7 @@ function ListDrinks() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const listDish = useSelector((state) => state.dishs.dish.listDishSelect)
+  console.log(listDish);
   const [check, setCheck] = useState(true);
   const hendleSubmit = (e) => {
     e.preventDefault();
