@@ -1,22 +1,22 @@
 import React from "react";
 import "./HistoryBooking.css";
+import Barcode from "react-barcode";
 
 function HistoryBooking() {
+  const barcodeData = "YourCode-987";
   return (
     <div>
-      <div className="text-white text-3xl font-medium font-mono text-center py-1 ">
-        <div className="history">
-          <h1>Lịch sử</h1>
+      <div className=" font-medium font-mono text-center py-1 ">
+        <div className="w-[80%] mx-auto">
+          <h1 className="text-red-700 font-bold text-3xl my-3">Lịch sử</h1>
           <table className="table table-hover">
             <thead>
               <tr>
                 <th scope="col">STT</th>
                 <th scope="col">Phim</th>
                 <th scope="col">Ngày</th>
-                <th scope="col">Rạp chiếu</th>
-                <th scope="col">Phòng chiếu</th>
-                <th scope="col">Ghế</th>
-                <th scope="col">Chi tiêu</th>
+                <th scope="col">Mã Giao Dịch</th>
+                <th scope="col">Chi Tiết</th>
                 {/* <th scope="col"></th> */}
               </tr>
             </thead>
@@ -25,13 +25,119 @@ function HistoryBooking() {
                 <th scope="row">1</th>
                 <td>Aquamen</td>
                 <td>29/01/2024</td>
-                <td>CGV Bà Triệu</td>
-                <td>Cinema 01</td>
-                <td>H1, H2</td>
+                <td>YourCode-987</td>
                 <td>
-                  <span>120000</span> VND
+                  <button
+                    type="submit"
+                    className="btn btn-dark font-mono text-gray-800"
+                    data-bs-target="#exampleModalToggle"
+                    data-bs-toggle="modal"
+                  >
+                    Xem chi tiết
+                  </button>
                 </td>
               </tr>
+              {/* Bootstrap Modal */}
+              <div
+                className="modal fade"
+                id="exampleModalToggle"
+                aria-hidden="true"
+                aria-labelledby="exampleModalToggleLabel"
+                tabindex="-1"
+              >
+                <div className="modal-dialog modal-dialog-centered">
+                  <div className="modal-content">
+                    <div className="modal-body">
+                      <div className="flex">
+                        <div className="w-[40%] h-[600px] ">
+                          <div className="w-full h-full">
+                            <img
+                              className="mt-[140px]"
+                              src="https://media.istockphoto.com/id/184151977/vi/anh/%C4%91%E1%BB%91i-t%C6%B0%E1%BB%A3ng-r%E1%BA%A1p-chi%E1%BA%BFu-phim.jpg?s=2048x2048&w=is&k=20&c=WeyungQluq6xdoxuuAQNhmnfESS-jt3V2KWVUDsuaaI="
+                              alt=""
+                            />
+                          </div>
+                        </div>
+                        <div className="w-[60%] h-[600px] ">
+                          <div className="order">
+                            <div className="order-top text-center text-2xl font-bold pt-3">
+                              <h1 className="pb-1"> Chi tiết vé đã đặt</h1>
+                            </div>
+                            <div className="order-center">
+                              <div className="order-content  w-[90%] h-full ml-1">
+                                <div className="w-full ">
+                                  <div className="mb-4 flex h-[120px]">
+                                    <div className="w-[50%] h-full">
+                                      <h3 className="text-2xl font-bold">
+                                        Mật Vụ Ong
+                                      </h3>
+                                      <p className="text-gray-500">
+                                        02-02-2024
+                                      </p>
+                                      <p className="text-gray-500">
+                                        18:30:00 ~ startTime + runningTime
+                                      </p>
+                                    </div>
+
+                                    <div className="w-[50%] h-full">
+                                      <img
+                                        className="w-full h-full rounded-xl object-contain"
+                                        src="https://imagev3.vietnamplus.vn/w820/Uploaded/2024/xpcwvovt/2024_01_29/beekeeper-8349.jpg.webp"
+                                        alt=""
+                                      />
+                                    </div>
+                                  </div>
+                                </div>
+                                <div className="flex">
+                                  <div className="w-[50%]">
+                                    <h3 className="text-gray-500 text-xl ]">
+                                      Rạp CGV
+                                    </h3>
+                                    <p className="">CGV Bà Triệu</p>
+                                  </div>
+                                  <div className="w-[50%]">
+                                    <p className="text-gray-500 text-xl ">
+                                      Phòng Chiếu
+                                    </p>
+                                    <p>Cinema 01</p>
+                                  </div>
+                                </div>
+                                <div className="flex mt-1">
+                                  <div className="w-[50%] ">
+                                    <p className="text-gray-500 text-xl">Ghế</p>
+                                    <p>H4, h5</p>
+                                  </div>
+                                  <div className="w-[50%]">
+                                    <p className="text-gray-500 text-xl">
+                                      Combo
+                                    </p>
+                                    <p>abc</p>
+                                  </div>
+                                </div>
+
+                                <div className="my-4">
+                                  <p className="text-center">
+                                    <span className="text-xl text-gray-500">
+                                      Tổng:
+                                    </span>{" "}
+                                    <strong className="text-red-600">
+                                      120000 VNĐ
+                                    </strong>
+                                  </p>
+                                </div>
+                                <div className="w-[80%] h-[80px] mx-auto border-1 border-gray-900 mt-1">
+                                  <Barcode value={barcodeData} />
+                                </div>
+                              </div>
+                              <div className="ticket-footer"></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </tbody>
           </table>
 

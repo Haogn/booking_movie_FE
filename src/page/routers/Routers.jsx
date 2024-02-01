@@ -37,7 +37,7 @@ import BookingOnline from "./../customer/bookingOnline/BookingOnline";
 import BookingChair from "./../customer/bookingOnline/BookingChair";
 import BookingDish from "./../customer/bookingOnline/BookingDish";
 import ComingSoon from "./../customer/movieList/ComingSoon";
-import ProtectedRoute from './ProtectedRoute';
+import ProtectedRoute from "./ProtectedRoute";
 import NowHowing from "../customer/movieList/NowHowing";
 import EditLocation from "../admin/edit/EditLocation";
 import EditTheater from "../admin/edit/EditTheater";
@@ -51,8 +51,7 @@ import EditEvent from "../admin/edit/EditEvent";
 import Payment from "../customer/Payment";
 import Forgotpassword from "../customer/Forgotpassword";
 import RetrievalPassword from "../customer/RetrievalPassword";
-
-
+import PaymentSuccess from "../customer/PaymentSuccess";
 
 function Routers() {
   return (
@@ -69,6 +68,7 @@ function Routers() {
           <Route path="/comingsoon" element={<ComingSoon />} />
           <Route path="/nowhowing" element={<NowHowing />} />
           <Route path="/history" element={<HistoryBooking />} />
+          <Route path="/paymentSuccess" element={<PaymentSuccess />} />
           <Route path="/booking" element={<BookingOnline />}>
             <Route index element={<BookingChair />} />
             {/* <Route path="/booking/dish" element={<BookingChair/>}/> */}

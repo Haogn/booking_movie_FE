@@ -234,7 +234,7 @@ function Profile() {
               </div>
             </div>
           </div>
-          <button type="file" className="btn btn-dark font-mono mb-4">
+          <button type="submit" className="btn btn-dark font-mono mb-4">
             Lưu thay đổi
           </button>
         </form>
