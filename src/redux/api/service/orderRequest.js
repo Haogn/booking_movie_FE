@@ -48,29 +48,6 @@ export const startBuy = async(dispatch, idMovie, selectDate, roomType, locationN
     }
 };
 
-export const startBuy = async (
-  dispatch,
-  idMovie,
-  selectDate,
-  roomType,
-  locationName
-) => {
-  try {
-    const res = await axios.get(
-      `http://localhost:6789/api/booking/v1/view/${idMovie}`,
-      {
-        params: {
-          selectDate: selectDate,
-          roomType: roomType,
-          locationName: locationName,
-        },
-      }
-    );
-    dispatch(startBuySuccess(res.data));
-  } catch (error) {
-    dispatch(startBuyFailed(error.response));
-  }
-};
 
 export const getLocation = async (dispatch) => {
   try {
@@ -148,13 +125,14 @@ export const getChair = async (dispatch, idRoom, startTime) => {
 };
 
 
-export const paymentVNPay = async (dispatch, total) => {
+export const paymentVNPay = async (dispatch, total,orderCode) => {
   try {
     const res = await axios.get(
       `http://localhost:6789/api/booking/v1/payments/createVNPay`,
       {
         params: {
           total: total,
+          orderCode:orderCode
         },
       }
     );
