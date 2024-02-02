@@ -174,7 +174,7 @@ function ListDrinks() {
             </li>
             <li className="page-item">
               <a className="page-link text-gray-700" href="#">
-                {listDish.number + 1}/{listDish.totalPages}
+                {listDish?.totalPages === 0 ? 0 : listDish.number + 1}/{listDish.totalPages}
               </a>
             </li>
             <li className="page-item" onClick={() => setPage(prevPage => (prevPage < listDish.totalPages - 1 ? prevPage + 1 : prevPage))}>
