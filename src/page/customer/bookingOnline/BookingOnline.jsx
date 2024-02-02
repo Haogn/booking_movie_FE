@@ -1,9 +1,9 @@
 import React, { useState,useEffect } from "react";
 import "./BookingOnline.css";
-import { Link, Outlet, useLocation} from "react-router-dom";
+import { Link, Outlet, useLocation, useNavigate} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { format } from "date-fns";
-import { bookingMovie, paymentVNPay } from "../../../redux/api/service/orderRequest";
+import { bookingMovie, createMenuForOrder, paymentVNPay } from "../../../redux/api/service/orderRequest";
 function BookingOnline() {
   const storedToken = localStorage.getItem('acessToken');
   const token = storedToken && storedToken.startsWith('"') && storedToken.endsWith('"')
@@ -12,6 +12,7 @@ function BookingOnline() {
   
  
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const location = useLocation();
   const currentPath = location.pathname;
 
@@ -27,9 +28,13 @@ function BookingOnline() {
   const [isLoading, setIsLoading] = useState(true);
   const [ticketPrice, setTicketPrice] = useState(0);
 
+
+
   useEffect(() => {
+    if(chairs){
     const newChairIds = chairs.map((chair) => chair.id);
     setChairIds(newChairIds);
+    }
   }, [chairs]);
 
   useEffect(() => {
@@ -61,6 +66,7 @@ function BookingOnline() {
     const selectedDate = new Date(orderInform.selectedDate);
     if (!isNaN(selectedDate)) {
       date = format(selectedDate, 'dd-MM-yyyy');
+      endTime = addMinutesToTime(orderInform.time, movie.runningTime);
     } else {
       console.error('selectedDate is not a valid date');
     }
@@ -110,9 +116,13 @@ function BookingOnline() {
       console.log(order);
       if (order && order.code) {
         const orderCode = order.code;
+        const orderId = order.id;
+        createMenuForOrder(dispatch,menus,orderId)
+
         paymentVNPay(dispatch, total, orderCode);
       } else {
         // Xử lý khi không nhận được mã đơn hàng
+        navigate("/bookingfailed")
         console.error('Order creation failed or missing order code.');
       }
     } catch (error) {
