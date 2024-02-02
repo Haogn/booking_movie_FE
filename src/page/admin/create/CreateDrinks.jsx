@@ -43,8 +43,6 @@ function CreateDrinks() {
     setErrImage(null);
     setErrCategoryId(null);
     setErrPrice(null);
-
-    debugger;
     let isValid = true;
     if (!dishName) {
       setErrorName("Tên sản phẩm không được để trống");
