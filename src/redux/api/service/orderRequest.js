@@ -20,21 +20,34 @@ import {
   getAllByUserError,
 } from "../../reducers/orderSlice";
 
-export const bookingMovie = async (dispatch, token, orderForm) => {
-  try {
-    const res = await axios.post(
-      "http://localhost:6789/api/booking/v1/orders",
-      orderForm,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    dispatch(createOrderSuccess(res.data));
-  } catch (error) {
-    dispatch(createOrderError(error.response));
-  }
+export const bookingMovie = async(dispatch,token,orderForm)=>{
+    try {
+        const res = await axios.post("http://localhost:6789/api/booking/v1/orders",orderForm ,{
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          });
+          console.log(res.data);
+      dispatch(createOrderSuccess(res.data)); 
+      return res.data; 
+    } catch (error) {
+      dispatch(createOrderError(error.response));
+    }
+}
+
+export const startBuy = async(dispatch, idMovie, selectDate, roomType, locationName) => {
+    try {
+        const res = await axios.get(`http://localhost:6789/api/booking/v1/view/${idMovie}`, {
+            params: {
+                selectDate: selectDate,
+                roomType: roomType,
+                locationName: locationName
+            }
+        });
+        dispatch(startBuySuccess(res.data));
+    } catch (error) {
+        dispatch(startBuyFailed(error.response));
+    }
 };
 
 export const startBuy = async (
@@ -136,6 +149,7 @@ export const getChair = async (dispatch, idRoom, startTime) => {
   }
 };
 
+
 export const paymentVNPay = async (dispatch, total) => {
   try {
     const res = await axios.get(
@@ -170,6 +184,7 @@ export const paymentVNPay = async (dispatch, total) => {
 //   }
 // };
 
+<<<<<<< HEAD
 // lấy ra list lịch sử mua của người dùng
 export const getAllByUser = async (dispatch, token, page) => {
   try {
@@ -189,3 +204,6 @@ export const getAllByUser = async (dispatch, token, page) => {
     dispatch(getAllByUserError(err.response));
   }
 };
+=======
+
+>>>>>>> 545e0df9f0453a4049d7ed92938d8994b1ae0bc1

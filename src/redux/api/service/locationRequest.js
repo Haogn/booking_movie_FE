@@ -42,7 +42,7 @@ export const getALlLocation = async (dispatch, token, search, page) => {
   dispatch(getAllLocationStart());
   try {
     const res = await axios.get(
-      "http://localhost:6789/api/booking/v1/location",
+      `http://localhost:6789/api/booking/v1/location`,
       {
         headers: {
           Authorization: `Bearer ${token}`,

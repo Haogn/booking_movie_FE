@@ -19,7 +19,6 @@ import {
   deleteDishSuccess,
   deleteDishFailed,
 } from "../../reducers/dishSlice";
-import { de } from "date-fns/locale";
 
 export const getDish = async (dispatch, token, id, navigate) => {
   dispatch(getDishStart());
