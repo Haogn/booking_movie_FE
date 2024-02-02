@@ -56,7 +56,7 @@ const orderSlice = createSlice({
     findMenu:{
       menuResponse:[],
       menuError:null,
-    }
+    },
     // lịch sử mua của user
     getAllByUser: {
       listOrderResponse: null,
@@ -138,7 +138,7 @@ const orderSlice = createSlice({
     },
     findMenuFailed: (state, action)=>{
       state.findMenu.menuError= action.payload;
-    }
+    },
     getAllByUserSuccess: (state, action) => {
       state.getAllByUser.listOrderResponse = action.payload;
     },

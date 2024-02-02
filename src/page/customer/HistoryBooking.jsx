@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./HistoryBooking.css";
-<<<<<<< HEAD
 import { useDispatch, useSelector } from "react-redux";
 import { getAllByUser } from "../../redux/api/service/orderRequest";
-
+import Barcode from "react-barcode";
 function HistoryBooking() {
+  const barcodeData = "YourCode-987";
   const dispatch = useDispatch();
   const [page, setPage] = useState(0);
   const storedToken = localStorage.getItem("acessToken");
@@ -17,12 +17,8 @@ function HistoryBooking() {
   useEffect(() => {
     getAllByUser(dispatch, token, page)
   }, [dispatch])
-=======
-import Barcode from "react-barcode";
 
-function HistoryBooking() {
-  const barcodeData = "YourCode-987";
->>>>>>> 545e0df9f0453a4049d7ed92938d8994b1ae0bc1
+
   return (
     <div>
       <div className=" font-medium font-mono text-center py-1 ">
@@ -33,32 +29,29 @@ function HistoryBooking() {
               <tr>
                 <th scope="col">STT</th>
                 <th scope="col">Phim</th>
-                <th scope="col">Ngày</th>
-<<<<<<< HEAD
-                <th scope="col">Rạp chiếu</th>
-                <th scope="col">Chi tiêu</th>
-=======
                 <th scope="col">Mã Giao Dịch</th>
+                <th scope="col">Ngày</th>
+                <th scope="col">Rạp chiếu</th>
+                <th scope="col">Chi tiêu</th>              
                 <th scope="col">Chi Tiết</th>
->>>>>>> 545e0df9f0453a4049d7ed92938d8994b1ae0bc1
                 {/* <th scope="col"></th> */}
               </tr>
             </thead>
             <tbody className="scroll-tabal">
-<<<<<<< HEAD
               {listOrder &&
                 listOrder.content.map((order, i) =>
                   <tr key={order.id}>
                     <th scope="row">{i + 1}</th>
                     <td>{order.movieName}</td>
-                    <td>{order.bookingDate}</td>
+                    <th>{order.code}</th>
+                    <th>{order.bookingDate}</th>
                     <td>{order.theaterName}</td>
+                    <td>{order.total}</td>              
                     <td>
                       <span>{order.total}</span> VND
                     </td>
                   </tr>
                 )}
-=======
               <tr>
                 <th scope="row">1</th>
                 <td>Aquamen</td>
@@ -176,7 +169,6 @@ function HistoryBooking() {
                   </div>
                 </div>
               </div>
->>>>>>> 545e0df9f0453a4049d7ed92938d8994b1ae0bc1
             </tbody>
           </table>
 

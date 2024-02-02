@@ -25,7 +25,7 @@ const order = useSelector((state)=>state.order.findMenu.orderResponse)
 const menus = useSelector((state)=>state.order.findMenu.menuResponse)
 
   const barcodeData = "YourCode-987";
-  returnorder && menus ? (
+  return order && menus ? (
     <div className="flex">
       <div className="w-[30%] h-screen ">
         <img
