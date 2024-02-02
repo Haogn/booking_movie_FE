@@ -52,6 +52,11 @@ import Payment from "../customer/Payment";
 import Forgotpassword from "../customer/Forgotpassword";
 import RetrievalPassword from "../customer/RetrievalPassword";
 import PaymentSuccess from "../customer/PaymentSuccess";
+import IndexDashboard from "../admin/dashboard/IndexDashboard";
+import RevenueByTheater from "../admin/dashboard/RevenueByTheater";
+import RevenueByMovie from "../admin/dashboard/RevenueByMovie";
+import RevenueByTime from "../admin/dashboard/RevenueByTime";
+import Event from "../customer/Event";
 
 function Routers() {
   return (
@@ -65,6 +70,7 @@ function Routers() {
           <Route path="/forgotpassword" element={<Forgotpassword />} />
           <Route path="/retrievalPassword" element={<RetrievalPassword />} />
           <Route path="/detail" element={<DetailMovie />} />
+          <Route path="/event" element={<Event />} />
           <Route path="/comingsoon" element={<ComingSoon />} />
           <Route path="/nowhowing" element={<NowHowing />} />
           <Route path="/history" element={<HistoryBooking />} />
@@ -88,15 +94,18 @@ function Routers() {
         </Route>
         {/* Admin */}
         <Route path="/admin" element={<LayoutAdmin />}>
-          <Route index element={<ListCustomer />} />
+          <Route index element={<IndexDashboard />} />
+          <Route path="/admin/revenue-theater" element={<RevenueByTheater />} />
+          <Route path="/admin/revenue-movie" element={<RevenueByMovie />} />
+          <Route path="/admin/revenue-time" element={<RevenueByTime />} />
           <Route path="/admin/create-account" element={<CreateAccount />} />
-          <Route path="/admin/create-coupons" element={<CreateCoupons />} />
+          <Route path="/admin/create-coupons/:id" element={<CreateCoupons />} />
           <Route path="/admin/create-event" element={<CreateEvent />} />
           <Route path="/admin/list-event" element={<ListEvent />} />
           <Route path="/admin/edit-event" element={<EditEvent />} />
           <Route path="/admin/list-management" element={<ListManagement />} />
           <Route path="/admin/list-employ" element={<ListEmploy />} />
-          <Route path="/admin" element={<ListCustomer />} />
+          <Route path="/admin/list-customer" element={<ListCustomer />} />
           <Route path="/admin/create-location" element={<CreateLocation />} />
           <Route path="/admin/edit-location" element={<EditLocation />} />
           <Route path="/admin/list-location" element={<ListLocation />} />

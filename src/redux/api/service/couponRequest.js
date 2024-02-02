@@ -1,14 +1,14 @@
 import axios from "axios";
 import {
+  createCouponFailed,
+  createCouponStart,
+  createCouponSuccess,
   getAllCouponFailed,
   getAllCouponStart,
   getAllCouponSuccess,
-  createCouponStart,
-  createCouponSuccess,
-  createCouponFailed,
+  useCouponFailed,
   useCouponStart,
   useCouponSuccess,
-  useCouponFailed,
 } from "../../reducers/couponSlice";
 
 // get all by user
@@ -25,23 +25,21 @@ export const getAllCouponByUser = async (dispatch, token) => {
 };
 
 // create coupon
-export const createCoupon = async (
-  couponRequestDto,
-  dispatch,
-  token,
-  navigate
-) => {
+export const createCoupon = async (coupon, dispatch, token, navigate) => {
+  debugger;
   dispatch(createCouponStart());
   try {
+    console.log(coupon);
     const res = await axios.post(
       "http://localhost:6789/api/booking/v1/coupon",
-      couponRequestDto,
+      coupon,
       {
         headers: { Authorization: "Bearer " + token },
       }
     );
+    console.log(res.data);
     dispatch(createCouponSuccess(res.data));
-    navigate("");
+    navigate("/admin/list-customer");
   } catch (e) {
     dispatch(createCouponFailed(e.response));
   }
