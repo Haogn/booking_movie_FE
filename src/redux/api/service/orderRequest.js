@@ -16,6 +16,8 @@ import {
   createOrderError,
   getTotalUserSuccess,
   getTotalUserError,
+  getAllByUserSuccess,
+  getAllByUserError,
 } from "../../reducers/orderSlice";
 
 export const bookingMovie = async(dispatch,token,orderForm)=>{
@@ -160,4 +162,26 @@ export const paymentVNPay = async (dispatch, total,orderCode) => {
 //   }
 // };
 
+<<<<<<< HEAD
+// lấy ra list lịch sử mua của người dùng
+export const getAllByUser = async (dispatch, token, page) => {
+  try {
+    const res = await axios.get(
+      "//localhost:6789/api/booking/v1/orders/history-customer",
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        params: {
+          page: page,
+        },
+      }
+    );
+    dispatch(getAllByUserSuccess(res.data));
+  } catch (err) {
+    dispatch(getAllByUserError(err.response));
+  }
+};
+=======
 
+>>>>>>> 545e0df9f0453a4049d7ed92938d8994b1ae0bc1
