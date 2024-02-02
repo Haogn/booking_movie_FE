@@ -28,9 +28,6 @@ const authSlice = createSlice({
     },
   },
   reducers: {
-    getCaptcha: (state, action) => {
-      return action.payload;
-    },
     resetError: (state) => {
       state.login.error = null;
     },
@@ -90,7 +87,6 @@ const authSlice = createSlice({
 });
 
 export const {
-  getCaptcha,
   resetError,
   loginStart,
   loginSuccess,

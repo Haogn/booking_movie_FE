@@ -1,8 +1,34 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../customer/detailMovie/DetailMovie.css";
+import { useSelector } from "react-redux";
 
 function Payment() {
   const [selectedOption, setSelectedOption] = useState("VNPay");
+  const [ticketPrice, setTicketPrice] = useState(0);
+  const chairs = useSelector((state) => state.order.getListChair.chairs);
+  const menus = useSelector((state) => state.order.addToMenu.menu)
+  const movie = useSelector((state) => state.order.getMovieInform.movieInform);
+
+
+  useEffect(() => {
+    const newPrice = chairs.reduce((total, chair) => {
+      let chairPrice = movie.price;
+      if (chair.chairType === 'VIP') {
+        chairPrice *= 1.05;
+      }
+      return total + chairPrice;
+    }, 0);
+    setTicketPrice(newPrice);
+  }, [chairs, movie]);
+
+
+  let totalMenu = 0;
+  if(menus.length > 0) {
+    totalMenu = menus.reduce((accumulator, currentItem) => {
+      return accumulator + (currentItem.quantity * currentItem.price);
+    }, 0);
+  }
+  let total = ticketPrice+totalMenu;
 
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
@@ -173,14 +199,14 @@ function Payment() {
             </p>
             <div className="pl-3 pt-1 w-full h-[40px] bg-gray-200 text-xl font-medium flex justify-evenly border-b-2 border-gray-500">
               <p className="w-[50%] justify-start">Vé:</p>
-              <p className="w-[50%]">120000 VNĐ</p>
+              <p className="w-[50%]">{ticketPrice} VNĐ</p>
             </div>
             <div className="pl-3 pt-1 w-full h-[40px] bg-gray-200 text-xl font-medium border-b-2 border-gray-500 flex justify-evenly">
               <p className="w-[50%] justify-start">Bỏng nước:</p>
-              <p className="w-[50%]">0 VNĐ</p>
+              <p className="w-[50%]">{totalMenu} VNĐ</p>
             </div>
             <p className="pl-3 pt-1 w-full h-[40px] bg-gray-500 text-xl font-medium text-center ">
-              <span>120000</span> VNĐ
+              <span>{total}</span> VNĐ
             </p>
 
             <p className="pl-3 pt-1 w-full h-[40px] bg-gray-200 text-xl font-medium text-center mt-3 border-b-2 border-gray-500 ">
@@ -194,7 +220,7 @@ function Payment() {
               Tổng Thanh Toán
             </p>
             <p className="pl-3 pt-1 w-full h-[40px] bg-gray-300 text-xl font-medium text-center ">
-              <span>120000</span> VNĐ
+              <span>{total}</span> VNĐ
             </p>
           </div>
         </div>
