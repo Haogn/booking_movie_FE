@@ -16,6 +16,12 @@ import {
   createOrderError,
   getTotalUserSuccess,
   getTotalUserError,
+  createMenuSuccess,
+  createMenuError,
+  findMenuSuccess,
+  findOrderSuccess,
+  findOrderFailed,
+  findMenuFailed,
   getAllByUserSuccess,
   getAllByUserError,
 } from "../../reducers/orderSlice";
@@ -63,14 +69,13 @@ export const getLocation = async (dispatch) => {
   }
 };
 
-export const getMovieInform = async (dispatch, navigate, idMovie) => {
+export const getMovieInform = async (dispatch, idMovie) => {
   try {
     const res = await axios.get(
       `http://localhost:6789/api/booking/v1/movie/${idMovie}`
     );
     console.log(res.data);
     dispatch(getMovieInformationSuccess(res.data));
-    navigate("/booking");
   } catch (error) {
     dispatch(getMovieInformationFailed(error.response));
   }
@@ -97,7 +102,7 @@ export const getRoom = async (
         },
       }
     );
-    console.log("Phòng:", response.data);
+    console.log(response.data);
     dispatch(getRoomMovieSuccess(response.data));
     return response.data; // Trả về dữ liệu phòng từ API
   } catch (error) {
@@ -108,6 +113,7 @@ export const getRoom = async (
 };
 
 export const getChair = async (dispatch, idRoom, startTime) => {
+  console.log(startTime);
   try {
     const res = await axios.get(
       `http://localhost:6789/api/booking/v1/view/chair`,
@@ -118,11 +124,27 @@ export const getChair = async (dispatch, idRoom, startTime) => {
         },
       }
     );
-    console.log("ghế:");
-    console.log(res.data);
+    localStorage.setItem("chairs", JSON.stringify(res.data));
     dispatch(getChairStatusSuccess(res.data));
   } catch (error) {
     dispatch(getChairStatusFailed(error.response));
+  }
+};
+
+export const createMenuForOrder = async (dispatch, listMenu, orderId) => {
+  try {
+    const res = await axios.post(
+      `http://localhost:6789/api/booking/v1/orders/createMenu`,listMenu,
+      {
+        params: {
+          orderId: orderId,
+        },
+      }
+    );
+    console.log(res.data);
+    dispatch(createMenuSuccess(res.data));
+  } catch (error) {
+    dispatch(createMenuError(error.response));
   }
 };
 
@@ -134,7 +156,7 @@ export const paymentVNPay = async (dispatch, total,orderCode) => {
       {
         params: {
           total: total,
-          orderCode:orderCode
+          orderCode:orderCode,
         },
       }
     );
@@ -145,6 +167,37 @@ export const paymentVNPay = async (dispatch, total,orderCode) => {
     dispatch(getPaymentVNPayFailed(error.response));
   }
 };
+
+
+export const findOrder = async (dispatch, orderId) => {
+  try {
+    const res = await axios.get(  `http://localhost:6789/api/booking/v1/orders/${orderId}`);
+    console.log(res.data);
+    dispatch(findOrderSuccess(res.data));
+    window.location.href = res.data.url;
+  } catch (error) {
+    dispatch(findOrderFailed(error.response));
+  }
+};
+
+
+export const findMenu = async (dispatch, orderId) => {
+  try {
+    const res = await axios.get(  `http://localhost:6789/api/booking/v1/orders/menu/${orderId}`);
+    console.log(res.data);
+    dispatch(findMenuSuccess(res.data));
+    window.location.href = res.data.url;
+  } catch (error) {
+    dispatch(findMenuFailed(error.response));
+  }
+};
+
+
+
+
+
+
+
 
 // // lấy ra tổng số tiền người dùng đã chi tiêu
 // export const getTotalUsers = async (dispatch, token) => {
@@ -162,7 +215,7 @@ export const paymentVNPay = async (dispatch, total,orderCode) => {
 //   }
 // };
 
-<<<<<<< HEAD
+
 // lấy ra list lịch sử mua của người dùng
 export const getAllByUser = async (dispatch, token, page) => {
   try {
@@ -182,6 +235,3 @@ export const getAllByUser = async (dispatch, token, page) => {
     dispatch(getAllByUserError(err.response));
   }
 };
-=======
-
->>>>>>> 545e0df9f0453a4049d7ed92938d8994b1ae0bc1

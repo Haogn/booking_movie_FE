@@ -106,36 +106,42 @@ function HomeCustomer() {
 
   const handleGetTimeSlot = async (theater, time) => {
     if (token === null) {
-      navigate("/login");
+        navigate("/login");
     } else {
-      const payload = {
-        idMovie: selectedMovieId,
-        locationName: selectedLocation.locationName,
-        selectedDate,
-        theater,
-        time,
-      };
-      dispatch(getOrderInformations(payload));
+        const payload = {
+            idMovie: selectedMovieId,
+            locationName: selectedLocation.locationName,
+            selectedDate,
+            theater,
+            time,
+        };
+        dispatch(getOrderInformations(payload));
 
-      // Đợi cho getRoom hoàn thành và lấy roomId
-      const rooms = await getRoom(
-        dispatch,
-        selectedMovieId,
-        time,
-        selectedType,
-        theater,
-        selectedDate
-      );
-      const roomId = rooms?.[0]?.id; // Truy cập id của phòng đầu tiên
-      console.log(rooms);
-      if (roomId) {
-        getChair(dispatch, roomId, time);
-        getMovieInform(dispatch, navigate, selectedMovieId);
-      } else {
-        // Xử lý khi không tìm thấy phòng
-      }
+        // Đầu tiên, gọi getRoom để lấy roomId
+        try {
+            const rooms = await getRoom(dispatch, selectedMovieId, time, selectedType, theater, selectedDate);
+            const roomId = rooms[0]?.id;
+
+            if (roomId) {
+                // Sử dụng Promise.all để đợi cả hai hàm hoàn thành
+                await Promise.all([
+                    getChair(dispatch, roomId, time), // Đảm bảo hàm này trả về Promise
+                    getMovieInform(dispatch, selectedMovieId) // Đảm bảo hàm này trả về Promise
+                ]);
+
+                // Code sau khi cả hai Promise hoàn thành
+                navigate("/booking")
+            } else {
+                console.log("Không tìm thấy phòng");
+                // Xử lý khi không tìm thấy phòng
+            }
+        } catch (error) {
+            console.error("Lỗi khi lấy thông tin phòng hoặc ghế: ", error);
+            // Xử lý lỗi (ví dụ: thông báo lỗi cho người dùng, ...)
+        }
     }
-  };
+};
+
   useEffect(() => {
     getAllMovieSelect(dispatch);
   }, [dispatch]);
