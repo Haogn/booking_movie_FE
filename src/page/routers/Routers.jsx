@@ -99,7 +99,7 @@ function Routers() {
           <Route path="/admin/revenue-movie" element={<RevenueByMovie />} />
           <Route path="/admin/revenue-time" element={<RevenueByTime />} />
           <Route path="/admin/create-account" element={<CreateAccount />} />
-          <Route path="/admin/create-coupons" element={<CreateCoupons />} />
+          <Route path="/admin/create-coupons/:id" element={<CreateCoupons />} />
           <Route path="/admin/create-event" element={<CreateEvent />} />
           <Route path="/admin/list-event" element={<ListEvent />} />
           <Route path="/admin/edit-event" element={<EditEvent />} />

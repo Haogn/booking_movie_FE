@@ -1,65 +1,63 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { tr } from "date-fns/locale";
 
 const couponSlice = createSlice({
   name: "coupons",
   initialState: {
     coupon: {
-      currentCoupon: null,
+      currentCount: null,
+      listCouponSelect: null,
       listCoupon: null,
       error: null,
       isFetching: false,
     },
   },
   reducers: {
-    // get all by user
+    // create
+    createCouponStart: (state) => {
+      state.coupon.isFetching = true;
+    },
+    createCouponSuccess: (state, action) => {
+      state.coupon.isFetching = false;
+      state.coupon.currentCount = action.payload;
+    },
+    createCouponFailed: (state, action) => {
+      state.coupon.error = action.payload;
+      state.coupon.isFetching = false;
+    },
+    // get all coupon
     getAllCouponStart: (state) => {
       state.coupon.isFetching = true;
     },
     getAllCouponSuccess: (state, action) => {
       state.coupon.isFetching = false;
       state.coupon.listCoupon = action.payload;
-      state.coupon.error = null;
     },
     getAllCouponFailed: (state, action) => {
-      state.coupon.isFetching = false;
       state.coupon.error = action.payload;
+      state.coupon.isFetching = false;
     },
-  },
-  // create
-  createCouponStart: (state) => {
-    state.coupon.isFetching = true;
-  },
-  createCouponSuccess: (state, action) => {
-    state.coupon.isFetching = false;
-    state.coupon.currentCoupon = action.payload;
-    state.coupon.error = null;
-  },
-  createCouponFailed: (state, action) => {
-    state.coupon.isFetching = false;
-    state.coupon.error = action.payload;
-  },
-
-  //   use coupon
-  useCouponStart: (state) => {
-    state.coupon.isFetching = true;
-  },
-  useCouponSuccess: (state, action) => {
-    state.coupon.isFetching = false;
-    state.coupon.currentCoupon = action.payload;
-    state.coupon.error = null;
-  },
-  useCouponFailed: (state, action) => {
-    state.coupon.isFetching = false;
-    state.coupon.error = action.payload;
+    // use coupon
+    useCouponStart: (state) => {
+      state.coupon.isFetching = true;
+    },
+    useCouponSuccess: (state, action) => {
+      state.coupon.isFetching = false;
+      state.coupon.currentCount = action.payload;
+    },
+    useCouponFailed: (state, action) => {
+      state.coupon.error = action.payload;
+      state.coupon.isFetching = false;
+    },
   },
 });
 export const {
-  getAllCouponStart,
-  getAllCouponSuccess,
-  getAllCouponFailed,
   createCouponStart,
   createCouponSuccess,
   createCouponFailed,
+  getAllCouponStart,
+  getAllCouponSuccess,
+  getAllCouponFailed,
   useCouponStart,
   useCouponSuccess,
   useCouponFailed,

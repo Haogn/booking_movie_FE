@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./HistoryBooking.css";
+
 import { useDispatch, useSelector } from "react-redux";
 import { getAllByUser } from "../../redux/api/service/orderRequest";
 import Barcode from "react-barcode";
+
 function HistoryBooking() {
   const barcodeData = "YourCode-987";
   const dispatch = useDispatch();
@@ -17,8 +19,6 @@ function HistoryBooking() {
   useEffect(() => {
     getAllByUser(dispatch, token, page)
   }, [dispatch])
-
-
   return (
     <div>
       <div className=" font-medium font-mono text-center py-1 ">
@@ -29,45 +29,26 @@ function HistoryBooking() {
               <tr>
                 <th scope="col">STT</th>
                 <th scope="col">Phim</th>
-                <th scope="col">Mã Giao Dịch</th>
                 <th scope="col">Ngày</th>
                 <th scope="col">Rạp chiếu</th>
-                <th scope="col">Chi tiêu</th>              
-                <th scope="col">Chi Tiết</th>
-                {/* <th scope="col"></th> */}
-              </tr>
-            </thead>
+                <th scope="col">Chi tiêu</th>
+              </tr >
+            </thead >
             <tbody className="scroll-tabal">
-              {listOrder &&
+              {
+                listOrder &&
                 listOrder.content.map((order, i) =>
                   <tr key={order.id}>
                     <th scope="row">{i + 1}</th>
                     <td>{order.movieName}</td>
-                    <th>{order.code}</th>
-                    <th>{order.bookingDate}</th>
+                    <td>{order.bookingDate}</td>
                     <td>{order.theaterName}</td>
-                    <td>{order.total}</td>              
                     <td>
                       <span>{order.total}</span> VND
                     </td>
                   </tr>
-                )}
-              <tr>
-                <th scope="row">1</th>
-                <td>Aquamen</td>
-                <td>29/01/2024</td>
-                <td>YourCode-987</td>
-                <td>
-                  <button
-                    type="submit"
-                    className="btn btn-dark font-mono text-gray-800"
-                    data-bs-target="#exampleModalToggle"
-                    data-bs-toggle="modal"
-                  >
-                    Xem chi tiết
-                  </button>
-                </td>
-              </tr>
+                )
+              }
               {/* Bootstrap Modal */}
               <div
                 className="modal fade"
@@ -169,8 +150,8 @@ function HistoryBooking() {
                   </div>
                 </div>
               </div>
-            </tbody>
-          </table>
+            </tbody >
+          </table >
 
           <nav
             className="flex justify-center"
@@ -198,9 +179,9 @@ function HistoryBooking() {
               </li>
             </ul>
           </nav>
-        </div>
-      </div>
-    </div>
+        </div >
+      </div >
+    </div >
   );
 }
 
