@@ -125,21 +125,26 @@
   color: rgb(97, 104, 104);
 }
 
-/* .event {
+.event {
   margin: auto;
   width: 100%;
-} */
+}
 
-/* .event h2 {
-  background-image: url(../../../public/image/h3_event.gif);
+.event h1 {
+  background-image: url("https://www.cgv.vn/skin/frontend/cgv/default/images/bg-cgv/bg-new-offer-vn.png");
   background-repeat: no-repeat;
   background-position: center;
   margin: auto;
   text-indent: -9999px;
   margin-top: 12px;
   height: 60px;
-} */
+}
 
+.event-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+}
 /* modal */
 .booking-movie {
   /* max-height: 500px !important ; */
