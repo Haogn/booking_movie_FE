@@ -25,8 +25,10 @@ function NavbarCustomer() {
       <div className="w-[70%] m-auto">
         <div className="my-[10px] flex justify-end gap-[30px] text-base cursor-pointer font-black font-mono">
           <div className="tinmoi">
-            <i className="fas fa-tags" />
-            TIN MỚI &amp; ƯU ĐÃI
+            <Link to={"/event"}>
+              <i className="fas fa-tags" />
+              TIN MỚI &amp; ƯU ĐÃI
+            </Link>
           </div>
           <div className="vecuatoi">
             <Link to={"/history"}>
