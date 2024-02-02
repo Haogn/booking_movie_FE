@@ -25,9 +25,17 @@ const order = useSelector((state)=>state.order.findMenu.orderResponse)
 const menus = useSelector((state)=>state.order.findMenu.menuResponse)
 
   const barcodeData = "YourCode-987";
-  return order && menus ? (
-    <div>
-      <div className="w-[40%] h-[900px] mx-auto mt-4 font-mono   ">
+  returnorder && menus ? (
+    <div className="flex">
+      <div className="w-[30%] h-screen ">
+        <img
+          className="mt-[200px]"
+          src="https://media.istockphoto.com/id/185007865/vi/anh/qu%C3%A0-t%E1%BA%B7ng-v%C3%A9.jpg?s=2048x2048&w=is&k=20&c=enJhNoV9qahkSzDcyxddroPoaOD6eBWyF8vkiHfjG1Q="
+          alt=""
+        />
+      </div>
+      <div className="w-[40%] h-[900px] ml-4 mt-4 font-mono   ">
+
         <div className="ticket">
           <div className="ticket-top text-center text-2xl font-bold pt-3">
             <h1 className="pb-1"> Thanh toán thành công</h1>
@@ -100,6 +108,13 @@ const menus = useSelector((state)=>state.order.findMenu.menuResponse)
           </div>
           <div className="ticket-footer"></div>
         </div>
+      </div>
+      <div className="w-[30%] h-screen ">
+        <img
+          className="mt-[250px]"
+          src="https://media.istockphoto.com/id/174616877/vi/anh/phim-pop-ng%C3%B4-v%E1%BB%9Bi-v%C3%A9-g%C3%B3c-r%E1%BB%99ng.jpg?s=2048x2048&w=is&k=20&c=g7iydsixgQqa_zTjzRDlscZzRnBPGDt2b9jkzobSua4="
+          alt=""
+        />
       </div>
     </div>
   ):(<div>

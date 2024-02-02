@@ -47,48 +47,54 @@ function LayoutAdmin() {
         <div className="w-[20%] h-full  ">
           <div className="w-full h-[1000px] flex flex-col justify-start px-[8%] gap-3 bg-slate-50 layout-admin border-r-2 border-red-300">
             {/* logo */}
-            <div>
-              <img
-                src="https://www.cgv.vn/skin/frontend/cgv/default/images/cgvlogo.png"
-                alt=""
-              />
-            </div>
+            <Link to={"/admin"}>
+              <div>
+                <img
+                  src="https://www.cgv.vn/skin/frontend/cgv/default/images/cgvlogo.png"
+                  alt=""
+                />
+              </div>
+            </Link>
             {/* thống kê */}
-            {/* <div className={`cursor-pointer dropdown ${
-                selectedTab === "location"
-                  ? "text-gray-800 bg-red-100 py-2 rounded-md pl-1"
-                  : ""
-              }`}
-              onClick={() => handleTabClick("location")}>
+            <div className="dropdown mt-8">
               <button
                 className="text-xl font-mono font-bold dropdown-toggle "
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                <i className="fa-solid fa-chart-column"></i> Doanh thu
+                <i className="fa-solid fa-chart-column"></i> Thống kê
               </button>
               <ul className="dropdown-menu bg-gray-200 font-bold font-mono">
                 <li>
-                  <a className="dropdown-item" href="#">
-                    <i className="fa-solid fa-clapperboard"></i> Theo rạp chiếu
-                  </a>
+                  <Link to="/admin/revenue-theater">
+                    <a className="dropdown-item" href="#">
+                      <i className="fa-solid fa-clapperboard"></i> Theo rạp
+                      chiếu
+                    </a>
+                  </Link>
                 </li>
+
                 <li>
-                  <a className="dropdown-item" href="#">
-                    <i className="fa-solid fa-film"></i> Theo phim
-                  </a>
+                  <Link to={"/admin/revenue-movie"}>
+                    <a className="dropdown-item" href="#">
+                      <i className="fa-solid fa-film"></i> Theo phim
+                    </a>
+                  </Link>
                 </li>
+
                 <li>
-                  <a className="dropdown-item" href="#">
-                    <i className="fa-regular fa-calendar-check"></i> Theo giời
-                    gian
-                  </a>
+                  <Link to={"/admin/revenue-time"}>
+                    <a className="dropdown-item" href="#">
+                      <i className="fa-regular fa-calendar-check"></i> Theo giời
+                      gian
+                    </a>
+                  </Link>
                 </li>
               </ul>
-            </div> */}
+            </div>
 
             {/* user  */}
-            <div className="cursor-pointer dropdown mt-4">
+            <div className="cursor-pointer dropdown ">
               <button
                 className="text-xl font-mono font-bold dropdown-toggle "
                 data-bs-toggle="dropdown"
@@ -115,7 +121,7 @@ function LayoutAdmin() {
                   </a>
                 </li>
                 <li>
-                  <a className="dropdown-item" href="/admin">
+                  <a className="dropdown-item" href="/admin/list-customer">
                     <i className="fa-solid fa-list-check"></i> Danh sách người
                     dùng
                   </a>

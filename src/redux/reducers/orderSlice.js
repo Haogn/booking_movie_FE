@@ -57,6 +57,11 @@ const orderSlice = createSlice({
       menuResponse:[],
       menuError:null,
     }
+    // lịch sử mua của user
+    getAllByUser: {
+      listOrderResponse: null,
+      listOrderError: null,
+    },
   },
   reducers: {
     createOrderSuccess: (state, action) => {
@@ -134,6 +139,12 @@ const orderSlice = createSlice({
     findMenuFailed: (state, action)=>{
       state.findMenu.menuError= action.payload;
     }
+    getAllByUserSuccess: (state, action) => {
+      state.getAllByUser.listOrderResponse = action.payload;
+    },
+    getAllByUserError: (state, action) => {
+      state.getAllByUser.listOrderError = action.payload;
+    },
   },
 });
 export const {
@@ -162,6 +173,8 @@ export const {
   findOrderFailed,
   findMenuSuccess,
   findMenuFailed,
+  getAllByUserSuccess,
+  getAllByUserError,
 } = orderSlice.actions;
 
 export default orderSlice.reducer;

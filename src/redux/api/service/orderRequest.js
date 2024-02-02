@@ -22,6 +22,8 @@ import {
   findOrderSuccess,
   findOrderFailed,
   findMenuFailed,
+  getAllByUserSuccess,
+  getAllByUserError,
 } from "../../reducers/orderSlice";
 
 export const bookingMovie = async(dispatch,token,orderForm)=>{
@@ -214,3 +216,22 @@ export const findMenu = async (dispatch, orderId) => {
 // };
 
 
+// lấy ra list lịch sử mua của người dùng
+export const getAllByUser = async (dispatch, token, page) => {
+  try {
+    const res = await axios.get(
+      "//localhost:6789/api/booking/v1/orders/history-customer",
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        params: {
+          page: page,
+        },
+      }
+    );
+    dispatch(getAllByUserSuccess(res.data));
+  } catch (err) {
+    dispatch(getAllByUserError(err.response));
+  }
+};
