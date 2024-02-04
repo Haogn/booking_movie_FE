@@ -20,6 +20,8 @@ import { format } from "date-fns";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { getOrderInformations } from "../../redux/reducers/orderSlice";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function HomeCustomer() {
   const storedToken = localStorage.getItem("acessToken");
@@ -106,7 +108,21 @@ function HomeCustomer() {
 
   const handleGetTimeSlot = async (theater, time) => {
     if (token === null) {
+<<<<<<< HEAD
       navigate("/login");
+=======
+      toast("😎 Bạn cần đăng nhập để đặt vé!!!", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+        navigate("/login");
+>>>>>>> 464b349acf8b190c2bd6dde8d2bbf928e0e79668
     } else {
       const payload = {
         idMovie: selectedMovieId,
@@ -122,12 +138,21 @@ function HomeCustomer() {
         const rooms = await getRoom(dispatch, selectedMovieId, time, selectedType, theater, selectedDate);
         const roomId = rooms[0]?.id;
 
+<<<<<<< HEAD
         if (roomId) {
           // Sử dụng Promise.all để đợi cả hai hàm hoàn thành
           await Promise.all([
             getChair(dispatch, roomId, time), // Đảm bảo hàm này trả về Promise
             getMovieInform(dispatch, selectedMovieId) // Đảm bảo hàm này trả về Promise
           ]);
+=======
+            if (roomId) {
+                // Sử dụng Promise.all để đợi cả hai hàm hoàn thành
+                await Promise.all([
+                    getChair(dispatch, roomId, time),
+                    getMovieInform(dispatch, selectedMovieId) 
+                ]);
+>>>>>>> 464b349acf8b190c2bd6dde8d2bbf928e0e79668
 
           // Code sau khi cả hai Promise hoàn thành
           navigate("/booking")
@@ -152,7 +177,7 @@ function HomeCustomer() {
 
   return listMovie ? (
     <div>
-      <div className="w-screen h-[1000px]">
+      <div className="w-screen h-full">
         <div className="content-top">
           <ul>
             <li>
@@ -286,7 +311,7 @@ function HomeCustomer() {
                   </div>
                 </div>
                 {/* type */}
-                <div className="modal-body w-[95%] h-[70px] p-[20px] bg-slate-300 flex gap-2 days border-b-2 border-black mx-auto">
+                <div className="modal-body w-[100%] h-[70px] p-[20px] bg-slate-300 flex gap-2 days border-b-2 border-black mx-auto">
                   <div className="flex gap-3">
                     <p
                       className={`cursor-pointer h-[35px] w-[150px] font-mono text-center rounded-[5px] py-[5px] ${selectedType === "TWO_D"
@@ -310,10 +335,12 @@ function HomeCustomer() {
                   </div>
                 </div>
                 {/* theater and time */}
-                {timeSlosts && Object.keys(timeSlosts).length > 0 ? (
+
+    {timeSlosts && Object.keys(timeSlosts).length > 0 ? (
+
                   Object.keys(timeSlosts).map((theater) => (
                     <div
-                      className="modal-body w-[95%] h-[110px] p-[20px] bg-slate-300 days border-b-2 border-black mx-auto"
+                      className="modal-body w-[100%] h-[120px] p-[20px] bg-slate-300 days border-b-2 border-black mx-auto"
                       key={theater}
                     >
                       <h3 className="font-mono font-bold text-lg">
@@ -334,9 +361,17 @@ function HomeCustomer() {
                         ))}
                       </div>
                     </div>
+                             
+                 
                   ))
+                  
                 ) : (
-                  <>Không có suất chiếu nào</>
+                  <div
+                      className="modal-body w-[100%] h-[320px] p-[20px] bg-slate-300 days border-b-2 border-black mx-auto"
+                      
+                    >
+                     <div>Xin lỗi, không có suất chiếu vào ngày này, hãy chọn một ngày khác.</div>
+                    </div>
                 )}
                 <div className="modal-footer">
                   <p>booking movie</p>

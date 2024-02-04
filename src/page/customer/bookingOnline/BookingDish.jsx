@@ -9,6 +9,21 @@ function BookingDish() {
   const [quantities, setQuantities] = useState({});
   const [menu,setMenu] = useState([ ]);
 
+
+  const menus = useSelector((state) => state.order.addToMenu.menu)
+
+  useEffect(() => {
+    setMenu([...menus]);
+      const newQuantities = menus.reduce((acc, currentItem) => {
+      acc[currentItem.dishId] = currentItem.quantity;
+      return acc;
+    }, {});
+    setQuantities(newQuantities);
+  }, []);
+ 
+  
+
+
   const handleIncrement = (dishId) => {
     setQuantities((prevQuantities) => {
       const newQuantities = {
@@ -67,7 +82,7 @@ function BookingDish() {
 
   useEffect(() =>{
     dispatch(addToMenuSuccess(menu))
-  },[menu])
+  },[dispatch,menu])
 
   const listDish = useSelector((state) => state.dishs.dish.listDish);
   useEffect(() => {

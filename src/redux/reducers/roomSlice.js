@@ -75,15 +75,6 @@ const roomSlice = createSlice({
       state.room.currentRoom = action.payload;
       state.room.error = null;
     },
-    // create :
-    createRoomStart: (state) => {
-      state.room.isFetching = true;
-    },
-    createRoomSuccess: (state, action) => {
-      state.room.isFetching = false;
-      state.room.currentRoom = action.payload;
-      state.room.error = null;
-    },
     createRoomFailed: (state, action) => {
       state.room.isFetching = false;
       state.room.error = action.payload;

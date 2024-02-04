@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { createSlice, applyMiddleware } from "@reduxjs/toolkit";
+=======
+import { createSlice } from "@reduxjs/toolkit";
+>>>>>>> 464b349acf8b190c2bd6dde8d2bbf928e0e79668
 
 const orderSlice = createSlice({
   name: "order",
@@ -72,11 +76,28 @@ const orderSlice = createSlice({
       sumPrice: null,
       error: null,
     },
+<<<<<<< HEAD
     // selectAllAmin
     selectAllAdmin: {
       listOrder: null,
       error: null,
     },
+=======
+    pointApply:{
+      point: 0,
+    },
+    couponApply:{
+      coupon: 0,
+    },
+    getCouponOfUser:{
+      listCoupon: null,
+      errorCoupon: null,
+    },
+    checkCoupon:{
+      couponResponse:null,
+      couponError:null,
+    }
+>>>>>>> 464b349acf8b190c2bd6dde8d2bbf928e0e79668
   },
   reducers: {
     createOrderSuccess: (state, action) => {
@@ -174,12 +195,33 @@ const orderSlice = createSlice({
     sumYearFailed: (state, action) => {
       state.countYear.error = action.payload;
     },
+<<<<<<< HEAD
     selectAllAdminSuccess: (state, action) => {
       state.selectAllAdmin.listOrder = action.payload;
     },
     selectAllAdminFailed: (state, action) => {
       state.selectAllAdmin.error = action.payload;
     },
+=======
+    pointApply:(state, action) => {
+      state.pointApply.point = action.payload;
+    },
+    couponApply:(state, action) => {
+      state.couponApply.coupon = action.payload;
+    },
+    getCouponOfUserSuccess:(state, action) => {
+      state.getCouponOfUser.listCoupon = action.payload;
+    },
+    getCouponOfUserFailed:(state, action) => {
+      state.getCouponOfUser.errorCoupon = action.payload;
+    },
+    checkCouponSuccess: (state, action) => {
+      state.checkCoupon.couponResponse=action.payload;
+    },
+    checkCouponFailed: (state, action) => {
+      state.checkCoupon.couponError=action.payload;
+    }
+>>>>>>> 464b349acf8b190c2bd6dde8d2bbf928e0e79668
   },
 });
 export const {
@@ -214,8 +256,17 @@ export const {
   countAllPriceFailed,
   sumYearSuccess,
   sumYearFailed,
+<<<<<<< HEAD
   selectAllAdminSuccess,
   selectAllAdminFailed,
+=======
+  pointApply,
+  couponApply,
+  getCouponOfUserSuccess,
+  getCouponOfUserFailed,
+  checkCouponSuccess,
+  checkCouponFailed,
+>>>>>>> 464b349acf8b190c2bd6dde8d2bbf928e0e79668
 } = orderSlice.actions;
 
 export default orderSlice.reducer;

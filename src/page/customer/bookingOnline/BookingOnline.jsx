@@ -4,6 +4,8 @@ import { Link, Outlet, useLocation, useNavigate} from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { format } from "date-fns";
 import { bookingMovie, createMenuForOrder, paymentVNPay } from "../../../redux/api/service/orderRequest";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function BookingOnline() {
   const storedToken = localStorage.getItem('acessToken');
   const token = storedToken && storedToken.startsWith('"') && storedToken.endsWith('"')
@@ -21,7 +23,8 @@ function BookingOnline() {
   const movie = useSelector((state) => state.order.getMovieInform.movieInform);
   const orderInform = useSelector((state) => state.order.getOrderInform.orderInform);
   const menus = useSelector((state) => state.order.addToMenu.menu)
-  
+  const point = useSelector((state) => state.order.pointApply.point)
+  const coupon = useSelector((state) => state.order.couponApply.coupon)
 
   const [chairIds, setChairIds] = useState([]); 
   const [room, setRoom] = useState(null);
@@ -82,20 +85,52 @@ function BookingOnline() {
   const hasData = chairs && room && movie && orderInform;
 
   let linkTo, linkText;
-  if (currentPath === "/booking/dish") {
-    linkTo = "/booking/payment";
-    linkText = "next";
-  } else if (currentPath === "/booking") {
-    linkTo = "/booking/dish";
-    linkText = "next";
-  } else {
-    linkTo = "#";
-    linkText = "Thanh toán";
+if (currentPath === "/booking/dish") {
+  if(chairs.length === 0) {
+    // Hiển thị thông báo cho người dùng biết họ cần chọn ghế trước khi tiếp tục
+    toast("😎 Vui lòng chọn chỗ ngồi trước.! 🤞🏻", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+    navigate('/booking')
+    return; // Dừng hàm thực thi tại đây để không điều hướng nếu chưa chọn ghế
   }
- 
+  linkTo = "/booking/payment";
+  linkText = "Tiếp tục";
+} else if (currentPath === "/booking") {
+  // Sửa từ chairs.length = 0 thành chairs.length === 0
+  linkTo = "/booking/dish";
+  linkText = "Tiếp tục";
+} else {
+  linkTo = "#";
+  linkText = "Thanh toán";
+};
+
+
+let linkPreviouTo;
+
+if (currentPath === "/booking/dish") {
+  linkPreviouTo = "/booking";
+} else if (currentPath === "/booking") {
+  linkPreviouTo = "/";
+} else if(currentPath==="/booking/payment") {
+  linkPreviouTo = "/booking/dish"
+}
+
+
   let total = ticketPrice+totalMenu;
+  let subTotal =  total - point*1000 - (coupon/100)*ticketPrice ;
+ 
 
-
+// console.log(point);
+// console.log(coupon);
+//   console.log(subTotal);
  
  
  
@@ -109,7 +144,8 @@ function BookingOnline() {
         chairIds: chairIds,
         theater: orderInform.theater,
         location: orderInform.locationName,
-        total: total,
+        total: subTotal,
+        point : point,
       };
   
       const order = await bookingMovie(dispatch, token, orderForm);
@@ -158,12 +194,12 @@ function BookingOnline() {
 
           <Outlet></Outlet>
           <div className="foot_booking_online">
-            <div>
+            <Link to={linkPreviouTo}>
               <div className="previous">
                 <i class="fas fa-chevron-left"></i>
-                <span>previous</span>
+                <span>Quay lại</span>
               </div>
-            </div>
+            </Link>
             {/*  */}
             <table class="info-wrapper">
               <tbody>

@@ -19,6 +19,18 @@ const customerSlice = createSlice({
       messageProfile: null,
       errorProfile: null,
     },
+    spenlingByYear:{
+      spenling:0,
+      spenlingError:null,
+    },
+    getNotifications:{
+      listNotification:null,
+      notificaationError:null,
+    },
+    readNotification:{
+      success:false,
+      error:false,
+    }
   },
   reducers: {
     getprofileSuccess: (state, action) => {
@@ -46,6 +58,24 @@ const customerSlice = createSlice({
     updateProfileFailed: (state, action) => {
       state.updateProfile.errorProfile = action.payload;
     },
+    spenlingByYearSuccess: (state, action) => {
+      state.spenlingByYear.spenling=action.payload;
+    },
+    spenlingByYearFailed: (state, action) => {
+      state.spenlingByYear.spenlingError = action.payload;
+    },
+    getNotificationsSuccess: (state, action) => {
+      state.getNotifications.listNotification = action.payload;
+    },
+    getNotificationFailed: (state, action) => {
+      state.getNotifications.notificaationError = action.payload;
+    },
+    readNotification: (state) => {
+      state.readNotification.success = true;
+    },
+    resetErrorChangePass:(state) => {
+      state.changePassword.error = null;
+    }
   },
 });
 
@@ -58,5 +88,11 @@ export const {
   changeAvatarFailed,
   updateProfileSuccess,
   updateProfileFailed,
+  spenlingByYearFailed,
+  spenlingByYearSuccess,
+  getNotificationsSuccess,
+  getNotificationFailed,
+  readNotification,
+  resetErrorChangePass,
 } = customerSlice.actions;
 export default customerSlice.reducer;

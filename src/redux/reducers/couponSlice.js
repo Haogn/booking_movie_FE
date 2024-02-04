@@ -11,11 +11,15 @@ const couponSlice = createSlice({
       error: null,
       isFetching: false,
     },
+<<<<<<< HEAD
     // show coupon by customer
     showCustomer: {
       listCoupon: null,
       error: null,
     },
+=======
+    
+>>>>>>> 464b349acf8b190c2bd6dde8d2bbf928e0e79668
   },
   reducers: {
     // create
@@ -62,6 +66,7 @@ const couponSlice = createSlice({
       state.showCustomer.error = action.payload;
     },
   },
+ 
 });
 export const {
   createCouponStart,

@@ -6,15 +6,20 @@ import {
   getAllCouponFailed,
   getAllCouponStart,
   getAllCouponSuccess,
+<<<<<<< HEAD
   showCustomerFailed,
   showCustomerSuccess,
   useCouponFailed,
   useCouponStart,
   useCouponSuccess,
 } from "../../reducers/couponSlice";
+=======
+} from "../../reducers/couponSlice.js";
+
+>>>>>>> 464b349acf8b190c2bd6dde8d2bbf928e0e79668
 
 // get all by user
-export const getAllCouponByUser = async (dispatch, token) => {
+export const  getAllCouponByUser = async (dispatch, token) => {
   dispatch(getAllCouponStart());
   try {
     const res = await axios.get("http://localhost:6789/api/booking/v1/coupon", {
@@ -65,9 +70,13 @@ export const createCoupon = async (
   }
 };
 
-// use coupon
 
+<<<<<<< HEAD
 // export const useCouponUser = async (id, dispatch, token) => {
+=======
+// // use coupon
+// const useCouponUser = async (id, dispatch, token) => {
+>>>>>>> 464b349acf8b190c2bd6dde8d2bbf928e0e79668
 //   dispatch(useCouponStart());
 //   try {
 //     const res = await axios.patch(
