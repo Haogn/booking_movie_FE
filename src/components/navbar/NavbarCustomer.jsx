@@ -21,7 +21,7 @@ function NavbarCustomer() {
   };
 
   return (
-    <div>
+    <div className="wrap">
       <div className="w-[70%] m-auto">
         <div className="my-[10px] flex justify-end gap-[30px] text-base cursor-pointer font-black font-mono">
           <div className="tinmoi">

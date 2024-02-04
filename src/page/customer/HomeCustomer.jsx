@@ -153,7 +153,7 @@ function HomeCustomer() {
 
   return listMovie ? (
     <div>
-      <div className="w-screen h-[1000px]">
+      <div className="w-screen h-full">
         <div className="content-top">
           <ul>
             <li>
