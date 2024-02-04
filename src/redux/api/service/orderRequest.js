@@ -18,6 +18,10 @@ import {
   getTotalUserError,
   getAllByUserSuccess,
   getAllByUserError,
+  countAllPriceFailed,
+  countAllPriceSuccess,
+  sumYearSuccess,
+  sumYearFailed,
 } from "../../reducers/orderSlice";
 
 export const bookingMovie = async (dispatch, token, orderForm) => {
@@ -190,5 +194,41 @@ export const getAllByUser = async (dispatch, token, page) => {
     dispatch(getAllByUserSuccess(res.data));
   } catch (err) {
     dispatch(getAllByUserError(err.response));
+  }
+};
+
+// tổng doanh thu hệ thống
+export const countAllPrice = async (dispatch, token) => {
+  try {
+    const res = await axios.get(
+      "http://localhost:6789/api/booking/v1/orders/total",
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    console.log(res.data);
+    dispatch(countAllPriceSuccess(res.data));
+  } catch (err) {
+    dispatch(countAllPriceFailed(err.response));
+  }
+};
+// tổng doanh thu trong năm
+export const sumYear = async (dispatch, token) => {
+  try {
+    debugger;
+    const res = await axios.get(
+      "http://localhost:6789/api/booking/v1/orders/sumYear",
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    console.log(res.data);
+    dispatch(sumYearSuccess(res.data));
+  } catch (err) {
+    dispatch(sumYearFailed(err.response));
   }
 };

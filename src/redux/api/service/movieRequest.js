@@ -18,6 +18,8 @@ import {
   getMovieFailed,
   getMovieStart,
   getMovieSuccess,
+  totalMovieFailed,
+  totalMovieSucccess,
 } from "../../reducers/movieSlice";
 
 export const getMovie = async (dispatch, token, idMovie) => {
@@ -185,5 +187,20 @@ export const editMovie = async (
     }, 3000);
   } catch (error) {
     dispatch(editMovieFailed(error.response));
+  }
+};
+export const totalMovies = async (dispatch, token) => {
+  try {
+    const res = await axios.get(
+      "http://localhost:6789/api/booking/v1/movie/count-movie",
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    dispatch(totalMovieSucccess(res.data));
+  } catch (err) {
+    dispatch(totalMovieFailed(err.response));
   }
 };

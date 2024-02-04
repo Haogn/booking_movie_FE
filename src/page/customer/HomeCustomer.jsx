@@ -135,7 +135,7 @@ function HomeCustomer() {
         // Xử lý khi không tìm thấy phòng
       }
     }
-  };
+  };;
   useEffect(() => {
     getAllMovieSelect(dispatch);
   }, [dispatch]);
@@ -368,17 +368,19 @@ function HomeCustomer() {
                         </button>{" "}
                         {/* </Link> */}
                       </div>
-                      <div className="movie-button">
-                        <button
-                          variant="outline-secondary"
-                          className="text-center font-medium font-mono text-white "
-                          data-bs-target="#exampleModalToggle"
-                          data-bs-toggle="modal"
-                          onClick={() => handleViewTimeSlot(item.id)}
-                        >
-                          Mua vé <i className="fa-solid fa-ticket"></i>
-                        </button>{" "}
-                      </div>
+                      {item.movieStatus == "UPCOMING" &&
+                        <div className="movie-button">
+                          <button
+                            variant="outline-secondary"
+                            className="text-center font-medium font-mono text-white "
+                            data-bs-target="#exampleModalToggle"
+                            data-bs-toggle="modal"
+                            onClick={() => handleViewTimeSlot(item.id)}
+                          >
+                            Mua vé <i className="fa-solid fa-ticket"></i>
+                          </button>{" "}
+                        </div>
+                      }
                     </div>
                   </div>
                 </div>

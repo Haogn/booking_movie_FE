@@ -50,6 +50,16 @@ const orderSlice = createSlice({
       listOrderResponse: null,
       listOrderError: null,
     },
+    // danh thu hệ thống
+    countAllPrice: {
+      count: 0,
+      error: null,
+    },
+    // danh thu theo năm
+    countYear: {
+      sumPrice: null,
+      error: null,
+    },
   },
   reducers: {
     createOrderSuccess: (state, action) => {
@@ -115,6 +125,20 @@ const orderSlice = createSlice({
     getAllByUserError: (state, action) => {
       state.getAllByUser.listOrderError = action.payload;
     },
+    // tổng giá trị
+    countAllPriceSuccess: (state, action) => {
+      state.countAllPrice.count = action.payload;
+    },
+    countAllPriceFailed: (state, action) => {
+      state.countAllPrice.error = action.payload;
+    },
+    // tổng danh thu theo năm
+    sumYearSuccess: (state, action) => {
+      state.countYear.sumPrice = action.payload;
+    },
+    sumYearFailed: (state, action) => {
+      state.countYear.error = action.payload;
+    },
   },
 });
 export const {
@@ -139,6 +163,10 @@ export const {
   getTotalUserError,
   getAllByUserSuccess,
   getAllByUserError,
+  countAllPriceSuccess,
+  countAllPriceFailed,
+  sumYearSuccess,
+  sumYearFailed,
 } = orderSlice.actions;
 
 export default orderSlice.reducer;
