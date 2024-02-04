@@ -37,7 +37,6 @@ import BookingOnline from "./../customer/bookingOnline/BookingOnline";
 import BookingChair from "./../customer/bookingOnline/BookingChair";
 import BookingDish from "./../customer/bookingOnline/BookingDish";
 import ComingSoon from "./../customer/movieList/ComingSoon";
-import ProtectedRoute from "./ProtectedRoute";
 import NowHowing from "../customer/movieList/NowHowing";
 import EditLocation from "../admin/edit/EditLocation";
 import EditTheater from "../admin/edit/EditTheater";

@@ -4,7 +4,6 @@ import {
   loginStart,
   loginSuccess,
   loginFailed,
-  resetError,
   registerStart,
   registerSuccess,
   registerFailed,

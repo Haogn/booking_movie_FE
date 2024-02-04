@@ -6,16 +6,7 @@ import {
   getAllCouponFailed,
   getAllCouponStart,
   getAllCouponSuccess,
-  createCouponStart,
-  createCouponSuccess,
-  createCouponFailed,
-  checkCouponSuccess,
-  checkCouponFailed
 } from "../../reducers/couponSlice.js";
-  useCouponFailed,
-  useCouponStart,
-  useCouponSuccess,
-} from "../../reducers/couponSlice";
 
 
 // get all by user

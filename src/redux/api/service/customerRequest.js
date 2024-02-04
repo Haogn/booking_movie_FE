@@ -133,6 +133,7 @@ export const readNotifications = async (dispatch,id) => {
   try {
     const res = await axios.get(
       `http://localhost:6789/api/booking/v1/notifications/${id}`);
+      console.log(res.data);
     dispatch(readNotification()); 
   } catch (err) {
     console.log(err);
