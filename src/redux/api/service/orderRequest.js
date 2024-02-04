@@ -28,6 +28,10 @@ import {
   countAllPriceSuccess,
   sumYearSuccess,
   sumYearFailed,
+  getCouponOfUserSuccess,
+  getCouponOfUserFailed,
+  checkCouponSuccess,
+  checkCouponFailed,
 } from "../../reducers/orderSlice";
 
 export const bookingMovie = async (dispatch, token, orderForm) => {
@@ -190,9 +194,7 @@ export const paymentVNPay = async (dispatch, total, orderCode) => {
 export const findOrder = async (dispatch, orderId) => {
   try {
     const res = await axios.get(  `http://localhost:6789/api/booking/v1/orders/${orderId}`);
-    console.log(res.data);
     dispatch(findOrderSuccess(res.data));
-    window.location.href = res.data.url;
   } catch (error) {
     dispatch(findOrderFailed(error.response));
   }
@@ -202,9 +204,7 @@ export const findOrder = async (dispatch, orderId) => {
 export const findMenu = async (dispatch, orderId) => {
   try {
     const res = await axios.get(  `http://localhost:6789/api/booking/v1/orders/menu/${orderId}`);
-    console.log(res.data);
     dispatch(findMenuSuccess(res.data));
-    window.location.href = res.data.url;
   } catch (error) {
     dispatch(findMenuFailed(error.response));
   }
@@ -254,6 +254,7 @@ export const getAllByUser = async (dispatch, token, page) => {
   }
 };
 
+
 // tổng doanh thu hệ thống
 export const countAllPrice = async (dispatch, token) => {
   try {
@@ -289,3 +290,38 @@ export const sumYear = async (dispatch, token) => {
     dispatch(sumYearFailed(err.response));
   }
 };
+
+
+export const getCouponByUser = async(dispatch,token)=>{
+  try {
+      const res = await axios.get("http://localhost:6789/api/booking/v1/coupon/getAll",{
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        console.log(res.data);
+    dispatch(getCouponOfUserSuccess(res.data)); 
+  } catch (error) {
+    dispatch(getCouponOfUserFailed(error.response));
+  }
+}
+
+export const applyCoupon = async (dispatch, couponCode) => {
+  try {
+    const res = await axios.get(
+      `http://localhost:6789/api/booking/v1/coupon/check`, {
+        params: {
+          code: couponCode,
+        },
+      }
+    );
+    dispatch(checkCouponSuccess(res.data));
+    console.log(res.data);
+  } catch (error) {
+    if (error.response) {
+      dispatch(checkCouponFailed(error.response));
+    } else {
+     console.error("An error occurred", error);
+    }
+  }
+}

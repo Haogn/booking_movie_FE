@@ -1,16 +1,21 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import Carousel from "react-bootstrap/Carousel";
 import { useDispatch, useSelector } from "react-redux";
 import { getMailling } from "../../redux/api/service/authRequest";
+import { resetGetMailling } from "../../redux/reducers/authSlice";
 
 
 function Forgotpassword (){
 const dispatch = useDispatch();
 const [email,setEmail] = useState("");
 
-const message = useSelector((state)=>state.auth.getMailling.message);
-console.log(message);
-const error = useSelector((state)=>state.auth.getMailling.error);
+let message = useSelector((state)=>state.auth.getMailling.message);
+let error = useSelector((state)=>state.auth.getMailling.error);
+
+
+useEffect(()=>{
+  dispatch(resetGetMailling());
+},[dispatch])
 
 
 const handleMailing = (e)=> {

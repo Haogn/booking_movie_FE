@@ -1,4 +1,4 @@
-import { createSlice,applyMiddleware  } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const orderSlice = createSlice({
   name: "order",
@@ -72,6 +72,20 @@ const orderSlice = createSlice({
       sumPrice: null,
       error: null,
     },
+    pointApply:{
+      point: 0,
+    },
+    couponApply:{
+      coupon: 0,
+    },
+    getCouponOfUser:{
+      listCoupon: null,
+      errorCoupon: null,
+    },
+    checkCoupon:{
+      couponResponse:null,
+      couponError:null,
+    }
   },
   reducers: {
     createOrderSuccess: (state, action) => {
@@ -169,6 +183,24 @@ const orderSlice = createSlice({
     sumYearFailed: (state, action) => {
       state.countYear.error = action.payload;
     },
+    pointApply:(state, action) => {
+      state.pointApply.point = action.payload;
+    },
+    couponApply:(state, action) => {
+      state.couponApply.coupon = action.payload;
+    },
+    getCouponOfUserSuccess:(state, action) => {
+      state.getCouponOfUser.listCoupon = action.payload;
+    },
+    getCouponOfUserFailed:(state, action) => {
+      state.getCouponOfUser.errorCoupon = action.payload;
+    },
+    checkCouponSuccess: (state, action) => {
+      state.checkCoupon.couponResponse=action.payload;
+    },
+    checkCouponFailed: (state, action) => {
+      state.checkCoupon.couponError=action.payload;
+    }
   },
 });
 export const {
@@ -203,6 +235,12 @@ export const {
   countAllPriceFailed,
   sumYearSuccess,
   sumYearFailed,
+  pointApply,
+  couponApply,
+  getCouponOfUserSuccess,
+  getCouponOfUserFailed,
+  checkCouponSuccess,
+  checkCouponFailed,
 } = orderSlice.actions;
 
 export default orderSlice.reducer;
