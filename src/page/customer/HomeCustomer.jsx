@@ -147,7 +147,7 @@ function HomeCustomer() {
 
   return listMovie ? (
     <div>
-      <div className="w-screen h-[1000px]">
+      <div className="w-screen h-full">
         <div className="content-top">
           <ul>
             <li>
@@ -309,7 +309,7 @@ function HomeCustomer() {
                   </div>
                 </div>
                 {/* theater and time */}
-                {timeSlosts && Object.keys(timeSlosts).length > 0 ?(
+                {timeSlosts && Object.keys(timeSlosts).length > 0 ? (
                   Object.keys(timeSlosts).map((theater) => (
                     <div
                       className="modal-body w-[95%] h-[110px] p-[20px] bg-slate-300 days border-b-2 border-black mx-auto"

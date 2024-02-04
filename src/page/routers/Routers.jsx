@@ -57,6 +57,7 @@ import RevenueByTheater from "../admin/dashboard/RevenueByTheater";
 import RevenueByMovie from "../admin/dashboard/RevenueByMovie";
 import RevenueByTime from "../admin/dashboard/RevenueByTime";
 import Event from "../customer/Event";
+import NotFound from "../../components/NotFound";
 
 function Routers() {
   return (
@@ -91,6 +92,7 @@ function Routers() {
             />
             <Route path="/profile/notification" element={<Notification />} />
           </Route>
+          <Route path="*" element={<NotFound />} />
         </Route>
         {/* Admin */}
         <Route path="/admin" element={<LayoutAdmin />}>
@@ -128,6 +130,7 @@ function Routers() {
           <Route path="/admin/edit-food" element={<EditDrinks />} />
           <Route path="/admin/list-food" element={<ListDrinks />} />
           <Route path="/admin/profile" element={<ProfoleAccount />} />
+          <Route path="*" element={<NotFound />} />
         </Route>
 
         {/* Management */}
@@ -135,6 +138,7 @@ function Routers() {
 
         {/* Emplpyee */}
         <Route />
+        {/* Trang Not Found */}
       </Routes>
     </div>
   );
