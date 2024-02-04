@@ -6,6 +6,8 @@ import {
   getAllCouponFailed,
   getAllCouponStart,
   getAllCouponSuccess,
+  showCustomerFailed,
+  showCustomerSuccess,
   useCouponFailed,
   useCouponStart,
   useCouponSuccess,
@@ -25,7 +27,13 @@ export const getAllCouponByUser = async (dispatch, token) => {
 };
 
 // create coupon
-export const createCoupon = async (coupon, dispatch, token, navigate) => {
+export const createCoupon = async (
+  coupon,
+  dispatch,
+  token,
+  navigate,
+  toast
+) => {
   debugger;
   dispatch(createCouponStart());
   try {
@@ -38,8 +46,20 @@ export const createCoupon = async (coupon, dispatch, token, navigate) => {
       }
     );
     console.log(res.data);
+    toast("😎 Thên mớ thành công!", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
     dispatch(createCouponSuccess(res.data));
-    navigate("/admin/list-customer");
+    setTimeout(() => {
+      navigate("/admin/list-customer");
+    }, 3000);
   } catch (e) {
     dispatch(createCouponFailed(e.response));
   }
@@ -47,7 +67,7 @@ export const createCoupon = async (coupon, dispatch, token, navigate) => {
 
 // use coupon
 
-// const useCouponUser = async (id, dispatch, token) => {
+// export const useCouponUser = async (id, dispatch, token) => {
 //   dispatch(useCouponStart());
 //   try {
 //     const res = await axios.patch(
@@ -61,3 +81,20 @@ export const createCoupon = async (coupon, dispatch, token, navigate) => {
 //     dispatch(useCouponFailed(e.response));
 //   }
 // };
+
+// show coupon by customer
+export const showCouponByCustomer = async (dispatch, token, id) => {
+  try {
+    const res = await axios.get(
+      `http://localhost:6789/api/booking/v1/coupon/show-customer/${id}`,
+      {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      }
+    );
+    dispatch(showCustomerSuccess(res.data));
+  } catch (e) {
+    dispatch(showCustomerFailed(e.response));
+  }
+};

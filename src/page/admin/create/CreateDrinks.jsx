@@ -77,8 +77,8 @@ function CreateDrinks() {
 
   return (
     <div>
+      <ToastContainer className="custom-toast-container" />
       <div className="w-[50%] h-screen mx-auto ">
-        <ToastContainer className="custom-toast-container" />
         <h1 className="text-center text-2xl font-mono font-semibold my-6 pb-3 border-b-2 border-gray-400">
           Tạo mới đồ ăn / đồ uống
         </h1>

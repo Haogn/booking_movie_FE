@@ -106,46 +106,41 @@ function HomeCustomer() {
 
   const handleGetTimeSlot = async (theater, time) => {
     if (token === null) {
-        navigate("/login");
+      navigate("/login");
     } else {
-        const payload = {
-            idMovie: selectedMovieId,
-            locationName: selectedLocation.locationName,
-            selectedDate,
-            theater,
-            time,
-        };
-        dispatch(getOrderInformations(payload));
+      const payload = {
+        idMovie: selectedMovieId,
+        locationName: selectedLocation.locationName,
+        selectedDate,
+        theater,
+        time,
+      };
+      dispatch(getOrderInformations(payload));
 
-        // Đầu tiên, gọi getRoom để lấy roomId
-        try {
-            const rooms = await getRoom(dispatch, selectedMovieId, time, selectedType, theater, selectedDate);
-            const roomId = rooms[0]?.id;
+      // Đầu tiên, gọi getRoom để lấy roomId
+      try {
+        const rooms = await getRoom(dispatch, selectedMovieId, time, selectedType, theater, selectedDate);
+        const roomId = rooms[0]?.id;
 
-            if (roomId) {
-                // Sử dụng Promise.all để đợi cả hai hàm hoàn thành
-                await Promise.all([
-                    getChair(dispatch, roomId, time), // Đảm bảo hàm này trả về Promise
-                    getMovieInform(dispatch, selectedMovieId) // Đảm bảo hàm này trả về Promise
-                ]);
+        if (roomId) {
+          // Sử dụng Promise.all để đợi cả hai hàm hoàn thành
+          await Promise.all([
+            getChair(dispatch, roomId, time), // Đảm bảo hàm này trả về Promise
+            getMovieInform(dispatch, selectedMovieId) // Đảm bảo hàm này trả về Promise
+          ]);
 
-                // Code sau khi cả hai Promise hoàn thành
-                navigate("/booking")
-            } else {
-                console.log("Không tìm thấy phòng");
-                // Xử lý khi không tìm thấy phòng
-            }
-        } catch (error) {
-            console.error("Lỗi khi lấy thông tin phòng hoặc ghế: ", error);
-            // Xử lý lỗi (ví dụ: thông báo lỗi cho người dùng, ...)
+          // Code sau khi cả hai Promise hoàn thành
+          navigate("/booking")
+        } else {
+          console.log("Không tìm thấy phòng");
+          // Xử lý khi không tìm thấy phòng
         }
+      } catch (error) {
+        console.error("Lỗi khi lấy thông tin phòng hoặc ghế: ", error);
+        // Xử lý lỗi (ví dụ: thông báo lỗi cho người dùng, ...)
+      }
     }
-<<<<<<< HEAD
-  };;
-=======
-};
-
->>>>>>> 5c3e2b69adf06cb9f9ace8c1d441afed3e5bab31
+  };
   useEffect(() => {
     getAllMovieSelect(dispatch);
   }, [dispatch]);

@@ -35,10 +35,8 @@ function CreateEvent() {
     if (!startDate) {
       newErrors.startDate = "Ngày bắt đầu không được để trống";
     } else {
-      const currentDate = new Date();
       const selectedStartDate = new Date(startDate);
-
-      if (selectedStartDate <= currentDate) {
+      if (selectedStartDate <= startDate) {
         newErrors.startDate = "Ngày bắt đầu phải sau thời điểm hiện tại";
       }
     }
@@ -84,6 +82,7 @@ function CreateEvent() {
   return (
     <div>
       <div className="w-[50%] h-screen mx-auto ">
+        <ToastContainer className="custom-toast-container" />
         <h1 className="text-center text-2xl font-mono font-semibold my-6 pb-3 border-b-2 border-gray-400">
           Tạo mới Sự kiện
         </h1>
@@ -159,14 +158,11 @@ function CreateEvent() {
             <label className="form-label font-mono font-semibold">
               Giảm giá: <span className="text-red-500">*</span>
             </label>
-            <select class="form-select" aria-label="Default select example"
+            <input type="number"
               onChange={(e) => setSalesPrice(e.target.value)}
-              value={salePrice}>
-              <option selected>Giảm giá</option>
-              <option value="5">5%</option>
-              <option value="10">10%</option>
-              <option value="15">15%</option>
-            </select>
+              className="form-control"
+              placeholder="%"
+              value={salePrice} />
             {errors.salePrice && (
               <span className="text-red-500">{errors.salePrice}</span>
             )}

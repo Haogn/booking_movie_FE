@@ -1,4 +1,4 @@
-import { createSlice,applyMiddleware  } from "@reduxjs/toolkit";
+import { createSlice, applyMiddleware } from "@reduxjs/toolkit";
 
 const orderSlice = createSlice({
   name: "order",
@@ -45,17 +45,17 @@ const orderSlice = createSlice({
       totalResponse: 0,
       totalError: null,
     },
-    createMenu:{
-      createMenuResponse:null,
-      createMenuError:null,
+    createMenu: {
+      createMenuResponse: null,
+      createMenuError: null,
     },
-    findOrder:{
-      orderResponse:null,
-      orderError:null,
+    findOrder: {
+      orderResponse: null,
+      orderError: null,
     },
-    findMenu:{
-      menuResponse:[],
-      menuError:null,
+    findMenu: {
+      menuResponse: [],
+      menuError: null,
     },
     // lịch sử mua của user
     getAllByUser: {
@@ -70,6 +70,11 @@ const orderSlice = createSlice({
     // danh thu theo năm
     countYear: {
       sumPrice: null,
+      error: null,
+    },
+    // selectAllAmin
+    selectAllAdmin: {
+      listOrder: null,
       error: null,
     },
   },
@@ -131,23 +136,23 @@ const orderSlice = createSlice({
     getTotalUserError: (state, action) => {
       state.getTotalUser.totalError = action.payload;
     },
-    createMenuSuccess: (state, action)=>{
+    createMenuSuccess: (state, action) => {
       state.createMenu.createMenuResponse = action.payload;
     },
-    createMenuError: (state, action)=>{
+    createMenuError: (state, action) => {
       state.createMenu.createMenuError = action.payload;
     },
-    findOrderSuccess: (state, action)=>{
-      state.findOrder.orderResponse= action.payload;
+    findOrderSuccess: (state, action) => {
+      state.findOrder.orderResponse = action.payload;
     },
-    findOrderFailed: (state, action)=>{
-      state.findOrder.orderError= action.payload;
+    findOrderFailed: (state, action) => {
+      state.findOrder.orderError = action.payload;
     },
-    findMenuSuccess: (state, action)=>{
-      state.findMenu.menuResponse= action.payload;
+    findMenuSuccess: (state, action) => {
+      state.findMenu.menuResponse = action.payload;
     },
-    findMenuFailed: (state, action)=>{
-      state.findMenu.menuError= action.payload;
+    findMenuFailed: (state, action) => {
+      state.findMenu.menuError = action.payload;
     },
     getAllByUserSuccess: (state, action) => {
       state.getAllByUser.listOrderResponse = action.payload;
@@ -168,6 +173,12 @@ const orderSlice = createSlice({
     },
     sumYearFailed: (state, action) => {
       state.countYear.error = action.payload;
+    },
+    selectAllAdminSuccess: (state, action) => {
+      state.selectAllAdmin.listOrder = action.payload;
+    },
+    selectAllAdminFailed: (state, action) => {
+      state.selectAllAdmin.error = action.payload;
     },
   },
 });
@@ -203,6 +214,8 @@ export const {
   countAllPriceFailed,
   sumYearSuccess,
   sumYearFailed,
+  selectAllAdminSuccess,
+  selectAllAdminFailed,
 } = orderSlice.actions;
 
 export default orderSlice.reducer;
