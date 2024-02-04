@@ -14,7 +14,7 @@ function ComingSoon() {
       ? storedToken.slice(1, -1)
       : storedToken;
   const listMovie = useSelector((state) => state.movies.movie.listMovieByStatus)
-  console.log(listMovie);
+  console.log(listMovie && listMovie.content);
   useEffect(() => {
     getAllMovieByStatusShowing(dispatch, page, search)
   }, [dispatch])
@@ -32,7 +32,7 @@ function ComingSoon() {
         </div>
         <div className="flex flex-wrap gap-3 px-3">
           {
-            listMovie.content.map((movie, index) => {
+            listMovie.content.map((movie, index) =>
               <div className="w-[240px] h-[450px]  mt-3" key={movie.id}>
                 <img
                   className="w-[200px] h-[260px] object-cover mx-auto"
@@ -51,13 +51,13 @@ function ComingSoon() {
                     <strong>Khởi chiếu:</strong> {movie.releaseDate}
                   </p>
                 </div>
-                <div className="foot_booking mt-4">
-                  <span></span>
+                <div className="mt-4">
+                  <b></b>
                   <p>
                   </p>
                 </div>
               </div>
-            })
+            )
           }
         </div>
         <nav

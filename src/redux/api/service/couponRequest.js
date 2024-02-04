@@ -44,9 +44,7 @@ export const createCoupon = async (coupon, dispatch, token, navigate) => {
 };
 
 
-
 // // use coupon
-
 // const useCouponUser = async (id, dispatch, token) => {
 //   dispatch(useCouponStart());
 //   try {

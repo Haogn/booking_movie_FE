@@ -36,7 +36,7 @@ function NowHowing() {
             </Link>
           </div>
           <div className="flex flex-wrap gap-3 px-3">
-            {listMovie.content.map((movie, index) => {
+            {listMovie.content.map((movie, index) =>
               <div className="w-[240px] h-[450px]  mt-3" key={movie.id}>
                 <img
                   className="w-[200px] h-[260px] object-cover mx-auto"
@@ -68,8 +68,8 @@ function NowHowing() {
                     </button>
                   </p>
                 </div>
-              </div>;
-            })}
+              </div>
+            )}
           </div>
           <nav
             className="flex justify-center"

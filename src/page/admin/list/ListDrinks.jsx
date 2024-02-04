@@ -55,7 +55,9 @@ function ListDrinks() {
         </h1>
         <nav className="navbar bg-body-tertiary mt-3">
           <div className="container-fluid">
-            <a className="navbar-brand"></a>
+            <Link to={"/admin/create-food"}>
+              <a className="btn btn-outline-dark font-mono">Thêm mới</a>
+            </Link>
             <form className="d-flex" role="search" onSubmit={hendleSubmit}>
               <input
                 onChange={(e) => setSearch(e.target.value)}
