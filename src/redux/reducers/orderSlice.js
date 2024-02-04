@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice,applyMiddleware  } from "@reduxjs/toolkit";
 
 const orderSlice = createSlice({
   name: "order",
@@ -44,6 +44,18 @@ const orderSlice = createSlice({
     getTotalUser: {
       totalResponse: 0,
       totalError: null,
+    },
+    createMenu:{
+      createMenuResponse:null,
+      createMenuError:null,
+    },
+    findOrder:{
+      orderResponse:null,
+      orderError:null,
+    },
+    findMenu:{
+      menuResponse:[],
+      menuError:null,
     },
     // lịch sử mua của user
     getAllByUser: {
@@ -119,6 +131,24 @@ const orderSlice = createSlice({
     getTotalUserError: (state, action) => {
       state.getTotalUser.totalError = action.payload;
     },
+    createMenuSuccess: (state, action)=>{
+      state.createMenu.createMenuResponse = action.payload;
+    },
+    createMenuError: (state, action)=>{
+      state.createMenu.createMenuError = action.payload;
+    },
+    findOrderSuccess: (state, action)=>{
+      state.findOrder.orderResponse= action.payload;
+    },
+    findOrderFailed: (state, action)=>{
+      state.findOrder.orderError= action.payload;
+    },
+    findMenuSuccess: (state, action)=>{
+      state.findMenu.menuResponse= action.payload;
+    },
+    findMenuFailed: (state, action)=>{
+      state.findMenu.menuError= action.payload;
+    },
     getAllByUserSuccess: (state, action) => {
       state.getAllByUser.listOrderResponse = action.payload;
     },
@@ -161,6 +191,12 @@ export const {
   getPaymentVNPayFailed,
   getTotalUserSuccess,
   getTotalUserError,
+  createMenuSuccess,
+  createMenuError,
+  findOrderSuccess,
+  findOrderFailed,
+  findMenuSuccess,
+  findMenuFailed,
   getAllByUserSuccess,
   getAllByUserError,
   countAllPriceSuccess,

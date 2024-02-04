@@ -1,10 +1,31 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./PaymentSuccess.css";
 import Barcode from "react-barcode";
-
+import { useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from "react-redux";
+import { findMenu, findOrder } from "../../redux/api/service/orderRequest";
 function PaymentSuccess() {
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const orderId = searchParams.get('orderId');
+
+  console.log(orderId);
+  const dispatch = useDispatch();
+
+
+  useEffect(() => {
+    findOrder(dispatch, orderId)
+  },[dispatch,orderId])
+
+  useEffect(() => {
+    findMenu(dispatch, orderId)
+  },[dispatch,orderId])
+
+const order = useSelector((state)=>state.order.findMenu.orderResponse)
+const menus = useSelector((state)=>state.order.findMenu.menuResponse)
+
   const barcodeData = "YourCode-987";
-  return (
+  return order && menus ? (
     <div className="flex">
       <div className="w-[30%] h-screen ">
         <img
@@ -14,6 +35,7 @@ function PaymentSuccess() {
         />
       </div>
       <div className="w-[40%] h-[900px] ml-4 mt-4 font-mono   ">
+
         <div className="ticket">
           <div className="ticket-top text-center text-2xl font-bold pt-3">
             <h1 className="pb-1"> Thanh toán thành công</h1>
@@ -23,7 +45,7 @@ function PaymentSuccess() {
               <div className="w-full h-[60%]">
                 <div className="mb-4 flex h-[120px]">
                   <div className="w-[50%] h-full">
-                    <h3 className="text-2xl font-bold">Mật Vụ Ong</h3>
+                    <h3 className="text-2xl font-bold">{order.movieName}</h3>
                     <p className="text-gray-500">02-02-2024</p>
                     <p className="text-gray-500">
                       18:30:00 ~ startTime + runningTime
@@ -41,7 +63,7 @@ function PaymentSuccess() {
 
                 <div className="flex">
                   <div className="w-[50%]">
-                    <h3 className="text-gray-500 text-xl ]">Rạp CGV</h3>
+                    <h3 className="text-gray-500 text-xl ">Rạp CGV</h3>
                     <p className="">CGV Bà Triệu</p>
                   </div>
                   <div className="w-[50%]">
@@ -95,7 +117,9 @@ function PaymentSuccess() {
         />
       </div>
     </div>
-  );
+  ):(<div>
+    Không có thông tin
+  </div>);
 }
 
 export default PaymentSuccess;
