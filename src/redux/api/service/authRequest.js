@@ -10,7 +10,6 @@ import {
   registerFailed,
   logoutStart,
   logoutSuccess,
-  logoutFailed,
   getMaillingFailed,
   getMaillingSuccess,
   retrievalFailed,
@@ -103,7 +102,7 @@ export const logout = (dispatch, navigate, toast) => {
 
   // Xóa thông tin người dùng khỏi localStorage
   localStorage.removeItem("username");
-  localStorage.removeItem("accessToken"); // Chú ý kiểm tra lại tên key này
+  localStorage.removeItem("acessToken"); // Chú ý kiểm tra lại tên key này
   localStorage.removeItem("role");
 
   // Gọi hành động thành công đăng xuất
@@ -118,7 +117,6 @@ export const logout = (dispatch, navigate, toast) => {
     progress: undefined,
     theme: "light",
   });
-  console.log("chuyển hướng");
   setTimeout(() => {
     // Chuyển hướng người dùng về trang chủ
     navigate("/");
@@ -148,6 +146,6 @@ export const retrievalPassword = async (dispatch, newPassForm, email) => {
     );
     dispatch(retrievalSuccess(res.data));
   } catch (error) {
-    dispatch(retrievalFailed(error.response));
+    dispatch(retrievalFailed(error.response.data));
   }
 };

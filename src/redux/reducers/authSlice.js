@@ -10,7 +10,7 @@ const authSlice = createSlice({
     },
     register: {
       isFetching: false,
-      error: false,
+      errorRegister: null,
       success: false,
       message: null,
     },
@@ -49,13 +49,13 @@ const authSlice = createSlice({
     },
     registerSuccess: (state, action) => {
       state.register.isFetching = false;
-      state.register.error = false;
+      state.register.errorRegister = null;
       state.register.success = true;
       state.register.message = action.payload;
     },
     registerFailed: (state, action) => {
       state.register.isFetching = false;
-      state.register.error = action.payload;
+      state.register.errorRegister = action.payload;
       state.register.success = false;
     },
     logoutStart: (state) => {
@@ -81,8 +81,12 @@ const authSlice = createSlice({
       state.retrieval.message = action.payload;
     },
     retrievalFailed: (state, action) => {
-      state.getMailling.errorRetrieval = action.payload;
+      state.retrieval.errorRetrieval = action.payload;
     },
+    resetGetMailling:(state) => {
+      state.getMailling.message = null;
+      state.getMailling.errorMail = null;
+    }
   },
 });
 
@@ -101,5 +105,6 @@ export const {
   getMaillingSuccess,
   retrievalFailed,
   retrievalSuccess,
+  resetGetMailling,
 } = authSlice.actions;
 export default authSlice.reducer;

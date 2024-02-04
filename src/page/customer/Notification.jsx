@@ -1,16 +1,30 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getNotifications, readNotifications } from "../../redux/api/service/customerRequest";
+
 
 function Notification() {
-  const [showFullContent, setShowFullContent] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedNotification, setSelectedNotification] = useState(null);
+  const storedToken = localStorage.getItem("accessToken");
+  const token = storedToken && storedToken.startsWith('"') && storedToken.endsWith('"') ? storedToken.slice(1, -1) : storedToken;
+  const dispatch = useDispatch();
+  const notifications = useSelector((state) => state.customer.getNotifications.listNotification);
 
-  const notificationContent = `Bạn nhận được 1 voucher giá trị 200.000 VNĐ. Có hiệu lực từ ngày ... đến ... . Chương trình áp lực cho tất cả các phim . Chào bạn !!!`;
+  useEffect(() => {
+    getNotifications(dispatch, token);
+  }, [dispatch, token]);
 
-  const handleReadMore = () => {
-    setShowFullContent(true);
+  const handleReadMore = (notification) => {
+    console.log(notification.id);
+    readNotifications(dispatch, notification.id);
+    setSelectedNotification(notification);
+    setShowModal(true);
   };
 
   const closeModal = () => {
-    setShowFullContent(false);
+    setShowModal(false);
+    setSelectedNotification(null); // Clear selected notification on close
   };
 
   return (
@@ -18,70 +32,61 @@ function Notification() {
       <div className="bg-gray-900 text-white text-3xl font-medium font-mono text-center py-1">
         Thông báo
       </div>
-      <div className="w-[80%] h-[500px] mx-auto mt-3 ">
-        <div className="flex">
-          <div className="font-mono font-medium mt-2 pl-2">
-            <p>
-              <span>
-                {!showFullContent ? (
-                  <i className="fa-solid fa-envelope"></i>
-                ) : (
-                  <i className="fa-solid fa-envelope-open"></i>
-                )}
-              </span>{" "}
-              {notificationContent}
-              {!showFullContent && (
+      {notifications && notifications.map((notification, index) => (
+        <div className="w-[80%] h-[50px] mx-auto mt-3 " key={index}>
+          <div className="flex">
+            <div className="font-mono font-medium mt-2 pl-2">
+              <p>
+                <span>
+                  {notification.read === false ? (
+                    <i className="fa-solid fa-envelope"></i>
+                  ) : (
+                    <i className="fa-solid fa-envelope-open"></i>
+                  )}
+                </span>{" "}
+                {notification.title}
                 <span
                   className="text-blue-500 cursor-pointer"
-                  data-bs-toggle="modal"
-                  data-bs-target="#notificationModal"
-                  onClick={handleReadMore}
+                  onClick={() => handleReadMore(notification)}
                 >
                   {" "}
                   Đọc thêm
                 </span>
-              )}
-              {/* Bootstrap Modal */}
-              <div
-                className="modal fade"
-                id="notificationModal"
-                tabIndex="-1"
-                aria-labelledby="notificationModalLabel"
-                aria-hidden="true"
-              >
-                <div className="modal-dialog">
-                  <div className="modal-content">
-                    <div className="modal-header">
-                      <h5 className="modal-title" id="notificationModalLabel">
-                        Thông báo
-                      </h5>
-                      <button
-                        type="button"
-                        className="btn-close"
-                        data-bs-dismiss="modal"
-                        aria-label="Close"
-                      ></button>
-                    </div>
-                    <div className="modal-body">
-                      <p>{notificationContent}</p>
-                    </div>
-                    <div className="modal-footer">
-                      <button
-                        type="button"
-                        className="btn btn-secondary text-gray-800"
-                        data-bs-dismiss="modal"
-                        onClick={closeModal}
-                      >
-                        Đóng
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </p>
+              </p>
+            </div>
           </div>
         </div>
-      </div>
+      ))}
+      {showModal && selectedNotification && (
+        <div className={`modal ${showModal ? "d-block" : ""}`} tabIndex="-1" style={{ backgroundColor: "rgba(0,0,0,0.5)" }}>
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title">
+                  {selectedNotification.title}
+                </h5>
+                <button
+                  type="button"
+                  className="btn-close"
+                  onClick={closeModal}
+                ></button>
+              </div>
+              <div className="modal-body">
+                {selectedNotification.message}
+              </div>
+              <div className="modal-footer">
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  onClick={closeModal}
+                >
+                  Đóng
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

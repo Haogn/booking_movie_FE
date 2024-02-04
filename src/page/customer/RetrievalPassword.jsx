@@ -3,12 +3,16 @@ import Carousel from "react-bootstrap/Carousel";
 import { retrievalPassword } from "../../redux/api/service/authRequest";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { validateBlank, validatePassword } from "../../components/validate/validation";
 
 function RetrievalPassword (){
   const [password,setPassword] = useState("");
   const [confirmPassword,setConfirmPassword] = useState("");
   const [verification,setVerification] = useState("");
   const dispatch = useDispatch();
+  const [errorPassword, setErrorPassword] = useState(null);
+  const [errorConfirmPassword, setErrorConfirmPassword] = useState(null);
+  const [errorVerification,setErrorVerification] = useState(null);
 
 
 const currentUrl = window.location.href;
@@ -17,10 +21,34 @@ const email = urlParams.get('email');
 
 const messageSuccess = useSelector((state)=>state.auth.retrieval.message) 
 const errorRetrieval = useSelector((state)=>state.auth.retrieval.errorRetrieval) 
+console.log(errorRetrieval);
 
 const handleRetrieval = (e)=>{
   e.preventDefault();
 
+  if (validateBlank(password)) {
+    setErrorPassword("Mật khẩu không được để trống.");
+    return;
+  }
+  if(!validatePassword(password)){
+    setErrorPassword("Mật khẩu phải có ít nhất 8 kí tự,1 chữ cái viết hoa, 1 chữ viết thường, 1 số .");
+    return;
+  }
+  setErrorPassword(null)
+  if (validateBlank(confirmPassword)) {
+    setErrorConfirmPassword("Mật khẩu không được để trống.");
+    return;
+  }
+  if(!validatePassword(confirmPassword)){
+    setErrorConfirmPassword("Mật khẩu phải có ít nhất 8 kí tự,1 chữ cái viết hoa, 1 chữ viết thường, 1 số .");
+    return;
+  }
+  setErrorConfirmPassword(null)
+  if(validateBlank(verification)){
+    setErrorVerification("Mã xác nhận không được để trống.")
+    return;
+  }
+  setErrorVerification(null);
   const newPassForm = {
     password: password,
     confirmPassword: confirmPassword,
@@ -30,7 +58,7 @@ const handleRetrieval = (e)=>{
 }
 
 return  messageSuccess?(   <div>
-  <div className="flex w-[70%] h-[500px] mx-auto mt-3 ">
+  <div className="flex w-[70%] h-[500px] m-[50px] mx-auto mt-3 ">
     <div className="w-[60%] h-full  pt-10">
       <h1 className="font-mono text-2xl font-bold text-center">
         {messageSuccess}
@@ -90,25 +118,36 @@ return  messageSuccess?(   <div>
                 Mật khẩu mới : <span className="text-red-400">*</span>
               </label>
               <input             
-                type="text"
+                type="password"
                 className="form-control"
                 id="password"
                 name="password"
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => setPassword(e.target.value)}               
               />
+              {errorPassword && (
+                  <span className="text-red-500 font-mono font-medium text-center">
+                    {errorPassword}
+                  </span>
+                )}
             </div>
             <div className="mb-3">
-              <label className="form-label font-mono font-semibold">
-                Nhập lại mật khẩu mới : <span className="text-red-400">*</span>
-              </label>
-              <input             
-                type="text"
-                className="form-control"
-                id="confirmPassword"
-                name="confirmPassword"
-                onChange={(e) => setConfirmPassword(e.target.value)}
-              />
-            </div>
+  <label className="form-label font-mono font-semibold">
+    Nhập lại mật khẩu mới : <span className="text-red-400">*</span>
+  </label>
+  <input             
+    type="password" // Thay đổi type thành password
+    className="form-control"
+    id="confirmPassword"
+    name="confirmPassword"
+    onChange={(e) => setConfirmPassword(e.target.value)}              
+  />
+  {errorConfirmPassword ? (
+    <span className="text-red-500 font-mono font-medium text-center">
+      {errorConfirmPassword}
+    </span>
+  ) : null}
+</div>
+
             <div className="mb-3">
               <label className="form-label font-mono font-semibold">
                 Mã xác nhận : <span className="text-red-400">*</span>
@@ -121,10 +160,15 @@ return  messageSuccess?(   <div>
                 onChange={(e) => setVerification(e.target.value)}
 
               />
+              {errorVerification ? (
+    <span className="text-red-500 font-mono font-medium text-center">
+      {errorVerification}
+    </span>
+  ) : null}
             </div>
-            {errorRetrieval && (
+            {errorRetrieval ? (
                   <span className="text-red-500">{errorRetrieval}</span>
-                )}
+                ):(<></>)}
           
             <div className="flex mx-auto w-full justify-center gap-5">
               <button className=" font-medium text-xl font-mono pl-3 py-2 w-[30%] text-center text-white bg-red-500 rounded-md">

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { changePassword } from "../../redux/api/service/customerRequest";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
   validateBlank,
@@ -8,6 +8,7 @@ import {
 } from "../../components/validate/validation";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { resetErrorChangePass } from "../../redux/reducers/customerSlice";
 
 function ChangePassword() {
   const [oldPassword, setOldPassword] = useState("");
@@ -25,11 +26,19 @@ function ChangePassword() {
       ? storedToken.slice(1, -1)
       : storedToken;
 
+  const errorChangePassword = useSelector(
+    (state) => state.customer.changePassword.error
+  );
+
+  console.log(errorChangePassword);
   const handleChangePassword = (e) => {
     e.preventDefault();
+    dispatch(resetErrorChangePass())
     if (validateBlank(oldPassword)) {
       return setValidateOld("Không được để trống");
     }
+
+    setValidateOld(null);
     if (validateBlank(newPassword)) {
       return setValidateNew("Không được để trống");
     }
@@ -38,6 +47,8 @@ function ChangePassword() {
         "Cần ít nhất 1 kí tự viết hoa,1 kí tự viết thường, 1 số"
       );
     }
+    setValidateNew(null);
+
     if (validateBlank(confirmPassword)) {
       return setValidateConfirm("Không được để trống");
     }
@@ -46,6 +57,7 @@ function ChangePassword() {
         "Cần ít nhất 1 kí tự viết hoa,1 kí tự viết thường, 1 số"
       );
     }
+    setValidateConfirm(null)
     const password = {
       oldPassword: oldPassword,
       newPassword: newPassword,
@@ -68,7 +80,7 @@ function ChangePassword() {
             </label>
             <input
               onChange={(e) => setOldPassword(e.target.value)}
-              type="text"
+              type="password"
               className="form-control"
               id="oldPassword"
             />
@@ -81,7 +93,7 @@ function ChangePassword() {
             </label>
             <input
               onChange={(e) => setNewPassword(e.target.value)}
-              type="text"
+              type="password"
               className="form-control"
               id="newPassword"
             />
@@ -94,14 +106,15 @@ function ChangePassword() {
             </label>
             <input
               onChange={(e) => setConfirmPassword(e.target.value)}
-              type="text"
+              type="password"
               className="form-control"
               id="confirmPassword"
             />
             {validateConfirm && (
               <span className="text-red-500">{validateConfirm}</span>
             )}
-          </div>
+            {errorChangePassword && (<span className="text-red-500">{errorChangePassword.data}</span>)}
+          </div>          
           <button
             type="submit"
             className="btn btn-dark font-mono mb-4 text-gray-950"

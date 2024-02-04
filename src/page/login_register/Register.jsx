@@ -3,10 +3,9 @@ import Carousel from "react-bootstrap/Carousel";
 import { registerUser } from "../../redux/api/service/authRequest";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { validateBlank } from "../../components/validate/validation";
+import { validateBlank, validateDateOfBirth, validateEmail, validatePassword, validatePhoneNumber } from "../../components/validate/validation";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { registerAccount } from "../../redux/api/service/authRequest";
 
 function Register() {
   const dispatch = useDispatch();
@@ -16,16 +15,15 @@ function Register() {
   const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
-  const [dateOfBirth, setDateOfBirth] = useState("");
+  const [dateOfBirth, setDateOfBirth] = useState();
 
   const [errorName, setErrorName] = useState(null);
   const [errorPassword, setErrorPassword] = useState(null);
   const [errorPhone, setErrorPhone] = useState(null);
   const [errorEmail, setErrorEmail] = useState(null);
   const [errorDateOfBirth, setErrorDateOfBirth] = useState(null);
-
-  const error = useSelector((state) => state.auth.register.error);
-  console.log("error", error);
+  const error = useSelector((state) => state.auth.register.errorRegister);
+ 
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -38,9 +36,16 @@ function Register() {
       setErrorEmail("Email không được để trống.");
       return;
     }
+    if(!validateEmail(email)){
+      setErrorEmail("Email không đúng định dạng.")
+    }
 
     if (validateBlank(phone)) {
       setErrorPhone("Số điện thoại không được để trống.");
+      return;
+    }
+    if(!validatePhoneNumber(phone)){
+      setErrorPhone("Số điện thoại không đúng định dạng.");
       return;
     }
 
@@ -48,11 +53,20 @@ function Register() {
       setErrorPassword("Mật khẩu không được để trống.");
       return;
     }
+    if(!validatePassword(password)){
+      setErrorPassword("Mật khẩu phải có ít nhất 8 kí tự,1 chữ cái viết hoa, 1 chữ viết thường, 1 số .");
+      return;
+    }
 
     if (validateBlank(dateOfBirth)) {
       setErrorDateOfBirth("Ngày sinh không được để trống.");
       return;
     }
+    if(!validateDateOfBirth(dateOfBirth)){
+      setErrorDateOfBirth("Ngày sinh không hợp lệ, tuổi của bạn phải lớn hơn 13.");
+      return;
+    }
+    
 
     const newUser = {
       username: username,
@@ -123,21 +137,23 @@ function Register() {
               </div>
 
               <div className="mb-3">
-                <label className="form-label font-mono font-semibold">
-                  Ngày sinh: <span className="text-red-400">*</span>
-                </label>
-                <input
-                  onChange={(e) => setDateOfBirth(e.target.value)}
-                  type="date"
-                  className="form-control"
-                  id="dateOfBirth"
-                />
-                {errorDateOfBirth && (
-                  <span className="text-red-500 font-mono font-medium text-center">
-                    {errorDateOfBirth}
-                  </span>
-                )}
-              </div>
+  <label className="form-label font-mono font-semibold">
+    Ngày sinh: <span className="text-red-400">*</span>
+  </label>
+  <input
+    onChange={(e) => setDateOfBirth(e.target.value)}
+    type="date"
+    className="form-control"
+    id="dateOfBirth"
+    min="1950-01-01" // Ngày tối thiểu có thể chọn là 1 tháng 1 năm 1950
+    max="2012-12-31" // Ngày tối đa có thể chọn là 31 tháng 12 năm 2012
+  />
+  {errorDateOfBirth && (
+    <span className="text-red-500 font-mono font-medium text-center">
+      {errorDateOfBirth}
+    </span>
+  )}
+</div>
               <div className="mb-3">
                 <label className="form-label font-mono font-semibold">
                   Mật khẩu: <span className="text-red-400">*</span>

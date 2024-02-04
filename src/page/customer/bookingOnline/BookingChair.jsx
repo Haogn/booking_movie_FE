@@ -1,16 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./BookingOnline.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getListChairSuccess } from "../../../redux/reducers/orderSlice";
 function BookingChair() {
   const dispatch = useDispatch();
   const [selectedChairs, setSelectedChairs] = useState([]);
+  const chairs = useSelector((state) => state.order.getListChair.chairs);
   const chairlist = useSelector(
     (state) => state.order.getChairStatus.listChair
   );
   const roomResponse = useSelector(
     (state) => state.order.getRoomMovie.roomResponse
   );
+
+  useEffect(() => {
+      setSelectedChairs(chairs);
+  }, [chairs]); 
   let room;
   if (roomResponse && roomResponse.length > 0) {
     room = roomResponse[0];
@@ -20,6 +25,9 @@ function BookingChair() {
   if (!room) {
     return <div>Loading room information...</div>;
   }
+ 
+
+
 
   const rows = room.numberOfSeatsInAColumn;
   const columns = room.numberOfSeatsInARow;
@@ -83,6 +91,8 @@ function BookingChair() {
     setSelectedChairs(updatedChairs);
     dispatch(getListChairSuccess(updatedChairs)); // Gửi action với danh sách ghế đã cập nhật
   };
+
+
 
   return (
     <div className="booking_chair font-mono">

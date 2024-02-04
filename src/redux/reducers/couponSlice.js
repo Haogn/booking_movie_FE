@@ -11,6 +11,7 @@ const couponSlice = createSlice({
       error: null,
       isFetching: false,
     },
+    
   },
   reducers: {
     // create
@@ -50,6 +51,7 @@ const couponSlice = createSlice({
       state.coupon.isFetching = false;
     },
   },
+ 
 });
 export const {
   createCouponStart,

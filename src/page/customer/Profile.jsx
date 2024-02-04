@@ -10,12 +10,12 @@ import "react-toastify/dist/ReactToastify.css";
 
 function Profile() {
   const storedToken = localStorage.getItem("acessToken");
-  const [avatarPreview, setAvatarPreview] = useState();
   const token =
     storedToken && storedToken.startsWith('"') && storedToken.endsWith('"')
       ? storedToken.slice(1, -1)
       : storedToken;
   const dispatch = useDispatch();
+  const [avatarPreview, setAvatarPreview] = useState();
   const [avatar, setAvatar] = useState("");
   const [phone, setPhone] = useState("");
   const [city, setCity] = useState("");
@@ -104,12 +104,12 @@ function Profile() {
             className="hidden"
             onChange={handleFileChange}
           />
-          {/* <button
+          <button
             type="submit"
             className="btn btn-dark font-mono mb-4 w-[116px] text-gray-800"
           >
             Thay đổi
-          </button> */}
+          </button>
         </div>
       </form>
 

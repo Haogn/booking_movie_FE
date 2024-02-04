@@ -2,11 +2,13 @@ import axios from "axios";
 import { changePasswordFailed, changePasswordSuccess, 
   getProfileFailed, getprofileSuccess,
    updateProfileFailed, updateProfileSuccess ,
-   changeAvatarSuccess,changeAvatarFailed} from "../../reducers/customerSlice";
+   changeAvatarSuccess,changeAvatarFailed, 
+   spenlingByYearSuccess, spenlingByYearFailed,
+    getNotificationsSuccess, getNotificationFailed, 
+    readNotification} from "../../reducers/customerSlice";
 
 
 export const profileUser = async (dispatch, token) => {
-  console.log("lấy user");
   try {
       const res = await axios.get("http://localhost:6789/api/booking/v1/users/profile", {
           headers: {
@@ -30,7 +32,7 @@ export const changePassword = async(newPass,dispatch,navigate,token,toast)=>{
         }
       });
   dispatch(changePasswordSuccess(res.data));
-  toast("😎 Cập nhật thành công! 🤞🏻", {
+  toast("😎 Dổi mật khẩu thành công! 🤞🏻", {
     position: "top-right",
     autoClose: 3000,
     hideProgressBar: false,
@@ -92,3 +94,47 @@ export const updateProfile = async(dispatch,token,updateForm,toast)=>{
   dispatch(updateProfileFailed(error.response));
 }
 }
+
+export const spenlingByYear = async(dispatch,token,year)=>{
+  try {
+    const res = await axios.get(
+      "http://localhost:6789/api/booking/v1/orders/spending",
+      {
+        headers: { Authorization: `Bearer ${token}` },
+        params: {
+          year: year,
+        },
+      }
+    );
+  dispatch(spenlingByYearSuccess(res.data));
+
+} catch (error) {
+  dispatch(spenlingByYearFailed(error.response));
+}
+}
+
+export const getNotifications = async(dispatch,token)=>{
+  try {
+    const res = await axios.get(
+      "http://localhost:6789/api/booking/v1/notifications",
+      {
+        headers: { Authorization: `Bearer ${token}` },  
+      }
+    );
+  dispatch(getNotificationsSuccess(res.data));
+
+} catch (error) {
+  dispatch(getNotificationFailed(error.response));
+}
+}
+
+
+export const readNotifications = async (dispatch,id) => {
+  try {
+    const res = await axios.get(
+      `http://localhost:6789/api/booking/v1/notifications/${id}`);
+    dispatch(readNotification()); 
+  } catch (err) {
+    console.log(err);
+  }
+};
