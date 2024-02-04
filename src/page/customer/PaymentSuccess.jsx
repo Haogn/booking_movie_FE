@@ -1,31 +1,52 @@
 import React, { useEffect } from "react";
 import "./PaymentSuccess.css";
 import Barcode from "react-barcode";
-import { useLocation } from 'react-router-dom';
+import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { findMenu, findOrder } from "../../redux/api/service/orderRequest";
+import { format } from "date-fns";
 function PaymentSuccess() {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
-  const orderId = searchParams.get('orderId');
+  const orderId = searchParams.get("orderId");
 
-  console.log(orderId);
+  console.log("orderId from URL:", orderId);
+
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    if (orderId) {
+      findOrder(dispatch, orderId);
+    }
+  }, [dispatch, orderId]);
 
   useEffect(() => {
-    findOrder(dispatch, orderId)
-  },[dispatch,orderId])
+    if (orderId) {
+      findMenu(dispatch, orderId);
+    }
+  }, [dispatch, orderId]);
 
-  useEffect(() => {
-    findMenu(dispatch, orderId)
-  },[dispatch,orderId])
+  const order = useSelector((state) => state.order.findOrder.orderResponse);
+  const menus = useSelector((state) => state.order.findMenu.menuResponse);
 
-const order = useSelector((state)=>state.order.findMenu.orderResponse)
-const menus = useSelector((state)=>state.order.findMenu.menuResponse)
+  console.log(order);
+  console.log(menus);
 
-  const barcodeData = "YourCode-987";
-  return order && menus ? (
+  let endTime;
+  let date;
+  if (order && order.bookingDate) {
+    const selectedDate = new Date(order.bookingDate);
+    if (!isNaN(selectedDate)) {
+      date = format(selectedDate, "dd-MM-yyyy");
+    } else {
+      console.error("selectedDate is not a valid date");
+    }
+  }
+
+  const hasData =
+    order && menus && Object.keys(order).length > 0 && menus.length > 0;
+
+  return hasData ? (
     <div className="flex">
       <div className="w-[30%] h-screen ">
         <img
@@ -35,7 +56,6 @@ const menus = useSelector((state)=>state.order.findMenu.menuResponse)
         />
       </div>
       <div className="w-[40%] h-[900px] ml-4 mt-4 font-mono   ">
-
         <div className="ticket">
           <div className="ticket-top text-center text-2xl font-bold pt-3">
             <h1 className="pb-1"> Thanh toán thành công</h1>
@@ -46,10 +66,8 @@ const menus = useSelector((state)=>state.order.findMenu.menuResponse)
                 <div className="mb-4 flex h-[120px]">
                   <div className="w-[50%] h-full">
                     <h3 className="text-2xl font-bold">{order.movieName}</h3>
-                    <p className="text-gray-500">02-02-2024</p>
-                    <p className="text-gray-500">
-                      18:30:00 ~ startTime + runningTime
-                    </p>
+                    <p className="text-gray-500">{date}</p>
+                    <p className="text-gray-500">{order.startTime} ~</p>
                   </div>
 
                   <div className="w-[50%] h-full">
@@ -64,28 +82,36 @@ const menus = useSelector((state)=>state.order.findMenu.menuResponse)
                 <div className="flex">
                   <div className="w-[50%]">
                     <h3 className="text-gray-500 text-xl ">Rạp CGV</h3>
-                    <p className="">CGV Bà Triệu</p>
+                    <p className="">{order.theaterName}</p>
                   </div>
                   <div className="w-[50%]">
                     <p className="text-gray-500 text-xl ">Phòng Chiếu</p>
-                    <p>Cinema 01</p>
+                    <p>{order.roomName}</p>
                   </div>
                 </div>
                 <div className="flex mt-1">
                   <div className="w-[50%] ">
                     <p className="text-gray-500 text-xl">Ghế</p>
-                    <p>H4, h5</p>
+                    {order.chairs.map((chair, index) => (
+                     
+                        <span key={index}>{chair} </span>
+                     
+                    ))}
                   </div>
                   <div className="w-[50%]">
                     <p className="text-gray-500 text-xl">Combo</p>
-                    <p>abc</p>
+                    {menus.map((menu, index) => (
+                      <p key={index}>
+                        <span>{menu.dishName}  </span> <span>x{menu.quantity}</span>
+                      </p>
+                    ))}                  
                   </div>
                 </div>
 
                 <div className="mt-2">
                   <p className="text-center">
                     <span className="text-xl text-gray-500">Tổng:</span>{" "}
-                    <strong className="text-red-600">120000 VNĐ</strong>
+                    <strong className="text-red-600">{order.total} VNĐ</strong>
                   </p>
                 </div>
 
@@ -94,7 +120,7 @@ const menus = useSelector((state)=>state.order.findMenu.menuResponse)
                   Vui lòng đưa mã này đến quầy vé CGV để nhận vé
                 </p>
                 <div className="w-[80%] h-[80px] mx-auto border-1 border-gray-900 mt-1">
-                  <Barcode value={barcodeData} />
+                  <Barcode value={order.code} />
                 </div>
               </div>
               <div className="w-full h-[40%]">
@@ -117,9 +143,27 @@ const menus = useSelector((state)=>state.order.findMenu.menuResponse)
         />
       </div>
     </div>
-  ):(<div>
-    Không có thông tin
-  </div>);
+  ) : (
+    <div>Không có thông tin</div>
+  );
 }
 
 export default PaymentSuccess;
+
+function addMinutesToTime(time, minutesToAdd) {
+  const timeParts = time.split(":");
+  const date = new Date();
+  date.setHours(parseInt(timeParts[0]));
+  date.setMinutes(parseInt(timeParts[1]));
+  date.setSeconds(parseInt(timeParts[2]));
+
+  // Cộng thêm phút
+  date.setMinutes(date.getMinutes() + minutesToAdd);
+
+  // Định dạng lại thời gian với HH:mm:ss
+  const hours = String(date.getHours()).padStart(2, "0");
+  const minutes = String(date.getMinutes()).padStart(2, "0");
+  const seconds = String(date.getSeconds()).padStart(2, "0");
+
+  return `${hours}:${minutes}:${seconds}`;
+}

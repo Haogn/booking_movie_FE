@@ -6,13 +6,13 @@ import {
   createCouponStart,
   createCouponSuccess,
   createCouponFailed,
-  useCouponStart,
-  useCouponSuccess,
-  useCouponFailed,
-} from "../../reducers/couponSlice";
+  checkCouponSuccess,
+  checkCouponFailed
+} from "../../reducers/couponSlice.js";
+
 
 // get all by user
-export const getAllCouponByUser = async (dispatch, token) => {
+export const  getAllCouponByUser = async (dispatch, token) => {
   dispatch(getAllCouponStart());
   try {
     const res = await axios.get("http://localhost:6789/api/booking/v1/coupon", {
@@ -47,19 +47,21 @@ export const createCoupon = async (
   }
 };
 
-// use coupon
 
-const useCouponUser = async (id, dispatch, token) => {
-  dispatch(useCouponStart());
-  try {
-    const res = await axios.patch(
-      `http://localhost:6789/api/booking/v1/coupon/${id}`,
-      {
-        headers: { Authorization: "Bearer " + token },
-      }
-    );
-    dispatch(useCouponSuccess(res.data));
-  } catch (e) {
-    dispatch(useCouponFailed(e.response));
-  }
-};
+
+// // use coupon
+
+// const useCouponUser = async (id, dispatch, token) => {
+//   dispatch(useCouponStart());
+//   try {
+//     const res = await axios.patch(
+//       `http://localhost:6789/api/booking/v1/coupon/${id}`,
+//       {
+//         headers: { Authorization: "Bearer " + token },
+//       }
+//     );
+//     dispatch(useCouponSuccess(res.data));
+//   } catch (e) {
+//     dispatch(useCouponFailed(e.response));
+//   }
+// };

@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export const validateBlank = (text) => {
   return text + "".trim() === "";
 };
@@ -11,24 +13,21 @@ export const validateNumber = (text) => {
 
 // register
 
-export const validateExistsEmail = (users, email) => {
-  for (let i = 0; i < users.length; i++) {
-    if (users[i].email.replaceAll(" ", "") === email.replaceAll(" ", "")) {
-      return true;
-    }
-  }
+export const validateEmail = (email) => {
+  // Biểu thức chính quy để kiểm tra email hợp lệ
+  const regex = /^[A-Za-z0-9+_.-]+@(.+)$/;
 
-  return false;
+  // Kiểm tra địa chỉ email có hợp lệ theo biểu thức chính quy
+  return regex.test(email);
 };
 
-export const validateExistsPhone = (users, phone) => {
-  for (let i = 0; i < users.length; i++) {
-    if (users[i].phone.replaceAll(" ", "") === phone.replaceAll(" ", "")) {
-      return true;
-    }
-  }
-  // Dòng này bị thiếu
-  return false;
+
+export const validatePhoneNumber = (phoneNumber) => {
+  // Biểu thức chính quy để kiểm tra số điện thoại hợp lệ
+  const regex = /^(0|84)(2(0[3-9]|1[0-6|8|9]|2[0-2|5-9]|3[2-9]|4[0-9]|5[1|2|4-9]|6[0-3|9]|7[0-7]|8[0-9]|9[0-4|6|7|9])|3[2-9]|5[5|6|8|9]|7[0|6-9]|8[0-6|8|9]|9[0-4|6-9])([0-9]{7})$/;
+
+  // Kiểm tra số điện thoại có hợp lệ theo biểu thức chính quy
+  return regex.test(phoneNumber);
 };
 
 export const validatePassword = (password) => {
@@ -62,131 +61,29 @@ export const validatePassword = (password) => {
   }
 
   return hasUpperCase && hasLowerCase && hasNumber;
-}; // Dòng này thiếu
+}; 
 
-export const validateExistsEmailUpdate = (users, newEmail, oldEmail) => {
-  for (let i = 0; i < users.length; i++) {
-    if (
-      users[i].email.replaceAll(" ", "") === newEmail.replaceAll(" ", "") &&
-      newEmail.replaceAll(" ", "") !== oldEmail.replaceAll(" ", "")
-    ) {
-      return true;
-    }
+
+
+// validate dateOfBirth
+
+export const validateDateOfBirth = (dateOfBirth) => {
+  const dateFormat = 'YYYY-MM-DD'; // Định dạng phù hợp với input type="date"
+
+  // Kiểm tra định dạng ngày tháng
+  if (!moment(dateOfBirth, dateFormat, true).isValid()) {
+    return 'Ngày tháng năm sinh không đúng định dạng (YYYY-MM-DD).'; // Cập nhật thông báo lỗi phù hợp với định dạng mới
   }
-  return false;
-};
 
-export const validateExistsPhoneUpdate = (users, newPhone, oldPhone) => {
-  for (let i = 0; i < users.length; i++) {
-    if (
-      users[i].phone.replaceAll(" ", "") === newPhone.replaceAll(" ", "") &&
-      newPhone.replaceAll(" ", "") !== oldPhone.replaceAll(" ", "")
-    ) {
-      return true;
-    }
+  // Kiểm tra ngày trong tương lai
+  if (moment(dateOfBirth, dateFormat).isAfter(moment())) {
+    return 'Ngày tháng năm sinh không thể là ngày trong tương lai.';
   }
-  return false;
-};
-
-// validate ship
-
-export const validateExistsShipName = (ships, shipName) => {
-  for (let i = 0; i < ships.length; i++) {
-    if (
-      ships[i].shipName.toLowerCase().replaceAll(" ", "") ===
-      shipName.toLowerCase().replaceAll(" ", "")
-    ) {
-      return true;
-    }
+  
+  // Kiểm tra tuổi (ví dụ: ít nhất 13 tuổi)
+  if (moment().diff(moment(dateOfBirth, dateFormat), 'years') < 13) {
+    return 'Bạn cần phải từ 13 tuổi trở lên.';
   }
-  return false;
-};
-
-export const validateExistsShipNameUpdate = (
-  ships,
-  newShipName,
-  oldShipName
-) => {
-  for (let i = 0; i < ships.length; i++) {
-    if (
-      ships[i].shipName.toLowerCase().replaceAll(" ", "") ===
-        newShipName.toLowerCase().replaceAll(" ", "") &&
-      newShipName.toLowerCase().replaceAll(" ", "") !==
-        oldShipName.toLowerCase().replaceAll(" ", "")
-    ) {
-      return true;
-    }
-  }
-  return false;
-};
-
-// validate cateogory
-
-export const validateExistsCategoryName = (categories, categoryName) => {
-  for (let i = 0; i < categories.length; i++) {
-    if (
-      categories[i].categoryName.toLowerCase().replaceAll(" ", "") ===
-      categoryName.toLowerCase().replaceAll(" ", "")
-    ) {
-      return true;
-    }
-  }
-  return false;
-};
-
-export const validateExistsCategoryNameUpdate = (
-  categories,
-  newCategoryName,
-  oldCategoryName
-) => {
-  for (let i = 0; i < categories.length; i++) {
-    if (
-      categories[i].categoryName.toLowerCase().replaceAll(" ", "") ===
-        newCategoryName.toLowerCase().replaceAll(" ", "") &&
-      newCategoryName.toLowerCase().replaceAll(" ", "") !==
-        oldCategoryName.toLowerCase().replaceAll(" ", "")
-    ) {
-      return true;
-    }
-  }
-  return false;
-};
-
-// validate product
-
-export const validateCreatedAndDueDate = (created, dueDate) => {
-  if (
-    getYear(created) === getYear(dueDate) &&
-    getMonth(created) === getMonth(dueDate) &&
-    getDay(created) === getDay(dueDate)
-  ) {
-    return true;
-  }
-  if (getYear(created) < getYear(dueDate)) {
-    return false;
-  }
-  if (getYear(created) === getYear(dueDate)) {
-    if (getMonth(created) <= getMonth(dueDate)) {
-      if (getDay(created) <= getDay(dueDate)) {
-        return false;
-      }
-    }
-  }
-  return true;
-};
-
-// json dd/MM/yyyy
-const getDay = (date) => {
-  let arr = date.split("/");
-  return arr[0];
-};
-
-const getMonth = (date) => {
-  let arr = date.split("/");
-  return arr[1];
-};
-
-const getYear = (date) => {
-  let arr = date.split("/");
-  return arr[2];
+  
+  return true; // Trả về true nếu tất cả các điều kiện đều hợp lệ
 };

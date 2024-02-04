@@ -62,6 +62,20 @@ const orderSlice = createSlice({
       listOrderResponse: null,
       listOrderError: null,
     },
+    pointApply:{
+      point: 0,
+    },
+    couponApply:{
+      coupon: 0,
+    },
+    getCouponOfUser:{
+      listCoupon: null,
+      errorCoupon: null,
+    },
+    checkCoupon:{
+      couponResponse:null,
+      couponError:null,
+    }
   },
   reducers: {
     createOrderSuccess: (state, action) => {
@@ -145,6 +159,24 @@ const orderSlice = createSlice({
     getAllByUserError: (state, action) => {
       state.getAllByUser.listOrderError = action.payload;
     },
+    pointApply:(state, action) => {
+      state.pointApply.point = action.payload;
+    },
+    couponApply:(state, action) => {
+      state.couponApply.coupon = action.payload;
+    },
+    getCouponOfUserSuccess:(state, action) => {
+      state.getCouponOfUser.listCoupon = action.payload;
+    },
+    getCouponOfUserFailed:(state, action) => {
+      state.getCouponOfUser.errorCoupon = action.payload;
+    },
+    checkCouponSuccess: (state, action) => {
+      state.checkCoupon.couponResponse=action.payload;
+    },
+    checkCouponFailed: (state, action) => {
+      state.checkCoupon.couponError=action.payload;
+    }
   },
 });
 export const {
@@ -175,6 +207,12 @@ export const {
   findMenuFailed,
   getAllByUserSuccess,
   getAllByUserError,
+  pointApply,
+  couponApply,
+  getCouponOfUserSuccess,
+  getCouponOfUserFailed,
+  checkCouponSuccess,
+  checkCouponFailed,
 } = orderSlice.actions;
 
 export default orderSlice.reducer;

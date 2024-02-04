@@ -9,6 +9,7 @@ const couponSlice = createSlice({
       error: null,
       isFetching: false,
     },
+    
   },
   reducers: {
     // get all by user
@@ -52,6 +53,7 @@ const couponSlice = createSlice({
     state.coupon.isFetching = false;
     state.coupon.error = action.payload;
   },
+ 
 });
 export const {
   getAllCouponStart,
