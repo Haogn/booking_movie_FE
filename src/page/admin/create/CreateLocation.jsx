@@ -5,6 +5,7 @@ import { createLocation } from "../../../redux/api/service/locationRequest";
 import { validateBlank } from "../../../components/validate/validation";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import "../../../components/Loading.css";
 
 function CreateLocation() {
   const dispatch = useDispatch();
@@ -43,6 +44,25 @@ function CreateLocation() {
           Tạo mới Vị trí
         </h1>
 
+        {/* loadingg */}
+        <div class="loader">
+          <div class="circle">
+            <div class="dot"></div>
+            <div class="outline"></div>
+          </div>
+          <div class="circle">
+            <div class="dot"></div>
+            <div class="outline"></div>
+          </div>
+          <div class="circle">
+            <div class="dot"></div>
+            <div class="outline"></div>
+          </div>
+          <div class="circle">
+            <div class="dot"></div>
+            <div class="outline"></div>
+          </div>
+        </div>
         <form action="post" onSubmit={handleCreateLocation}>
           <div className="mb-3">
             <label className="form-label font-mono font-semibold">

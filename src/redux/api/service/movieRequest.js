@@ -96,7 +96,6 @@ export const getAllMovieByStatusShowing = async (dispatch, page, search) => {
 export const getAllMovieByStatusUpComing = async (dispatch, page, search) => {
   dispatch(getALlMovieByStatusStart());
   try {
-    debugger;
     const res = await axios.get(
       "http://localhost:6789/api/booking/v1/movie/status",
       {

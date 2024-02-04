@@ -30,36 +30,24 @@ import {
   checkCouponFailed,
 } from "../../reducers/orderSlice";
 
-export const bookingMovie = async(dispatch,token,orderForm)=>{
-    try {
-        const res = await axios.post("http://localhost:6789/api/booking/v1/orders",orderForm ,{
-            headers: {
-              Authorization: `Bearer ${token}`
-            }
-          });
-          console.log(res.data);
-      dispatch(createOrderSuccess(res.data)); 
-      return res.data; 
-    } catch (error) {
-      dispatch(createOrderError(error.response));
-    }
-}
-
-export const startBuy = async(dispatch, idMovie, selectDate, roomType, locationName) => {
-    try {
-        const res = await axios.get(`http://localhost:6789/api/booking/v1/view/${idMovie}`, {
-            params: {
-                selectDate: selectDate,
-                roomType: roomType,
-                locationName: locationName
-            }
-        });
-        dispatch(startBuySuccess(res.data));
-    } catch (error) {
-        dispatch(startBuyFailed(error.response));
-    }
+export const bookingMovie = async (dispatch, token, orderForm) => {
+  try {
+    const res = await axios.post(
+      "http://localhost:6789/api/booking/v1/orders",
+      orderForm,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    console.log(res.data);
+    dispatch(createOrderSuccess(res.data));
+    return res.data;
+  } catch (error) {
+    dispatch(createOrderError(error.response));
+  }
 };
-
 
 export const getLocation = async (dispatch) => {
   try {
@@ -135,6 +123,31 @@ export const getChair = async (dispatch, idRoom, startTime) => {
   }
 };
 
+
+export const startBuy = async (
+  dispatch,
+  idMovie,
+  selectDate,
+  roomType,
+  locationName
+) => {
+  try {
+    const res = await axios.get(
+      `http://localhost:6789/api/booking/v1/view/${idMovie}`,
+      {
+        params: {
+          selectDate: selectDate,
+          roomType: roomType,
+          locationName: locationName,
+        },
+      }
+    );
+    dispatch(startBuySuccess(res.data));
+  } catch (error) {
+    dispatch(startBuyFailed(error.response));
+  }
+};
+
 export const createMenuForOrder = async (dispatch, listMenu, orderId) => {
   try {
     const res = await axios.post(
@@ -153,14 +166,15 @@ export const createMenuForOrder = async (dispatch, listMenu, orderId) => {
 };
 
 
-export const paymentVNPay = async (dispatch, total,orderCode) => {
+
+export const paymentVNPay = async (dispatch, total, orderCode) => {
   try {
     const res = await axios.get(
       `http://localhost:6789/api/booking/v1/payments/createVNPay`,
       {
         params: {
           total: total,
-          orderCode:orderCode,
+          orderCode: orderCode,
         },
       }
     );

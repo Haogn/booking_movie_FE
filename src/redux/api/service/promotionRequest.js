@@ -108,7 +108,6 @@ export const editEvent = async (
 ) => {
   dispatch(editEventStart());
   try {
-    debugger;
     const res = await axios.put(
       "http://localhost:6789/api/booking/v1/promotion",
       eventEdit,

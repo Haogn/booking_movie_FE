@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   changeStatus,
   getAllCustomer,
 } from "../../../redux/api/service/userRequest";
 
 function ListCustomer() {
+  const navigate = useNavigate();
   const storedToken = localStorage.getItem("acessToken");
   const token =
     storedToken && storedToken.startsWith('"') && storedToken.endsWith('"')
@@ -42,6 +43,9 @@ function ListCustomer() {
     changeStatus(dispatch, token, id);
   };
 
+  const handleCoupon = (id) => {
+    navigate(`/admin/create-coupons/${id}`)
+  }
   return listCustomer ? (
     <div>
       <div className="w-full h-full px-2 ">
@@ -80,6 +84,7 @@ function ListCustomer() {
                 <th scope="col">Ngày sinh</th>
                 <th scope="col">Thành viên</th>
                 <th scope="col">Trạng thái</th>
+                <th scope="col">Coupon</th>
                 <th scope="col" colSpan={2}>
                   Action
                 </th>
@@ -95,19 +100,22 @@ function ListCustomer() {
                   <td>{customer.dateOfBirth}</td>
                   <td>{customer.level}</td>
                   <td>{customer.status ? "Hoạt Động" : "Đã Khóa"}</td>
-                  <td colSpan={2}>
+                  <td>
                     <button
+                      onClick={() => handleCoupon(customer.id)}
                       type="button"
                       className="btn btn-success text-green-600 mr-2"
                     >
-                      <i className="fa-solid fa-pen-to-square "></i>
+                      <i className="fas fa-calendar-plus"></i>
                     </button>
+                  </td>
+                  <td colSpan={2}>
                     <button
                       onClick={() => handleChangeStatus(customer.id)}
                       type="button"
-                      className=" btn btn-danger text-red-600"
+                      className={customer.status ? "btn btn-info text-sky-400" : " btn btn-danger text-red-600"}
                     >
-                      <i className="fa-regular fa-trash-can"></i>
+                      {customer.status ? <i className="fas fa-lock-open"></i> : <i className="fas fa-unlock"></i>}
                     </button>
                   </td>
                 </tr>
@@ -137,27 +145,27 @@ function ListCustomer() {
 
             {listCustomer.totalPages <= 2
               ? Array.from({ length: listCustomer.totalPages }, (_, index) => (
-                  <li className="page-item" key={index}>
-                    <p
-                      className="page-link text-gray-700"
-                      href="#"
-                      onClick={() => handlePage(index + 1)}
-                    >
-                      {index + 1}
-                    </p>
-                  </li>
-                ))
+                <li className="page-item" key={index}>
+                  <p
+                    className="page-link text-gray-700"
+                    href="#"
+                    onClick={() => handlePage(index + 1)}
+                  >
+                    {index + 1}
+                  </p>
+                </li>
+              ))
               : Array.from({ length: 2 }, (_, index) => (
-                  <li className="page-item" key={index}>
-                    <p
-                      className="page-link text-gray-700"
-                      href="#"
-                      onClick={() => handlePage(index + 1)}
-                    >
-                      {index + 1}
-                    </p>
-                  </li>
-                ))}
+                <li className="page-item" key={index}>
+                  <p
+                    className="page-link text-gray-700"
+                    href="#"
+                    onClick={() => handlePage(index + 1)}
+                  >
+                    {index + 1}
+                  </p>
+                </li>
+              ))}
 
             {listCustomer.last ? (
               <></>
@@ -176,7 +184,7 @@ function ListCustomer() {
           </ul>
         </nav>
       </div>
-    </div>
+    </div >
   ) : (
     <></>
   );

@@ -48,7 +48,6 @@ function EditDrinks() {
   };
 
   const hendleUpdate = (e) => {
-    debugger
     e.preventDefault();
     setErrName(null);
     setErrCategoryId(null);

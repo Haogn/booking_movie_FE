@@ -165,7 +165,7 @@ function HomeCustomer() {
 
   return listMovie ? (
     <div>
-      <div className="w-screen h-[1000px]">
+      <div className="w-screen h-full">
         <div className="content-top">
           <ul>
             <li>
@@ -261,11 +261,10 @@ function HomeCustomer() {
                   {days.map((day, index) => (
                     <div
                       key={index}
-                      className={`cursor-pointer w-[74px] h-[45px] p-1 rounded-[3px] font-mono flex items-center justify-around day-item ${
-                        selectedTab.getTime() === day.date.getTime()
-                          ? "text-gray-950 border border-black rounded-[3px] bg-red-100 py-2"
-                          : ""
-                      }`}
+                      className={`cursor-pointer w-[74px] h-[45px] p-1 rounded-[3px] font-mono flex items-center justify-around day-item ${selectedTab.getTime() === day.date.getTime()
+                        ? "text-gray-950 border border-black rounded-[3px] bg-red-100 py-2"
+                        : ""
+                        }`}
                       onClick={() => handleTabDay(day.date)}
                     >
                       <div className="flex flex-col">
@@ -284,12 +283,11 @@ function HomeCustomer() {
                       listLocation.map((location, index) => (
                         <p
                           key={index}
-                          className={`cursor-pointer h-[40px] w-[110px] font-mono text-center rounded-[5px] py-[7px] ${
-                            selectedLocation &&
+                          className={`cursor-pointer h-[40px] w-[110px] font-mono text-center rounded-[5px] py-[7px] ${selectedLocation &&
                             selectedLocation.id === location.id
-                              ? "bg-gray-950 text-white border border-black rounded-[3px] py-2"
-                              : ""
-                          }`}
+                            ? "bg-gray-950 text-white border border-black rounded-[3px] py-2"
+                            : ""
+                            }`}
                           onClick={() => handleTabLocation(location)}
                         >
                           {location.locationName}
@@ -304,22 +302,20 @@ function HomeCustomer() {
                 <div className="modal-body w-[100%] h-[70px] p-[20px] bg-slate-300 flex gap-2 days border-b-2 border-black mx-auto">
                   <div className="flex gap-3">
                     <p
-                      className={`cursor-pointer h-[35px] w-[150px] font-mono text-center rounded-[5px] py-[5px] ${
-                        selectedType === "TWO_D"
-                          ? "bg-gray-950 text-white border border-black rounded-[3px] py-2"
-                          : ""
-                      }`}
+                      className={`cursor-pointer h-[35px] w-[150px] font-mono text-center rounded-[5px] py-[5px] ${selectedType === "TWO_D"
+                        ? "bg-gray-950 text-white border border-black rounded-[3px] py-2"
+                        : ""
+                        }`}
                       onClick={() => handleTabType("TWO_D")}
                     >
                       2D Phụ Đề Việt
                     </p>
 
                     <p
-                      className={`cursor-pointer h-[35px] w-[150px] font-mono text-center rounded-[5px] py-[5px] ${
-                        selectedType === "THREE_D"
-                          ? "bg-gray-950 text-white border border-black rounded-[3px] py-2"
-                          : ""
-                      }`}
+                      className={`cursor-pointer h-[35px] w-[150px] font-mono text-center rounded-[5px] py-[5px] ${selectedType === "THREE_D"
+                        ? "bg-gray-950 text-white border border-black rounded-[3px] py-2"
+                        : ""
+                        }`}
                       onClick={() => handleTabType("THREE_D")}
                     >
                       3D Phụ Đề Việt
@@ -327,8 +323,9 @@ function HomeCustomer() {
                   </div>
                 </div>
                 {/* theater and time */}
-                {timeSlosts && Object.keys(timeSlosts).length > 0 ?(
-                        
+
+    {timeSlosts && Object.keys(timeSlosts).length > 0 ? (
+
                   Object.keys(timeSlosts).map((theater) => (
                     <div
                       className="modal-body w-[100%] h-[120px] p-[20px] bg-slate-300 days border-b-2 border-black mx-auto"
@@ -345,7 +342,7 @@ function HomeCustomer() {
                             key={time}
                             type="button"
                             data-bs-dismiss="modal"
-                           
+
                           >
                             {time}
                           </p>
