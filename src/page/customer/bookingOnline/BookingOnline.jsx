@@ -290,7 +290,7 @@ if (currentPath === "/booking/dish") {
           </div>
         </div>
       ) : (
-        <div>Không có dữ liệu</div>
+        <div>Không có dữ liệu,vui lòng thao tác lại</div>
       )}
     </>
   );

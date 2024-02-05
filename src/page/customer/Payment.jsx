@@ -198,7 +198,9 @@ function Payment() {
                             {userProfile.point} <span>điểm</span>
                           </strong>
                         ) : (
-                          <></>
+                          <strong>
+                            <span>0 </span><span>điểm</span>
+                          </strong>
                         )}
                       </span>
                     </label>

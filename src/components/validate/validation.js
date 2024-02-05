@@ -68,14 +68,14 @@ export const validatePassword = (password) => {
 // validate dateOfBirth
 
 export const validateDateOfBirth = (dateOfBirth) => {
-  const dateFormat = 'YYYY-MM-DD'; // Định dạng phù hợp với input type="date"
+  const dateFormat = 'YYYY-MM-DD'; 
 
   // Kiểm tra định dạng ngày tháng
   if (!moment(dateOfBirth, dateFormat, true).isValid()) {
-    return 'Ngày tháng năm sinh không đúng định dạng (YYYY-MM-DD).'; // Cập nhật thông báo lỗi phù hợp với định dạng mới
+    return 'Ngày tháng năm sinh không đúng định dạng (YYYY-MM-DD).'; 
   }
 
-  // Kiểm tra ngày trong tương lai
+
   if (moment(dateOfBirth, dateFormat).isAfter(moment())) {
     return 'Ngày tháng năm sinh không thể là ngày trong tương lai.';
   }
@@ -85,5 +85,5 @@ export const validateDateOfBirth = (dateOfBirth) => {
     return 'Bạn cần phải từ 13 tuổi trở lên.';
   }
   
-  return true; // Trả về true nếu tất cả các điều kiện đều hợp lệ
+  return true; 
 };

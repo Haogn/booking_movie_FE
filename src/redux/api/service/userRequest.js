@@ -74,7 +74,7 @@ export const getAllMananger = async (dispatch, token, search, page) => {
 
 export const changeStatus = async (dispatch, token, id, toast) => {
   try {
-    const res = await axios.put(
+    const res = await axios.get(
       `http://localhost:6789/api/booking/v1/users/changeStatus/${id}`,
       {
         headers: {
@@ -84,7 +84,7 @@ export const changeStatus = async (dispatch, token, id, toast) => {
     );
     console.log("Trạng thái" + res.data);
     dispatch(changeStatusSuccess(res.data));
-    toast("😎 Thay đổi mật khẩu thành công!", {
+    toast("😎 Thay đổi trạng thái thành công!", {
       position: "top-right",
       autoClose: 3000,
       hideProgressBar: false,

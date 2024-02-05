@@ -30,6 +30,7 @@ function ListCustomer() {
   };
 
   const handlePage = (newPage) => {
+    console.log(page);
     if (newPage === listCustomer.totalPages) {
       const remainingSize = listCustomer.totalElements % listCustomer.size;
       setSize(remainingSize === 0 ? listCustomer.size : remainingSize);
@@ -41,6 +42,7 @@ function ListCustomer() {
 
   const handleChangeStatus = (id) => {
     changeStatus(dispatch, token, id);
+    getAllCustomer(dispatch, token, search, page, size);
   };
 
   const handleCoupon = (id) => {

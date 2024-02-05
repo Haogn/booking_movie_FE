@@ -116,7 +116,6 @@ export const getChair = async (dispatch, idRoom, startTime) => {
         },
       }
     );
-    localStorage.setItem("chairs", JSON.stringify(res.data));
     dispatch(getChairStatusSuccess(res.data));
   } catch (error) {
     dispatch(getChairStatusFailed(error.response));
