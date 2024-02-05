@@ -152,12 +152,8 @@ function HomeCustomer() {
             // Xử lý lỗi (ví dụ: thông báo lỗi cho người dùng, ...)
         }
     }
-<<<<<<< HEAD
-  };;
-=======
 };
 
->>>>>>> 5c3e2b69adf06cb9f9ace8c1d441afed3e5bab31
   useEffect(() => {
     getAllMovieSelect(dispatch);
   }, [dispatch]);
@@ -400,19 +396,17 @@ function HomeCustomer() {
                         </button>{" "}
                         {/* </Link> */}
                       </div>
-                      {item.movieStatus == "UPCOMING" &&
-                        <div className="movie-button">
-                          <button
-                            variant="outline-secondary"
-                            className="text-center font-medium font-mono text-white "
-                            data-bs-target="#exampleModalToggle"
-                            data-bs-toggle="modal"
-                            onClick={() => handleViewTimeSlot(item.id)}
-                          >
-                            Mua vé <i className="fa-solid fa-ticket"></i>
-                          </button>{" "}
-                        </div>
-                      }
+                      <div className="movie-button">
+                        <button
+                          variant="outline-secondary"
+                          className="text-center font-medium font-mono text-white "
+                          data-bs-target="#exampleModalToggle"
+                          data-bs-toggle="modal"
+                          onClick={() => handleViewTimeSlot(item.id)}
+                        >
+                          Mua vé <i className="fa-solid fa-ticket"></i>
+                        </button>{" "}
+                      </div>
                     </div>
                   </div>
                 </div>

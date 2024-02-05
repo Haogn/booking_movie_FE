@@ -99,7 +99,7 @@ function BookingChair() {
       <div className="head_chair">
         <h1>Người / Ghế</h1>
       </div>
-      <div className="screen">
+      <div className="">
         <h1>SCREEN</h1>
       </div>
       <div className="w-[400px] h-[400px]  mx-auto">
