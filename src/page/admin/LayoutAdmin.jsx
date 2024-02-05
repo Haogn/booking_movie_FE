@@ -57,14 +57,17 @@ function LayoutAdmin() {
             </Link>
             {/* thống kê */}
             <div className="dropdown mt-8">
-              <button
-                className="text-xl font-mono font-bold dropdown-toggle "
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                <i className="fa-solid fa-chart-column"></i> Thống kê
-              </button>
-              <ul className="dropdown-menu bg-gray-200 font-bold font-mono">
+              <Link to={"/admin"}>
+                <button
+                  className="text-xl font-mono font-bold"
+                // className="text-xl font-mono font-bold dropdown-toggle "
+                // data-bs-toggle="dropdown"
+                // aria-expanded="false"
+                >
+                  <i className="fa-solid fa-chart-column"></i> Thống kê
+                </button>
+              </Link>
+              {/* <ul className="dropdown-menu bg-gray-200 font-bold font-mono">
                 <li>
                   <Link to="/admin/revenue-theater">
                     <a className="dropdown-item" href="#">
@@ -90,7 +93,7 @@ function LayoutAdmin() {
                     </a>
                   </Link>
                 </li>
-              </ul>
+              </ul> */}
             </div>
 
             {/* user  */}

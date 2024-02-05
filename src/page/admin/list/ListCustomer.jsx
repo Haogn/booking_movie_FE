@@ -5,6 +5,7 @@ import {
   changeStatus,
   getAllCustomer,
 } from "../../../redux/api/service/userRequest";
+import { showCouponByCustomer } from "../../../redux/api/service/couponRequest";
 
 function ListCustomer() {
   const navigate = useNavigate();
@@ -16,10 +17,12 @@ function ListCustomer() {
   const dispatch = useDispatch();
   const [search, setSearch] = useState("");
   const listCustomer = useSelector((state) => state.user.customer.listCustomer);
+  const listCoupon = useSelector((state) => state.coupons.showCustomer.listCoupon)
+  console.log(listCoupon);
   const [page, setPage] = useState(0);
   const [size, setSize] = useState(6);
-
-  console.log(listCustomer);
+  const [btn, setBtn] = useState(false)
+  const [listCheckedIds, setListCheckedIds] = useState([]);
   useEffect(() => {
     getAllCustomer(dispatch, token, search, page, size);
   }, [dispatch, token, search, page, size]);
@@ -45,8 +48,25 @@ function ListCustomer() {
     getAllCustomer(dispatch, token, search, page, size);
   };
 
-  const handleCoupon = (id) => {
-    navigate(`/admin/create-coupons/${id}`)
+  const handleCoupon = () => {
+    if (listCheckedIds[0] != null) {
+      navigate(`/admin/create-coupons/${listCheckedIds.join(',')}`);
+    } else {
+      alert("Chưa chọn người dùng");
+    }
+  };
+  const handleCheckboxChange = (customerId) => {
+    if (listCheckedIds.includes(customerId)) {
+      // Nếu id đã tồn tại trong danh sách, loại bỏ nó
+      setListCheckedIds(listCheckedIds.filter((id) => id !== customerId));
+    } else {
+      // Ngược lại, thêm id vào danh sách
+      setListCheckedIds([...listCheckedIds, customerId]);
+    }
+  };
+
+  const handleShowCoupon = (id) => {
+    showCouponByCustomer(dispatch, token, id);
   }
   return listCustomer ? (
     <div>
@@ -86,14 +106,18 @@ function ListCustomer() {
                 <th scope="col">Ngày sinh</th>
                 <th scope="col">Thành viên</th>
                 <th scope="col">Trạng thái</th>
-                <th scope="col">Coupon</th>
+                <th style={{ width: "180px" }} scope="col">
+                  Khuyến mãi <span> </span>
+                  {btn ? <><i onClick={handleCoupon} class="fa-solid fa-arrow-up-from-bracket"></i><span> </span> <i onClick={() => { setBtn(false); setListCheckedIds([]) }} class="fa-solid fa-xmark"></i></> : <><i onClick={() => setBtn(true)} class="fa-solid fa-plus"></i></>}
+
+                </th>
                 <th scope="col" colSpan={2}>
                   Action
                 </th>
               </tr>
             </thead>
             <tbody>
-              {listCustomer.content.map((customer) => (
+              {listCustomer?.content?.map((customer) => (
                 <tr key={customer.id} className="text-center">
                   <td>{customer.id}</td>
                   <td>{customer.username}</td>
@@ -104,12 +128,18 @@ function ListCustomer() {
                   <td>{customer.status ? "Hoạt Động" : "Đã Khóa"}</td>
                   <td>
                     <button
-                      onClick={() => handleCoupon(customer.id)}
                       type="button"
+                      onClick={() => handleShowCoupon(customer.id)}
                       className="btn btn-success text-green-600 mr-2"
+                      data-bs-toggle="modal" data-bs-target="#exampleModal"
                     >
                       <i className="fas fa-calendar-plus"></i>
                     </button>
+                    {btn &&
+                      <input
+                        onChange={() => handleCheckboxChange(customer.id)}
+                        type="checkbox"
+                      />}
                   </td>
                   <td colSpan={2}>
                     <button
@@ -185,6 +215,47 @@ function ListCustomer() {
             )}
           </ul>
         </nav>
+      </div>
+      {/* <!-- Modal --> */}
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Danh sách khuyến mãi của </h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table table-hover font-mono ">
+                <thead>
+                  <tr className="text-center">
+                    <th scope="col">stt</th>
+                    <th scope="col">Mã</th>
+                    <th scope="col">Giả</th>
+                    <th scope="col">Ngày kết thúc</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {listCoupon ? listCoupon?.map((coupon, i) =>
+                    <tr className="text-center">
+                      <td>{i + 1}</td>
+                      <td>{coupon.code}</td>
+                      <td>{coupon.salePrice}%</td>
+                      <td>{coupon.endDate}</td>
+                    </tr>
+                  )
+                    :
+                    <tr className="text-center" >
+                      <td colSpan={5}>Không có khuyến mãi nào</td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
       </div>
     </div >
   ) : (

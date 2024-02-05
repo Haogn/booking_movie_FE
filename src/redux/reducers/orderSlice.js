@@ -1,4 +1,8 @@
+<<<<<<< HEAD
+import { createSlice, applyMiddleware } from "@reduxjs/toolkit";
+=======
 import { createSlice } from "@reduxjs/toolkit";
+>>>>>>> 464b349acf8b190c2bd6dde8d2bbf928e0e79668
 
 const orderSlice = createSlice({
   name: "order",
@@ -45,17 +49,17 @@ const orderSlice = createSlice({
       totalResponse: 0,
       totalError: null,
     },
-    createMenu:{
-      createMenuResponse:null,
-      createMenuError:null,
+    createMenu: {
+      createMenuResponse: null,
+      createMenuError: null,
     },
-    findOrder:{
-      orderResponse:null,
-      orderError:null,
+    findOrder: {
+      orderResponse: null,
+      orderError: null,
     },
-    findMenu:{
-      menuResponse:[],
-      menuError:null,
+    findMenu: {
+      menuResponse: [],
+      menuError: null,
     },
     // lịch sử mua của user
     getAllByUser: {
@@ -72,6 +76,13 @@ const orderSlice = createSlice({
       sumPrice: null,
       error: null,
     },
+<<<<<<< HEAD
+    // selectAllAmin
+    selectAllAdmin: {
+      listOrder: null,
+      error: null,
+    },
+=======
     pointApply:{
       point: 0,
     },
@@ -86,6 +97,7 @@ const orderSlice = createSlice({
       couponResponse:null,
       couponError:null,
     }
+>>>>>>> 464b349acf8b190c2bd6dde8d2bbf928e0e79668
   },
   reducers: {
     createOrderSuccess: (state, action) => {
@@ -145,23 +157,23 @@ const orderSlice = createSlice({
     getTotalUserError: (state, action) => {
       state.getTotalUser.totalError = action.payload;
     },
-    createMenuSuccess: (state, action)=>{
+    createMenuSuccess: (state, action) => {
       state.createMenu.createMenuResponse = action.payload;
     },
-    createMenuError: (state, action)=>{
+    createMenuError: (state, action) => {
       state.createMenu.createMenuError = action.payload;
     },
-    findOrderSuccess: (state, action)=>{
-      state.findOrder.orderResponse= action.payload;
+    findOrderSuccess: (state, action) => {
+      state.findOrder.orderResponse = action.payload;
     },
-    findOrderFailed: (state, action)=>{
-      state.findOrder.orderError= action.payload;
+    findOrderFailed: (state, action) => {
+      state.findOrder.orderError = action.payload;
     },
-    findMenuSuccess: (state, action)=>{
-      state.findMenu.menuResponse= action.payload;
+    findMenuSuccess: (state, action) => {
+      state.findMenu.menuResponse = action.payload;
     },
-    findMenuFailed: (state, action)=>{
-      state.findMenu.menuError= action.payload;
+    findMenuFailed: (state, action) => {
+      state.findMenu.menuError = action.payload;
     },
     getAllByUserSuccess: (state, action) => {
       state.getAllByUser.listOrderResponse = action.payload;
@@ -183,6 +195,14 @@ const orderSlice = createSlice({
     sumYearFailed: (state, action) => {
       state.countYear.error = action.payload;
     },
+<<<<<<< HEAD
+    selectAllAdminSuccess: (state, action) => {
+      state.selectAllAdmin.listOrder = action.payload;
+    },
+    selectAllAdminFailed: (state, action) => {
+      state.selectAllAdmin.error = action.payload;
+    },
+=======
     pointApply:(state, action) => {
       state.pointApply.point = action.payload;
     },
@@ -201,6 +221,7 @@ const orderSlice = createSlice({
     checkCouponFailed: (state, action) => {
       state.checkCoupon.couponError=action.payload;
     }
+>>>>>>> 464b349acf8b190c2bd6dde8d2bbf928e0e79668
   },
 });
 export const {
@@ -235,12 +256,17 @@ export const {
   countAllPriceFailed,
   sumYearSuccess,
   sumYearFailed,
+<<<<<<< HEAD
+  selectAllAdminSuccess,
+  selectAllAdminFailed,
+=======
   pointApply,
   couponApply,
   getCouponOfUserSuccess,
   getCouponOfUserFailed,
   checkCouponSuccess,
   checkCouponFailed,
+>>>>>>> 464b349acf8b190c2bd6dde8d2bbf928e0e79668
 } = orderSlice.actions;
 
 export default orderSlice.reducer;

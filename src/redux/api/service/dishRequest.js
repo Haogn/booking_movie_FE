@@ -93,7 +93,7 @@ export const createDish = async (
       formData,
       config
     );
-    toast("Tạo mới thành công!", {
+    toast("😎 Tạo mới thành công!", {
       position: "top-right",
       autoClose: 3000,
       hideProgressBar: false,
@@ -127,7 +127,7 @@ export const editDish = async (
         headers: { Authorization: `Bearer ${token}` },
       }
     );
-    toast("Chỉnh sửa thành công!", {
+    toast("😎 Chỉnh sửa thành công!", {
       position: "top-right",
       autoClose: 3000,
       hideProgressBar: false,

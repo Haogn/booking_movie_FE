@@ -28,10 +28,15 @@ import {
   countAllPriceSuccess,
   sumYearSuccess,
   sumYearFailed,
+<<<<<<< HEAD
+  selectAllAdminFailed,
+  selectAllAdminSuccess,
+=======
   getCouponOfUserSuccess,
   getCouponOfUserFailed,
   checkCouponSuccess,
   checkCouponFailed,
+>>>>>>> 464b349acf8b190c2bd6dde8d2bbf928e0e79668
 } from "../../reducers/orderSlice";
 
 export const bookingMovie = async (dispatch, token, orderForm) => {
@@ -126,7 +131,6 @@ export const getChair = async (dispatch, idRoom, startTime) => {
   }
 };
 
-
 export const startBuy = async (
   dispatch,
   idMovie,
@@ -154,7 +158,8 @@ export const startBuy = async (
 export const createMenuForOrder = async (dispatch, listMenu, orderId) => {
   try {
     const res = await axios.post(
-      `http://localhost:6789/api/booking/v1/orders/createMenu`,listMenu,
+      `http://localhost:6789/api/booking/v1/orders/createMenu`,
+      listMenu,
       {
         params: {
           orderId: orderId,
@@ -167,8 +172,6 @@ export const createMenuForOrder = async (dispatch, listMenu, orderId) => {
     dispatch(createMenuError(error.response));
   }
 };
-
-
 
 export const paymentVNPay = async (dispatch, total, orderCode) => {
   try {
@@ -189,32 +192,37 @@ export const paymentVNPay = async (dispatch, total, orderCode) => {
   }
 };
 
-
 export const findOrder = async (dispatch, orderId) => {
   try {
+<<<<<<< HEAD
+    const res = await axios.get(
+      `http://localhost:6789/api/booking/v1/orders/${orderId}`
+    );
+    console.log(res.data);
+=======
     const res = await axios.get(  `http://localhost:6789/api/booking/v1/orders/${orderId}`);
+>>>>>>> 464b349acf8b190c2bd6dde8d2bbf928e0e79668
     dispatch(findOrderSuccess(res.data));
   } catch (error) {
     dispatch(findOrderFailed(error.response));
   }
 };
 
-
 export const findMenu = async (dispatch, orderId) => {
   try {
+<<<<<<< HEAD
+    const res = await axios.get(
+      `http://localhost:6789/api/booking/v1/orders/menu/${orderId}`
+    );
+    console.log(res.data);
+=======
     const res = await axios.get(  `http://localhost:6789/api/booking/v1/orders/menu/${orderId}`);
+>>>>>>> 464b349acf8b190c2bd6dde8d2bbf928e0e79668
     dispatch(findMenuSuccess(res.data));
   } catch (error) {
     dispatch(findMenuFailed(error.response));
   }
 };
-
-
-
-
-
-
-
 
 // // lấy ra tổng số tiền người dùng đã chi tiêu
 // export const getTotalUsers = async (dispatch, token) => {
@@ -231,7 +239,6 @@ export const findMenu = async (dispatch, orderId) => {
 //     dispatch(getTotalUserError(error.response));
 //   }
 // };
-
 
 // lấy ra list lịch sử mua của người dùng
 export const getAllByUser = async (dispatch, token, page) => {
@@ -274,7 +281,6 @@ export const countAllPrice = async (dispatch, token) => {
 // tổng doanh thu trong năm
 export const sumYear = async (dispatch, token) => {
   try {
-    debugger;
     const res = await axios.get(
       "http://localhost:6789/api/booking/v1/orders/sumYear",
       {
@@ -290,6 +296,42 @@ export const sumYear = async (dispatch, token) => {
   }
 };
 
+<<<<<<< HEAD
+// select all in admin
+
+export const selectAllInAdmin = async (
+  page,
+  searchUser,
+  searchYear,
+  searchMovie,
+  searchTheater,
+  dishpatch,
+  token
+) => {
+  try {
+    const res = await axios.get(
+      "http://localhost:6789/api/booking/v1/orders/select-in-admin",
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        params: {
+          page,
+          searchUser,
+          searchYear,
+          searchMovie,
+          searchTheater,
+        },
+      }
+    );
+
+    console.log(res.data);
+    dishpatch(selectAllAdminSuccess(res.data));
+  } catch (err) {
+    dishpatch(selectAllAdminFailed(err.response));
+  }
+};
+=======
 
 export const getCouponByUser = async(dispatch,token)=>{
   try {
@@ -324,3 +366,4 @@ export const applyCoupon = async (dispatch, couponCode) => {
     }
   }
 }
+>>>>>>> 464b349acf8b190c2bd6dde8d2bbf928e0e79668
