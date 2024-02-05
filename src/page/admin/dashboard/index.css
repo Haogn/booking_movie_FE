@@ -1,0 +1,34 @@
+.form-search{
+    display: flex;
+    justify-content: space-between;
+}
+.up{
+    margin: 5px 0px;
+}
+.up td, .up th{
+    padding: 0px 4px;
+}
+
+.handleDay {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 3px 4px;
+    outline: none;
+    width: 120px;
+  }
+  
+  .handleDay::placeholder {
+    color: #999;
+  }
+  
+ .handleDay:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  }
+  .asd{
+    margin-left: 10px;
+  }
+  .asd input, .asd select{
+    width: 100% !important;
+  }

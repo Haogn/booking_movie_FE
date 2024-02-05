@@ -2,12 +2,15 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router";
 import { createCoupon } from "../../../redux/api/service/couponRequest";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function CreateCoupons() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const idUser = useParams();
-
+  const { id } = useParams();
+  const listIds = id.split(',').map((item) => ({ id: Number(item) }));
+  console.log(listIds);
   const storedToken = localStorage.getItem("acessToken");
   const token =
     storedToken && storedToken.startsWith('"') && storedToken.endsWith('"')
@@ -29,6 +32,12 @@ function CreateCoupons() {
     if (!effectDate) {
       setEffectDate("Không được để  trống!");
       isValid = false;
+    } else {
+      const selectedDate = new Date(effectDate);
+      if (selectedDate <= effectDate) {
+        setEffectDate("Ngày phải lớn hơn hoặc bằng ngày hiện tại!");
+        isValid = false;
+      }
     }
 
     if (!salePrice) {
@@ -44,30 +53,18 @@ function CreateCoupons() {
       effectDate: effectDate,
       salePrice: Number(salePrice),
       description: description,
-      user: Number(idUser.id)
+      listUserId: listIds
     }
-    createCoupon(coupon, dispatch, token, navigate)
+    createCoupon(coupon, dispatch, token, navigate, toast)
   }
   return (
     <div>
+      <ToastContainer className="custom-toast-container" />
       <div className="w-[50%] h-screen mx-auto ">
         <h1 className="text-center text-2xl font-mono font-semibold my-6 pb-3 border-b-2 border-gray-400">
           Tạo mới Phiếu giảm giá
         </h1>
         <form action="" onSubmit={handleCreateCoupon}>
-          <div className="mb-3">
-            <label className="form-label font-mono font-semibold">
-              Mã Khách hàng: <span className="text-red-500">*</span>
-            </label>
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Mã khách hàng"
-              value={idUser.id}
-              readOnly={true}
-            />
-          </div>
-
           <div className="mb-3">
             <label className="form-label font-mono font-semibold">
               Hiệu lực: <span className="text-red-500">*</span>
@@ -83,12 +80,13 @@ function CreateCoupons() {
             <label className="form-label font-mono font-semibold">
               Giảm giá: <span className="text-red-500">*</span>
             </label>
-            <select value={salePrice} onChange={(e) => { setSalePrice(e.target.value); setSalePriceErr(null) }} class="form-select" aria-label="Default select example">
-              <option selected>Giảm giá</option>
-              <option value="5">5%</option>
-              <option value="10">10%</option>
-              <option value="15">15%</option>
-            </select>
+            <input
+              value={salePrice}
+              onChange={(e) => { setSalePrice(e.target.value); setSalePriceErr(null) }}
+              type="number"
+              className="form-control"
+              placeholder="%"
+            />
             {salePriceErr && <span className="text-red-500">{salePriceErr}</span>}
           </div>
           <div className="mb-3">

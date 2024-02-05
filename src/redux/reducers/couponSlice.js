@@ -11,7 +11,12 @@ const couponSlice = createSlice({
       error: null,
       isFetching: false,
     },
-    
+    // show coupon by customer
+    showCustomer: {
+      listCoupon: null,
+      error: null,
+    },
+
   },
   reducers: {
     // create
@@ -50,6 +55,13 @@ const couponSlice = createSlice({
       state.coupon.error = action.payload;
       state.coupon.isFetching = false;
     },
+    // show coupon by customer
+    showCustomerSuccess: (state, action) => {
+      state.showCustomer.listCoupon = action.payload;
+    },
+    showCustomerFailed: (state, action) => {
+      state.showCustomer.error = action.payload;
+    },
   },
  
 });
@@ -63,5 +75,7 @@ export const {
   useCouponStart,
   useCouponSuccess,
   useCouponFailed,
+  showCustomerSuccess,
+  showCustomerFailed,
 } = couponSlice.actions;
 export default couponSlice.reducer;
