@@ -84,6 +84,9 @@ function EditEvent() {
                         </label>
                     </div>
                     <div className="mb-3">
+                        <img src={event.image} alt="" style={{ margin: "auto", height: "300px", objectFit: "contain" }} />
+                    </div>
+                    <div className="mb-3">
                         <label className="form-label font-mono font-semibold">
                             Tên sự kiện: <span className="text-red-500">*</span>
                         </label>

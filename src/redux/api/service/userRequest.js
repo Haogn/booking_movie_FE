@@ -8,7 +8,10 @@ import {
   getManagerFailed,
   changeStatusSuccess,
   changeStatusFailed,
+  countUserSuccess,
+  countUserFailed,
 } from "../../reducers/userSlice";
+import { da } from "date-fns/locale";
 
 export const getAllCustomer = async (dispatch, token, username, page) => {
   try {
@@ -96,5 +99,23 @@ export const changeStatus = async (dispatch, token, id, toast) => {
     });
   } catch (error) {
     dispatch(changeStatusFailed(error.response));
+  }
+};
+
+// get count
+export const countUsers = async (dispatch, token) => {
+  try {
+    const res = await axios.get(
+      "http://localhost:6789/api/booking/v1/users/count-customer",
+      {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      }
+    );
+    console.log(res.data);
+    dispatch(countUserSuccess(res.data));
+  } catch (error) {
+    dispatch(countUserFailed(error.response));
   }
 };

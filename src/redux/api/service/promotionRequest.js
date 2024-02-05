@@ -73,11 +73,20 @@ export const createEvent = async (
 ) => {
   dispatch(createEventStart());
   try {
+    console.log(eventCreate);
+    const formData = new FormData();
+    formData.append("eventName", eventCreate.eventName);
+    formData.append("image", eventCreate.image);
+    formData.append("description", eventCreate.description);
+    formData.append("salePrice", eventCreate.salePrice);
+    formData.append("startDate", eventCreate.startDate);
+    formData.append("endDate", eventCreate.endDate);
     const res = await axios.post(
       "http://localhost:6789/api/booking/v1/promotion",
-      eventCreate,
+      formData,
       {
         headers: { Authorization: `Bearer ${token}` },
+        "Content-Type": "multipart/form-data",
       }
     );
     toast("😎 Tại mới thành công!", {

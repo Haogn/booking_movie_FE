@@ -1,7 +1,34 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { countUsers } from "../../../redux/api/service/userRequest";
+import { countAllPrice, sumYear } from "../../../redux/api/service/orderRequest";
+import { totalMovies } from "../../../redux/api/service/movieRequest";
 
 function IndexDashboard() {
+  const dishpatch = useDispatch();
+  const navigate = useNavigate();
+  const storedToken = localStorage.getItem("acessToken");
+  const token =
+    storedToken && storedToken.startsWith('"') && storedToken.endsWith('"')
+      ? storedToken.slice(1, -1)
+      : storedToken;
+
+  const countUser = useSelector((state) => state.user.countUser.count)
+  const sumPrice = useSelector((state) => state.order.countAllPrice.count)
+  const totalMovie = useSelector((state) => state.movies.totalMovie.count)
+  const sumPriceYear = useSelector((state) => state.order.countYear.sumPrice)
+  const currentDate = new Date();
+  const year = currentDate.getFullYear();
+  useEffect(() => {
+    sumYear(dishpatch, token)
+    countAllPrice(dishpatch, token)
+    countUsers(dishpatch, token)
+    totalMovies(dishpatch, token)
+  }, [dishpatch])
+  const formatNumber = (number) => {
+    return new Intl.NumberFormat('vi-VN').format(number);
+  };
   return (
     <div>
       <div className="font-mono">
@@ -11,10 +38,8 @@ function IndexDashboard() {
               <i className="fa-solid fa-user-tie"></i> Người dùng
             </p>
             <div className="w-[70%] mx-auto mt-2">
-              <p className="mt-2 font-bold text-2xl">100</p>
-              <p className="mt-2 font-bold  text-gray-500">
-                Người dùng đăng ký
-              </p>
+              {countUser ? (<p style={{ textAlign: "center" }} className="mt-2 font-bold text-2xl">{countUser} Người dùng</p>) : (<div></div>
+              )}
             </div>
           </div>
 
@@ -24,7 +49,7 @@ function IndexDashboard() {
                 <i className="fa-solid fa-clapperboard"></i> Tổng doanh thu
               </p>
               <p className="text-center mt-4">
-                <span className="text-2xl font-bold">1000000000</span> VNĐ
+                <span className="text-2xl font-bold">{formatNumber(sumPrice)}</span> VNĐ
               </p>
             </div>
           </Link>
@@ -34,7 +59,7 @@ function IndexDashboard() {
               <p className="text-center font-bold w-[90%] bg-green-200 py-2 mx-auto rounded-xl">
                 <i className="fa-solid fa-film"></i> Tổng Số Phim
               </p>
-              <p className="text-center mt-4">Tổng số phim trong kho</p>
+              <p className="text-center mt-4">{totalMovie} Bộ</p>
             </div>
           </Link>
 
@@ -46,10 +71,10 @@ function IndexDashboard() {
               </p>
               <div className="w-[70%] mx-auto mt-2">
                 <p className="mt-2 font-semibold text-2xl text-gray-500">
-                  Năm 2024
+                  Năm {year}
                 </p>
                 <p className="mt-2">
-                  <span className="text-xl font-medium ">1000000000</span> VNĐ
+                  <span className="text-xl font-medium ">{formatNumber(sumPriceYear)}</span> VNĐ
                 </p>
               </div>
             </div>

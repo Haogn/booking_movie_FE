@@ -11,6 +11,10 @@ const movieSlice = createSlice({
       isFetching: false,
       error: null,
     },
+    totalMovie: {
+      count: 0,
+      error: null,
+    },
   },
   reducers: {
     // findById :
@@ -105,6 +109,13 @@ const movieSlice = createSlice({
       state.movie.isFetching = false;
       state.movie.error = action.payload;
     },
+    //  tổng số phim trong kho
+    totalMovieSucccess: (state, action) => {
+      state.totalMovie.count = action.payload;
+    },
+    totalMovieFailed: (state, action) => {
+      state.totalMovie.error = action.payload;
+    },
   },
 });
 
@@ -130,6 +141,8 @@ export const {
   deleteMovieStart,
   deleteMovieSuccess,
   deleteMovieFailed,
+  totalMovieSucccess,
+  totalMovieFailed,
 } = movieSlice.actions;
 
 export default movieSlice.reducer;

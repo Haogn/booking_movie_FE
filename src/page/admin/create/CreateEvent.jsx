@@ -14,6 +14,7 @@ function CreateEvent() {
   const [salePrice, setSalesPrice] = useState(null);
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
+  const [image, setImage] = useState(null);
   const [errors, setErrors] = useState({});
   const storedToken = localStorage.getItem("acessToken");
   const token =
@@ -27,9 +28,19 @@ function CreateEvent() {
     if (!eventName) {
       newErrors.eventName = "Tên sự kiện không được để trống";
     }
+    if (!image) {
+      newErrors.eventName = "Ảnh sự kiện không được để trống";
+    }
 
     if (!startDate) {
       newErrors.startDate = "Ngày bắt đầu không được để trống";
+    } else {
+      const currentDate = new Date();
+      const selectedStartDate = new Date(startDate);
+
+      if (selectedStartDate <= currentDate) {
+        newErrors.startDate = "Ngày bắt đầu phải sau thời điểm hiện tại";
+      }
     }
 
     if (!endDate) {
@@ -59,6 +70,7 @@ function CreateEvent() {
     if (validateForm()) {
       const eventCreate = {
         eventName: eventName,
+        image: image,
         description: description,
         salePrice: salePrice,
         startDate: startDate,
@@ -75,7 +87,8 @@ function CreateEvent() {
         <h1 className="text-center text-2xl font-mono font-semibold my-6 pb-3 border-b-2 border-gray-400">
           Tạo mới Sự kiện
         </h1>
-        <form action="" onSubmit={hendleCreateEvent}>
+        <form action="" onSubmit={hendleCreateEvent}
+          encType="multipart/form-data">
           <div className="mb-3">
             <label className="form-label font-mono font-semibold">
               Tên sự kiện: <span className="text-red-500">*</span>
@@ -89,6 +102,20 @@ function CreateEvent() {
             />
             {errors.eventName && (
               <span className="text-red-500">{errors.eventName}</span>
+            )}
+          </div>
+          <div className="mb-3">
+            <label className="form-label font-mono font-semibold">
+              Ảnh: <span className="text-red-500">*</span>
+            </label>
+            <input
+              onChange={(e) => setImage(e.target.files[0])}
+              type="file"
+              className="form-control"
+              placeholder="ảnh"
+            />
+            {errors.image && (
+              <span className="text-red-500">{errors.image}</span>
             )}
           </div>
 
